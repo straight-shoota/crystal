@@ -24,4 +24,11 @@ class Crystal::Doc::Constant
   def formatted_value
     Highlighter.highlight value.to_s
   end
+
+  Item.def_to_json(
+    name: {nilable: false},
+    value: {nilable: true, stringify: true},
+    doc: {nilable: true},
+    summary: {nilable: true, property: :formatted_summary},
+  )
 end

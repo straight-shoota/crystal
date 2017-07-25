@@ -67,12 +67,17 @@ class Crystal::Doc::Generator
     end
 
     if filename
-      body = doc(program_type, File.read(filename))
+      raw_body = File.read(filename)
+      body = doc(program_type, raw_body)
     else
+      raw_body = ""
       body = ""
     end
 
     File.write File.join(@output_dir, "index.html"), MainTemplate.new(body, types, repository_name)
+
+    main_index = Main.new(raw_body, Type.new(self, @program), repository_name)
+    File.write File.join(@output_dir, "index.json"), main_index
   end
 
   def copy_files
@@ -350,7 +355,13 @@ class Crystal::Doc::Generator
     filename[@base_dir.size..-1]
   end
 
-  record RelativeLocation, filename : String, line_number : Int32, url : String?
+  record RelativeLocation, filename : String, line_number : Int32, url : String? do
+    Item.def_to_json(
+      filename: {nilable: false},
+      line_number: {nilable: false},
+      url: {nilable: true}
+    )
+  end
   SRC_SEP = "src#{File::SEPARATOR}"
 
   def relative_locations(type)

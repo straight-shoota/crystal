@@ -202,4 +202,17 @@ class Crystal::Doc::Method
   def has_args?
     !@def.args.empty? || @def.block_arg || @def.yields
   end
+
+  Item.def_to_json(
+    id: {nilable: false},
+    html_id: {nilable: false},
+    name: {nilable: false},
+    doc: {nilable: true},
+    summary: {nilable: true, property: :formatted_summary},
+    abstract: {nilable: false, property: :abstract?},
+    args: {nilable: true, converter: JsonConverter},
+    args_string: {nilable: true, property: :args_to_s},
+    source_link: {nilable: true},
+    def: {nilable: false, converter: JsonConverter}
+  )
 end

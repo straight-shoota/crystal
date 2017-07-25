@@ -134,12 +134,12 @@ class Crystal::Doc::Type
   end
 
   def alias_definition
-    alias_def = @type.as(AliasType).aliased_type
+    alias_def = @type.as?(AliasType).try(&.aliased_type)
     alias_def
   end
 
   def formatted_alias_definition
-    type_to_html alias_definition
+    type_to_html alias_definition.as(Crystal::Type)
   end
 
   @types : Array(Type)?
@@ -772,4 +772,35 @@ class Crystal::Doc::Type
   end
 
   delegate to_s, inspect, to: @type
+
+  Item.def_to_json(
+    html_id: {nilable: false},
+    path: {nilable: false},
+    # json_path: {nilable: false},
+    kind: {nilable: true},
+    full_name: {nilable: false},
+    name: {nilable: false},
+    abstract: {nilable: false, property: :abstract?},
+    superclass: {nilable: true, converter: JsonConverter},
+    ancestors: {nilable: false, converter: JsonConverter},
+    locations: {nilable: false},
+    repository_name: {nilable: false},
+    program: {nilable: false, property: :program?},
+    enum: {nilable: false, property: :enum?},
+    alias: {nilable: false, property: :alias?},
+    aliased: {nilable: true, property: :alias_definition, stringify: true},
+    const: {nilable: false, property: :const?},
+    constants: {nilable: false},
+    included_modules: {nilable: false, converter: JsonConverter},
+    extended_modules: {nilable: false, converter: JsonConverter},
+    subclasses: {nilable: false, converter: JsonConverter},
+    including_types: {nilable: false, converter: JsonConverter},
+    namespace: {nilable: true, converter: JsonConverter},
+    doc: {nilable: true},
+    summary: {nilable: true, property: :formatted_summary},
+    class_methods: {nilable: false},
+    instance_methods: {nilable: false},
+    macros: {nilable: false},
+    types: {nilable: false},
+  )
 end
