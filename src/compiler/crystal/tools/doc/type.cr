@@ -799,6 +799,7 @@ class Crystal::Doc::Type
     doc: {nilable: true},
     summary: {nilable: true, property: :formatted_summary},
     class_methods: {nilable: false},
+    constructors: {nilable: false},
     instance_methods: {nilable: false},
     macros: {nilable: false},
     types: {nilable: false},
