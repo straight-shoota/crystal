@@ -52,7 +52,7 @@ module JSON
           {% unless options.is_a?(HashLiteral) || options.is_a?(NamedTupleLiteral) %}
             {% options = {nil: nil} %}
           {% end %}
-          ::JSON.field_to_json({{(options[:property] || key).id}}, {{key.id.stringify}}, {{options}})
+          ::JSON.field_to_json("self.{{(options[:property] || key).id}}", {{key.id.stringify}}, {{options}})
         {% end %}
       end
     end
@@ -109,7 +109,7 @@ module JSON
           {% unless options.is_a?(HashLiteral) || options.is_a?(NamedTupleLiteral) %}
             {% options = {nil: nil} %}
           {% end %}
-          ::JSON.field_to_json(value.{{(options[:property] || key).id}}, {{key.id.stringify}}, {{options}})
+          ::JSON.field_to_json("value.{{(options[:property] || key).id}}", {{key.id.stringify}}, {{options}})
         {% end %}
       end
     end
@@ -129,10 +129,11 @@ module JSON
     end
   end
 
+  # this macro is used by `JSON.mapping` and `JSON.def_to_json`
+
   # :nodoc:
   macro field_to_json(value_name, field_name, options)
-    # this macro is used by `.mapping` and `.def_to_json`
-    %value = {{value_name.id}}
+    %value = {{value_name.id.id}}
     {% unless options[:emit_null] %}
       unless %value.nil?
     {% end %}

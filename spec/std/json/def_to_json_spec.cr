@@ -59,11 +59,16 @@ end
 private class JSONKeywordProperties
   JSON.def_to_json(
     end: {property: end_value},
-    abstract: {property: :abstract_value}
+    abstract: {property: :abstract_value},
+    def: true,
+    macro: {property: macro_value},
   )
 
   getter end_value = "end"
   getter abstract_value = "abstract"
+  getter def : String
+  @def = "def"
+  getter macro_value = "macro"
 end
 
 private class JSONWithTimeEpoch
@@ -254,7 +259,7 @@ describe "JSON.def_to_json" do
   end
 
   it "supports keywords with alternate properties" do
-    JSONKeywordProperties.new.to_json.should eq(%({"end":"end","abstract":"abstract"}))
+    JSONKeywordProperties.new.to_json.should eq(%({"end":"end","abstract":"abstract","def":"def","macro":"macro"}))
   end
 
   it "uses string converter" do
