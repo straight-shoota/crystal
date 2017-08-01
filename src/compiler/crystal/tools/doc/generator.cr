@@ -356,10 +356,10 @@ class Crystal::Doc::Generator
   end
 
   record RelativeLocation, filename : String, line_number : Int32, url : String? do
-    Item.def_to_json(
-      filename: {nilable: false},
-      line_number: {nilable: false},
-      url: {nilable: true}
+    JSON.def_to_json(
+      filename: true,
+      line_number: true,
+      url: true
     )
   end
   SRC_SEP = "src#{File::SEPARATOR}"

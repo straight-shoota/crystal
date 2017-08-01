@@ -16,10 +16,10 @@ module Crystal::Doc
       end
     end
 
-    Item.def_to_json(
-      repository_name: {nilable: false},
-      body: {nilable: false},
-      program: {nilable: false}
+    JSON.def_to_json(
+      repository_name: true,
+      body: true,
+      program: true
     )
   end
 
@@ -32,42 +32,41 @@ module Crystal::Doc
       end
     end
 
-    Item.def_to_json(Type,
-      html_id: {nilable: false},
-      # json_path: {nilable: false},
-      kind: {nilable: true},
-      full_name: {nilable: false},
-      name: {nilable: false}
+    JSON.def_to_json(Type,
+      html_id: true,
+      kind: true,
+      full_name: true,
+      name: true
     )
 
-    Item.def_to_json(Crystal::Def,
-      name: {nilable: false},
-      args: {nilable: false, converter: JsonConverter},
-      double_splat: {nilable: true, converter: JsonConverter},
-      splat_index: {nilable: true},
-      yields: {nilable: true},
-      block_arg: {nilable: true, converter: JsonConverter},
-      return_type: {nilable: true, stringify: true},
-      visibility: {nilable: false, stringify: true},
-      body: {nilable: true, stringify: true},
+    JSON.def_to_json(Crystal::Def,
+      name: true,
+      args: {converter: JsonConverter},
+      double_splat: {converter: JsonConverter},
+      splat_index: true,
+      yields: true,
+      block_arg: {converter: JsonConverter},
+      return_type: {converter: JSON::StringConverter},
+      visibility: {converter: JSON::StringConverter},
+      body: {converter: JSON::StringConverter},
     )
 
-    Item.def_to_json(Crystal::Macro,
-      name: {nilable: false},
-      args: {nilable: false, converter: JsonConverter},
-      double_splat: {nilable: true, converter: JsonConverter},
-      splat_index: {nilable: true},
-      block_arg: {nilable: true, converter: JsonConverter},
-      visibility: {nilable: false, stringify: true},
-      body: {nilable: true, stringify: true},
+    JSON.def_to_json(Crystal::Macro,
+      name: true,
+      args: {converter: JsonConverter},
+      double_splat: {converter: JsonConverter},
+      splat_index: true,
+      block_arg: {converter: JsonConverter},
+      visibility: {converter: JSON::StringConverter},
+      body: {converter: JSON::StringConverter},
     )
 
-    Item.def_to_json(Crystal::Arg,
-      name: {nilable: false},
-      doc: {nilable: true},
-      default_value: {nilable: true, stringify: true},
-      external_name: {nilable: false, stringify: true},
-      restriction: {nilable: true, stringify: true},
+    JSON.def_to_json(Crystal::Arg,
+      name: true,
+      doc: true,
+      default_value: {converter: JSON::StringConverter},
+      external_name: {converter: JSON::StringConverter},
+      restriction: {converter: JSON::StringConverter},
     )
   end
 end

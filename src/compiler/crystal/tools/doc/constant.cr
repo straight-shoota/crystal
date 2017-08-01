@@ -25,10 +25,10 @@ class Crystal::Doc::Constant
     Highlighter.highlight value.to_s
   end
 
-  Item.def_to_json(
-    name: {nilable: false},
-    value: {nilable: true, stringify: true},
-    doc: {nilable: true},
-    summary: {nilable: true, property: :formatted_summary},
+  JSON.def_to_json(
+    name: true,
+    value: {converter: JSON::StringConverter},
+    doc: true,
+    summary: {property: formatted_summary},
   )
 end
