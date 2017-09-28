@@ -8,7 +8,7 @@ html, body {
 }
 
 body {
-  font-family: "Roboto", "Avenir", "Muli", "Lato", "Tahoma", "Lucida Sans", "Lucida Grande", Verdana, Arial, sans-serif;
+  font-family: "Avenir", "Tahoma", "Lucida Sans", "Lucida Grande", Verdana, Arial, sans-serif;
   color: #333;
 }
 
@@ -27,7 +27,6 @@ a:focus {
 h1, h2, h3, h4, h5, h6 {
   margin: 35px 0 25px;
   color: #444444;
-  font-family: "Montserrat", "Lucida Sans", "Lucida Grande", Verdana, Arial, sans-serif;
 }
 
 h1.type-name {
@@ -58,6 +57,7 @@ body {
 
 .sidebar {
   width: 30em;
+  max-width: 20%; /* limit width on small screen sizes */
   color: #F8F4FD;
   background-color: #2E1052;
   padding: 0 0 30px;
@@ -69,10 +69,6 @@ body {
   margin-bottom: 12px;
   background-color: rgba(255,255,255,.06);
   padding: 8px 9px;
-}
-
-.sidebar .search-box {
-  /*margin-top: 8px;*/
 }
 
 .sidebar input {
@@ -140,8 +136,7 @@ body {
   transition: color .14s;
 }
 
-.types-list a,
-.search-result__title > a {
+.types-list a {
   display: block;
 }
 
@@ -359,6 +354,13 @@ body {
 .source-link {
   font-weight: bold;
   text-decoration: none;
+  font-size: 85%;
+}
+.source-link:link {
+  color: #3f5784;
+}
+.source-link:visited {
+  color: #314467;
 }
 .source-link::before,
 .source-link::after {
