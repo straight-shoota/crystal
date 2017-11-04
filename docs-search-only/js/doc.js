@@ -167,11 +167,6 @@ CrystalDoc.rankResults = function(results, query) {
     var aHasDocs = b.matched_fields.includes("doc");
     var bHasDocs = b.matched_fields.includes("doc");
 
-    if (matchedTermsDiff != 0 || (aHasDocs != bHasDocs)) {
-      if(CrystalDoc.DEBUG) { console.log("matchedTermsDiff: " + matchedTermsDiff, aHasDocs, bHasDocs); }
-      return matchedTermsDiff;
-    }
-
     var aOnlyDocs = aHasDocs && a.matched_fields.length == 1;
     var bOnlyDocs = bHasDocs && b.matched_fields.length == 1;
 
@@ -184,13 +179,15 @@ CrystalDoc.rankResults = function(results, query) {
     }
     if (a.matched_fields.includes("name")) {
       if (b.matched_fields.includes("name")) {
-        var a_name = CrystalDoc.prefixForType(a.result_type) + a.result_type == "type" ? a.full_name : a.name;
-        var b_name = CrystalDoc.prefixForType(b.result_type) + b.result_type == "type" ? b.full_name : b.name;
-        for(var i = 0; i < query.terms.length; i++) {
-          var term = query.terms[i];
-          term = term.replace(/^::?|::?$/, "");
+        var a_name = (CrystalDoc.prefixForType(a.result_type) || "") + ((a.result_type == "type") ? a.full_name : a.name);
+        var b_name = (CrystalDoc.prefixForType(b.result_type) || "") + ((b.result_type == "type") ? b.full_name : b.name);
+        a_name = a_name.toLowerCase();
+        b_name = b_name.toLowerCase();
+        for(var i = 0; i < query.normalizedTerms.length; i++) {
+          var term = query.terms[i].replace(/^::?|::?$/, "");
           var a_orig_index = a_name.indexOf(term);
           var b_orig_index = b_name.indexOf(term);
+          if(CrystalDoc.DEBUG) { console.log("term: " + term + " a: " + a_name + " b: " + b_name); }
           if(CrystalDoc.DEBUG) { console.log(a_orig_index, b_orig_index, a_orig_index - b_orig_index); }
           if (a_orig_index >= 0) {
             if (b_orig_index >= 0) {
@@ -219,6 +216,11 @@ CrystalDoc.rankResults = function(results, query) {
       return 1;
     }
 
+    if (matchedTermsDiff != 0 || (aHasDocs != bHasDocs)) {
+      if(CrystalDoc.DEBUG) { console.log("matchedTermsDiff: " + matchedTermsDiff, aHasDocs, bHasDocs); }
+      return matchedTermsDiff;
+    }
+
     var matchedFieldsDiff = b.matched_fields.length - a.matched_fields.length;
     if (matchedFieldsDiff != 0) {
       if(CrystalDoc.DEBUG) { console.log("matched to different number of fields: " + matchedFieldsDiff); }
@@ -227,7 +229,7 @@ CrystalDoc.rankResults = function(results, query) {
 
     var nameCompare = a.name.localeCompare(b.name);
     if(nameCompare != 0){
-      if(CrystalDoc.DEBUG) { console.log("nameCompare resulted in: " + nameCompare); }
+      if(CrystalDoc.DEBUG) { console.log("nameCompare resulted in: " + a.name + "<=>" + b.name + ": " + nameCompare); }
       return nameCompare > 0 ? 1 : -1;
     }
 
@@ -365,18 +367,11 @@ CrystalDoc.toggleResultsList = function(visible) {
 CrystalDoc.Query = function(string) {
   this.original = string;
   this.terms = string.split(/\s+/).filter(function(word) {
-    switch (word[0]) {
-      case "#":
-      case ".":
-        return word.length > 1;
-
-      default:
-        return word.length > 0;
-    }
+    return CrystalDoc.Query.stripModifiers(word).length > 0;
   });
 
   var normalized = this.terms.map(CrystalDoc.Query.normalizeTerm);
-  this.normalized = normalized;
+  this.normalizedTerms = normalized;
 
   function runMatcher(field, matcher) {
     if (!field) {
@@ -461,7 +456,7 @@ CrystalDoc.Query = function(string) {
       return s.replace(/[.*+?\^${}()|\[\]\\]/g, "\\$&").replace(/^[#\.:]+/, "");
     }
     return string.replace(
-      new RegExp("(" + this.normalized.map(escapeRegExp).join("|") + ")", "gi"),
+      new RegExp("(" + this.normalizedTerms.map(escapeRegExp).join("|") + ")", "gi"),
       "<mark>$1</mark>"
     );
   };
@@ -469,6 +464,17 @@ CrystalDoc.Query = function(string) {
 CrystalDoc.Query.normalizeTerm = function(term) {
   return term.toLowerCase();
 };
+CrystalDoc.Query.stripModifiers = function(term) {
+  switch (term[0]) {
+    case "#":
+    case ".":
+    case ":":
+      return term.substr(1);
+
+    default:
+      return term;
+  }
+}
 
 CrystalDoc.search = function(string) {
   if(!CrystalDoc.searchIndex) {
@@ -515,7 +521,7 @@ CrystalDoc.loadIndex = function() {
     if (script.src && script.src.indexOf("js/doc.js") >= 0) {
       if (script.src.indexOf("file://") == 0) {
         // We need to support JSONP files for the search to work on local file system.
-        var jsonPath = script.src.replace("js/doc.js", "index.jsonp");
+        var jsonPath = script.src.replace("js/doc.js", "search-index.js");
         loadScript(jsonPath);
         return;
       } else {
@@ -532,6 +538,191 @@ CrystalDoc.loadIndex = function() {
 function crystal_doc_search_index_callback(data) {
   CrystalDoc.initializeIndex(data);
 }
+
+Navigator = function(sidebar, searchInput, list){
+  this.list = list;
+  var self = this;
+
+  function clearMoveTimeout() {
+    clearTimeout(self.moveTimeout);
+    self.moveTimeout = null;
+  }
+
+  function startMoveTimeout(upwards){
+    /*if(self.moveTimeout) {
+      clearMoveTimeout();
+    }
+
+    var go = function() {
+      if (!self.moveTimeout) return;
+      self.move(upwards);
+      self.moveTimout = setTimeout(go, 600);
+    };
+    self.moveTimeout = setTimeout(go, 800);*/
+  }
+
+  var move = this.move = function(upwards){
+    if(!this.current){
+      this.highlightFirst();
+      return true;
+    }
+    var next = upwards ? this.current.previousElementSibling : this.current.nextElementSibling;
+    if(next && next.classList) {
+      this.highlight(next);
+      next.scrollIntoViewIfNeeded();
+      return true;
+    }
+    return false;
+  };
+
+  this.moveRight = function(){
+  };
+  this.moveLeft = function(){
+  };
+
+  this.highlight = function(elem) {
+    if(!elem){
+      return;
+    }
+    this.removeHighlight();
+
+    this.current = elem;
+    this.current.classList.add("current");
+  };
+
+  this.highlightFirst = function(){
+    this.highlight(this.list.querySelector('li:first-child'));
+  };
+
+  this.removeHighlight = function() {
+    if(this.current){
+      this.current.classList.remove("current");
+    }
+    this.current = null;
+  }
+
+  this.openSelectedResult = function() {
+    if(this.current) {
+      this.current.click();
+    }
+  }
+
+  function handleKeyUp(event) {
+    switch(event.key) {
+      case "ArrowUp":
+      case "ArrowDown":
+      case "i":
+      case "j":
+      case "k":
+      case "l":
+      case "c":
+      case "h":
+      case "t":
+      case "n":
+      event.stopPropagation();
+      clearMoveTimeout();
+    }
+  }
+
+  function handleKeyDown(event) {
+    switch(event.key) {
+      case "Enter":
+        event.stopPropagation();
+        self.openSelectedResult();
+        break;
+      case "Escape":
+        event.stopPropagation();
+        CrystalDoc.toggleResultsList(false);
+        sessionStorage.setItem(repositoryName + '::search-input:value', "");
+        break;
+      case "j":
+      case "c":
+      case "ArrowUp":
+        if(event.ctrlKey || event.key == "ArrowUp") {
+          event.stopPropagation();
+          self.move(true);
+          startMoveTimeout(true);
+        }
+        break;
+      case "k":
+      case "h":
+      case "ArrowDown":
+        if(event.ctrlKey || event.key == "ArrowDown") {
+          event.stopPropagation();
+          self.move(false);
+          startMoveTimeout(false);
+        }
+        break;
+      case "k":
+      case "t":
+      case "ArrowLeft":
+        if(event.ctrlKey || event.key == "ArrowLeft") {
+          event.stopPropagation();
+          self.moveLeft();
+        }
+        break;
+      case "l":
+      case "n":
+      case "ArrowRight":
+        if(event.ctrlKey || event.key == "ArrowRight") {
+          event.stopPropagation();
+          self.moveRight();
+        }
+        break;
+    }
+  }
+
+  function handleInputKeyUp(event) {
+    switch(event.key) {
+      case "ArrowUp":
+      case "ArrowDown":
+      clearMoveTimeout();
+    }
+  }
+
+  function handleInputKeyDown(event) {
+    switch(event.key) {
+      case "Enter":
+        event.stopPropagation();
+        self.openSelectedResult();
+        break;
+      case "Escape":
+        event.stopPropagation();
+        event.preventDefault();
+        // remove focus from search input
+        sidebar.focus();
+        break;
+      case "ArrowUp":
+        event.stopPropagation();
+        event.preventDefault();
+        self.move(true);
+        startMoveTimeout(true);
+        break;
+
+      case "ArrowDown":
+        event.stopPropagation();
+        event.preventDefault();
+        self.move(false);
+        startMoveTimeout(false);
+        break;
+    }
+  }
+
+  sidebar.tabIndex = 100; // set tabIndex to enable keylistener
+  sidebar.addEventListener('keyup', function(event) {
+    handleKeyUp(event);
+  });
+  sidebar.addEventListener('keydown', function(event) {
+    handleKeyDown(event);
+  });
+  searchInput.addEventListener('keydown', function(event) {
+    handleInputKeyDown(event);
+  });
+  searchInput.addEventListener('keyup', function(event) {
+    handleInputKeyUp(event);
+  });
+  this.move();
+};
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -575,188 +766,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  var childMatch = function(type, regexp){
-    var types = type.querySelectorAll("ul li");
-    for (var j = 0; j < types.length; j ++) {
-      var t = types[j];
-      if(regexp.exec(t.getAttribute('data-name'))){ return true; }
-    }
-    return false;
-  };
-
-  Navigator = function(sidebar, searchInput, list){
-    this.list = list;
-    var self = this;
-
-    function clearMoveTimeout() {
-      clearTimeout(self.moveTimeout);
-      self.moveTimeout = null;
-    }
-
-    function startMoveTimeout(upwards){
-      /*if(self.moveTimeout) {
-        clearMoveTimeout();
-      }
-
-      var go = function() {
-        if (!self.moveTimeout) return;
-        self.move(upwards);
-        self.moveTimout = setTimeout(go, 600);
-      };
-      self.moveTimeout = setTimeout(go, 800);*/
-    }
-
-    var move = this.move = function(upwards){
-      if(!this.current){
-        this.highlightFirst();
-        return true;
-      }
-      var next = upwards ? this.current.previousElementSibling : this.current.nextElementSibling;
-      if(next && next.classList) {
-        this.highlight(next);
-        next.scrollIntoViewIfNeeded();
-        return true;
-      }
-      return false;
-    };
-
-    this.moveRight = function(){
-    };
-    this.moveLeft = function(){
-    };
-
-    this.highlight = function(elem) {
-      if(!elem){
-        return;
-      }
-      if(this.current){
-        this.current.classList.remove("current");
-      }
-
-      this.current = elem;
-      this.current.classList.add("current");
-    };
-
-    this.highlightFirst = function(){
-      this.highlight(this.list.querySelector('li:first-child'));
-    };
-
-    function handleKeyUp(event) {
-      switch(event.key) {
-        case "ArrowUp":
-        case "ArrowDown":
-        case "i":
-        case "j":
-        case "k":
-        case "l":
-        case "c":
-        case "h":
-        case "t":
-        case "n":
-        event.stopPropagation();
-        clearMoveTimeout();
-      }
-    }
-
-    function handleKeyDown(event) {
-      switch(event.key) {
-        case "Enter":
-          event.stopPropagation();
-          self.current.click();
-          break;
-        case "Escape":
-          event.stopPropagation();
-          CrystalDoc.toggleResultsList(false);
-          sessionStorage.setItem(repositoryName + '::search-input:value', "");
-          break;
-        case "i":
-        case "c":
-        case "ArrowUp":
-          if(event.ctrlKey || event.key == "ArrowUp") {
-            event.stopPropagation();
-            self.move(true);
-            startMoveTimeout(true);
-          }
-          break;
-        case "j":
-        case "h":
-        case "ArrowDown":
-          if(event.ctrlKey || event.key == "ArrowDown") {
-            event.stopPropagation();
-            self.move(false);
-            startMoveTimeout(false);
-          }
-          break;
-        case "k":
-        case "t":
-        case "ArrowLeft":
-          if(event.ctrlKey || event.key == "ArrowLeft") {
-            event.stopPropagation();
-            self.moveLeft();
-          }
-          break;
-        case "l":
-        case "n":
-        case "ArrowRight":
-          if(event.ctrlKey || event.key == "ArrowRight") {
-            event.stopPropagation();
-            self.moveRight();
-          }
-          break;
-      }
-    }
-
-    function handleInputKeyUp(event) {
-      switch(event.key) {
-        case "ArrowUp":
-        case "ArrowDown":
-        clearMoveTimeout();
-      }
-    }
-
-    function handleInputKeyDown(event) {
-      switch(event.key) {
-        case "Enter":
-          event.stopPropagation();
-          self.current.click();
-          break;
-        case "Escape":
-          event.stopPropagation();
-          event.preventDefault();
-          // remove focus from search input
-          sidebar.focus();
-          break;
-        case "ArrowUp":
-          event.stopPropagation();
-          event.preventDefault();
-          self.move(true);
-          startMoveTimeout(true);
-          break;
-
-        case "ArrowDown":
-          event.stopPropagation();
-          event.preventDefault();
-          self.move(false);
-          startMoveTimeout(false);
-          break;
-      }
-    }
-
-    sidebar.tabIndex = 100; // set tabIndex to enable keylistener
-    sidebar.addEventListener('keyup', function(event) {
-      handleKeyUp(event);
-    });
-    sidebar.addEventListener('keydown', function(event) {
-      handleKeyDown(event);
-    });
-    searchInput.addEventListener('keydown', function(event) {
-      handleInputKeyDown(event);
-    });
-    searchInput.addEventListener('keyup', function(event) {
-      handleInputKeyUp(event);
-    });
-    this.move();
-  };
   var navigator = new Navigator(document.querySelector('#types-list'), searchInput, document.querySelector(".search-results"));
 
   CrystalDoc.loadIndex();
@@ -766,6 +775,7 @@ document.addEventListener('DOMContentLoaded', function() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(function() {
       var text = searchInput.value;
+      navigator.removeHighlight();
 
       if(text == "") {
         CrystalDoc.toggleResultsList(false);
@@ -804,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
   function handleShortkeys(event) {
     switch(event.key) {
       case "?":
-        // TODO: Show help
+        // TODO: Show usage popup
         break;
 
       case "s":
