@@ -539,7 +539,7 @@ function crystal_doc_search_index_callback(data) {
   CrystalDoc.initializeIndex(data);
 }
 
-Navigator = function(sidebar, searchInput, list){
+Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   this.list = list;
   var self = this;
 
@@ -607,7 +607,14 @@ Navigator = function(sidebar, searchInput, list){
     }
   }
 
+  this.focus = function() {
+    searchInput.focus();
+    searchInput.select();
+    this.highlightFirst();
+  }
+
   function handleKeyUp(event) {
+    if(CrystalDoc.DEBUG) { console.log("sidebar-up", event) }
     switch(event.key) {
       case "ArrowUp":
       case "ArrowDown":
@@ -625,15 +632,19 @@ Navigator = function(sidebar, searchInput, list){
   }
 
   function handleKeyDown(event) {
+    if(CrystalDoc.DEBUG) { console.log("sidebar-down", event) }
+
     switch(event.key) {
       case "Enter":
         event.stopPropagation();
+        event.preventDefault();
+        leaveSearchScope();
         self.openSelectedResult();
         break;
       case "Escape":
         event.stopPropagation();
-        CrystalDoc.toggleResultsList(false);
-        sessionStorage.setItem(repositoryName + '::search-input:value', "");
+        event.preventDefault();
+        leaveSearchScope();
         break;
       case "j":
       case "c":
@@ -673,23 +684,37 @@ Navigator = function(sidebar, searchInput, list){
   }
 
   function handleInputKeyUp(event) {
+    if(CrystalDoc.DEBUG) { console.log("input-up", event) }
     switch(event.key) {
       case "ArrowUp":
       case "ArrowDown":
+      event.stopPropagation();
+      event.preventDefault();
       clearMoveTimeout();
     }
   }
 
   function handleInputKeyDown(event) {
+    if(CrystalDoc.DEBUG) { console.log("input-down", event) }
     switch(event.key) {
       case "Enter":
         event.stopPropagation();
+        event.preventDefault();
         self.openSelectedResult();
+        leaveSearchScope();
         break;
+      /*case "p":
+        if(event.ctrlKey) {
+          event.stopPropagation();
+          event.preventDefault();
+          self.openSelectedResult();
+        }
+        break;*/
       case "Escape":
         event.stopPropagation();
         event.preventDefault();
         // remove focus from search input
+        leaveSearchScope();
         sidebar.focus();
         break;
       case "ArrowUp":
@@ -743,6 +768,10 @@ document.addEventListener('DOMContentLoaded', function() {
   var searchInput = document.getElementById('search-input');
   var parents = document.querySelectorAll('#types-list li.parent');
 
+  var setPersistentSearchQuery = function(value){
+    sessionStorage.setItem(repositoryName + '::search-input:value', value);
+  }
+
   for(var i = 0; i < parents.length; i++) {
     var _parent = parents[i];
     _parent.addEventListener('click', function(e) {
@@ -766,7 +795,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 
-  var navigator = new Navigator(document.querySelector('#types-list'), searchInput, document.querySelector(".search-results"));
+  var leaveSearchScope = function(){
+    CrystalDoc.toggleResultsList(false);
+    window.focus();
+  }
+
+  var navigator = new Navigator(document.querySelector('#types-list'), searchInput, document.querySelector(".search-results"), leaveSearchScope);
 
   CrystalDoc.loadIndex();
   var searchTimeout;
@@ -775,7 +809,6 @@ document.addEventListener('DOMContentLoaded', function() {
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(function() {
       var text = searchInput.value;
-      navigator.removeHighlight();
 
       if(text == "") {
         CrystalDoc.toggleResultsList(false);
@@ -785,7 +818,7 @@ document.addEventListener('DOMContentLoaded', function() {
         searchInput.focus();
       }
       lastSearchText = text;
-      sessionStorage.setItem(repositoryName + '::search-input:value', text);
+      setPersistentSearchQuery(text);
     }, 200);
   };
 
@@ -796,15 +829,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var searchQuery = location.hash.substring(3);
     history.pushState({searchQuery: searchQuery}, "Search for " + searchQuery, location.href.replace(/#q=.*/, ""));
     searchInput.value = searchQuery;
+    document.addEventListener('CrystalDoc:loaded', performSearch);
   }
 
-  if (searchInput.value.length > 0) {
-    document.addEventListener('CrystalDoc:loaded', performSearch);
-  }else {
+  if (searchInput.value.length == 0) {
     var searchText = sessionStorage.getItem(repositoryName + '::search-input:value');
     if(searchText){
       searchInput.value = searchText;
-      document.addEventListener('CrystalDoc:loaded', performSearch);
     }
   }
   searchInput.focus();
@@ -820,7 +851,8 @@ document.addEventListener('DOMContentLoaded', function() {
       case "s":
       case "/":
         event.stopPropagation();
-        searchInput.focus();
+        navigator.focus();
+        performSearch();
         break;
     }
   }
