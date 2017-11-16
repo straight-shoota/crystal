@@ -695,6 +695,7 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   }
 
   function handleInputKeyDown(event) {
+    event.stopPropagation();
     if(CrystalDoc.DEBUG) { console.log("input-down", event) }
     switch(event.key) {
       case "Enter":
@@ -748,6 +749,49 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   });
   this.move();
 };
+
+var UsageModal = function(title, content) {
+  var $body = document.body;
+  var self = this;
+  var $modalBackground = document.createElement("div");
+  $modalBackground.classList.add("modal-background");
+  var $usageModal = document.createElement("div");
+  $usageModal.classList.add("usage-modal");
+  $modalBackground.appendChild($usageModal);
+  var $title = document.createElement("h3");
+  $title.classList.add("modal-title");
+  $title.innerHTML = title
+  $usageModal.appendChild($title);
+  var $closeButton = document.createElement("span");
+  $closeButton.classList.add("close-button");
+  $closeButton.setAttribute("title", "Close modal");
+  $closeButton.innerText = '×';
+  $usageModal.appendChild($closeButton);
+  $usageModal.insertAdjacentHTML("beforeend", content);
+
+  $modalBackground.addEventListener('click', function(event) {
+    var element = event.target || event.srcElement;
+
+    if(element == $modalBackground) {
+      self.hide();
+    }
+  });
+  $closeButton.addEventListener('click', function(event) {
+    self.hide();
+  });
+
+  $body.insertAdjacentElement('beforeend', $modalBackground);
+
+  this.show = function(){
+    $body.classList.add("js-modal-visible");
+  };
+  this.hide = function(){
+    $body.classList.remove("js-modal-visible");
+  };
+  this.isVisible = function(){
+    return $body.classList.contains("js-modal-visible");
+  }
+}
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -842,14 +886,68 @@ document.addEventListener('DOMContentLoaded', function() {
   searchInput.addEventListener('keyup', performSearch);
   searchInput.addEventListener('input', performSearch);
 
+  var usageModal = new UsageModal('Keyboard Shortcuts', '' +
+      '<ul class="usage-list">' +
+      '  <li>' +
+      '    <span class="usage-key">' +
+      '      <kbd>s</kbd>,' +
+      '      <kbd>/</kbd>' +
+      '    </span>' +
+      '    Search' +
+      '  </li>' +
+      '  <li>' +
+      '    <kbd class="usage-key">Esc</kbd>' +
+      '    Abort search / Close modal' +
+      '  </li>' +
+      '  <li>' +
+      '    <span class="usage-key">' +
+      '      <kbd>⇨</kbd>,' +
+      '      <kbd>Enter</kbd>' +
+      '    </span>' +
+      '    Open highlighted result' +
+      '  </li>' +
+      '  <li>' +
+      '    <span class="usage-key">' +
+      '      <kbd>⇧</kbd>,' +
+      '      <kbd>Ctrl+j</kbd>' +
+      '    </span>' +
+      '    Select previous result' +
+      '  </li>' +
+      '  <li>' +
+      '    <span class="usage-key">' +
+      '      <kbd>⇩</kbd>,' +
+      '      <kbd>Ctrl+k</kbd>' +
+      '    </span>' +
+      '    Select next result' +
+      '  </li>' +
+      '  <li>' +
+      '    <kbd class="usage-key">?</kbd>' +
+      '    Show usage info' +
+      '  </li>' +
+      '</ul>'
+    );
+
   function handleShortkeys(event) {
+    var element = event.target || event.srcElement;
+
+    if(element.tagName == "INPUT" || element.tagName == "TEXTAREA" || element.parentElement.tagName == "TEXTAREA"){
+      return;
+    }
+
     switch(event.key) {
       case "?":
-        // TODO: Show usage popup
+        usageModal.show();
+        break;
+
+      case "Escape":
+        usageModal.hide();
         break;
 
       case "s":
       case "/":
+        if(usageModal.isVisible()) {
+          return;
+        }
         event.stopPropagation();
         navigator.focus();
         performSearch();
