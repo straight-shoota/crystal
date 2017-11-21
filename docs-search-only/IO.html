@@ -3106,18 +3106,18 @@
 
   <h2>Overview</h2>
 
-  <p>The <code><a href="IO.html">IO</a></code> class is the basis for all input and output in Crystal.</p>
+  <p>The <code>IO</code> class is the basis for all input and output in Crystal.</p>
 
-<p>This class is inherited by types like <code><a href="File.html">File</a></code>, <code><a href="Socket.html">Socket</a></code> and <code><a href="IO/Memory.html">IO::Memory</a></code> and
+<p>This class is inherited by types like <code>File</code>, <code>Socket</code> and <code><a href="IO/Memory.html">IO::Memory</a></code> and
 provide many useful methods for reading to and writing from an IO, like <code><a href="IO.html#print%28%2Aobjects%3A_%29%3ANil-instance-method">#print</a></code>, <code><a href="IO.html#puts%3ANil-instance-method">#puts</a></code>,
 <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> and <code><a href="IO.html#printf%28format_string%2C%2Aargs%29%3ANil-instance-method">#printf</a></code>.</p>
 
-<p>The only requirement for a type including the <code><a href="IO.html">IO</a></code> module is to define
+<p>The only requirement for a type including the <code>IO</code> module is to define
 these two methods:</p>
 
 <ul><li><code><a href="IO.html#read%28slice%3ABytes%29-instance-method">#read(slice : Bytes)</a></code>: read at most <em>slice.size</em> bytes into <em>slice</em> and return the number of bytes read</li><li><code><a href="IO.html#write%28slice%3ABytes%29%3ANil-instance-method">#write(slice : Bytes)</a></code>: write the whole <em>slice</em> into the IO</li></ul>
 
-<p>For example, this is a simple <code><a href="IO.html">IO</a></code> on top of a <code><a href="Bytes.html">Bytes</a></code>:</p>
+<p>For example, this is a simple <code>IO</code> on top of a <code>Bytes</code>:</p>
 
 <pre><code><span class="k">class</span> <span class="t">SimpleSliceIO</span> <span class="o"><</span> <span class="t">IO</span>
   <span class="k">def</span> <span class="m">initialize</span>(@slice : <span class="t">Bytes</span>)
@@ -3146,7 +3146,7 @@ io.print <span class="s">&quot;xyz&quot;</span>
 
 <h3>Encoding</h3>
 
-<p>An <code><a href="IO.html">IO</a></code> can be set an encoding with the <code><a href="IO.html#set_encoding%28encoding%3AString%2Cinvalid%3ASymbol%3F%3Dnil%29-instance-method">#set_encoding</a></code> method. When this is
+<p>An <code>IO</code> can be set an encoding with the <code><a href="IO.html#set_encoding%28encoding%3AString%2Cinvalid%3ASymbol%3F%3Dnil%29-instance-method">#set_encoding</a></code> method. When this is
 set, all string operations (<code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code>, <code><a href="IO.html#gets_to_end%3AString-instance-method">#gets_to_end</a></code>, <code><a href="IO.html#read_char%3AChar%3F-instance-method">#read_char</a></code>, <code><a href="IO.html#%3C%3C%28obj%29%3Aself-instance-method">#<<</a></code>, <code><a href="IO.html#print%28%2Aobjects%3A_%29%3ANil-instance-method">#print</a></code>, <code><a href="IO.html#puts%3ANil-instance-method">#puts</a></code>
 <code><a href="IO.html#printf%28format_string%2C%2Aargs%29%3ANil-instance-method">#printf</a></code>) will write in the given encoding, and read from the given encoding.
 Byte operations (<code><a href="IO.html#read%28slice%3ABytes%29-instance-method">#read</a></code>, <code><a href="IO.html#write%28slice%3ABytes%29%3ANil-instance-method">#write</a></code>, <code><a href="IO.html#read_byte%3AUInt8%3F-instance-method">#read_byte</a></code>, <code><a href="IO.html#write_byte%28byte%3AUInt8%29-instance-method">#write_byte</a></code>) never do
@@ -3215,17 +3215,17 @@ in the given encoding.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L62" target="_blank">io.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L62" target="_blank">io.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/encoding.cr#L1" target="_blank">io/encoding.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/encoding.cr#L1" target="_blank">io/encoding.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/error.cr#L1" target="_blank">io/error.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/error.cr#L1" target="_blank">io/error.cr</a>
     
     <br/>
   
@@ -3256,7 +3256,7 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#pipe%28read_blocking%3Dfalse%2Cwrite_blocking%3Dfalse%29-class-method" class="signature"><strong>.pipe</strong>(read_blocking = <span class="n">false</span>, write_blocking = <span class="n">false</span>)</a>
         
-          <div class="summary"><p>Creates a pair of pipe endpoints (connected to each other) and returns them as a two-element <code><a href="Tuple.html">Tuple</a></code>.</p></div>
+          <div class="summary"><p>Creates a pair of pipe endpoints (connected to each other) and returns them as a two-element <code>Tuple</code>.</p></div>
         
       </li>
     
@@ -3277,70 +3277,70 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#%3C%3C%28obj%29%3Aself-instance-method" class="signature"><strong>#<<</strong>(obj) : self</a>
         
-          <div class="summary"><p>Writes the given object into this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Writes the given object into this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#close-instance-method" class="signature"><strong>#close</strong></a>
         
-          <div class="summary"><p>Closes this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Closes this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#closed%3F-instance-method" class="signature"><strong>#closed?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if this <code><a href="IO.html">IO</a></code> is closed.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if this <code>IO</code> is closed.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_byte%28%26block%29%3ANil-instance-method" class="signature"><strong>#each_byte</strong>(&block) : Nil</a>
         
-          <div class="summary"><p>Invokes the given block with each byte (<code><a href="UInt8.html">UInt8</a></code>) in this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Invokes the given block with each byte (<code>UInt8</code>) in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_byte-instance-method" class="signature"><strong>#each_byte</strong></a>
         
-          <div class="summary"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> for the bytes in this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Returns an <code>Iterator</code> for the bytes in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_char%28%26block%29%3ANil-instance-method" class="signature"><strong>#each_char</strong>(&block) : Nil</a>
         
-          <div class="summary"><p>Invokes the given block with each <code><a href="Char.html">Char</a></code> in this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Invokes the given block with each <code>Char</code> in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_char-instance-method" class="signature"><strong>#each_char</strong></a>
         
-          <div class="summary"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> for the chars in this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Returns an <code>Iterator</code> for the chars in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_line%28%2Aargs%2C%2A%2Aoptions%2C%26block%29%3ANil-instance-method" class="signature"><strong>#each_line</strong>(*args, **options, &block) : Nil</a>
         
-          <div class="summary"><p>Invokes the given block with each <em>line</em> in this <code><a href="IO.html">IO</a></code>, where a line is defined by the arguments passed to this method, which can be the same ones as in the <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> methods.</p></div>
+          <div class="summary"><p>Invokes the given block with each <em>line</em> in this <code>IO</code>, where a line is defined by the arguments passed to this method, which can be the same ones as in the <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> methods.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_line%28%2Aargs%2C%2A%2Aoptions%29-instance-method" class="signature"><strong>#each_line</strong>(*args, **options)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> for the <em>lines</em> in this <code><a href="IO.html">IO</a></code>, where a line is defined by the arguments passed to this method, which can be the same ones as in the <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> methods.</p></div>
+          <div class="summary"><p>Returns an <code>Iterator</code> for the <em>lines</em> in this <code>IO</code>, where a line is defined by the arguments passed to this method, which can be the same ones as in the <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> methods.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#encoding%3AString-instance-method" class="signature"><strong>#encoding</strong> : String</a>
         
-          <div class="summary"><p>Returns this <code><a href="IO.html">IO</a></code>'s encoding.</p></div>
+          <div class="summary"><p>Returns this <code>IO</code>'s encoding.</p></div>
         
       </li>
     
@@ -3354,42 +3354,42 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method" class="signature"><strong>#gets</strong>(delimiter : Char, limit : Int, chomp = <span class="n">false</span>) : String?</a>
         
-          <div class="summary"><p>Reads until <em>delimiter</em> is found, <em>limit</em> bytes are read, or the end of the <code><a href="IO.html">IO</a></code> is reached.</p></div>
+          <div class="summary"><p>Reads until <em>delimiter</em> is found, <em>limit</em> bytes are read, or the end of the <code>IO</code> is reached.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#gets%28delimiter%3AChar%2Cchomp%3Dfalse%29%3AString%3F-instance-method" class="signature"><strong>#gets</strong>(delimiter : Char, chomp = <span class="n">false</span>) : String?</a>
         
-          <div class="summary"><p>Reads until <em>delimiter</em> is found, or the end of the <code><a href="IO.html">IO</a></code> is reached.</p></div>
+          <div class="summary"><p>Reads until <em>delimiter</em> is found, or the end of the <code>IO</code> is reached.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#gets%28chomp%3Dtrue%29%3AString%3F-instance-method" class="signature"><strong>#gets</strong>(chomp = <span class="n">true</span>) : String?</a>
         
-          <div class="summary"><p>Reads a line from this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Reads a line from this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#gets%28limit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method" class="signature"><strong>#gets</strong>(limit : Int, chomp = <span class="n">false</span>) : String?</a>
         
-          <div class="summary"><p>Reads a line of at most <em>limit</em> bytes from this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Reads a line of at most <em>limit</em> bytes from this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#gets%28delimiter%3AString%2Cchomp%3Dfalse%29%3AString%3F-instance-method" class="signature"><strong>#gets</strong>(delimiter : String, chomp = <span class="n">false</span>) : String?</a>
         
-          <div class="summary"><p>Reads until <em>delimiter</em> is found or the end of the <code><a href="IO.html">IO</a></code> is reached.</p></div>
+          <div class="summary"><p>Reads until <em>delimiter</em> is found or the end of the <code>IO</code> is reached.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#gets_to_end%3AString-instance-method" class="signature"><strong>#gets_to_end</strong> : String</a>
         
-          <div class="summary"><p>Reads the rest of this <code><a href="IO.html">IO</a></code> data as a <code><a href="String.html">String</a></code>.</p></div>
+          <div class="summary"><p>Reads the rest of this <code>IO</code> data as a <code>String</code>.</p></div>
         
       </li>
     
@@ -3403,21 +3403,21 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#pos-instance-method" class="signature"><strong>#pos</strong></a>
         
-          <div class="summary"><p>Returns the current position (in bytes) in this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Returns the current position (in bytes) in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#pos%3D%28value%29-instance-method" class="signature"><strong>#pos=</strong>(value)</a>
         
-          <div class="summary"><p>Sets the current position (in bytes) in this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Sets the current position (in bytes) in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#print%28%2Aobjects%3A_%29%3ANil-instance-method" class="signature"><strong>#print</strong>(*objects : _) : Nil</a>
         
-          <div class="summary"><p>Writes the given objects into this <code><a href="IO.html">IO</a></code> by invoking <code>to_s(io)</code> on each of the objects.</p></div>
+          <div class="summary"><p>Writes the given objects into this <code>IO</code> by invoking <code>to_s(io)</code> on each of the objects.</p></div>
         
       </li>
     
@@ -3455,70 +3455,70 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#puts%28obj%29%3ANil-instance-method" class="signature"><strong>#puts</strong>(obj) : Nil</a>
         
-          <div class="summary"><p>Writes the given object to this <code><a href="IO.html">IO</a></code> followed by a newline character.</p></div>
+          <div class="summary"><p>Writes the given object to this <code>IO</code> followed by a newline character.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#puts%28string%3AString%29%3ANil-instance-method" class="signature"><strong>#puts</strong>(string : String) : Nil</a>
         
-          <div class="summary"><p>Writes the given string to this <code><a href="IO.html">IO</a></code> followed by a newline character unless the string already ends with one.</p></div>
+          <div class="summary"><p>Writes the given string to this <code>IO</code> followed by a newline character unless the string already ends with one.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read%28slice%3ABytes%29-instance-method" class="signature"><strong>#read</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Reads at most <em>slice.size</em> bytes from this <code><a href="IO.html">IO</a></code> into <em>slice</em>.</p></div>
+          <div class="summary"><p>Reads at most <em>slice.size</em> bytes from this <code>IO</code> into <em>slice</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_at%28offset%2Cbytesize%2C%26block%29-instance-method" class="signature"><strong>#read_at</strong>(offset, bytesize, &block)</a>
         
-          <div class="summary"><p>Yields an <code><a href="IO.html">IO</a></code> to read a section inside this IO.</p></div>
+          <div class="summary"><p>Yields an <code>IO</code> to read a section inside this IO.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_byte%3AUInt8%3F-instance-method" class="signature"><strong>#read_byte</strong> : UInt8?</a>
         
-          <div class="summary"><p>Reads a single byte from this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Reads a single byte from this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat%3DIO%3A%3AByteFormat%3A%3ASystemEndian%29-instance-method" class="signature"><strong>#read_bytes</strong>(type, format : IO::ByteFormat = <span class="t">IO</span><span class="t">::</span><span class="t">ByteFormat</span><span class="t">::</span><span class="t">SystemEndian</span>)</a>
         
-          <div class="summary"><p>Reads an instance of the given <em>type</em> from this <code><a href="IO.html">IO</a></code> using the specified <em>format</em>.</p></div>
+          <div class="summary"><p>Reads an instance of the given <em>type</em> from this <code>IO</code> using the specified <em>format</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_char%3AChar%3F-instance-method" class="signature"><strong>#read_char</strong> : Char?</a>
         
-          <div class="summary"><p>Reads a single <code><a href="Char.html">Char</a></code> from this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Reads a single <code>Char</code> from this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_fully%28slice%3ABytes%29-instance-method" class="signature"><strong>#read_fully</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Tries to read exactly <code>slice.size</code> bytes from this <code><a href="IO.html">IO</a></code> into <em>slice</em>.</p></div>
+          <div class="summary"><p>Tries to read exactly <code>slice.size</code> bytes from this <code>IO</code> into <em>slice</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_fully%3F%28slice%3ABytes%29-instance-method" class="signature"><strong>#read_fully?</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Tries to read exactly <code>slice.size</code> bytes from this <code><a href="IO.html">IO</a></code> into <em>slice</em>.</p></div>
+          <div class="summary"><p>Tries to read exactly <code>slice.size</code> bytes from this <code>IO</code> into <em>slice</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_line%28%2Aargs%2C%2A%2Aoptions%29%3AString-instance-method" class="signature"><strong>#read_line</strong>(*args, **options) : String</a>
         
-          <div class="summary"><p>Same as <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code>, but raises <code><a href="IO/EOFError.html">EOFError</a></code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Same as <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code>, but raises <code>EOFError</code> if called at the end of this <code>IO</code>.</p></div>
         
       </li>
     
@@ -3539,14 +3539,14 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#read_utf8_byte-instance-method" class="signature"><strong>#read_utf8_byte</strong></a>
         
-          <div class="summary"><p>Reads a single decoded UTF-8 byte from this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Reads a single decoded UTF-8 byte from this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#rewind-instance-method" class="signature"><strong>#rewind</strong></a>
         
-          <div class="summary"><p>Rewinds this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Rewinds this <code>IO</code>.</p></div>
         
       </li>
     
@@ -3560,7 +3560,7 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#set_encoding%28encoding%3AString%2Cinvalid%3ASymbol%3F%3Dnil%29-instance-method" class="signature"><strong>#set_encoding</strong>(encoding : String, invalid : Symbol? = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Sets the encoding of this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Sets the encoding of this <code>IO</code>.</p></div>
         
       </li>
     
@@ -3588,35 +3588,35 @@ in the given encoding.</p>
       <li class="entry-summary">
         <a href="#tty%3F%3ABool-instance-method" class="signature"><strong>#tty?</strong> : Bool</a>
         
-          <div class="summary"><p>Returns <code>true</code> if this <code><a href="IO.html">IO</a></code> is associated with a terminal device (tty), <code>false</code> otherwise.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if this <code>IO</code> is associated with a terminal device (tty), <code>false</code> otherwise.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write%28slice%3ABytes%29%3ANil-instance-method" class="signature"><strong>#write</strong>(slice : Bytes) : Nil</a>
         
-          <div class="summary"><p>Writes the contents of <em>slice</em> into this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Writes the contents of <em>slice</em> into this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write_byte%28byte%3AUInt8%29-instance-method" class="signature"><strong>#write_byte</strong>(byte : UInt8)</a>
         
-          <div class="summary"><p>Writes a single byte into this <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Writes a single byte into this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write_bytes%28object%2Cformat%3AIO%3A%3AByteFormat%3DIO%3A%3AByteFormat%3A%3ASystemEndian%29-instance-method" class="signature"><strong>#write_bytes</strong>(object, format : IO::ByteFormat = <span class="t">IO</span><span class="t">::</span><span class="t">ByteFormat</span><span class="t">::</span><span class="t">SystemEndian</span>)</a>
         
-          <div class="summary"><p>Writes the given object to this <code><a href="IO.html">IO</a></code> using the specified <em>format</em>.</p></div>
+          <div class="summary"><p>Writes the given object to this <code>IO</code> using the specified <em>format</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write_utf8%28slice%3ABytes%29-instance-method" class="signature"><strong>#write_utf8</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Writes a slice of UTF-8 encoded bytes to this <code><a href="IO.html">IO</a></code>, using the current encoding.</p></div>
+          <div class="summary"><p>Writes a slice of UTF-8 encoded bytes to this <code>IO</code>, using the current encoding.</p></div>
         
       </li>
     
@@ -3846,7 +3846,7 @@ io2.to_s <span class="c"># =&gt; &quot;hel&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1148" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1148" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3871,7 +3871,7 @@ io2.to_s <span class="c"># =&gt; &quot;hello&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1128" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1128" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3885,7 +3885,7 @@ io2.to_s <span class="c"># =&gt; &quot;hello&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Creates a pair of pipe endpoints (connected to each other)
-and returns them as a two-element <code><a href="Tuple.html">Tuple</a></code>.</p>
+and returns them as a two-element <code>Tuple</code>.</p>
 
 <pre><code>reader, writer <span class="o">=</span> <span class="t">IO</span>.pipe
 writer.puts <span class="s">&quot;hello&quot;</span>
@@ -3896,7 +3896,7 @@ reader.gets <span class="c"># =&gt; &quot;world&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L144" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L144" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3922,7 +3922,7 @@ to the given block. Both endpoints are closed after the block.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L170" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L170" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3940,7 +3940,7 @@ to the given block. Both endpoints are closed after the block.</p>
         <a class="method-permalink" href="#%3C%3C%28obj%29%3Aself-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes the given object into this <code><a href="IO.html">IO</a></code>.
+        <div class="doc"><p>Writes the given object into this <code>IO</code>.
 This ends up calling <code>to_s(io)</code> on the object.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
@@ -3952,7 +3952,7 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L191" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L191" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3965,14 +3965,14 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
         <a class="method-permalink" href="#close-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Closes this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Closes this <code>IO</code>.</p>
 
-<p><code><a href="IO.html">IO</a></code> defines this is a no-op method, but including types may override.</p></div>
+<p><code>IO</code> defines this is a no-op method, but including types may override.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L114" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3985,14 +3985,14 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
         <a class="method-permalink" href="#closed%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if this <code><a href="IO.html">IO</a></code> is closed.</p>
+        <div class="doc"><p>Returns <code>true</code> if this <code>IO</code> is closed.</p>
 
-<p><code><a href="IO.html">IO</a></code> defines returns <code>false</code>, but including types may override.</p></div>
+<p><code>IO</code> defines returns <code>false</code>, but including types may override.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L120" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L120" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4005,7 +4005,7 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
         <a class="method-permalink" href="#each_byte%28%26block%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Invokes the given block with each byte (<code><a href="UInt8.html">UInt8</a></code>) in this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Invokes the given block with each byte (<code>UInt8</code>) in this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>(<span class="s">&quot;aあ&quot;</span>)
 io.each_byte <span class="k">do</span> <span class="o">|</span>byte<span class="o">|</span>
@@ -4022,7 +4022,7 @@ io.each_byte <span class="k">do</span> <span class="o">|</span>byte<span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L997" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L997" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4035,7 +4035,7 @@ io.each_byte <span class="k">do</span> <span class="o">|</span>byte<span class="
         <a class="method-permalink" href="#each_byte-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> for the bytes in this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Returns an <code>Iterator</code> for the bytes in this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>(<span class="s">&quot;aあ&quot;</span>)
 iter <span class="o">=</span> io.each_byte
@@ -4047,7 +4047,7 @@ iter.<span class="k">next</span> <span class="c"># =&gt; 130</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1013" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1013" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4060,7 +4060,7 @@ iter.<span class="k">next</span> <span class="c"># =&gt; 130</span></code></pre>
         <a class="method-permalink" href="#each_char%28%26block%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Invokes the given block with each <code><a href="Char.html">Char</a></code> in this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Invokes the given block with each <code>Char</code> in this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>(<span class="s">&quot;あめ&quot;</span>)
 io.each_char <span class="k">do</span> <span class="o">|</span>char<span class="o">|</span>
@@ -4075,7 +4075,7 @@ io.each_char <span class="k">do</span> <span class="o">|</span>char<span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L962" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L962" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4088,7 +4088,7 @@ io.each_char <span class="k">do</span> <span class="o">|</span>char<span class="
         <a class="method-permalink" href="#each_char-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> for the chars in this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Returns an <code>Iterator</code> for the chars in this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>(<span class="s">&quot;あめ&quot;</span>)
 iter <span class="o">=</span> io.each_char
@@ -4098,7 +4098,7 @@ iter.<span class="k">next</span> <span class="c"># =&gt; &#39;め&#39;</span></c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L976" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L976" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4111,7 +4111,7 @@ iter.<span class="k">next</span> <span class="c"># =&gt; &#39;め&#39;</span></c
         <a class="method-permalink" href="#each_line%28%2Aargs%2C%2A%2Aoptions%2C%26block%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Invokes the given block with each <em>line</em> in this <code><a href="IO.html">IO</a></code>, where a line
+        <div class="doc"><p>Invokes the given block with each <em>line</em> in this <code>IO</code>, where a line
 is defined by the arguments passed to this method, which can be the same
 ones as in the <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> methods.</p>
 
@@ -4128,7 +4128,7 @@ dlrow</code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L927" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L927" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4141,7 +4141,7 @@ dlrow</code></pre></div>
         <a class="method-permalink" href="#each_line%28%2Aargs%2C%2A%2Aoptions%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> for the <em>lines</em> in this <code><a href="IO.html">IO</a></code>, where a line
+        <div class="doc"><p>Returns an <code>Iterator</code> for the <em>lines</em> in this <code>IO</code>, where a line
 is defined by the arguments passed to this method, which can be the same
 ones as in the <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code> methods.</p>
 
@@ -4153,7 +4153,7 @@ iter.<span class="k">next</span> <span class="c"># =&gt; &quot;world&quot;</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L943" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L943" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4166,12 +4166,12 @@ iter.<span class="k">next</span> <span class="c"># =&gt; &quot;world&quot;</span
         <a class="method-permalink" href="#encoding%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns this <code><a href="IO.html">IO</a></code>'s encoding. The default is <code>UTF-8</code>.</p></div>
+        <div class="doc"><p>Returns this <code>IO</code>'s encoding. The default is <code>UTF-8</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1045" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1045" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4186,12 +4186,12 @@ iter.<span class="k">next</span> <span class="c"># =&gt; &quot;world&quot;</span
       
         <div class="doc"><p>Flushes buffered data, if any.</p>
 
-<p><code><a href="IO.html">IO</a></code> defines this is a no-op method, but including types may override.</p></div>
+<p><code>IO</code> defines this is a no-op method, but including types may override.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L131" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L131" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4204,8 +4204,8 @@ iter.<span class="k">next</span> <span class="c"># =&gt; &quot;world&quot;</span
         <a class="method-permalink" href="#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads until <em>delimiter</em> is found, <em>limit</em> bytes are read, or the end of the <code><a href="IO.html">IO</a></code> is reached.
-Returns <code>nil</code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Reads until <em>delimiter</em> is found, <em>limit</em> bytes are read, or the end of the <code>IO</code> is reached.
+Returns <code>nil</code> if called at the end of this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello\nworld&quot;</span>
 io.gets(<span class="s">'o'</span>, <span class="n">3</span>)  <span class="c"># =&gt; &quot;hel&quot;</span>
@@ -4216,7 +4216,7 @@ io.gets(<span class="s">'w'</span>, <span class="n">10</span>) <span class="c">#
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L624" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L624" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4229,8 +4229,8 @@ io.gets(<span class="s">'w'</span>, <span class="n">10</span>) <span class="c">#
         <a class="method-permalink" href="#gets%28delimiter%3AChar%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads until <em>delimiter</em> is found, or the end of the <code><a href="IO.html">IO</a></code> is reached.
-Returns <code>nil</code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Reads until <em>delimiter</em> is found, or the end of the <code>IO</code> is reached.
+Returns <code>nil</code> if called at the end of this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello\nworld&quot;</span>
 io.gets(<span class="s">'o'</span>) <span class="c"># =&gt; &quot;hello&quot;</span>
@@ -4241,7 +4241,7 @@ io.gets(<span class="s">'w'</span>) <span class="c"># =&gt; nil</span></code></p
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L610" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L610" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4254,8 +4254,8 @@ io.gets(<span class="s">'w'</span>) <span class="c"># =&gt; nil</span></code></p
         <a class="method-permalink" href="#gets%28chomp%3Dtrue%29%3AString%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads a line from this <code><a href="IO.html">IO</a></code>. A line is terminated by the <code>\n</code> character.
-Returns <code>nil</code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Reads a line from this <code>IO</code>. A line is terminated by the <code>\n</code> character.
+Returns <code>nil</code> if called at the end of this <code>IO</code>.</p>
 
 <p>By default the newline is removed from the returned string,
 unless <em>chomp</em> is <code>false</code>.</p>
@@ -4269,7 +4269,7 @@ io.gets               <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L580" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L580" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4282,9 +4282,9 @@ io.gets               <span class="c"># =&gt; nil</span></code></pre></div>
         <a class="method-permalink" href="#gets%28limit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads a line of at most <em>limit</em> bytes from this <code><a href="IO.html">IO</a></code>.
+        <div class="doc"><p>Reads a line of at most <em>limit</em> bytes from this <code>IO</code>.
 A line is terminated by the <code>\n</code> character.
-Returns <code>nil</code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p>
+Returns <code>nil</code> if called at the end of this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello\nworld&quot;</span>
 io.gets(<span class="n">3</span>) <span class="c"># =&gt; &quot;hel&quot;</span>
@@ -4296,7 +4296,7 @@ io.gets(<span class="n">3</span>) <span class="c"># =&gt; nil</span></code></pre
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L596" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L596" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4309,8 +4309,8 @@ io.gets(<span class="n">3</span>) <span class="c"># =&gt; nil</span></code></pre
         <a class="method-permalink" href="#gets%28delimiter%3AString%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads until <em>delimiter</em> is found or the end of the <code><a href="IO.html">IO</a></code> is reached.
-Returns <code>nil</code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Reads until <em>delimiter</em> is found or the end of the <code>IO</code> is reached.
+Returns <code>nil</code> if called at the end of this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello\nworld&quot;</span>
 io.gets(<span class="s">&quot;wo&quot;</span>) <span class="c"># =&gt; &quot;hello\nwo&quot;</span>
@@ -4320,7 +4320,7 @@ io.gets(<span class="s">&quot;wo&quot;</span>) <span class="c"># =&gt; nil</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L779" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L779" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4333,7 +4333,7 @@ io.gets(<span class="s">&quot;wo&quot;</span>) <span class="c"># =&gt; nil</span
         <a class="method-permalink" href="#gets_to_end%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads the rest of this <code><a href="IO.html">IO</a></code> data as a <code><a href="String.html">String</a></code>.</p>
+        <div class="doc"><p>Reads the rest of this <code>IO</code> data as a <code>String</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello world&quot;</span>
 io.gets_to_end <span class="c"># =&gt; &quot;hello world&quot;</span></code></pre></div>
@@ -4341,7 +4341,7 @@ io.gets_to_end <span class="c"># =&gt; &quot;hello world&quot;</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L549" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L549" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4370,7 +4370,7 @@ this method.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L478" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L478" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4383,9 +4383,9 @@ this method.</p></div>
         <a class="method-permalink" href="#pos-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the current position (in bytes) in this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Returns the current position (in bytes) in this <code>IO</code>.</p>
 
-<p>The <code><a href="IO.html">IO</a></code> class raises on this method, but some subclasses, notable
+<p>The <code>IO</code> class raises on this method, but some subclasses, notable
 <code><a href="IO/FileDescriptor.html">IO::FileDescriptor</a></code> and <code><a href="IO/Memory.html">IO::Memory</a></code> implement it.</p>
 
 <pre><code><span class="t">File</span>.write(<span class="s">&quot;testfile&quot;</span>, <span class="s">&quot;hello&quot;</span>)
@@ -4398,7 +4398,7 @@ file.pos     <span class="c"># =&gt; 2</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1083" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1083" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4411,9 +4411,9 @@ file.pos     <span class="c"># =&gt; 2</span></code></pre></div>
         <a class="method-permalink" href="#pos%3D%28value%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Sets the current position (in bytes) in this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Sets the current position (in bytes) in this <code>IO</code>.</p>
 
-<p>The <code><a href="IO.html">IO</a></code> class raises on this method, but some subclasses, notable
+<p>The <code>IO</code> class raises on this method, but some subclasses, notable
 <code><a href="IO/FileDescriptor.html">IO::FileDescriptor</a></code> and <code><a href="IO/Memory.html">IO::Memory</a></code> implement it.</p>
 
 <pre><code><span class="t">File</span>.write(<span class="s">&quot;testfile&quot;</span>, <span class="s">&quot;hello&quot;</span>)
@@ -4425,7 +4425,7 @@ file.gets_to_end <span class="c"># =&gt; &quot;lo&quot;</span></code></pre></div
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1099" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1099" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4438,7 +4438,7 @@ file.gets_to_end <span class="c"># =&gt; &quot;lo&quot;</span></code></pre></div
         <a class="method-permalink" href="#print%28%2Aobjects%3A_%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes the given objects into this <code><a href="IO.html">IO</a></code> by invoking <code>to_s(io)</code>
+        <div class="doc"><p>Writes the given objects into this <code>IO</code> by invoking <code>to_s(io)</code>
 on each of the objects.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
@@ -4448,7 +4448,7 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L218" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L218" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4472,7 +4472,7 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L205" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L205" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4488,7 +4488,7 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L279" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L279" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4504,7 +4504,7 @@ io.to_s <span class="c"># =&gt; &quot;1-Crystal&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L284" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L284" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4526,7 +4526,7 @@ io.to_s <span class="c"># =&gt; &quot;1\n-\nCrystal\n&quot;</span></code></pre><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L272" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L272" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4548,7 +4548,7 @@ io.to_s <span class="c"># =&gt; &quot;\n&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L260" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L260" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4561,7 +4561,7 @@ io.to_s <span class="c"># =&gt; &quot;\n&quot;</span></code></pre></div>
         <a class="method-permalink" href="#puts%28obj%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes the given object to this <code><a href="IO.html">IO</a></code> followed by a newline character.</p>
+        <div class="doc"><p>Writes the given object to this <code>IO</code> followed by a newline character.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 io.puts <span class="n">1</span>
@@ -4571,7 +4571,7 @@ io.to_s <span class="c"># =&gt; &quot;1\nCrystal\n&quot;</span></code></pre></di
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L248" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L248" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4584,7 +4584,7 @@ io.to_s <span class="c"># =&gt; &quot;1\nCrystal\n&quot;</span></code></pre></di
         <a class="method-permalink" href="#puts%28string%3AString%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes the given string to this <code><a href="IO.html">IO</a></code> followed by a newline character
+        <div class="doc"><p>Writes the given string to this <code>IO</code> followed by a newline character
 unless the string already ends with one.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
@@ -4595,7 +4595,7 @@ io.to_s <span class="c"># =&gt; &quot;hello\nworld\n&quot;</span></code></pre></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L234" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L234" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4608,7 +4608,7 @@ io.to_s <span class="c"># =&gt; &quot;hello\nworld\n&quot;</span></code></pre></
         <a class="method-permalink" href="#read%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads at most <em>slice.size</em> bytes from this <code><a href="IO.html">IO</a></code> into <em>slice</em>.
+        <div class="doc"><p>Reads at most <em>slice.size</em> bytes from this <code>IO</code> into <em>slice</em>.
 Returns the number of bytes read, which is 0 if and only if there is no
 more data to read (so checking for 0 is the way to detect end of file).</p>
 
@@ -4623,7 +4623,7 @@ io.read(slice) <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4636,17 +4636,17 @@ io.read(slice) <span class="c"># =&gt; 0</span></code></pre></div>
         <a class="method-permalink" href="#read_at%28offset%2Cbytesize%2C%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Yields an <code><a href="IO.html">IO</a></code> to read a section inside this IO.</p>
+        <div class="doc"><p>Yields an <code>IO</code> to read a section inside this IO.</p>
 
-<p>The <code><a href="IO.html">IO</a></code> class raises on this method, but some subclasses, notable
-<code><a href="File.html">File</a></code> and <code><a href="IO/Memory.html">IO::Memory</a></code> implement it.</p>
+<p>The <code>IO</code> class raises on this method, but some subclasses, notable
+<code>File</code> and <code><a href="IO/Memory.html">IO::Memory</a></code> implement it.</p>
 
 <p>Mutliple sections can be read concurrently.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1114" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1114" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4659,7 +4659,7 @@ io.read(slice) <span class="c"># =&gt; 0</span></code></pre></div>
         <a class="method-permalink" href="#read_byte%3AUInt8%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads a single byte from this <code><a href="IO.html">IO</a></code>. Returns <code>nil</code> if there is no more
+        <div class="doc"><p>Reads a single byte from this <code>IO</code>. Returns <code>nil</code> if there is no more
 data to read.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;a&quot;</span>
@@ -4669,7 +4669,7 @@ io.read_byte <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L297" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L297" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4682,10 +4682,10 @@ io.read_byte <span class="c"># =&gt; nil</span></code></pre></div>
         <a class="method-permalink" href="#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat%3DIO%3A%3AByteFormat%3A%3ASystemEndian%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads an instance of the given <em>type</em> from this <code><a href="IO.html">IO</a></code> using the specified <em>format</em>.</p>
+        <div class="doc"><p>Reads an instance of the given <em>type</em> from this <code>IO</code> using the specified <em>format</em>.</p>
 
 <p>This ends up invoking <code>type.from_io(self, format)</code>, so any type defining a
-<code>from_io(io : <a href="IO.html">IO</a>, format : <a href="IO/ByteFormat.html">IO::ByteFormat</a> = <a href="IO/ByteFormat.html">IO::ByteFormat</a>::SystemEndian)</code>
+<code>from_io(io : IO, format : <a href="IO/ByteFormat.html">IO::ByteFormat</a> = <a href="IO/ByteFormat/SystemEndian.html">IO::ByteFormat::SystemEndian</a>)</code>
 method can be read in this way.</p>
 
 <p>See <code>Int.from_io</code> and <code>Float.from_io</code>.</p>
@@ -4698,7 +4698,7 @@ io.read_bytes(<span class="t">Int32</span>, <span class="t">IO</span><span class
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L894" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L894" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4711,7 +4711,7 @@ io.read_bytes(<span class="t">Int32</span>, <span class="t">IO</span><span class
         <a class="method-permalink" href="#read_char%3AChar%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads a single <code><a href="Char.html">Char</a></code> from this <code><a href="IO.html">IO</a></code>. Returns <code>nil</code> if there is no
+        <div class="doc"><p>Reads a single <code>Char</code> from this <code>IO</code>. Returns <code>nil</code> if there is no
 more data to read.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;あ&quot;</span>
@@ -4721,7 +4721,7 @@ io.read_char <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L314" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L314" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4734,8 +4734,8 @@ io.read_char <span class="c"># =&gt; nil</span></code></pre></div>
         <a class="method-permalink" href="#read_fully%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Tries to read exactly <code>slice.size</code> bytes from this <code><a href="IO.html">IO</a></code> into <em>slice</em>.
-Raises <code><a href="IO/EOFError.html">EOFError</a></code> if there aren't <code>slice.size</code> bytes of data.</p>
+        <div class="doc"><p>Tries to read exactly <code>slice.size</code> bytes from this <code>IO</code> into <em>slice</em>.
+Raises <code>EOFError</code> if there aren't <code>slice.size</code> bytes of data.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;123451234&quot;</span>
 slice <span class="o">=</span> <span class="t">Bytes</span>.<span class="k">new</span>(<span class="n">5</span>)
@@ -4746,7 +4746,7 @@ io.read_fully(slice) <span class="c"># raises IO::EOFError</span></code></pre></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L518" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L518" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4759,7 +4759,7 @@ io.read_fully(slice) <span class="c"># raises IO::EOFError</span></code></pre></
         <a class="method-permalink" href="#read_fully%3F%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Tries to read exactly <code>slice.size</code> bytes from this <code><a href="IO.html">IO</a></code> into <em>slice</em>.
+        <div class="doc"><p>Tries to read exactly <code>slice.size</code> bytes from this <code>IO</code> into <em>slice</em>.
 Returns <code>nil</code> if there aren't <code>slice.size</code> bytes of data, otherwise
 returns the number of bytes read.</p>
 
@@ -4772,7 +4772,7 @@ io.read_fully?(slice) <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L533" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L533" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4785,12 +4785,12 @@ io.read_fully?(slice) <span class="c"># =&gt; nil</span></code></pre></div>
         <a class="method-permalink" href="#read_line%28%2Aargs%2C%2A%2Aoptions%29%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Same as <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code>, but raises <code><a href="IO/EOFError.html">EOFError</a></code> if called at the end of this <code><a href="IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Same as <code><a href="IO.html#gets%28delimiter%3AChar%2Climit%3AInt%2Cchomp%3Dfalse%29%3AString%3F-instance-method">#gets</a></code>, but raises <code>EOFError</code> if called at the end of this <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L819" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L819" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4804,7 +4804,7 @@ io.read_fully?(slice) <span class="c"># =&gt; nil</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Reads an UTF-8 encoded string of exactly <em>bytesize</em> bytes.
-Raises <code><a href="IO/EOFError.html">EOFError</a></code> if there are not enough bytes to build
+Raises <code>EOFError</code> if there are not enough bytes to build
 the string.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>(<span class="s">&quot;hello world&quot;</span>)
@@ -4815,7 +4815,7 @@ io.read_string(<span class="n">6</span>) <span class="c"># raises IO::EOFError</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L451" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L451" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4847,7 +4847,7 @@ buffer.to_slice[<span class="n">0</span>, bytes_read]             <span class="c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L433" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L433" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4860,7 +4860,7 @@ buffer.to_slice[<span class="n">0</span>, bytes_read]             <span class="c
         <a class="method-permalink" href="#read_utf8_byte-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads a single decoded UTF-8 byte from this <code><a href="IO.html">IO</a></code>.
+        <div class="doc"><p>Reads a single decoded UTF-8 byte from this <code>IO</code>.
 Returns <code>nil</code> if there is no more data to read.</p>
 
 <p>If no encoding is set, this is the same as <code><a href="IO.html#read_byte%3AUInt8%3F-instance-method">#read_byte</a></code>.</p>
@@ -4879,7 +4879,7 @@ io.read_utf8_byte <span class="c"># =&gt; nil</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L408" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L408" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4892,13 +4892,13 @@ io.read_utf8_byte <span class="c"># =&gt; nil</span>
         <a class="method-permalink" href="#rewind-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Rewinds this <code><a href="IO.html">IO</a></code>. By default this method raises, but including types
+        <div class="doc"><p>Rewinds this <code>IO</code>. By default this method raises, but including types
 may implement it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1019" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1019" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4913,7 +4913,7 @@ may implement it.</p></div>
       
         <div class="doc"><p>Seeks to a given <em>offset</em> (in bytes) according to the <em>whence</em> argument.</p>
 
-<p>The <code><a href="IO.html">IO</a></code> class raises on this method, but some subclasses, notable
+<p>The <code>IO</code> class raises on this method, but some subclasses, notable
 <code><a href="IO/FileDescriptor.html">IO::FileDescriptor</a></code> and <code><a href="IO/Memory.html">IO::Memory</a></code> implement it.</p>
 
 <p>Returns <code>self</code>.</p>
@@ -4930,7 +4930,7 @@ file.gets(<span class="n">1</span>) <span class="c"># =&gt; &quot;c&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1066" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1066" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4943,7 +4943,7 @@ file.gets(<span class="n">1</span>) <span class="c"># =&gt; &quot;c&quot;</span>
         <a class="method-permalink" href="#set_encoding%28encoding%3AString%2Cinvalid%3ASymbol%3F%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Sets the encoding of this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Sets the encoding of this <code>IO</code>.</p>
 
 <p>The <em>invalid</em> argument can be:</p>
 
@@ -4955,7 +4955,7 @@ file.gets(<span class="n">1</span>) <span class="c"># =&gt; &quot;c&quot;</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1031" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1031" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4979,7 +4979,7 @@ io.skip(<span class="n">1</span>) <span class="c"># raises IO::EOFError</span></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L832" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L832" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4998,7 +4998,7 @@ are no more bytes.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L844" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L844" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5016,7 +5016,7 @@ are no more bytes.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L1104" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L1104" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5029,7 +5029,7 @@ are no more bytes.</p></div>
         <a class="method-permalink" href="#tty%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if this <code><a href="IO.html">IO</a></code> is associated with a terminal device (tty), <code>false</code> otherwise.</p>
+        <div class="doc"><p>Returns <code>true</code> if this <code>IO</code> is associated with a terminal device (tty), <code>false</code> otherwise.</p>
 
 <p>IO returns <code>false</code>, but including types may override.</p>
 
@@ -5039,7 +5039,7 @@ are no more bytes.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L906" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L906" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5052,7 +5052,7 @@ are no more bytes.</p></div>
         <a class="method-permalink" href="#write%28slice%3ABytes%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes the contents of <em>slice</em> into this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Writes the contents of <em>slice</em> into this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 slice <span class="o">=</span> <span class="t">Bytes</span>.<span class="k">new</span>(<span class="n">4</span>) { <span class="o">|</span>i<span class="o">|</span> (<span class="s">'a'</span>.ord <span class="o">+</span> i).to_u8 }
@@ -5062,7 +5062,7 @@ io.to_s <span class="c"># =&gt; &quot;abcd&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L109" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5075,7 +5075,7 @@ io.to_s <span class="c"># =&gt; &quot;abcd&quot;</span></code></pre></div>
         <a class="method-permalink" href="#write_byte%28byte%3AUInt8%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes a single byte into this <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Writes a single byte into this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 io.write_byte <span class="n">97_u8</span>
@@ -5084,7 +5084,7 @@ io.to_s <span class="c"># =&gt; &quot;a&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L857" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L857" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5097,13 +5097,13 @@ io.to_s <span class="c"># =&gt; &quot;a&quot;</span></code></pre></div>
         <a class="method-permalink" href="#write_bytes%28object%2Cformat%3AIO%3A%3AByteFormat%3DIO%3A%3AByteFormat%3A%3ASystemEndian%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes the given object to this <code><a href="IO.html">IO</a></code> using the specified <em>format</em>.</p>
+        <div class="doc"><p>Writes the given object to this <code>IO</code> using the specified <em>format</em>.</p>
 
 <p>This ends up invoking <code>object.to_io(self, format)</code>, so any object defining a
-<code>to_io(io : <a href="IO.html">IO</a>, format : <a href="IO/ByteFormat.html">IO::ByteFormat</a> = <a href="IO/ByteFormat.html">IO::ByteFormat</a>::SystemEndian)</code>
+<code>to_io(io : IO, format : <a href="IO/ByteFormat.html">IO::ByteFormat</a> = <a href="IO/ByteFormat/SystemEndian.html">IO::ByteFormat::SystemEndian</a>)</code>
 method can be written in this way.</p>
 
-<p>See <code><a href="Int.html#to_io%28io%3AIO%2Cformat%3AIO%3A%3AByteFormat%29-instance-method">Int#to_io</a></code> and <code><a href="Float.html#to_io%28io%3AIO%2Cformat%3AIO%3A%3AByteFormat%29-instance-method">Float#to_io</a></code>.</p>
+<p>See <code>Int#to_io</code> and <code>Float#to_io</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 io.write_bytes(<span class="n">0x01020304</span>, <span class="t">IO</span><span class="t">::</span><span class="t">ByteFormat</span><span class="t">::</span><span class="t">LittleEndian</span>)
@@ -5113,7 +5113,7 @@ io.gets(<span class="n">4</span>) <span class="c"># =&gt; &quot;\u{4}\u{3}\u{2}\
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L876" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L876" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5126,12 +5126,12 @@ io.gets(<span class="n">4</span>) <span class="c"># =&gt; &quot;\u{4}\u{3}\u{2}\
         <a class="method-permalink" href="#write_utf8%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes a slice of UTF-8 encoded bytes to this <code><a href="IO.html">IO</a></code>, using the current encoding.</p></div>
+        <div class="doc"><p>Writes a slice of UTF-8 encoded bytes to this <code>IO</code>, using the current encoding.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io.cr#L483" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io.cr#L483" target="_blank">View source</a>]
         
       </div>
     </div>

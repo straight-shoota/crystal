@@ -3104,7 +3104,7 @@
 
   <h2>Overview</h2>
 
-  <p>The <code><a href="Enumerable.html">Enumerable</a></code> mixin provides collection classes with several traversal, searching,
+  <p>The <code>Enumerable</code> mixin provides collection classes with several traversal, searching,
 filtering and querying methods.</p>
 
 <p>Including types must provide an <code><a href="Enumerable.html#each%28%26block%3AT-%3E_%29-instance-method">#each</a></code> method, which yields successive members
@@ -3128,8 +3128,8 @@ three.select <span class="o">&</span>.odd?       <span class="c"># =&gt; [1, 3]<
 three.all? { <span class="o">|</span>x<span class="o">|</span> x <span class="o"><</span> <span class="n">10</span> } <span class="c"># =&gt; true</span></code></pre>
 
 <p>Note that most search and filter methods traverse an Enumerable eagerly,
-producing an <code><a href="Array.html">Array</a></code> as the result. For a lazy alternative refer to
-the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterable.html">Iterable</a></code> modules.</p>
+producing an <code>Array</code> as the result. For a lazy alternative refer to
+the <code>Iterator</code> and <code>Iterable</code> modules.</p>
 
 
 
@@ -3182,12 +3182,12 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L29" target="_blank">enumerable.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L29" target="_blank">enumerable.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L401" target="_blank">set.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L401" target="_blank">set.cr</a>
     
     <br/>
   
@@ -3241,7 +3241,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#compact_map%28%26block%29-instance-method" class="signature"><strong>#compact_map</strong>(&block)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with the results of running the block against each element of the collection, removing <code>nil</code> values.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with the results of running the block against each element of the collection, removing <code>nil</code> values.</p></div>
         
       </li>
     
@@ -3318,7 +3318,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#first%28count%3AInt%29-instance-method" class="signature"><strong>#first</strong>(count : Int)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with the first <em>count</em> elements in the collection.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with the first <em>count</em> elements in the collection.</p></div>
         
       </li>
     
@@ -3346,21 +3346,21 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#grep%28pattern%29-instance-method" class="signature"><strong>#grep</strong>(pattern)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection that match the <code>RegExp</code> <em>pattern</em>.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with all the elements in the collection that match the <code>RegExp</code> <em>pattern</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#group_by%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#group_by</strong>(&block : T -> U) forall U</a>
         
-          <div class="summary"><p>Returns a <code><a href="Hash.html">Hash</a></code> whose keys are each different value that the passed block returned when run for each element in the collection, and which values are an <code><a href="Array.html">Array</a></code> of the elements for which the block returned that value.</p></div>
+          <div class="summary"><p>Returns a <code>Hash</code> whose keys are each different value that the passed block returned when run for each element in the collection, and which values are an <code>Array</code> of the elements for which the block returned that value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#in_groups_of%28size%3AInt%2Cfilled_up_with%3AU%3Dnil%29forallU-instance-method" class="signature"><strong>#in_groups_of</strong>(size : Int, filled_up_with : U = <span class="n">nil</span>) forall U</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with chunks in the given size, eventually filled up with given value or <code>nil</code>.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with chunks in the given size, eventually filled up with given value or <code>nil</code>.</p></div>
         
       </li>
     
@@ -3395,7 +3395,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#index_by%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#index_by</strong>(&block : T -> U) forall U</a>
         
-          <div class="summary"><p>Converts an <code><a href="Enumerable.html">Enumerable</a></code> to a <code><a href="Hash.html">Hash</a></code> by using the value returned by the block as the hash key.</p></div>
+          <div class="summary"><p>Converts an <code>Enumerable</code> to a <code>Hash</code> by using the value returned by the block as the hash key.</p></div>
         
       </li>
     
@@ -3409,7 +3409,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#join%28separator%3D%26quot%3B%26quot%3B%29-instance-method" class="signature"><strong>#join</strong>(separator = <span class="s">&quot;&quot;</span>)</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> created by concatenating the elements in the collection, separated by <em>separator</em> (defaults to none).</p></div>
+          <div class="summary"><p>Returns a <code>String</code> created by concatenating the elements in the collection, separated by <em>separator</em> (defaults to none).</p></div>
         
       </li>
     
@@ -3423,14 +3423,14 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#join%28separator%3D%26quot%3B%26quot%3B%2C%26block%29-instance-method" class="signature"><strong>#join</strong>(separator = <span class="s">&quot;&quot;</span>, &block)</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> created by concatenating the results of passing the elements in the collection to the passed block, separated by <em>separator</em> (defaults to none).</p></div>
+          <div class="summary"><p>Returns a <code>String</code> created by concatenating the results of passing the elements in the collection to the passed block, separated by <em>separator</em> (defaults to none).</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#map%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#map</strong>(&block : T -> U) forall U</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with the results of running the block against each element of the collection.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with the results of running the block against each element of the collection.</p></div>
         
       </li>
     
@@ -3528,7 +3528,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#minmax-instance-method" class="signature"><strong>#minmax</strong></a>
         
-          <div class="summary"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with both the minimum and maximum value.</p></div>
+          <div class="summary"><p>Returns a <code>Tuple</code> with both the minimum and maximum value.</p></div>
         
       </li>
     
@@ -3542,7 +3542,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#minmax_by%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#minmax_by</strong>(&block : T -> U) forall U</a>
         
-          <div class="summary"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with both the minimum and maximum values according to the passed block.</p></div>
+          <div class="summary"><p>Returns a <code>Tuple</code> with both the minimum and maximum values according to the passed block.</p></div>
         
       </li>
     
@@ -3556,7 +3556,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#minmax_of%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#minmax_of</strong>(&block : T -> U) forall U</a>
         
-          <div class="summary"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with both the minimum and maximum value the block returns when passed the elements in the collection.</p></div>
+          <div class="summary"><p>Returns a <code>Tuple</code> with both the minimum and maximum value the block returns when passed the elements in the collection.</p></div>
         
       </li>
     
@@ -3591,7 +3591,7 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#partition%28%26block%29-instance-method" class="signature"><strong>#partition</strong>(&block)</a>
         
-          <div class="summary"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with two arrays.</p></div>
+          <div class="summary"><p>Returns a <code>Tuple</code> with two arrays.</p></div>
         
       </li>
     
@@ -3640,14 +3640,14 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#reject%28%26block%3AT-%3E%29-instance-method" class="signature"><strong>#reject</strong>(&block : T -> )</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection for which the passed block returns <code>false</code>.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with all the elements in the collection for which the passed block returns <code>false</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#select%28%26block%3AT-%3E%29-instance-method" class="signature"><strong>#select</strong>(&block : T -> )</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection for which the passed block returns <code>true</code>.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with all the elements in the collection for which the passed block returns <code>true</code>.</p></div>
         
       </li>
     
@@ -3661,14 +3661,14 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#skip%28count%3AInt%29-instance-method" class="signature"><strong>#skip</strong>(count : Int)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with the first <em>count</em> elements removed from the original collection.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with the first <em>count</em> elements removed from the original collection.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#skip_while%28%26block%29-instance-method" class="signature"><strong>#skip_while</strong>(&block)</a>
         
-          <div class="summary"><p>Skips elements up to, but not including, the first element for which the block returns <code>nil</code> or <code>false</code> and returns an <code><a href="Array.html">Array</a></code> containing the remaining elements.</p></div>
+          <div class="summary"><p>Skips elements up to, but not including, the first element for which the block returns <code>nil</code> or <code>false</code> and returns an <code>Array</code> containing the remaining elements.</p></div>
         
       </li>
     
@@ -3703,28 +3703,28 @@ the <code><a href="Iterator.html">Iterator</a></code> and <code><a href="Iterabl
       <li class="entry-summary">
         <a href="#take_while%28%26block%29-instance-method" class="signature"><strong>#take_while</strong>(&block)</a>
         
-          <div class="summary"><p>Passes elements to the block until the block returns <code>nil</code> or <code>false</code>, then stops iterating and returns an <code><a href="Array.html">Array</a></code> of all prior elements.</p></div>
+          <div class="summary"><p>Passes elements to the block until the block returns <code>nil</code> or <code>false</code>, then stops iterating and returns an <code>Array</code> of all prior elements.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_a-instance-method" class="signature"><strong>#to_a</strong></a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with all the elements in the collection.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_h-instance-method" class="signature"><strong>#to_h</strong></a>
         
-          <div class="summary"><p>Creates a <code><a href="Hash.html">Hash</a></code> out of an Enumerable where each element is a 2 element structure (for instance a <code><a href="Tuple.html">Tuple</a></code> or an <code><a href="Array.html">Array</a></code>).</p></div>
+          <div class="summary"><p>Creates a <code>Hash</code> out of an Enumerable where each element is a 2 element structure (for instance a <code>Tuple</code> or an <code>Array</code>).</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_set-instance-method" class="signature"><strong>#to_set</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Set.html">Set</a></code> with each unique element in the enumerable.</p></div>
+          <div class="summary"><p>Returns a new <code>Set</code> with each unique element in the enumerable.</p></div>
         
       </li>
     
@@ -3762,7 +3762,7 @@ for all elements of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3783,7 +3783,7 @@ for all elements of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3805,7 +3805,7 @@ for at least one element of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L68" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L68" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3826,7 +3826,7 @@ for at least one element of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L79" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L79" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3851,14 +3851,14 @@ ary <span class="c"># =&gt; [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {
 
 <p>The following key values have special meaning:</p>
 
-<ul><li><code>Enumerable::Chunk::Drop</code> specifies that the elements should be dropped</li><li><code>Enumerable::Chunk::Alone</code> specifies that the element should be chunked by itself</li></ul>
+<ul><li><code><a href="Enumerable/Chunk/Drop.html">Enumerable::Chunk::Drop</a></code> specifies that the elements should be dropped</li><li><code><a href="Enumerable/Chunk/Alone.html">Enumerable::Chunk::Alone</a></code> specifies that the element should be chunked by itself</li></ul>
 
-<p>See also: <code><a href="Iterator.html#chunk%28reuse%3Dfalse%2C%26block%3AT-%3EU%29forallT%2CU-instance-method">Iterator#chunk</a></code>.</p></div>
+<p>See also: <code>Iterator#chunk</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3871,7 +3871,7 @@ ary <span class="c"># =&gt; [{false, [3, 1]}, {true, [4]}, {false, [1, 5, 9]}, {
         <a class="method-permalink" href="#compact_map%28%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with the results of running the block against each element
+        <div class="doc"><p>Returns an <code>Array</code> with the results of running the block against each element
 of the collection, removing <code>nil</code> values.</p>
 
 <pre><code>[<span class="s">&quot;Alice&quot;</span>, <span class="s">&quot;Bob&quot;</span>].map { <span class="o">|</span>name<span class="o">|</span> name.match(<span class="s">/^A./</span>) }         <span class="c"># =&gt; [#&lt;Regex::MatchData &quot;Al&quot;&gt;, nil]</span>
@@ -3880,7 +3880,7 @@ of the collection, removing <code>nil</code> values.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L196" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3901,7 +3901,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L213" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L213" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3921,7 +3921,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L224" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L224" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3939,7 +3939,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L234" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L234" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3957,7 +3957,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L229" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L229" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3975,7 +3975,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4004,7 +4004,7 @@ but advancing one by one.</p>
 
 <p>By default, a new array is created and yielded for each consecutive slice of elements.</p>
 
-<ul><li>If <em>reuse</em> is given, the array can be reused</li><li>If <em>reuse</em> is an <code><a href="Array.html">Array</a></code>, this array will be reused</li><li>If <em>reuse</em> is truthy, the method will create a new array and reuse it.</li></ul>
+<ul><li>If <em>reuse</em> is given, the array can be reused</li><li>If <em>reuse</em> is an <code>Array</code>, this array will be reused</li><li>If <em>reuse</em> is truthy, the method will create a new array and reuse it.</li></ul>
 
 <p>This can be used to prevent many memory allocations when each slice of
 interest is to be used in a read-only fashion.</p></div>
@@ -4012,7 +4012,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L263" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L263" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4042,7 +4042,7 @@ and runs the block for each of those.</p>
 
 <p>By default, a new array is created and yielded for each slice.</p>
 
-<ul><li>If <em>reuse</em> is given, the array can be reused</li><li>If <em>reuse</em> is an <code><a href="Array.html">Array</a></code>, this array will be reused</li><li>If <em>reuse</em> is truthy, the method will create a new array and reuse it.</li></ul>
+<ul><li>If <em>reuse</em> is given, the array can be reused</li><li>If <em>reuse</em> is an <code>Array</code>, this array will be reused</li><li>If <em>reuse</em> is truthy, the method will create a new array and reuse it.</li></ul>
 
 <p>This can be used to prevent many memory allocations when each slice of
 interest is to be used in a read-only fashion.</p></div>
@@ -4050,7 +4050,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L314" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L314" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4089,7 +4089,7 @@ User # 2: Bob</code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L375" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L375" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4113,7 +4113,7 @@ hash <span class="c"># =&gt; {&quot;Alice&quot; =&gt; 5, &quot;Bob&quot; =&gt; 3
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L392" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L392" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4138,7 +4138,7 @@ no element is found (defaults to <code>nil</code>).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L409" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L409" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4151,7 +4151,7 @@ no element is found (defaults to <code>nil</code>).</p>
         <a class="method-permalink" href="#first%28count%3AInt%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with the first <em>count</em> elements in the collection.</p>
+        <div class="doc"><p>Returns an <code>Array</code> with the first <em>count</em> elements in the collection.</p>
 
 <p>If <em>count</em> is bigger than the number of elements in the collection,
 returns as many as possible. This include the case of calling it over
@@ -4160,7 +4160,7 @@ an empty collection, in which case it returns an empty array.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1245" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1245" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4179,7 +4179,7 @@ if the collection is empty.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L418" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L418" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4198,7 +4198,7 @@ When the collection is empty, returns <code>nil</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L425" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L425" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4222,7 +4222,7 @@ array <span class="c"># =&gt; [&#39;A&#39;, &#39;l&#39;, &#39;i&#39;, &#39;c&#39
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L439" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L439" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4235,7 +4235,7 @@ array <span class="c"># =&gt; [&#39;A&#39;, &#39;l&#39;, &#39;i&#39;, &#39;c&#39
         <a class="method-permalink" href="#grep%28pattern%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection that
+        <div class="doc"><p>Returns an <code>Array</code> with all the elements in the collection that
 match the <code>RegExp</code> <em>pattern</em>.</p>
 
 <pre><code>[<span class="s">&quot;Alice&quot;</span>, <span class="s">&quot;Bob&quot;</span>].grep(<span class="s">/^A/</span>) <span class="c"># =&gt; [&quot;Alice&quot;]</span></code></pre></div>
@@ -4243,7 +4243,7 @@ match the <code>RegExp</code> <em>pattern</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L458" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L458" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4256,16 +4256,16 @@ match the <code>RegExp</code> <em>pattern</em>.</p>
         <a class="method-permalink" href="#group_by%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Hash.html">Hash</a></code> whose keys are each different value that the passed block
+        <div class="doc"><p>Returns a <code>Hash</code> whose keys are each different value that the passed block
 returned when run for each element in the collection, and which values are
-an <code><a href="Array.html">Array</a></code> of the elements for which the block returned that value.</p>
+an <code>Array</code> of the elements for which the block returned that value.</p>
 
 <pre><code>[<span class="s">&quot;Alice&quot;</span>, <span class="s">&quot;Bob&quot;</span>, <span class="s">&quot;Ary&quot;</span>].group_by { <span class="o">|</span>name<span class="o">|</span> name.size } <span class="c"># =&gt; {5 =&gt; [&quot;Alice&quot;], 3 =&gt; [&quot;Bob&quot;, &quot;Ary&quot;]}</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L469" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L469" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4278,7 +4278,7 @@ an <code><a href="Array.html">Array</a></code> of the elements for which the blo
         <a class="method-permalink" href="#in_groups_of%28size%3AInt%2Cfilled_up_with%3AU%3Dnil%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with chunks in the given size, eventually filled up
+        <div class="doc"><p>Returns an <code>Array</code> with chunks in the given size, eventually filled up
 with given value or <code>nil</code>.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].in_groups_of(<span class="n">2</span>, <span class="n">0</span>) <span class="c"># =&gt; [[1, 2], [3, 0]]</span>
@@ -4287,7 +4287,7 @@ with given value or <code>nil</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L489" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L489" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4308,7 +4308,7 @@ with given value or <code>nil</code>.</p>
 
 <p>By default, a new array is created and yielded for each group.</p>
 
-<ul><li>If <em>reuse</em> is given, the array can be reused</li><li>If <em>reuse</em> is an <code><a href="Array.html">Array</a></code>, this array will be reused</li><li>If <em>reuse</em> is truthy, the method will create a new array and reuse it.</li></ul>
+<ul><li>If <em>reuse</em> is given, the array can be reused</li><li>If <em>reuse</em> is an <code>Array</code>, this array will be reused</li><li>If <em>reuse</em> is truthy, the method will create a new array and reuse it.</li></ul>
 
 <p>This can be used to prevent many memory allocations when each slice of
 interest is to be used in a read-only fashion.</p></div>
@@ -4316,7 +4316,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L514" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L514" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4337,7 +4337,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L529" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L529" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4359,7 +4359,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L540" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L540" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4381,7 +4381,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L554" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L554" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4394,7 +4394,7 @@ interest is to be used in a read-only fashion.</p></div>
         <a class="method-permalink" href="#index_by%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Converts an <code><a href="Enumerable.html">Enumerable</a></code> to a <code><a href="Hash.html">Hash</a></code> by using the value returned by the block
+        <div class="doc"><p>Converts an <code>Enumerable</code> to a <code>Hash</code> by using the value returned by the block
 as the hash key.
 Be aware, if two elements return the same value as a key one will override
 the other. If you want to keep all values, then you should probably use
@@ -4408,7 +4408,7 @@ the other. If you want to keep all values, then you should probably use
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L570" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L570" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4432,7 +4432,7 @@ the other. If you want to keep all values, then you should probably use
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L649" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L649" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4445,7 +4445,7 @@ the other. If you want to keep all values, then you should probably use
         <a class="method-permalink" href="#join%28separator%3D%26quot%3B%26quot%3B%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> created by concatenating the elements in the collection,
+        <div class="doc"><p>Returns a <code>String</code> created by concatenating the elements in the collection,
 separated by <em>separator</em> (defaults to none).</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>].join(<span class="s">&quot;, &quot;</span>) <span class="c"># =&gt; &quot;1, 2, 3, 4, 5&quot;</span></code></pre></div>
@@ -4453,7 +4453,7 @@ separated by <em>separator</em> (defaults to none).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L618" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L618" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4478,7 +4478,7 @@ controlling how the printing is done via a block.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L667" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L667" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4491,7 +4491,7 @@ controlling how the printing is done via a block.</p>
         <a class="method-permalink" href="#join%28separator%3D%26quot%3B%26quot%3B%2C%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> created by concatenating the results of passing the elements
+        <div class="doc"><p>Returns a <code>String</code> created by concatenating the results of passing the elements
 in the collection to the passed block, separated by <em>separator</em> (defaults to none).</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>].join(<span class="s">&quot;, &quot;</span>) { <span class="o">|</span>i<span class="o">|</span> <span class="o">-</span>i } <span class="c"># =&gt; &quot;-1, -2, -3, -4, -5&quot;</span></code></pre></div>
@@ -4499,7 +4499,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L630" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L630" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4512,14 +4512,14 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
         <a class="method-permalink" href="#map%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with the results of running the block against each element of the collection.</p>
+        <div class="doc"><p>Returns an <code>Array</code> with the results of running the block against each element of the collection.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].map { <span class="o">|</span>i<span class="o">|</span> i <span class="o">*</span> <span class="n">10</span> } <span class="c"># =&gt; [10, 20, 30]</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L679" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L679" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4540,7 +4540,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L691" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L691" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4565,7 +4565,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L707" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L707" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4583,7 +4583,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L712" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L712" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4607,7 +4607,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L725" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L725" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4625,7 +4625,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L732" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L732" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4645,7 +4645,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L759" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L759" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4663,7 +4663,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L766" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L766" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4688,7 +4688,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L796" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L796" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4706,7 +4706,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L801" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L801" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4730,7 +4730,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L814" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L814" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4748,7 +4748,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L821" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L821" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4768,7 +4768,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L848" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L848" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4786,7 +4786,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L855" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L855" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4799,7 +4799,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
         <a class="method-permalink" href="#minmax-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with both the minimum and maximum value.</p>
+        <div class="doc"><p>Returns a <code>Tuple</code> with both the minimum and maximum value.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].minmax <span class="c"># =&gt; {1, 3}</span></code></pre>
 
@@ -4808,7 +4808,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L882" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L882" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4826,7 +4826,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L887" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L887" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4839,7 +4839,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
         <a class="method-permalink" href="#minmax_by%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with both the minimum and maximum values according to the passed block.</p>
+        <div class="doc"><p>Returns a <code>Tuple</code> with both the minimum and maximum values according to the passed block.</p>
 
 <pre><code>[<span class="s">&quot;Alice&quot;</span>, <span class="s">&quot;Bob&quot;</span>, <span class="s">&quot;Carl&quot;</span>].minmax_by { <span class="o">|</span>name<span class="o">|</span> name.size } <span class="c"># =&gt; {&quot;Bob&quot;, &quot;Alice&quot;}</span></code></pre>
 
@@ -4848,7 +4848,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L898" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L898" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4866,7 +4866,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L905" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L905" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4879,7 +4879,7 @@ in the collection to the passed block, separated by <em>separator</em> (defaults
         <a class="method-permalink" href="#minmax_of%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with both the minimum and maximum value
+        <div class="doc"><p>Returns a <code>Tuple</code> with both the minimum and maximum value
 the block returns when passed the elements in the collection.</p>
 
 <pre><code>[<span class="s">&quot;Alice&quot;</span>, <span class="s">&quot;Bob&quot;</span>, <span class="s">&quot;Carl&quot;</span>].minmax_of { <span class="o">|</span>name<span class="o">|</span> name.size } <span class="c"># =&gt; {3, 5}</span></code></pre>
@@ -4889,7 +4889,7 @@ the block returns when passed the elements in the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L941" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L941" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4907,7 +4907,7 @@ the block returns when passed the elements in the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L948" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L948" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4930,7 +4930,7 @@ for none of the elements of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L980" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L980" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4953,7 +4953,7 @@ for none of the elements of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L993" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L993" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4975,7 +4975,7 @@ for exactly one of the elements of the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1004" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1004" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4988,7 +4988,7 @@ for exactly one of the elements of the collection.</p>
         <a class="method-permalink" href="#partition%28%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Tuple.html">Tuple</a></code> with two arrays. The first one contains the elements
+        <div class="doc"><p>Returns a <code>Tuple</code> with two arrays. The first one contains the elements
 in the collection for which the passed block returned <code>true</code>,
 and the second one those for which it returned <code>false</code>.</p>
 
@@ -4997,7 +4997,7 @@ and the second one those for which it returned <code>false</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1020" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1020" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5021,7 +5021,7 @@ and the second one those for which it returned <code>false</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1218" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1218" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5046,7 +5046,7 @@ in the collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1236" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1236" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5073,7 +5073,7 @@ are supported.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1182" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1182" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5103,7 +5103,7 @@ are supported.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1203" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1203" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5128,7 +5128,7 @@ the return value for the method. The initial value for the accumulator is the fi
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L588" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L588" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5148,7 +5148,7 @@ the return value for the method. The initial value for the accumulator is the fi
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L605" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L605" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5161,7 +5161,7 @@ the return value for the method. The initial value for the accumulator is the fi
         <a class="method-permalink" href="#reject%28%26block%3AT-%3E%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection for which
+        <div class="doc"><p>Returns an <code>Array</code> with all the elements in the collection for which
 the passed block returns <code>false</code>.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>].reject { <span class="o">|</span>i<span class="o">|</span> i <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">0</span> } <span class="c"># =&gt; [1, 3, 5]</span></code></pre></div>
@@ -5169,7 +5169,7 @@ the passed block returns <code>false</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1035" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1035" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5182,7 +5182,7 @@ the passed block returns <code>false</code>.</p>
         <a class="method-permalink" href="#select%28%26block%3AT-%3E%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection for which
+        <div class="doc"><p>Returns an <code>Array</code> with all the elements in the collection for which
 the passed block returns <code>true</code>.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">6</span>].select { <span class="o">|</span>i<span class="o">|</span> i <span class="o">%</span> <span class="n">2</span> <span class="o">==</span> <span class="n">0</span> } <span class="c"># =&gt; [2, 4, 6]</span></code></pre></div>
@@ -5190,7 +5190,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1047" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1047" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5210,7 +5210,7 @@ the passed block returns <code>true</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1058" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1058" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5223,7 +5223,7 @@ the passed block returns <code>true</code>.</p>
         <a class="method-permalink" href="#skip%28count%3AInt%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with the first <em>count</em> elements removed
+        <div class="doc"><p>Returns an <code>Array</code> with the first <em>count</em> elements removed
 from the original collection.</p>
 
 <p>If <em>count</em> is bigger than the number of elements in the collection, returns an empty array.</p>
@@ -5233,7 +5233,7 @@ from the original collection.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1070" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1070" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5247,7 +5247,7 @@ from the original collection.</p>
       </div>
       
         <div class="doc"><p>Skips elements up to, but not including, the first element for which
-the block returns <code>nil</code> or <code>false</code> and returns an <code><a href="Array.html">Array</a></code>
+the block returns <code>nil</code> or <code>false</code> and returns an <code>Array</code>
 containing the remaining elements.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">0</span>].skip_while { <span class="o">|</span>i<span class="o">|</span> i <span class="o"><</span> <span class="n">3</span> } <span class="c"># =&gt; [3, 4, 5, 0]</span></code></pre></div>
@@ -5255,7 +5255,7 @@ containing the remaining elements.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1087" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1087" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5285,7 +5285,7 @@ are supported.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1132" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1132" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5312,7 +5312,7 @@ are supported.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5336,7 +5336,7 @@ are supported.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1164" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1164" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5360,7 +5360,7 @@ are supported.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1147" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1147" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5374,14 +5374,14 @@ are supported.</p>
       </div>
       
         <div class="doc"><p>Passes elements to the block until the block returns <code>nil</code> or <code>false</code>,
-then stops iterating and returns an <code><a href="Array.html">Array</a></code> of all prior elements.</p>
+then stops iterating and returns an <code>Array</code> of all prior elements.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>, <span class="n">5</span>, <span class="n">0</span>].take_while { <span class="o">|</span>i<span class="o">|</span> i <span class="o"><</span> <span class="n">3</span> } <span class="c"># =&gt; [1, 2]</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1262" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1262" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5394,14 +5394,14 @@ then stops iterating and returns an <code><a href="Array.html">Array</a></code> 
         <a class="method-permalink" href="#to_a-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with all the elements in the collection.</p>
+        <div class="doc"><p>Returns an <code>Array</code> with all the elements in the collection.</p>
 
 <pre><code>(<span class="n">1</span>..<span class="n">5</span>).to_a <span class="c"># =&gt; [1, 2, 3, 4, 5]</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1276" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1276" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5414,8 +5414,8 @@ then stops iterating and returns an <code><a href="Array.html">Array</a></code> 
         <a class="method-permalink" href="#to_h-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a <code><a href="Hash.html">Hash</a></code> out of an Enumerable where each element is a
-2 element structure (for instance a <code><a href="Tuple.html">Tuple</a></code> or an <code><a href="Array.html">Array</a></code>).</p>
+        <div class="doc"><p>Creates a <code>Hash</code> out of an Enumerable where each element is a
+2 element structure (for instance a <code>Tuple</code> or an <code>Array</code>).</p>
 
 <pre><code>[[<span class="n">:a</span>, <span class="n">:b</span>], [<span class="n">:c</span>, <span class="n">:d</span>]].to_h        <span class="c"># =&gt; {:a =&gt; :b, :c =&gt; :d}</span>
 <span class="t">Tuple</span>.<span class="k">new</span>({<span class="n">:a</span>, <span class="n">1</span>}, {<span class="n">:c</span>, <span class="n">2</span>}).to_h <span class="c"># =&gt; {:a =&gt; 1, :c =&gt; 2}</span></code></pre></div>
@@ -5423,7 +5423,7 @@ then stops iterating and returns an <code><a href="Array.html">Array</a></code> 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/enumerable.cr#L1289" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/enumerable.cr#L1289" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5436,12 +5436,12 @@ then stops iterating and returns an <code><a href="Array.html">Array</a></code> 
         <a class="method-permalink" href="#to_set-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Set.html">Set</a></code> with each unique element in the enumerable.</p></div>
+        <div class="doc"><p>Returns a new <code>Set</code> with each unique element in the enumerable.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L403" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L403" target="_blank">View source</a>]
         
       </div>
     </div>

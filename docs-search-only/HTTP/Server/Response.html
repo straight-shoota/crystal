@@ -3112,11 +3112,11 @@
 the response body. Once response output is written, changing the <code>status</code>
 and <code><a href="../../HTTP/Server/Response.html#headers%3AHTTP%3A%3AHeaders-instance-method">#headers</a></code> properties has no effect.</p>
 
-<p>The <code><a href="../../HTTP/Server.html">HTTP::Server</a>::Response</code> is a write-only <code><a href="../../IO.html">IO</a></code>, so all <code><a href="../../IO.html">IO</a></code> methods are available
+<p>The <code><a href="../../HTTP/Server/Response.html">HTTP::Server::Response</a></code> is a write-only <code>IO</code>, so all <code>IO</code> methods are available
 in it.</p>
 
 <p>A response can be upgraded with the <code><a href="../../HTTP/Server/Response.html#upgrade%28%26block%29-instance-method">#upgrade</a></code> method. Once invoked, headers
-are written and the connection <code><a href="../../IO.html">IO</a></code> (a socket) is yielded to the given block.
+are written and the connection <code>IO</code> (a socket) is yielded to the given block.
 The block must invoke <code><a href="../../HTTP/Server/Response.html#close-instance-method">#close</a></code> afterwards, the server won't do it in this case.
 This is useful to implement protocol upgrades, such as websockets.</p>
 
@@ -3136,7 +3136,7 @@ This is useful to implement protocol upgrades, such as websockets.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L15" target="_blank">http/server/response.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L15" target="_blank">http/server/response.cr</a>
     
     <br/>
   
@@ -3197,14 +3197,14 @@ This is useful to implement protocol upgrades, such as websockets.</p>
       <li class="entry-summary">
         <a href="#output%3AIO-instance-method" class="signature"><strong>#output</strong> : IO</a>
         
-          <div class="summary"><p>The <code><a href="../../IO.html">IO</a></code> to which output is written.</p></div>
+          <div class="summary"><p>The <code>IO</code> to which output is written.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#output%3D%28output%3AIO%29-instance-method" class="signature"><strong>#output=</strong>(output : IO)</a>
         
-          <div class="summary"><p>The <code><a href="../../IO.html">IO</a></code> to which output is written.</p></div>
+          <div class="summary"><p>The <code>IO</code> to which output is written.</p></div>
         
       </li>
     
@@ -3232,7 +3232,7 @@ This is useful to implement protocol upgrades, such as websockets.</p>
       <li class="entry-summary">
         <a href="#upgrade%28%26block%29-instance-method" class="signature"><strong>#upgrade</strong>(&block)</a>
         
-          <div class="summary"><p>Upgrades this response, writing headers and yieling the connection <code><a href="../../IO.html">IO</a></code> (a socket) to the given block.</p></div>
+          <div class="summary"><p>Upgrades this response, writing headers and yieling the connection <code>IO</code> (a socket) to the given block.</p></div>
         
       </li>
     
@@ -3246,7 +3246,7 @@ This is useful to implement protocol upgrades, such as websockets.</p>
       <li class="entry-summary">
         <a href="#write%28slice%3ABytes%29-instance-method" class="signature"><strong>#write</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>See <code><a href="../../IO.html#write%28slice%3ABytes%29%3ANil-instance-method">IO#write(slice)</a></code>.</p></div>
+          <div class="summary"><p>See <code>IO<a href="../../HTTP/Server/Response.html#write%28slice%3ABytes%29-instance-method">#write(slice)</a></code>.</p></div>
         
       </li>
     
@@ -3690,7 +3690,7 @@ This method must be implemented if wrapping the response output.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3708,7 +3708,7 @@ This method must be implemented if wrapping the response output.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3726,7 +3726,7 @@ This method must be implemented if wrapping the response output.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3744,7 +3744,7 @@ This method must be implemented if wrapping the response output.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3762,7 +3762,7 @@ This method must be implemented if wrapping the response output.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3780,7 +3780,7 @@ This method must be implemented if wrapping the response output.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3793,13 +3793,13 @@ This method must be implemented if wrapping the response output.</p></div>
         <a class="method-permalink" href="#output%3AIO-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The <code><a href="../../IO.html">IO</a></code> to which output is written. This can be changed/wrapped to filter
+        <div class="doc"><p>The <code>IO</code> to which output is written. This can be changed/wrapped to filter
 the response body (for example to compress the output).</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3812,13 +3812,13 @@ the response body (for example to compress the output).</p></div>
         <a class="method-permalink" href="#output%3D%28output%3AIO%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>The <code><a href="../../IO.html">IO</a></code> to which output is written. This can be changed/wrapped to filter
+        <div class="doc"><p>The <code>IO</code> to which output is written. This can be changed/wrapped to filter
 the response body (for example to compress the output).</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3838,7 +3838,7 @@ the response body (for example to compress the output).</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L108" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L108" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3857,7 +3857,7 @@ body. If not set, the default value is 200 (OK).</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3876,7 +3876,7 @@ body. If not set, the default value is 200 (OK).</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3889,14 +3889,14 @@ body. If not set, the default value is 200 (OK).</p></div>
         <a class="method-permalink" href="#upgrade%28%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Upgrades this response, writing headers and yieling the connection <code><a href="../../IO.html">IO</a></code> (a socket) to the given block.
+        <div class="doc"><p>Upgrades this response, writing headers and yieling the connection <code>IO</code> (a socket) to the given block.
 The block must invoke <code><a href="../../HTTP/Server/Response.html#close-instance-method">#close</a></code> afterwards, the server won't do it in this case.
 This is useful to implement protocol upgrades, such as websockets.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L82" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L82" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3914,7 +3914,7 @@ This is useful to implement protocol upgrades, such as websockets.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3927,12 +3927,12 @@ This is useful to implement protocol upgrades, such as websockets.</p></div>
         <a class="method-permalink" href="#write%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="../../IO.html#write%28slice%3ABytes%29%3ANil-instance-method">IO#write(slice)</a></code>.</p></div>
+        <div class="doc"><p>See <code>IO<a href="../../HTTP/Server/Response.html#write%28slice%3ABytes%29-instance-method">#write(slice)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L65" target="_blank">View source</a>]
         
       </div>
     </div>

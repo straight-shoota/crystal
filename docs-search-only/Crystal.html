@@ -3118,7 +3118,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/crystal/main.cr#L14" target="_blank">crystal/main.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/crystal/main.cr#L14" target="_blank">crystal/main.cr</a>
     
     <br/>
   
@@ -3131,12 +3131,12 @@
   <dl>
     
       <dt class="entry-const" id="BUILD_COMMIT">
-        <strong>BUILD_COMMIT</strong> = <code><span class="s">&quot;4ef2ac089&quot;</span></code>
+        <strong>BUILD_COMMIT</strong> = <code><span class="s">&quot;7d3285e76&quot;</span></code>
       </dt>
       
     
       <dt class="entry-const" id="BUILD_DATE">
-        <strong>BUILD_DATE</strong> = <code><span class="s">&quot;2017-11-16&quot;</span></code>
+        <strong>BUILD_DATE</strong> = <code><span class="s">&quot;2017-11-21&quot;</span></code>
       </dt>
       
     
@@ -3151,7 +3151,7 @@
       
     
       <dt class="entry-const" id="DESCRIPTION">
-        <strong>DESCRIPTION</strong> = <code><span class="s">&quot;Crystal 0.23.0+333 [4ef2ac089] (2017-11-16)\n\nLLVM: 3.8.0\nDefault target: x86_64-unknown-linux-gnu&quot;</span></code>
+        <strong>DESCRIPTION</strong> = <code><span class="s">&quot;Crystal 0.23.0+336 [7d3285e76] (2017-11-21)\n\nLLVM: 3.8.0\nDefault target: x86_64-unknown-linux-gnu&quot;</span></code>
       </dt>
       
     
@@ -3166,7 +3166,7 @@
       
     
       <dt class="entry-const" id="VERSION">
-        <strong>VERSION</strong> = <code><span class="s">&quot;0.23.0+333&quot;</span></code>
+        <strong>VERSION</strong> = <code><span class="s">&quot;0.23.0+336&quot;</span></code>
       </dt>
       
     
@@ -3227,7 +3227,7 @@
       
         <div class="doc"><p>Defines the main routine run by normal Crystal programs:</p>
 
-<ul><li>Initializes the GC</li><li>Invokes the given <em>block</em></li><li>Handles unhandled exceptions</li><li>Invokes <code>at_exit</code> handlers</li><li>Flushes <code><a href="toplevel.html#STDOUT">STDOUT</a></code> and <code><a href="toplevel.html#STDERR">STDERR</a></code></li></ul>
+<ul><li>Initializes the GC</li><li>Invokes the given <em>block</em></li><li>Handles unhandled exceptions</li><li>Invokes <code>at_exit</code> handlers</li><li>Flushes <code>STDOUT</code> and <code>STDERR</code></li></ul>
 
 <p>This method can be invoked if you need to define a custom
 main (as in C main) function, doing all the above steps.</p>
@@ -3250,7 +3250,7 @@ redefinition of C's main is needed.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/crystal/main.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/crystal/main.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3272,7 +3272,7 @@ any handled exception, and then runs <code>at_exit</code> handlers.</p>
 don't need to invoke it.</p>
 
 <p>However, if you need to define a special main C function,
-you can redefine main and invoke <code><a href="Crystal.html#main%28%26block%29-class-method">Crystal.main</a></code> from it:</p>
+you can redefine main and invoke <code>Crystal<a href="Crystal.html#main%28%26block%29-class-method">.main</a></code> from it:</p>
 
 <pre><code><span class="k">fun</span> main(argc : <span class="t">Int32</span>, argv : <span class="t">UInt8</span><span class="o">**</span>) : <span class="t">Int32</span>
   <span class="c"># some setup before Crystal main</span>
@@ -3280,20 +3280,20 @@ you can redefine main and invoke <code><a href="Crystal.html#main%28%26block%29-
   <span class="c"># some cleanup logic after Crystal main</span>
 <span class="k">end</span></code></pre>
 
-<p>The <code><a href="Crystal.html#main%28%26block%29-class-method">Crystal.main</a></code> can also be passed as a callback:</p>
+<p>The <code>Crystal<a href="Crystal.html#main%28%26block%29-class-method">.main</a></code> can also be passed as a callback:</p>
 
 <pre><code><span class="k">fun</span> main(argc : <span class="t">Int32</span>, argv : <span class="t">UInt8</span><span class="o">**</span>) : <span class="t">Int32</span>
   <span class="t">LibFoo</span>.init_foo_and_invoke_main(argc, argv, -><span class="t">Crystal</span>.main)
 <span class="k">end</span></code></pre>
 
-<p>Note that before <code><a href="Crystal.html#main%28%26block%29-class-method">Crystal.main</a></code> is invoked the GC
+<p>Note that before <code>Crystal<a href="Crystal.html#main%28%26block%29-class-method">.main</a></code> is invoked the GC
 is not setup yet, so nothing that allocates memory
 in Crystal (like <code>new</code> for classes) can be used.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/crystal/main.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/crystal/main.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3310,13 +3310,13 @@ in Crystal (like <code>new</code> for classes) can be used.</p></div>
 after initializing the GC and before executing <code>at_exit</code> handlers.</p>
 
 <p>You should never invoke this method unless you need to
-redefine C's main function. See <code><a href="Crystal.html#main%28%26block%29-class-method">Crystal.main</a></code> for
+redefine C's main function. See <code>Crystal<a href="Crystal.html#main%28%26block%29-class-method">.main</a></code> for
 more details.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/crystal/main.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/crystal/main.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>

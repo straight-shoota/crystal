@@ -3111,11 +3111,11 @@ file format, described at <a href="https://pkware.cachefly.net/webdocs/APPNOTE/A
 
 <p>Two types are provided to read from zip files:</p>
 
-<ul><li><code><a href="Zip/File.html">Zip::File</a></code>: can read zip entries from a <code><a href="Zip/File.html">File</a></code> or from an <code><a href="IO/Memory.html">IO::Memory</a></code>
+<ul><li><code><a href="Zip/File.html">Zip::File</a></code>: can read zip entries from a <code>File</code> or from an <code><a href="IO/Memory.html">IO::Memory</a></code>
 and provides random read access to its entries.</li><li><code><a href="Zip/Reader.html">Zip::Reader</a></code>: can only read zip entries sequentially from any `IO.</li></ul>
 
 <p><code><a href="Zip/File.html">Zip::File</a></code> is the preferred method to read zip files if you
-can provide a <code><a href="Zip/File.html">File</a></code>, because it's a bit more flexible and provides
+can provide a <code>File</code>, because it's a bit more flexible and provides
 more complete information for zip entries (such as comments).</p>
 
 <p>When reading zip files, CRC32 checksum values are automatically
@@ -3125,7 +3125,7 @@ be raised if the computed CRC32 checksum does not match.</p>
 <h3>Writer zip files</h3>
 
 <p>Use <code><a href="Zip/Writer.html">Zip::Writer</a></code>, which writes zip entries sequentially to
-any <code><a href="IO.html">IO</a></code>.</p>
+any <code>IO</code>.</p>
 
 <p><span class="flag purple">NOTE</span>  only compression methods 0 (STORED) and 8 (DEFLATED) are
 supported. Additionally, ZIP64 is not yet supported.</p>
@@ -3146,17 +3146,17 @@ supported. Additionally, ZIP64 is not yet supported.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/checksum_reader.cr#L1" target="_blank">zip/checksum_reader.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/checksum_reader.cr#L1" target="_blank">zip/checksum_reader.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/checksum_writer.cr#L1" target="_blank">zip/checksum_writer.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/checksum_writer.cr#L1" target="_blank">zip/checksum_writer.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/zip.cr#L30" target="_blank">zip/zip.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/zip.cr#L30" target="_blank">zip/zip.cr</a>
     
     <br/>
   

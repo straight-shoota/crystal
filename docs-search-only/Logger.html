@@ -3106,14 +3106,14 @@
 
   <h2>Overview</h2>
 
-  <p>The <code><a href="Logger.html">Logger</a></code> class provides a simple but sophisticated logging utility that you can use to output messages.</p>
+  <p>The <code>Logger</code> class provides a simple but sophisticated logging utility that you can use to output messages.</p>
 
-<p>The messages have associated levels, such as <code><a href="Logger.html#INFO">INFO</a></code> or <code><a href="Logger.html#ERROR">ERROR</a></code> that indicate their importance.
-You can then give the <code><a href="Logger.html">Logger</a></code> a level, and only messages at that level of higher will be printed.</p>
+<p>The messages have associated levels, such as <code>INFO</code> or <code>ERROR</code> that indicate their importance.
+You can then give the <code>Logger</code> a level, and only messages at that level of higher will be printed.</p>
 
-<p>For instance, in a production system, you may have your <code><a href="Logger.html">Logger</a></code> set to <code><a href="Logger.html#INFO">INFO</a></code> or even <code><a href="Logger.html#WARN">WARN</a></code>.
+<p>For instance, in a production system, you may have your <code>Logger</code> set to <code>INFO</code> or even <code>WARN</code>.
 When you are developing the system, however, you probably want to know about the program’s internal state,
-and would set the <code><a href="Logger.html">Logger</a></code> to <code><a href="Logger.html#DEBUG">DEBUG</a></code>.</p>
+and would set the <code>Logger</code> to <code>DEBUG</code>.</p>
 
 <p>If logging to multiple locations is required, an <code><a href="IO/MultiWriter.html">IO::MultiWriter</a></code> can be
 used.</p>
@@ -3156,7 +3156,7 @@ log.warn(<span class="s">&quot;Nothing to do!&quot;</span>)
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L36" target="_blank">logger.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L36" target="_blank">logger.cr</a>
     
     <br/>
   
@@ -3231,98 +3231,98 @@ log.warn(<span class="s">&quot;Nothing to do!&quot;</span>)
       <li class="entry-summary">
         <a href="#debug%28progname%3Dnil%2C%26block%29-instance-method" class="signature"><strong>#debug</strong>(progname = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>.</p></div>
+          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code>DEBUG</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#debug%28message%2Cprogname%3Dnil%29-instance-method" class="signature"><strong>#debug</strong>(message, progname = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>.</p></div>
+          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>DEBUG</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#debug%3F-instance-method" class="signature"><strong>#debug?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>DEBUG</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#error%28progname%3Dnil%2C%26block%29-instance-method" class="signature"><strong>#error</strong>(progname = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>.</p></div>
+          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code>ERROR</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#error%28message%2Cprogname%3Dnil%29-instance-method" class="signature"><strong>#error</strong>(message, progname = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>.</p></div>
+          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>ERROR</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#error%3F-instance-method" class="signature"><strong>#error?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>ERROR</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#fatal%28progname%3Dnil%2C%26block%29-instance-method" class="signature"><strong>#fatal</strong>(progname = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>.</p></div>
+          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code>FATAL</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#fatal%28message%2Cprogname%3Dnil%29-instance-method" class="signature"><strong>#fatal</strong>(message, progname = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>.</p></div>
+          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>FATAL</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#fatal%3F-instance-method" class="signature"><strong>#fatal?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>FATAL</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#formatter%3ALogger%3A%3ASeverity%2CTime%2CString%2CString%2CIO-%3ENil-instance-method" class="signature"><strong>#formatter</strong> : Logger::Severity, Time, String, String, IO -> Nil</a>
         
-          <div class="summary"><p>Customizable <code><a href="Proc.html">Proc</a></code> (with a reasonable default) which the <code><a href="Logger.html">Logger</a></code> uses to format and print its entries.</p></div>
+          <div class="summary"><p>Customizable <code>Proc</code> (with a reasonable default) which the <code>Logger</code> uses to format and print its entries.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#formatter%3D%28formatter%29-instance-method" class="signature"><strong>#formatter=</strong>(formatter)</a>
         
-          <div class="summary"><p>Customizable <code><a href="Proc.html">Proc</a></code> (with a reasonable default) which the <code><a href="Logger.html">Logger</a></code> uses to format and print its entries.</p></div>
+          <div class="summary"><p>Customizable <code>Proc</code> (with a reasonable default) which the <code>Logger</code> uses to format and print its entries.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#info%28message%2Cprogname%3Dnil%29-instance-method" class="signature"><strong>#info</strong>(message, progname = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>.</p></div>
+          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>INFO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#info%28progname%3Dnil%2C%26block%29-instance-method" class="signature"><strong>#info</strong>(progname = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>.</p></div>
+          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code>INFO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#info%3F-instance-method" class="signature"><strong>#info?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>INFO</code>.</p></div>
         
       </li>
     
@@ -3363,42 +3363,42 @@ log.warn(<span class="s">&quot;Nothing to do!&quot;</span>)
       <li class="entry-summary">
         <a href="#unknown%28message%2Cprogname%3Dnil%29-instance-method" class="signature"><strong>#unknown</strong>(message, progname = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>.</p></div>
+          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>UNKNOWN</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unknown%28progname%3Dnil%2C%26block%29-instance-method" class="signature"><strong>#unknown</strong>(progname = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>.</p></div>
+          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code>UNKNOWN</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unknown%3F-instance-method" class="signature"><strong>#unknown?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>UNKNOWN</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#warn%28progname%3Dnil%2C%26block%29-instance-method" class="signature"><strong>#warn</strong>(progname = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>.</p></div>
+          <div class="summary"><p>Logs the message as returned from the given block if the logger's current severity is lower or equal to <code>WARN</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#warn%28message%2Cprogname%3Dnil%29-instance-method" class="signature"><strong>#warn</strong>(message, progname = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>.</p></div>
+          <div class="summary"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>WARN</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#warn%3F-instance-method" class="signature"><strong>#warn?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>WARN</code>.</p></div>
         
       </li>
     
@@ -3620,7 +3620,7 @@ If <em>io</em> is <code>nil</code> then all log calls will be silently ignored.<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L110" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3645,7 +3645,7 @@ If <em>io</em> is <code>nil</code> then all log calls will be silently ignored.<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L119" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L119" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3659,13 +3659,13 @@ If <em>io</em> is <code>nil</code> then all log calls will be silently ignored.<
       </div>
       
         <div class="doc"><p>Logs the message as returned from the given block if the logger's current severity
-is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>. The block is not run if the severity is higher.
+is lower or equal to <code>DEBUG</code>. The block is not run if the severity is higher.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3678,13 +3678,13 @@ is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>. The blo
         <a class="method-permalink" href="#debug%28message%2Cprogname%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>.
+        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>DEBUG</code>.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3697,12 +3697,12 @@ is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>. The blo
         <a class="method-permalink" href="#debug%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>DEBUG</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3716,13 +3716,13 @@ is lower or equal to <code><a href="Logger.html#DEBUG">DEBUG</a></code>. The blo
       </div>
       
         <div class="doc"><p>Logs the message as returned from the given block if the logger's current severity
-is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>. The block is not run if the severity is higher.
+is lower or equal to <code>ERROR</code>. The block is not run if the severity is higher.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3735,13 +3735,13 @@ is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>. The blo
         <a class="method-permalink" href="#error%28message%2Cprogname%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>.
+        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>ERROR</code>.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3754,12 +3754,12 @@ is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>. The blo
         <a class="method-permalink" href="#error%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>ERROR</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3773,13 +3773,13 @@ is lower or equal to <code><a href="Logger.html#ERROR">ERROR</a></code>. The blo
       </div>
       
         <div class="doc"><p>Logs the message as returned from the given block if the logger's current severity
-is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>. The block is not run if the severity is higher.
+is lower or equal to <code>FATAL</code>. The block is not run if the severity is higher.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3792,13 +3792,13 @@ is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>. The blo
         <a class="method-permalink" href="#fatal%28message%2Cprogname%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>.
+        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>FATAL</code>.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3811,12 +3811,12 @@ is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>. The blo
         <a class="method-permalink" href="#fatal%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>FATAL</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3829,13 +3829,13 @@ is lower or equal to <code><a href="Logger.html#FATAL">FATAL</a></code>. The blo
         <a class="method-permalink" href="#formatter%3ALogger%3A%3ASeverity%2CTime%2CString%2CString%2CIO-%3ENil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Customizable <code><a href="Proc.html">Proc</a></code> (with a reasonable default)
-which the <code><a href="Logger.html">Logger</a></code> uses to format and print its entries.</p>
+        <div class="doc"><p>Customizable <code>Proc</code> (with a reasonable default)
+which the <code>Logger</code> uses to format and print its entries.</p>
 
 <p>Use this setter to provide a custom formatter.
-The <code><a href="Logger.html">Logger</a></code> will invoke it with the following arguments:</p>
+The <code>Logger</code> will invoke it with the following arguments:</p>
 
-<ul><li>severity: a <code><a href="Logger/Severity.html">Logger::Severity</a></code></li><li>datetime: <code><a href="Time.html">Time</a></code>, the entry's timestamp</li><li>progname: <code><a href="String.html">String</a></code>, the program name, if set when the logger was built</li><li>message: <code><a href="String.html">String</a></code>, the body of a message</li><li>io: <code><a href="IO.html">IO</a></code>, the Logger's stream, to which you must write the final output</li></ul>
+<ul><li>severity: a <code><a href="Logger/Severity.html">Logger::Severity</a></code></li><li>datetime: <code>Time</code>, the entry's timestamp</li><li>progname: <code>String</code>, the program name, if set when the logger was built</li><li>message: <code>String</code>, the body of a message</li><li>io: <code>IO</code>, the Logger's stream, to which you must write the final output</li></ul>
 
 <p>Example:</p>
 
@@ -3859,7 +3859,7 @@ logger.warn(<span class="s">&quot;Fear leads to anger. Anger leads to hate. Hate
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L71" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L71" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3872,13 +3872,13 @@ logger.warn(<span class="s">&quot;Fear leads to anger. Anger leads to hate. Hate
         <a class="method-permalink" href="#formatter%3D%28formatter%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Customizable <code><a href="Proc.html">Proc</a></code> (with a reasonable default)
-which the <code><a href="Logger.html">Logger</a></code> uses to format and print its entries.</p>
+        <div class="doc"><p>Customizable <code>Proc</code> (with a reasonable default)
+which the <code>Logger</code> uses to format and print its entries.</p>
 
 <p>Use this setter to provide a custom formatter.
-The <code><a href="Logger.html">Logger</a></code> will invoke it with the following arguments:</p>
+The <code>Logger</code> will invoke it with the following arguments:</p>
 
-<ul><li>severity: a <code><a href="Logger/Severity.html">Logger::Severity</a></code></li><li>datetime: <code><a href="Time.html">Time</a></code>, the entry's timestamp</li><li>progname: <code><a href="String.html">String</a></code>, the program name, if set when the logger was built</li><li>message: <code><a href="String.html">String</a></code>, the body of a message</li><li>io: <code><a href="IO.html">IO</a></code>, the Logger's stream, to which you must write the final output</li></ul>
+<ul><li>severity: a <code><a href="Logger/Severity.html">Logger::Severity</a></code></li><li>datetime: <code>Time</code>, the entry's timestamp</li><li>progname: <code>String</code>, the program name, if set when the logger was built</li><li>message: <code>String</code>, the body of a message</li><li>io: <code>IO</code>, the Logger's stream, to which you must write the final output</li></ul>
 
 <p>Example:</p>
 
@@ -3902,7 +3902,7 @@ logger.warn(<span class="s">&quot;Fear leads to anger. Anger leads to hate. Hate
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L71" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L71" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3915,13 +3915,13 @@ logger.warn(<span class="s">&quot;Fear leads to anger. Anger leads to hate. Hate
         <a class="method-permalink" href="#info%28message%2Cprogname%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>.
+        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>INFO</code>.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3935,13 +3935,13 @@ logger.warn(<span class="s">&quot;Fear leads to anger. Anger leads to hate. Hate
       </div>
       
         <div class="doc"><p>Logs the message as returned from the given block if the logger's current severity
-is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>. The block is not run if the severity is higher.
+is lower or equal to <code>INFO</code>. The block is not run if the severity is higher.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3954,12 +3954,12 @@ is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>. The block
         <a class="method-permalink" href="#info%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>INFO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3975,7 +3975,7 @@ is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>. The block
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3991,7 +3991,7 @@ is lower or equal to <code><a href="Logger.html#INFO">INFO</a></code>. The block
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4010,7 +4010,7 @@ severity. <em>progname</em> overrides a default progname set in this logger.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L153" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L153" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4030,7 +4030,7 @@ if <em>severity</em> is lower. <em>progname</em> overrides a default progname se
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L161" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L161" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4046,7 +4046,7 @@ if <em>severity</em> is lower. <em>progname</em> overrides a default progname se
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4062,7 +4062,7 @@ if <em>severity</em> is lower. <em>progname</em> overrides a default progname se
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4075,13 +4075,13 @@ if <em>severity</em> is lower. <em>progname</em> overrides a default progname se
         <a class="method-permalink" href="#unknown%28message%2Cprogname%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>.
+        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>UNKNOWN</code>.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4095,13 +4095,13 @@ if <em>severity</em> is lower. <em>progname</em> overrides a default progname se
       </div>
       
         <div class="doc"><p>Logs the message as returned from the given block if the logger's current severity
-is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>. The block is not run if the severity is higher.
+is lower or equal to <code>UNKNOWN</code>. The block is not run if the severity is higher.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4114,12 +4114,12 @@ is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>. The
         <a class="method-permalink" href="#unknown%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>UNKNOWN</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4133,13 +4133,13 @@ is lower or equal to <code><a href="Logger.html#UNKNOWN">UNKNOWN</a></code>. The
       </div>
       
         <div class="doc"><p>Logs the message as returned from the given block if the logger's current severity
-is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>. The block is not run if the severity is higher.
+is lower or equal to <code>WARN</code>. The block is not run if the severity is higher.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4152,13 +4152,13 @@ is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>. The block
         <a class="method-permalink" href="#warn%28message%2Cprogname%3Dnil%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>.
+        <div class="doc"><p>Logs <em>message</em> if the logger's current severity is lower or equal to <code>WARN</code>.
 <em>progname</em> overrides a default progname set in this logger.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4171,12 +4171,12 @@ is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>. The block
         <a class="method-permalink" href="#warn%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code><a href="Logger.html#WARN">WARN</a></code>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if the logger's current severity is lower or equal to <code>WARN</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/logger.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/logger.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>

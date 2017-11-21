@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p>Writes (streams) zip entries to an <code><a href="../IO.html">IO</a></code>.</p>
+  <p>Writes (streams) zip entries to an <code>IO</code>.</p>
 
 <h3>Example</h3>
 
@@ -3142,7 +3142,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L24" target="_blank">zip/writer.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L24" target="_blank">zip/writer.cr</a>
     
     <br/>
   
@@ -3199,14 +3199,14 @@
       <li class="entry-summary">
         <a href="#add%28filename%3AString%2C%26block%29-instance-method" class="signature"><strong>#add</strong>(filename : String, &block)</a>
         
-          <div class="summary"><p>Adds an entry that will have the given <em>filename</em> and current time (<code>Time.now</code>) and yields an <code><a href="../IO.html">IO</a></code> to write that entry's contents.</p></div>
+          <div class="summary"><p>Adds an entry that will have the given <em>filename</em> and current time (<code>Time.now</code>) and yields an <code>IO</code> to write that entry's contents.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add%28entry%3AEntry%2C%26block%29-instance-method" class="signature"><strong>#add</strong>(entry : Entry, &block)</a>
         
-          <div class="summary"><p>Adds an entry and yields <code><a href="../IO.html">IO</a></code> to write that entry's contents.</p></div>
+          <div class="summary"><p>Adds an entry and yields <code>IO</code> to write that entry's contents.</p></div>
         
       </li>
     
@@ -3262,14 +3262,14 @@
       <li class="entry-summary">
         <a href="#sync_close%3D%28sync_close%29-instance-method" class="signature"><strong>#sync_close=</strong>(sync_close)</a>
         
-          <div class="summary"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this writer.</p></div>
+          <div class="summary"><p>Whether to close the enclosed <code>IO</code> when closing this writer.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#sync_close%3F%3ABool-instance-method" class="signature"><strong>#sync_close?</strong> : Bool</a>
         
-          <div class="summary"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this writer.</p></div>
+          <div class="summary"><p>Whether to close the enclosed <code>IO</code> when closing this writer.</p></div>
         
       </li>
     
@@ -3490,7 +3490,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3508,7 +3508,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3532,7 +3532,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L52" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L52" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3551,7 +3551,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L59" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3570,13 +3570,13 @@ and closes it at the end.</p></div>
       </div>
       
         <div class="doc"><p>Adds an entry that will have the given <em>filename</em> and current
-time (<code>Time.now</code>) and yields an <code><a href="../IO.html">IO</a></code> to write that entry's
+time (<code>Time.now</code>) and yields an <code>IO</code> to write that entry's
 contents.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3589,13 +3589,13 @@ contents.</p></div>
         <a class="method-permalink" href="#add%28entry%3AEntry%2C%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Adds an entry and yields <code><a href="../IO.html">IO</a></code> to write that entry's contents.</p>
+        <div class="doc"><p>Adds an entry and yields <code>IO</code> to write that entry's contents.</p>
 
 <p>You can choose the Entry's compression method before adding it.</p>
 
 <ul><li>If the STORED compression method is used, its crc32, compressed
 size and uncompressed size <strong>must</strong> be set and be correct with
-respect to the data that will be written to the yielded <code><a href="../IO.html">IO</a></code>.</li><li>If the DEFLATED compression method is used, crc32, compresed
+respect to the data that will be written to the yielded <code>IO</code>.</li><li>If the DEFLATED compression method is used, crc32, compresed
 size and uncompressed size will be computed from the data
 written to the yielded IO.</li></ul>
 
@@ -3605,7 +3605,7 @@ written to the yielded IO.</li></ul>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L86" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L86" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3623,7 +3623,7 @@ written to the yielded IO.</li></ul>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L148" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L148" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3641,7 +3641,7 @@ written to the yielded IO.</li></ul>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L155" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L155" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3655,13 +3655,13 @@ written to the yielded IO.</li></ul>
       </div>
       
         <div class="doc"><p>Adds an entry that will have its data copied from the given <em>data</em>.
-If the given <em>data</em> is a <code><a href="../File.html">::File</a></code>, it is automatically closed
+If the given <em>data</em> is a <code>::File</code>, it is automatically closed
 after data is copied from it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L164" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L164" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3679,7 +3679,7 @@ after data is copied from it.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L172" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L172" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3697,7 +3697,7 @@ after data is copied from it.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L178" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L178" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3715,7 +3715,7 @@ after data is copied from it.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L29" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L29" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3733,7 +3733,7 @@ after data is copied from it.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3746,12 +3746,12 @@ after data is copied from it.</p></div>
         <a class="method-permalink" href="#sync_close%3D%28sync_close%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this writer.</p></div>
+        <div class="doc"><p>Whether to close the enclosed <code>IO</code> when closing this writer.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3764,12 +3764,12 @@ after data is copied from it.</p></div>
         <a class="method-permalink" href="#sync_close%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this writer.</p></div>
+        <div class="doc"><p>Whether to close the enclosed <code>IO</code> when closing this writer.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/zip/writer.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/zip/writer.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>

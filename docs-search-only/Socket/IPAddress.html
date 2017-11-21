@@ -3109,17 +3109,17 @@
   <p>IP address representation.</p>
 
 <p>Holds a binary representation of an IP address, either translated from a
-<code><a href="../String.html">String</a></code>, or directly received from an opened connection (e.g.
-<code>Socket#local_address</code>, <code><a href="../Socket.html#receive%28max_message_size%3D512%29%3ATuple%28String%2CAddress%29-instance-method">Socket#receive</a></code>).</p>
+<code>String</code>, or directly received from an opened connection (e.g.
+<code>Socket#local_address</code>, <code>Socket#receive</code>).</p>
 
 <p>Example:</p>
 
 <pre><code><span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span>.<span class="k">new</span>(<span class="s">&quot;127.0.0.1&quot;</span>, <span class="n">8080</span>)
 <span class="t">Socket</span><span class="t">::</span><span class="t">IPAddress</span>.<span class="k">new</span>(<span class="s">&quot;fe80::2ab2:bdff:fe59:8e2c&quot;</span>, <span class="n">1234</span>)</code></pre>
 
-<p><code><a href="../Socket/IPAddress.html">IPAddress</a></code> won't resolve domains, including <code>localhost</code>. If you must
-resolve an IP, or don't know whether a <code><a href="../String.html">String</a></code> constains an IP or a domain
-name, you should use <code><a href="../Socket/Addrinfo.html#resolve%28domain%2Cservice%2Cfamily%3AFamily%3F%3Dnil%2Ctype%3AType%3Dnil%2Cprotocol%3AProtocol%3DProtocol%3A%3AIP%2Ctimeout%3Dnil%29%3AArray%28Addrinfo%29-class-method">Addrinfo.resolve</a></code> instead.</p>
+<p><code>IPAddress</code> won't resolve domains, including <code>localhost</code>. If you must
+resolve an IP, or don't know whether a <code>String</code> constains an IP or a domain
+name, you should use <code>Addrinfo.resolve</code> instead.</p>
 
 
 
@@ -3137,7 +3137,7 @@ name, you should use <code><a href="../Socket/Addrinfo.html#resolve%28domain%2Cs
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L46" target="_blank">socket/address.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L46" target="_blank">socket/address.cr</a>
     
     <br/>
   
@@ -3152,7 +3152,7 @@ name, you should use <code><a href="../Socket/Addrinfo.html#resolve%28domain%2Cs
       <li class="entry-summary">
         <a href="#from%28sockaddr%3APointer%28LibC%3A%3ASockaddr%29%2Caddrlen%29%3AIPAddress-class-method" class="signature"><strong>.from</strong>(sockaddr : Pointer(LibC::Sockaddr), addrlen) : IPAddress</a>
         
-          <div class="summary"><p>Creates an <code><a href="../Socket/IPAddress.html">IPAddress</a></code> from the internal OS representation.</p></div>
+          <div class="summary"><p>Creates an <code>IPAddress</code> from the internal OS representation.</p></div>
         
       </li>
     
@@ -3188,7 +3188,7 @@ name, you should use <code><a href="../Socket/Addrinfo.html#resolve%28domain%2Cs
       <li class="entry-summary">
         <a href="#address-instance-method" class="signature"><strong>#address</strong></a>
         
-          <div class="summary"><p>Returns a <code><a href="../String.html">String</a></code> representation of the IP address.</p></div>
+          <div class="summary"><p>Returns a <code>String</code> representation of the IP address.</p></div>
         
       </li>
     
@@ -3467,13 +3467,13 @@ name, you should use <code><a href="../Socket/Addrinfo.html#resolve%28domain%2Cs
         <a class="method-permalink" href="#from%28sockaddr%3APointer%28LibC%3A%3ASockaddr%29%2Caddrlen%29%3AIPAddress-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates an <code><a href="../Socket/IPAddress.html">IPAddress</a></code> from the internal OS representation. Supports both
+        <div class="doc"><p>Creates an <code>IPAddress</code> from the internal OS representation. Supports both
 INET and INET6 families.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3489,7 +3489,7 @@ INET and INET6 families.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3505,7 +3505,7 @@ INET and INET6 families.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L78" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L78" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3521,7 +3521,7 @@ INET and INET6 families.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3544,7 +3544,7 @@ INET and INET6 families.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L135" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L135" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3557,7 +3557,7 @@ INET and INET6 families.</p></div>
         <a class="method-permalink" href="#address-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="../String.html">String</a></code> representation of the IP address.</p>
+        <div class="doc"><p>Returns a <code>String</code> representation of the IP address.</p>
 
 <p>Example:</p>
 
@@ -3567,7 +3567,7 @@ ip_address.address <span class="c"># =&gt; &quot;127.0.0.1&quot;</span></code></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3583,7 +3583,7 @@ ip_address.address <span class="c"># =&gt; &quot;127.0.0.1&quot;</span></code></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3599,7 +3599,7 @@ ip_address.address <span class="c"># =&gt; &quot;127.0.0.1&quot;</span></code></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L141" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3615,7 +3615,7 @@ ip_address.address <span class="c"># =&gt; &quot;127.0.0.1&quot;</span></code></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/socket/address.cr#L149" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/socket/address.cr#L149" target="_blank">View source</a>]
         
       </div>
     </div>

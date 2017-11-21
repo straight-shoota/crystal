@@ -3114,11 +3114,11 @@ obj[<span class="s">&quot;access&quot;</span>][<span class="n">1</span>][<span c
 obj[<span class="s">&quot;access&quot;</span>][<span class="n">1</span>][<span class="s">&quot;speed&quot;</span>].as_s <span class="c"># =&gt; &quot;slow&quot;</span></code></pre>
 
 <p>Note that methods used to traverse a JSON structure, <code><a href="../JSON/Any.html#%5B%5D%28index%3AInt%29%3AJSON%3A%3AAny-instance-method">#[]</a></code>, <code><a href="../JSON/Any.html#%5B%5D%3F%28index%3AInt%29%3AJSON%3A%3AAny%3F-instance-method">#[]?</a></code> and <code><a href="../JSON/Any.html#each%28%26block%29-instance-method">#each</a></code>,
-always return a <code><a href="../JSON/Any.html">JSON::Any</a></code> to allow further traversal. To convert them to <code><a href="../String.html">String</a></code>,
-<code><a href="../Int32.html">Int32</a></code>, etc., use the <code>as_</code> methods, such as <code><a href="../JSON/Any.html#as_s%3AString-instance-method">#as_s</a></code>, <code><a href="../JSON/Any.html#as_i%3AInt32-instance-method">#as_i</a></code>, which perform
+always return a <code><a href="../JSON/Any.html">JSON::Any</a></code> to allow further traversal. To convert them to <code>String</code>,
+<code>Int32</code>, etc., use the <code>as_</code> methods, such as <code><a href="../JSON/Any.html#as_s%3AString-instance-method">#as_s</a></code>, <code><a href="../JSON/Any.html#as_i%3AInt32-instance-method">#as_i</a></code>, which perform
 a type check against the raw underlying value. This means that invoking <code><a href="../JSON/Any.html#as_s%3AString-instance-method">#as_s</a></code>
 when the underlying value is not a String will raise: the value won't automatically
-be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
+be converted (parsed) to a <code>String</code>.</p>
 
 
 
@@ -3143,7 +3143,7 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L16" target="_blank">json/any.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L16" target="_blank">json/any.cr</a>
     
     <br/>
   
@@ -3195,161 +3195,161 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
       <li class="entry-summary">
         <a href="#%5B%5D%28index%3AInt%29%3AJSON%3A%3AAny-instance-method" class="signature"><strong>#[]</strong>(index : Int) : JSON::Any</a>
         
-          <div class="summary"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> and returns the element at the given index.</p></div>
+          <div class="summary"><p>Assumes the underlying value is an <code>Array</code> and returns the element at the given index.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%28key%3AString%29%3AJSON%3A%3AAny-instance-method" class="signature"><strong>#[]</strong>(key : String) : JSON::Any</a>
         
-          <div class="summary"><p>Assumes the underlying value is a <code><a href="../Hash.html">Hash</a></code> and returns the element with the given key.</p></div>
+          <div class="summary"><p>Assumes the underlying value is a <code>Hash</code> and returns the element with the given key.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%3F%28index%3AInt%29%3AJSON%3A%3AAny%3F-instance-method" class="signature"><strong>#[]?</strong>(index : Int) : JSON::Any?</a>
         
-          <div class="summary"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> and returns the element at the given index, or <code>nil</code> if out of bounds.</p></div>
+          <div class="summary"><p>Assumes the underlying value is an <code>Array</code> and returns the element at the given index, or <code>nil</code> if out of bounds.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%3F%28key%3AString%29%3AJSON%3A%3AAny%3F-instance-method" class="signature"><strong>#[]?</strong>(key : String) : JSON::Any?</a>
         
-          <div class="summary"><p>Assumes the underlying value is a <code><a href="../Hash.html">Hash</a></code> and returns the element with the given key, or <code>nil</code> if the key is not present.</p></div>
+          <div class="summary"><p>Assumes the underlying value is a <code>Hash</code> and returns the element with the given key, or <code>nil</code> if the key is not present.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_a%3AArray%28Type%29-instance-method" class="signature"><strong>#as_a</strong> : Array(Type)</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Array.html">Array</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Array</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_a%3F%3AArray%28Type%29%3F-instance-method" class="signature"><strong>#as_a?</strong> : Array(Type)?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Array.html">Array</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Array</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_bool%3ABool-instance-method" class="signature"><strong>#as_bool</strong> : Bool</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Bool.html">Bool</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_bool%3F%3ABool%3F-instance-method" class="signature"><strong>#as_bool?</strong> : Bool?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Bool.html">Bool</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_f%3AFloat64-instance-method" class="signature"><strong>#as_f</strong> : Float64</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float64.html">Float64</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_f32%3AFloat32-instance-method" class="signature"><strong>#as_f32</strong> : Float32</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float32.html">Float32</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_f32%3F%3AFloat32%3F-instance-method" class="signature"><strong>#as_f32?</strong> : Float32?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float32.html">Float32</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_f%3F%3AFloat64%3F-instance-method" class="signature"><strong>#as_f?</strong> : Float64?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float64.html">Float64</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_h%3AHash%28String%2CType%29-instance-method" class="signature"><strong>#as_h</strong> : Hash(String, Type)</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Hash.html">Hash</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Hash</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_h%3F%3AHash%28String%2CType%29%3F-instance-method" class="signature"><strong>#as_h?</strong> : Hash(String, Type)?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Hash.html">Hash</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Hash</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_i%3AInt32-instance-method" class="signature"><strong>#as_i</strong> : Int32</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int32.html">Int32</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_i64%3AInt64-instance-method" class="signature"><strong>#as_i64</strong> : Int64</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int64.html">Int64</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_i64%3F%3AInt64%3F-instance-method" class="signature"><strong>#as_i64?</strong> : Int64?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int64.html">Int64</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_i%3F%3AInt32%3F-instance-method" class="signature"><strong>#as_i?</strong> : Int32?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int32.html">Int32</a></code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_nil%3ANil-instance-method" class="signature"><strong>#as_nil</strong> : Nil</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../Nil.html">Nil</a></code>, and returns <code>nil</code>.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>Nil</code>, and returns <code>nil</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_s%3AString-instance-method" class="signature"><strong>#as_s</strong> : String</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../String.html">String</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>String</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#as_s%3F%3AString%3F-instance-method" class="signature"><strong>#as_s?</strong> : String?</a>
         
-          <div class="summary"><p>Checks that the underlying value is <code><a href="../String.html">String</a></code>, and returns its value.</p></div>
+          <div class="summary"><p>Checks that the underlying value is <code>String</code>, and returns its value.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each%28%26block%29-instance-method" class="signature"><strong>#each</strong>(&block)</a>
         
-          <div class="summary"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> or <code><a href="../Hash.html">Hash</a></code> and yields each of the elements or key/values, always as <code><a href="../JSON/Any.html">JSON::Any</a></code>.</p></div>
+          <div class="summary"><p>Assumes the underlying value is an <code>Array</code> or <code>Hash</code> and yields each of the elements or key/values, always as <code><a href="../JSON/Any.html">JSON::Any</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="../Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="../JSON/Any.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3363,7 +3363,7 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
       <li class="entry-summary">
         <a href="#size%3AInt-instance-method" class="signature"><strong>#size</strong> : Int</a>
         
-          <div class="summary"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> or <code><a href="../Hash.html">Hash</a></code> and returns its size.</p></div>
+          <div class="summary"><p>Assumes the underlying value is an <code>Array</code> or <code>Hash</code> and returns its size.</p></div>
         
       </li>
     
@@ -3883,7 +3883,7 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3901,7 +3901,7 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L20" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L20" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3926,7 +3926,7 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L260" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L260" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3944,7 +3944,7 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L255" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L255" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3957,14 +3957,14 @@ be converted (parsed) to a <code><a href="../String.html">String</a></code>.</p>
         <a class="method-permalink" href="#%5B%5D%28index%3AInt%29%3AJSON%3A%3AAny-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> and returns the element
+        <div class="doc"><p>Assumes the underlying value is an <code>Array</code> and returns the element
 at the given index.
-Raises if the underlying value is not an <code><a href="../Array.html">Array</a></code>.</p></div>
+Raises if the underlying value is not an <code>Array</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3977,14 +3977,14 @@ Raises if the underlying value is not an <code><a href="../Array.html">Array</a>
         <a class="method-permalink" href="#%5B%5D%28key%3AString%29%3AJSON%3A%3AAny-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Assumes the underlying value is a <code><a href="../Hash.html">Hash</a></code> and returns the element
+        <div class="doc"><p>Assumes the underlying value is a <code>Hash</code> and returns the element
 with the given key.
-Raises if the underlying value is not a <code><a href="../Hash.html">Hash</a></code>.</p></div>
+Raises if the underlying value is not a <code>Hash</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L97" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L97" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3997,14 +3997,14 @@ Raises if the underlying value is not a <code><a href="../Hash.html">Hash</a></c
         <a class="method-permalink" href="#%5B%5D%3F%28index%3AInt%29%3AJSON%3A%3AAny%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> and returns the element
+        <div class="doc"><p>Assumes the underlying value is an <code>Array</code> and returns the element
 at the given index, or <code>nil</code> if out of bounds.
-Raises if the underlying value is not an <code><a href="../Array.html">Array</a></code>.</p></div>
+Raises if the underlying value is not an <code>Array</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4017,14 +4017,14 @@ Raises if the underlying value is not an <code><a href="../Array.html">Array</a>
         <a class="method-permalink" href="#%5B%5D%3F%28key%3AString%29%3AJSON%3A%3AAny%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Assumes the underlying value is a <code><a href="../Hash.html">Hash</a></code> and returns the element
+        <div class="doc"><p>Assumes the underlying value is a <code>Hash</code> and returns the element
 with the given key, or <code>nil</code> if the key is not present.
-Raises if the underlying value is not a <code><a href="../Hash.html">Hash</a></code>.</p></div>
+Raises if the underlying value is not a <code>Hash</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L109" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4037,13 +4037,13 @@ Raises if the underlying value is not a <code><a href="../Hash.html">Hash</a></c
         <a class="method-permalink" href="#as_a%3AArray%28Type%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Array.html">Array</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>Array</code>, and returns its value.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L217" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L217" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4056,13 +4056,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_a%3F%3AArray%28Type%29%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Array.html">Array</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>Array</code>, and returns its value.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L223" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L223" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4075,13 +4075,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_bool%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Bool.html">Bool</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L145" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L145" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4094,13 +4094,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_bool%3F%3ABool%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Bool.html">Bool</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>Bool</code>, and returns its value.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L151" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L151" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4113,13 +4113,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_f%3AFloat64-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float64.html">Float64</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L181" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L181" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4132,13 +4132,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_f32%3AFloat32-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float32.html">Float32</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L193" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L193" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4151,13 +4151,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_f32%3F%3AFloat32%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float32.html">Float32</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float32</code>.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L199" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L199" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4170,13 +4170,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_f%3F%3AFloat64%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Float.html">Float</a></code>, and returns its value as an <code><a href="../Float64.html">Float64</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Float</code>, and returns its value as an <code>Float64</code>.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L187" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L187" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4189,13 +4189,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_h%3AHash%28String%2CType%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Hash.html">Hash</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>Hash</code>, and returns its value.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L229" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L229" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4208,13 +4208,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_h%3F%3AHash%28String%2CType%29%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Hash.html">Hash</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>Hash</code>, and returns its value.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L235" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L235" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4227,13 +4227,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_i%3AInt32-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int32.html">Int32</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L157" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L157" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4246,13 +4246,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_i64%3AInt64-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int64.html">Int64</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L169" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L169" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4265,13 +4265,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_i64%3F%3AInt64%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int64.html">Int64</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int64</code>.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L175" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L175" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4284,13 +4284,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_i%3F%3AInt32%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Int.html">Int</a></code>, and returns its value as an <code><a href="../Int32.html">Int32</a></code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Int</code>, and returns its value as an <code>Int32</code>.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L163" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L163" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4303,13 +4303,13 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#as_nil%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../Nil.html">Nil</a></code>, and returns <code>nil</code>.
+        <div class="doc"><p>Checks that the underlying value is <code>Nil</code>, and returns <code>nil</code>.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L139" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L139" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4322,13 +4322,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_s%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../String.html">String</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>String</code>, and returns its value.
 Raises otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L205" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L205" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4341,13 +4341,13 @@ Raises otherwise.</p></div>
         <a class="method-permalink" href="#as_s%3F%3AString%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Checks that the underlying value is <code><a href="../String.html">String</a></code>, and returns its value.
+        <div class="doc"><p>Checks that the underlying value is <code>String</code>, and returns its value.
 Returns <code>nil</code> otherwise.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L211" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L211" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4360,14 +4360,14 @@ Returns <code>nil</code> otherwise.</p></div>
         <a class="method-permalink" href="#each%28%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> or <code><a href="../Hash.html">Hash</a></code> and yields each
+        <div class="doc"><p>Assumes the underlying value is an <code>Array</code> or <code>Hash</code> and yields each
 of the elements or key/values, always as <code><a href="../JSON/Any.html">JSON::Any</a></code>.
-Raises if the underlying value is not an <code><a href="../Array.html">Array</a></code> or <code><a href="../Hash.html">Hash</a></code>.</p></div>
+Raises if the underlying value is not an <code>Array</code> or <code>Hash</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L122" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L122" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4380,12 +4380,12 @@ Raises if the underlying value is not an <code><a href="../Array.html">Array</a>
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="../Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="../JSON/Any.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L265" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L265" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4403,7 +4403,7 @@ Raises if the underlying value is not an <code><a href="../Array.html">Array</a>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L50" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L50" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4416,13 +4416,13 @@ Raises if the underlying value is not an <code><a href="../Array.html">Array</a>
         <a class="method-permalink" href="#size%3AInt-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Assumes the underlying value is an <code><a href="../Array.html">Array</a></code> or <code><a href="../Hash.html">Hash</a></code> and returns its size.
-Raises if the underlying value is not an <code><a href="../Array.html">Array</a></code> or <code><a href="../Hash.html">Hash</a></code>.</p></div>
+        <div class="doc"><p>Assumes the underlying value is an <code>Array</code> or <code>Hash</code> and returns its size.
+Raises if the underlying value is not an <code>Array</code> or <code>Hash</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>

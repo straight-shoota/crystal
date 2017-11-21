@@ -3110,8 +3110,8 @@
 
 <h3>One-shot usage</h3>
 
-<p>Without a block, an <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response</code> is returned and the response's body
-is available as a <code><a href="../String.html">String</a></code> by invoking <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+<p>Without a block, an <code><a href="../HTTP/Client/Response.html">HTTP::Client::Response</a></code> is returned and the response's body
+is available as a <code>String</code> by invoking <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code><span class="k">require</span> <span class="s">&quot;http/client&quot;</span>
 
@@ -3121,8 +3121,8 @@ response.body.lines.first <span class="c"># =&gt; &quot;&lt;!doctype html&gt;&qu
 
 <h3>Streaming</h3>
 
-<p>With a block, an <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response</code> body is returned and the response's body
-is available as an <code><a href="../IO.html">IO</a></code> by invoking <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+<p>With a block, an <code><a href="../HTTP/Client/Response.html">HTTP::Client::Response</a></code> body is returned and the response's body
+is available as an <code>IO</code> by invoking <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="k">require</span> <span class="s">&quot;http/client&quot;</span>
 
@@ -3171,7 +3171,7 @@ are silently ignored when reading text content.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L55" target="_blank">http/client.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L55" target="_blank">http/client.cr</a>
     
     <br/>
   
@@ -3226,7 +3226,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#delete%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method" class="signature"><strong>.delete</strong>(url, headers : HTTP::Headers? = <span class="n">nil</span>, tls = <span class="n">nil</span>, *, form : String | IO | Hash) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a DELETE request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a DELETE request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3275,7 +3275,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#get%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method" class="signature"><strong>.get</strong>(url, headers : HTTP::Headers? = <span class="n">nil</span>, tls = <span class="n">nil</span>, *, form : String | IO | Hash) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a GET request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a GET request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3296,7 +3296,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#head%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method" class="signature"><strong>.head</strong>(url, headers : HTTP::Headers? = <span class="n">nil</span>, tls = <span class="n">nil</span>, *, form : String | IO | Hash) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a HEAD request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a HEAD request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3331,7 +3331,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#patch%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method" class="signature"><strong>.patch</strong>(url, headers : HTTP::Headers? = <span class="n">nil</span>, tls = <span class="n">nil</span>, *, form : String | IO | Hash) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a PATCH request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a PATCH request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3352,7 +3352,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#post%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method" class="signature"><strong>.post</strong>(url, headers : HTTP::Headers? = <span class="n">nil</span>, tls = <span class="n">nil</span>, *, form : String | IO | Hash) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a POST request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a POST request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3373,7 +3373,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#put%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method" class="signature"><strong>.put</strong>(url, headers : HTTP::Headers? = <span class="n">nil</span>, tls = <span class="n">nil</span>, *, form : String | IO | Hash) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a PUT request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a PUT request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3478,7 +3478,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#delete</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : String | IO) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a DELETE request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a DELETE request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3492,7 +3492,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#delete</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : Hash(String, String) | NamedTuple) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a DELETE request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a DELETE request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3534,7 +3534,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#exec%28request%3AHTTP%3A%3ARequest%2C%26block%29-instance-method" class="signature"><strong>#exec</strong>(request : HTTP::Request, &block)</a>
         
-          <div class="summary"><p>Executes a request request and yields an <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response</code> to the block.</p></div>
+          <div class="summary"><p>Executes a request request and yields an <code><a href="../HTTP/Client/Response.html">HTTP::Client::Response</a></code> to the block.</p></div>
         
       </li>
     
@@ -3548,7 +3548,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#get</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : Hash(String, String) | NamedTuple) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a GET request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a GET request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3562,7 +3562,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#get</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : String | IO) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a GET request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a GET request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3590,7 +3590,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#head</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : Hash(String, String) | NamedTuple) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a HEAD request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a HEAD request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3604,7 +3604,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#head</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : String | IO) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a HEAD request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a HEAD request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3639,7 +3639,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#patch</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : Hash(String, String) | NamedTuple) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a PATCH request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a PATCH request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3653,7 +3653,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#patch</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : String | IO) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a PATCH request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a PATCH request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3688,7 +3688,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#post</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : Hash(String, String) | NamedTuple) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a POST request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a POST request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3702,7 +3702,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#post</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : String | IO) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a POST request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a POST request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3744,7 +3744,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#put</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : String | IO) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a PUT request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a PUT request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -3758,7 +3758,7 @@ are silently ignored when reading text content.</p>
       <li class="entry-summary">
         <a href="#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method" class="signature"><strong>#put</strong>(path, headers : HTTP::Headers? = <span class="n">nil</span>, *, form : Hash(String, String) | NamedTuple) : HTTP::Client::Response</a>
         
-          <div class="summary"><p>Executes a PUT request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>.</p></div>
+          <div class="summary"><p>Executes a PUT request with form data and returns a <code>Response</code>.</p></div>
         
       </li>
     
@@ -4001,7 +4001,7 @@ are silently ignored when reading text content.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4029,7 +4029,7 @@ https protocol, which defaults to port 443 and sets tls to <code>true</code>.</p
 as those will need to be passed to the client when a request is made.</p>
 
 <p>If <em>tls</em> is given it will be used, if not a new TLS context will be created.
-If <em>tls</em> is given and <em>uri</em> is a HTTP URI, <code><a href="../ArgumentError.html">ArgumentError</a></code> is raised.
+If <em>tls</em> is given and <em>uri</em> is a HTTP URI, <code>ArgumentError</code> is raised.
 In any case the active context can be accessed through <code><a href="../HTTP/Client.html#tls-instance-method">#tls</a></code>.</p>
 
 <p>This constructor will raise an exception if any scheme but HTTP or HTTPS
@@ -4038,7 +4038,7 @@ is used.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L181" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L181" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4061,7 +4061,7 @@ the client afterwards.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L200" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L200" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4089,7 +4089,7 @@ client.get(<span class="s">&quot;/&quot;</span>)</code></pre>
 as those will need to be passed to the client when a request is made.</p>
 
 <p>If <em>tls</em> is given it will be used, if not a new TLS context will be created.
-If <em>tls</em> is given and <em>uri</em> is a HTTP URI, <code><a href="../ArgumentError.html">ArgumentError</a></code> is raised.
+If <em>tls</em> is given and <em>uri</em> is a HTTP URI, <code>ArgumentError</code> is raised.
 In any case the active context can be accessed through <code><a href="../HTTP/Client.html#tls-instance-method">#tls</a></code>.</p>
 
 <p>This constructor will raise an exception if any scheme but HTTP or HTTPS
@@ -4098,7 +4098,7 @@ is used.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L154" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4117,7 +4117,7 @@ is used.</p></div>
       </div>
       
         <div class="doc"><p>Executes a DELETE request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.delete(<span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4127,7 +4127,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4140,7 +4140,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
         <a class="method-permalink" href="#delete%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a DELETE request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a DELETE request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.delete <span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span></code></pre></div>
@@ -4148,7 +4148,7 @@ to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4162,7 +4162,7 @@ to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a DELETE request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.delete(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c">#=&gt; &quot;...&quot;</span>
@@ -4171,7 +4171,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4185,7 +4185,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       </div>
       
         <div class="doc"><p>Executes a DELETE request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.delete(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
 response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
@@ -4193,7 +4193,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4207,7 +4207,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a request.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.exec(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;http://www.example.com&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c"># =&gt; &quot;...&quot;</span>
@@ -4216,7 +4216,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L624" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L624" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4230,7 +4230,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       </div>
       
         <div class="doc"><p>Executes a request.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.exec <span class="s">&quot;GET&quot;</span>, <span class="s">&quot;http://www.example.com&quot;</span>
 response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
@@ -4238,7 +4238,7 @@ response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L610" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L610" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4252,7 +4252,7 @@ response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a GET request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.get(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
 response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
@@ -4260,7 +4260,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4274,7 +4274,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a GET request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.get(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c">#=&gt; &quot;...&quot;</span>
@@ -4283,7 +4283,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4296,7 +4296,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
         <a class="method-permalink" href="#get%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a GET request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a GET request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.get <span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span></code></pre></div>
@@ -4304,7 +4304,7 @@ to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4318,7 +4318,7 @@ to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a GET request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.get(<span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4328,7 +4328,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4342,7 +4342,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a HEAD request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.head(<span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4352,7 +4352,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4365,7 +4365,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
         <a class="method-permalink" href="#head%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a HEAD request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a HEAD request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.head <span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span></code></pre></div>
@@ -4373,7 +4373,7 @@ to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4387,7 +4387,7 @@ to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a HEAD request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.head(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c">#=&gt; &quot;...&quot;</span>
@@ -4396,7 +4396,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4410,7 +4410,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       </div>
       
         <div class="doc"><p>Executes a HEAD request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.head(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
 response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
@@ -4418,7 +4418,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4432,7 +4432,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a PATCH request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.patch(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
 response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
@@ -4440,7 +4440,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4454,7 +4454,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a PATCH request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.patch(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c">#=&gt; &quot;...&quot;</span>
@@ -4463,7 +4463,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4476,7 +4476,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
         <a class="method-permalink" href="#patch%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a PATCH request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a PATCH request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.patch <span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span></code></pre></div>
@@ -4484,7 +4484,7 @@ to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4498,7 +4498,7 @@ to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a PATCH request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.patch(<span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4508,7 +4508,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4522,7 +4522,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a POST request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.post(<span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4532,7 +4532,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4545,7 +4545,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
         <a class="method-permalink" href="#post%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a POST request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a POST request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.post <span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span></code></pre></div>
@@ -4553,7 +4553,7 @@ to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4567,7 +4567,7 @@ to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a POST request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.post(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c">#=&gt; &quot;...&quot;</span>
@@ -4576,7 +4576,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4590,7 +4590,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       </div>
       
         <div class="doc"><p>Executes a POST request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.post(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
 response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
@@ -4598,7 +4598,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4611,7 +4611,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
         <a class="method-permalink" href="#put%28url%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2Ctls%3Dnil%2C%2A%2Cform%3AString%7CIO%7CHash%29%3AHTTP%3A%3AClient%3A%3AResponse-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a PUT request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a PUT request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.put <span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span></code></pre></div>
@@ -4619,7 +4619,7 @@ to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4633,7 +4633,7 @@ to "application/x-www-form-urlencoded".</p>
       </div>
       
         <div class="doc"><p>Executes a PUT request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.put(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
   response.body_io.gets <span class="c">#=&gt; &quot;...&quot;</span>
@@ -4642,7 +4642,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4656,7 +4656,7 @@ The response will have its body as an <code><a href="../IO.html">IO</a></code> a
       </div>
       
         <div class="doc"><p>Executes a PUT request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.put(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
 response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
@@ -4664,7 +4664,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4678,7 +4678,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a PUT request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code><span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.put(<span class="s">&quot;http://www.example.com&quot;</span>, form: <span class="s">&quot;foo=bar&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4688,7 +4688,7 @@ The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4712,7 +4712,7 @@ request.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L211" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L211" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4738,7 +4738,7 @@ client.get <span class="s">&quot;/&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L324" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L324" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4756,7 +4756,7 @@ client.get <span class="s">&quot;/&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L633" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L633" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4774,7 +4774,7 @@ client.get <span class="s">&quot;/&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L90" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L90" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4792,7 +4792,7 @@ client.get <span class="s">&quot;/&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L90" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L90" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4818,7 +4818,7 @@ client.connect_timeout <span class="o">=</span> <span class="n">5</span>.minutes
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4844,7 +4844,7 @@ client.connect_timeout <span class="o">=</span> <span class="n">1.5</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L259" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L259" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4858,7 +4858,7 @@ client.connect_timeout <span class="o">=</span> <span class="n">1.5</span>
       </div>
       
         <div class="doc"><p>Executes a DELETE request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -4869,7 +4869,7 @@ client.delete(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4883,7 +4883,7 @@ client.delete(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot
       </div>
       
         <div class="doc"><p>Executes a DELETE request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 response <span class="o">=</span> client.delete(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
@@ -4892,7 +4892,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4906,7 +4906,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a DELETE request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 client.delete(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -4916,7 +4916,7 @@ client.delete(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTT
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4929,7 +4929,7 @@ client.delete(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTT
         <a class="method-permalink" href="#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a DELETE request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a DELETE request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -4938,7 +4938,7 @@ response <span class="o">=</span> client.delete <span class="s">&quot;/&quot;</s
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4952,7 +4952,7 @@ response <span class="o">=</span> client.delete <span class="s">&quot;/&quot;</s
       </div>
       
         <div class="doc"><p>Executes a DELETE request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -4963,7 +4963,7 @@ client.delete(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4976,7 +4976,7 @@ client.delete(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;
         <a class="method-permalink" href="#delete%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a DELETE request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a DELETE request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -4985,7 +4985,7 @@ response <span class="o">=</span> client.delete <span class="s">&quot;/&quot;</s
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5013,7 +5013,7 @@ client.dns_timeout <span class="o">=</span> <span class="n">1.5</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L291" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L291" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5041,7 +5041,7 @@ client.dns_timeout <span class="o">=</span> <span class="n">1.5</span>.seconds
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L308" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L308" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5055,7 +5055,7 @@ client.dns_timeout <span class="o">=</span> <span class="n">1.5</span>.seconds
       </div>
       
         <div class="doc"><p>Executes a request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
 response <span class="o">=</span> client.exec <span class="s">&quot;GET&quot;</span>, <span class="s">&quot;/&quot;</span>
@@ -5064,7 +5064,7 @@ response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L584" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L584" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5078,7 +5078,7 @@ response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
 response <span class="o">=</span> client.exec <span class="t">HTTP</span><span class="t">::</span><span class="t">Request</span>.<span class="k">new</span>(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;/&quot;</span>)
@@ -5087,7 +5087,7 @@ response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L480" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L480" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5101,7 +5101,7 @@ response.body <span class="c"># =&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a request.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
 client.exec(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;/&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5111,7 +5111,7 @@ client.exec(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;/&quot
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L597" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L597" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5124,8 +5124,8 @@ client.exec(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;/&quot
         <a class="method-permalink" href="#exec%28request%3AHTTP%3A%3ARequest%2C%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a request request and yields an <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response</code> to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+        <div class="doc"><p>Executes a request request and yields an <code><a href="../HTTP/Client/Response.html">HTTP::Client::Response</a></code> to the block.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
 client.exec(<span class="t">HTTP</span><span class="t">::</span><span class="t">Request</span>.<span class="k">new</span>(<span class="s">&quot;GET&quot;</span>, <span class="s">&quot;/&quot;</span>)) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5135,7 +5135,7 @@ client.exec(<span class="t">HTTP</span><span class="t">::</span><span class="t">
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L519" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L519" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5149,7 +5149,7 @@ client.exec(<span class="t">HTTP</span><span class="t">::</span><span class="t">
       </div>
       
         <div class="doc"><p>Executes a GET request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5160,7 +5160,7 @@ client.get(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;fo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5173,7 +5173,7 @@ client.get(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;fo
         <a class="method-permalink" href="#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a GET request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a GET request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5182,7 +5182,7 @@ response <span class="o">=</span> client.get <span class="s">&quot;/&quot;</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5196,7 +5196,7 @@ response <span class="o">=</span> client.get <span class="s">&quot;/&quot;</span
       </div>
       
         <div class="doc"><p>Executes a GET request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5207,7 +5207,7 @@ client.get(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;foo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5220,7 +5220,7 @@ client.get(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;foo
         <a class="method-permalink" href="#get%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a GET request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a GET request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5229,7 +5229,7 @@ response <span class="o">=</span> client.get <span class="s">&quot;/&quot;</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5243,7 +5243,7 @@ response <span class="o">=</span> client.get <span class="s">&quot;/&quot;</span
       </div>
       
         <div class="doc"><p>Executes a GET request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 client.get(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5253,7 +5253,7 @@ client.get(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5267,7 +5267,7 @@ client.get(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</
       </div>
       
         <div class="doc"><p>Executes a GET request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 response <span class="o">=</span> client.get(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
@@ -5276,7 +5276,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5290,7 +5290,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a HEAD request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5301,7 +5301,7 @@ client.head(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;f
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5314,7 +5314,7 @@ client.head(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;f
         <a class="method-permalink" href="#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a HEAD request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a HEAD request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5323,7 +5323,7 @@ response <span class="o">=</span> client.head <span class="s">&quot;/&quot;</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5337,7 +5337,7 @@ response <span class="o">=</span> client.head <span class="s">&quot;/&quot;</spa
       </div>
       
         <div class="doc"><p>Executes a HEAD request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5348,7 +5348,7 @@ client.head(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;fo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5361,7 +5361,7 @@ client.head(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;fo
         <a class="method-permalink" href="#head%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a HEAD request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a HEAD request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5370,7 +5370,7 @@ response <span class="o">=</span> client.head <span class="s">&quot;/&quot;</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5384,7 +5384,7 @@ response <span class="o">=</span> client.head <span class="s">&quot;/&quot;</spa
       </div>
       
         <div class="doc"><p>Executes a HEAD request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 client.head(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5394,7 +5394,7 @@ client.head(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5408,7 +5408,7 @@ client.head(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP<
       </div>
       
         <div class="doc"><p>Executes a HEAD request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 response <span class="o">=</span> client.head(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
@@ -5417,7 +5417,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5438,7 +5438,7 @@ client.host <span class="c"># =&gt; &quot;www.example.com&quot;</span></code></p
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L65" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5452,7 +5452,7 @@ client.host <span class="c"># =&gt; &quot;www.example.com&quot;</span></code></p
       </div>
       
         <div class="doc"><p>Executes a PATCH request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5463,7 +5463,7 @@ client.patch(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5476,7 +5476,7 @@ client.patch(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;
         <a class="method-permalink" href="#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a PATCH request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a PATCH request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5485,7 +5485,7 @@ response <span class="o">=</span> client.patch <span class="s">&quot;/&quot;</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5499,7 +5499,7 @@ response <span class="o">=</span> client.patch <span class="s">&quot;/&quot;</sp
       </div>
       
         <div class="doc"><p>Executes a PATCH request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5510,7 +5510,7 @@ client.patch(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;f
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5523,7 +5523,7 @@ client.patch(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;f
         <a class="method-permalink" href="#patch%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a PATCH request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a PATCH request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5532,7 +5532,7 @@ response <span class="o">=</span> client.patch <span class="s">&quot;/&quot;</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5546,7 +5546,7 @@ response <span class="o">=</span> client.patch <span class="s">&quot;/&quot;</sp
       </div>
       
         <div class="doc"><p>Executes a PATCH request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 response <span class="o">=</span> client.patch(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
@@ -5555,7 +5555,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5569,7 +5569,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a PATCH request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 client.patch(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5579,7 +5579,7 @@ client.patch(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5600,7 +5600,7 @@ client.port <span class="c"># =&gt; 80</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5614,7 +5614,7 @@ client.port <span class="c"># =&gt; 80</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a POST request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5625,7 +5625,7 @@ client.post(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;f
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5638,7 +5638,7 @@ client.post(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;f
         <a class="method-permalink" href="#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a POST request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a POST request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5647,7 +5647,7 @@ response <span class="o">=</span> client.post <span class="s">&quot;/&quot;</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5661,7 +5661,7 @@ response <span class="o">=</span> client.post <span class="s">&quot;/&quot;</spa
       </div>
       
         <div class="doc"><p>Executes a POST request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5672,7 +5672,7 @@ client.post(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;fo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5685,7 +5685,7 @@ client.post(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;fo
         <a class="method-permalink" href="#post%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a POST request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a POST request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5694,7 +5694,7 @@ response <span class="o">=</span> client.post <span class="s">&quot;/&quot;</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5708,7 +5708,7 @@ response <span class="o">=</span> client.post <span class="s">&quot;/&quot;</spa
       </div>
       
         <div class="doc"><p>Executes a POST request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 client.post(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5718,7 +5718,7 @@ client.post(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5732,7 +5732,7 @@ client.post(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP<
       </div>
       
         <div class="doc"><p>Executes a POST request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 response <span class="o">=</span> client.post(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
@@ -5741,7 +5741,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5755,7 +5755,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Executes a PUT request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5766,7 +5766,7 @@ client.put(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;fo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5780,7 +5780,7 @@ client.put(<span class="s">&quot;/&quot;</span>, form: {<span class="s">&quot;fo
       </div>
       
         <div class="doc"><p>Executes a PUT request and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.</p>
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 client.put(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>) <span class="k">do</span> <span class="o">|</span>response<span class="o">|</span>
@@ -5790,7 +5790,7 @@ client.put(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5804,7 +5804,7 @@ client.put(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</
       </div>
       
         <div class="doc"><p>Executes a PUT request.
-The response will have its body as a <code><a href="../String.html">String</a></code>, accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body</code>.</p>
+The response will have its body as a <code>String</code>, accessed via <code><a href="../HTTP/Client/Response.html#body-instance-method">HTTP::Client::Response#body</a></code>.</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span>(<span class="s">&quot;www.example.com&quot;</span>)
 response <span class="o">=</span> client.put(<span class="s">&quot;/&quot;</span>, headers: <span class="t">HTTP</span><span class="t">::</span><span class="t">Headers</span>{<span class="s">&quot;User-Agent&quot;</span> => <span class="s">&quot;AwesomeApp&quot;</span>}, body: <span class="s">&quot;Hello!&quot;</span>)
@@ -5813,7 +5813,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5826,7 +5826,7 @@ response.body <span class="c">#=&gt; &quot;...&quot;</span></code></pre></div>
         <a class="method-permalink" href="#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AString%7CIO%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a PUT request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a PUT request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5835,7 +5835,7 @@ response <span class="o">=</span> client.put <span class="s">&quot;/&quot;</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5849,7 +5849,7 @@ response <span class="o">=</span> client.put <span class="s">&quot;/&quot;</span
       </div>
       
         <div class="doc"><p>Executes a PUT request with form data and yields the response to the block.
-The response will have its body as an <code><a href="../IO.html">IO</a></code> accessed via <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#body_io</code>.
+The response will have its body as an <code>IO</code> accessed via <code><a href="../HTTP/Client/Response.html#body_io-instance-method">HTTP::Client::Response#body_io</a></code>.
 The "Content-Type" header is set to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5860,7 +5860,7 @@ client.put(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;foo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5873,7 +5873,7 @@ client.put(<span class="s">&quot;/&quot;</span>, form: <span class="s">&quot;foo
         <a class="method-permalink" href="#put%28path%2Cheaders%3AHTTP%3A%3AHeaders%3F%3Dnil%2C%2A%2Cform%3AHash%28String%2CString%29%7CNamedTuple%29%3AHTTP%3A%3AClient%3A%3AResponse-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Executes a PUT request with form data and returns a <code><a href="../HTTP/Client/Response.html">Response</a></code>. The "Content-Type" header is set
+        <div class="doc"><p>Executes a PUT request with form data and returns a <code>Response</code>. The "Content-Type" header is set
 to "application/x-www-form-urlencoded".</p>
 
 <pre><code>client <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span>.<span class="k">new</span> <span class="s">&quot;www.example.com&quot;</span>
@@ -5882,7 +5882,7 @@ response <span class="o">=</span> client.put <span class="s">&quot;/&quot;</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L329" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L329" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5908,7 +5908,7 @@ client.read_timeout <span class="o">=</span> <span class="n">1.5</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L229" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L229" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5934,7 +5934,7 @@ client.read_timeout <span class="o">=</span> <span class="n">5</span>.minutes
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/client.cr#L244" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/client.cr#L244" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p><code><a href="Time.html">Time</a></code> represents an instance in time. Here are some examples:</p>
+  <p><code>Time</code> represents an instance in time. Here are some examples:</p>
 
 <h3>Basic Usage</h3>
 
@@ -3128,7 +3128,7 @@ time.monday? <span class="c"># =&gt; true</span>
 
 <h3>Formatting Time</h3>
 
-<p>The <code><a href="Time.html#to_s%28format%3AString%2Cio%3AIO%29%3ANil-instance-method">#to_s</a></code> method returns a <code><a href="String.html">String</a></code> value in the assigned format.</p>
+<p>The <code><a href="Time.html#to_s%28format%3AString%2Cio%3AIO%29%3ANil-instance-method">#to_s</a></code> method returns a <code>String</code> value in the assigned format.</p>
 
 <pre><code>time <span class="o">=</span> <span class="t">Time</span>.<span class="k">new</span>(<span class="n">2015</span>, <span class="n">10</span>, <span class="n">12</span>)
 time.to_s(<span class="s">&quot;%Y-%m-%d&quot;</span>) <span class="c"># =&gt; &quot;2015-10-12&quot;</span></code></pre>
@@ -3176,17 +3176,17 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L55" target="_blank">time.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L55" target="_blank">time.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L125" target="_blank">json/to_json.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L125" target="_blank">json/to_json.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L109" target="_blank">yaml/to_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L109" target="_blank">yaml/to_yaml.cr</a>
     
     <br/>
   
@@ -3201,14 +3201,14 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#epoch%28seconds%3AInt%29%3ATime-class-method" class="signature"><strong>.epoch</strong>(seconds : Int) : Time</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Time.html">Time</a></code> instance that corresponds to the number seconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p></div>
+          <div class="summary"><p>Returns a new <code>Time</code> instance that corresponds to the number seconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#epoch_ms%28milliseconds%3AInt%29%3ATime-class-method" class="signature"><strong>.epoch_ms</strong>(milliseconds : Int) : Time</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Time.html">Time</a></code> instance that corresponds to the number milliseconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p></div>
+          <div class="summary"><p>Returns a new <code>Time</code> instance that corresponds to the number milliseconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p></div>
         
       </li>
     
@@ -3317,7 +3317,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#%2B%28span%3ATime%3A%3ASpan%29%3ATime-instance-method" class="signature"><strong>#+</strong>(span : Time::Span) : Time</a>
         
-          <div class="summary"><p>Returns a <code><a href="Time.html">Time</a></code> that is later than this <code><a href="Time.html">Time</a></code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
+          <div class="summary"><p>Returns a <code>Time</code> that is later than this <code>Time</code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
         
       </li>
     
@@ -3338,7 +3338,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#-%28span%3ATime%3A%3ASpan%29%3ATime-instance-method" class="signature"><strong>#-</strong>(span : Time::Span) : Time</a>
         
-          <div class="summary"><p>Returns a <code><a href="Time.html">Time</a></code> that is earlier than this <code><a href="Time.html">Time</a></code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
+          <div class="summary"><p>Returns a <code>Time</code> that is earlier than this <code>Time</code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
         
       </li>
     
@@ -3357,7 +3357,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#add_span%28seconds%3AInt%2Cnanoseconds%3AInt%29%3ATime-instance-method" class="signature"><strong>#add_span</strong>(seconds : Int, nanoseconds : Int) : Time</a>
         
-          <div class="summary"><p>Returns a <code><a href="Time.html">Time</a></code> that is this number of <em>seconds</em> and <em>nanoseconds</em> later.</p></div>
+          <div class="summary"><p>Returns a <code>Time</code> that is this number of <em>seconds</em> and <em>nanoseconds</em> later.</p></div>
         
       </li>
     
@@ -3523,7 +3523,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#epoch_f%3AFloat64-instance-method" class="signature"><strong>#epoch_f</strong> : Float64</a>
         
-          <div class="summary"><p>Returns the number of seconds since the Epoch for this time, as a <code><a href="Float64.html">Float64</a></code>.</p></div>
+          <div class="summary"><p>Returns the number of seconds since the Epoch for this time, as a <code>Float64</code>.</p></div>
         
       </li>
     
@@ -3561,14 +3561,14 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#kind%3AKind-instance-method" class="signature"><strong>#kind</strong> : Kind</a>
         
-          <div class="summary"><p>Returns <code><a href="Time/Kind.html">Kind</a></code> (UTC/local) of the instance.</p></div>
+          <div class="summary"><p>Returns <code>Kind</code> (UTC/local) of the instance.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#local%3F%3ABool-instance-method" class="signature"><strong>#local?</strong> : Bool</a>
         
-          <div class="summary"><p>Returns <code>true</code> if <code><a href="Time/Kind.html">Kind</a></code> is set to <em>Local</em>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if <code>Kind</code> is set to <em>Local</em>.</p></div>
         
       </li>
     
@@ -3650,7 +3650,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#to_local%3ATime-instance-method" class="signature"><strong>#to_local</strong> : Time</a>
         
-          <div class="summary"><p>Returns a copy of this <code><a href="Time.html">Time</a></code> converted to the local time zone.</p></div>
+          <div class="summary"><p>Returns a copy of this <code>Time</code> converted to the local time zone.</p></div>
         
       </li>
     
@@ -3671,7 +3671,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#to_utc%3ATime-instance-method" class="signature"><strong>#to_utc</strong> : Time</a>
         
-          <div class="summary"><p>Returns a copy of this <code><a href="Time.html">Time</a></code> converted to UTC.</p></div>
+          <div class="summary"><p>Returns a copy of this <code>Time</code> converted to UTC.</p></div>
         
       </li>
     
@@ -3690,7 +3690,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
       <li class="entry-summary">
         <a href="#utc%3F%3ABool-instance-method" class="signature"><strong>#utc?</strong> : Bool</a>
         
-          <div class="summary"><p>Returns <code>true</code> if <code><a href="Time/Kind.html">Kind</a></code> is set to <em>Utc</em>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if <code>Kind</code> is set to <em>Utc</em>.</p></div>
         
       </li>
     
@@ -3964,7 +3964,7 @@ span.hours <span class="c"># =&gt; 1</span></code></pre>
         <a class="method-permalink" href="#epoch%28seconds%3AInt%29%3ATime-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Time.html">Time</a></code> instance that corresponds to the number
+        <div class="doc"><p>Returns a new <code>Time</code> instance that corresponds to the number
 seconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p>
 
 <pre><code><span class="t">Time</span>.epoch(<span class="n">981173106</span>) <span class="c"># =&gt; 2001-02-03 04:05:06 UTC</span></code></pre></div>
@@ -3972,7 +3972,7 @@ seconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L227" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L227" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3985,7 +3985,7 @@ seconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p>
         <a class="method-permalink" href="#epoch_ms%28milliseconds%3AInt%29%3ATime-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Time.html">Time</a></code> instance that corresponds to the number
+        <div class="doc"><p>Returns a new <code>Time</code> instance that corresponds to the number
 milliseconds elapsed since the unix epoch (00:00:00 UTC on 1 January 1970).</p>
 
 <pre><code>time <span class="o">=</span> <span class="t">Time</span>.epoch_ms(<span class="n">981173106789</span>) <span class="c"># =&gt; 2001-02-03 04:05:06.789 UTC</span>
@@ -3994,7 +3994,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L238" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L238" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4010,7 +4010,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L186" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L186" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4026,7 +4026,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L206" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L206" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4042,7 +4042,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L233" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L233" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4058,7 +4058,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L181" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L181" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4074,7 +4074,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L215" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L215" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4092,7 +4092,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L330" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L330" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4113,7 +4113,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L502" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L502" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4131,7 +4131,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L335" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L335" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4157,7 +4157,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L436" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L436" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4178,7 +4178,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L455" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L455" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4196,7 +4196,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L460" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L460" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4217,7 +4217,7 @@ time.millisecond                   <span class="c"># =&gt; 789</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L721" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L721" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4236,7 +4236,7 @@ affected by time fluctuations.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L175" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L175" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4260,7 +4260,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L168" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L168" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4278,12 +4278,12 @@ time.</p></div>
         <a class="method-permalink" href="#%2B%28span%3ATime%3A%3ASpan%29%3ATime-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Time.html">Time</a></code> that is later than this <code><a href="Time.html">Time</a></code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
+        <div class="doc"><p>Returns a <code>Time</code> that is later than this <code>Time</code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L250" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L250" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4301,7 +4301,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L260" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L260" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4316,12 +4316,12 @@ time.</p></div>
       
         <div class="doc"><p>Returns the amount of time between <em>other</em> and <code>self</code>.</p>
 
-<p>The amount can be negative if <code>self</code> is a <code><a href="Time.html">Time</a></code> that happens before <em>other</em>.</p></div>
+<p>The amount can be negative if <code>self</code> is a <code>Time</code> that happens before <em>other</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L316" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L316" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4334,12 +4334,12 @@ time.</p></div>
         <a class="method-permalink" href="#-%28span%3ATime%3A%3ASpan%29%3ATime-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Time.html">Time</a></code> that is earlier than this <code><a href="Time.html">Time</a></code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
+        <div class="doc"><p>Returns a <code>Time</code> that is earlier than this <code>Time</code> by the <code><a href="Time/Span.html">Time::Span</a></code> <em>span</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L255" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L255" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4357,7 +4357,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L265" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L265" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4373,7 +4373,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L416" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L416" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4386,12 +4386,12 @@ time.</p></div>
         <a class="method-permalink" href="#add_span%28seconds%3AInt%2Cnanoseconds%3AInt%29%3ATime-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Time.html">Time</a></code> that is this number of <em>seconds</em> and <em>nanoseconds</em> later.</p></div>
+        <div class="doc"><p>Returns a <code>Time</code> that is this number of <em>seconds</em> and <em>nanoseconds</em> later.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L292" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L292" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4409,7 +4409,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L583" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L583" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4427,7 +4427,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L584" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L584" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4445,7 +4445,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L585" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L585" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4463,7 +4463,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L582" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L582" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4481,7 +4481,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L581" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L581" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4499,7 +4499,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L580" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L580" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4517,7 +4517,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L588" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L588" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4535,7 +4535,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L579" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L579" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4553,7 +4553,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L637" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L637" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4571,7 +4571,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L638" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L638" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4589,7 +4589,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L639" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L639" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4607,7 +4607,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L625" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L625" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4625,7 +4625,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L611" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L611" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4643,7 +4643,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L600" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L600" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4661,7 +4661,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L628" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L628" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4679,7 +4679,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L597" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L597" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4697,7 +4697,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L642" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L642" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4713,7 +4713,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L245" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L245" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4731,7 +4731,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L341" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L341" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4749,7 +4749,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L356" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L356" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4767,7 +4767,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L391" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L391" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4785,7 +4785,7 @@ time.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L397" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L397" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4806,7 +4806,7 @@ time.epoch <span class="c"># =&gt; 1452567845</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L512" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L512" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4820,7 +4820,7 @@ time.epoch <span class="c"># =&gt; 1452567845</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Returns the number of seconds since the Epoch for this time,
-as a <code><a href="Float64.html">Float64</a></code>.</p>
+as a <code>Float64</code>.</p>
 
 <pre><code>time <span class="o">=</span> <span class="t">Time</span>.parse(<span class="s">&quot;2016-01-12 03:04:05.678 UTC&quot;</span>, <span class="s">&quot;%F %T.%L %z&quot;</span>)
 time.epoch_f <span class="c"># =&gt; 1452567845.678</span></code></pre></div>
@@ -4828,7 +4828,7 @@ time.epoch_f <span class="c"># =&gt; 1452567845.678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L533" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L533" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4849,7 +4849,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L522" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L522" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4867,7 +4867,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4883,7 +4883,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L428" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L428" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4901,7 +4901,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L361" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L361" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4917,7 +4917,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L468" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L468" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4930,12 +4930,12 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
         <a class="method-permalink" href="#kind%3AKind-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code><a href="Time/Kind.html">Kind</a></code> (UTC/local) of the instance.</p></div>
+        <div class="doc"><p>Returns <code>Kind</code> (UTC/local) of the instance.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L402" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L402" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4948,12 +4948,12 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
         <a class="method-permalink" href="#local%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if <code><a href="Time/Kind.html">Kind</a></code> is set to <em>Local</em>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if <code>Kind</code> is set to <em>Local</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L412" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L412" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4971,7 +4971,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L376" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L376" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4989,7 +4989,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L366" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L366" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5007,7 +5007,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5025,7 +5025,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L351" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L351" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5043,7 +5043,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L381" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L381" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5061,7 +5061,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5079,7 +5079,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L371" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L371" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5097,7 +5097,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5115,7 +5115,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5133,7 +5133,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L386" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L386" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5149,7 +5149,7 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L126" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L126" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5162,12 +5162,12 @@ time.epoch_ms <span class="c"># =&gt; 1452567845678</span></code></pre></div>
         <a class="method-permalink" href="#to_local%3ATime-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a copy of this <code><a href="Time.html">Time</a></code> converted to the local time zone.</p></div>
+        <div class="doc"><p>Returns a copy of this <code>Time</code> converted to the local time zone.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L551" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L551" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5186,7 +5186,7 @@ into the given <em>io</em>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L492" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L492" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5207,7 +5207,7 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L486" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L486" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5220,12 +5220,12 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
         <a class="method-permalink" href="#to_utc%3ATime-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a copy of this <code><a href="Time.html">Time</a></code> converted to UTC.</p></div>
+        <div class="doc"><p>Returns a copy of this <code>Time</code> converted to UTC.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L538" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L538" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5241,7 +5241,7 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L110" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5259,7 +5259,7 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5272,12 +5272,12 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
         <a class="method-permalink" href="#utc%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if <code><a href="Time/Kind.html">Kind</a></code> is set to <em>Utc</em>.</p></div>
+        <div class="doc"><p>Returns <code>true</code> if <code>Kind</code> is set to <em>Utc</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L407" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L407" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5295,7 +5295,7 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L647" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L647" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5313,7 +5313,7 @@ time.to_s(<span class="s">&quot;%F&quot;</span>) <span class="c"># =&gt; &quot;2
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time.cr#L346" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time.cr#L346" target="_blank">View source</a>]
         
       </div>
     </div>

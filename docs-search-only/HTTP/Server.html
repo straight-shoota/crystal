@@ -3108,17 +3108,17 @@
 
   <p>An HTTP server.</p>
 
-<p>A server is given a handler that receives an <code><a href="../HTTP/Server.html">HTTP::Server</a>::Context</code> that holds
-the <code><a href="../HTTP/Request.html">HTTP::Request</a></code> to process and must in turn configure and write to an <code><a href="../HTTP/Server.html">HTTP::Server</a>::Response</code>.</p>
+<p>A server is given a handler that receives an <code><a href="../HTTP/Server/Context.html">HTTP::Server::Context</a></code> that holds
+the <code><a href="../HTTP/Request.html">HTTP::Request</a></code> to process and must in turn configure and write to an <code><a href="../HTTP/Server/Response.html">HTTP::Server::Response</a></code>.</p>
 
-<p>The <code><a href="../HTTP/Server.html">HTTP::Server</a>::Response</code> object has <code>status</code> and <code>headers</code> properties that can be
+<p>The <code><a href="../HTTP/Server/Response.html">HTTP::Server::Response</a></code> object has <code>status</code> and <code>headers</code> properties that can be
 configured before writing the response body. Once response output is written,
 changing the <code>status</code> and <code>headers</code> properties has no effect.</p>
 
-<p>The <code><a href="../HTTP/Server.html">HTTP::Server</a>::Response</code> is also a write-only <code><a href="../IO.html">IO</a></code>, so all <code><a href="../IO.html">IO</a></code> methods are available
+<p>The <code><a href="../HTTP/Server/Response.html">HTTP::Server::Response</a></code> is also a write-only <code>IO</code>, so all <code>IO</code> methods are available
 in it.</p>
 
-<p>The handler given to a server can simply be a block that receives an <code><a href="../HTTP/Server.html">HTTP::Server</a>::Context</code>,
+<p>The handler given to a server can simply be a block that receives an <code><a href="../HTTP/Server/Context.html">HTTP::Server::Context</a></code>,
 or it can be an <code><a href="../HTTP/Handler.html">HTTP::Handler</a></code>. An <code><a href="../HTTP/Handler.html">HTTP::Handler</a></code> has an optional <code>next</code> handler,
 so handlers can be chained. For example, an initial handler may handle exceptions
 in a subsequent handler and return a 500 status code (see <code><a href="../HTTP/ErrorHandler.html">HTTP::ErrorHandler</a></code>),
@@ -3197,17 +3197,17 @@ server.listen</code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/context.cr#L1" target="_blank">http/server/context.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/context.cr#L1" target="_blank">http/server/context.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server/response.cr#L1" target="_blank">http/server/response.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server/response.cr#L1" target="_blank">http/server/response.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L92" target="_blank">http/server.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L92" target="_blank">http/server.cr</a>
     
     <br/>
   
@@ -3283,7 +3283,7 @@ server.listen</code></pre>
       <li class="entry-summary">
         <a href="#bind%28reuse_port%3Dfalse%29-instance-method" class="signature"><strong>#bind</strong>(reuse_port = <span class="n">false</span>)</a>
         
-          <div class="summary"><p>Creates the underlying <code><a href="../TCPServer.html">TCPServer</a></code> if the doesn't already exist.</p></div>
+          <div class="summary"><p>Creates the underlying <code>TCPServer</code> if the doesn't already exist.</p></div>
         
       </li>
     
@@ -3533,7 +3533,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L119" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L119" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3549,7 +3549,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L103" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L103" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3565,7 +3565,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L115" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3581,7 +3581,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3597,7 +3597,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L124" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L124" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3613,7 +3613,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3629,7 +3629,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3645,7 +3645,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3668,7 +3668,7 @@ server.listen</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L194" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L194" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3686,7 +3686,7 @@ server.listen</code></pre>
         <a class="method-permalink" href="#bind%28reuse_port%3Dfalse%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates the underlying <code><a href="../TCPServer.html">TCPServer</a></code> if the doesn't already exist.</p>
+        <div class="doc"><p>Creates the underlying <code>TCPServer</code> if the doesn't already exist.</p>
 
 <p>You may set <em>reuse_port</em> to true to enable the <code>SO_REUSEPORT</code> socket option,
 which allows multiple processes to bind to the same port.</p></div>
@@ -3694,7 +3694,7 @@ which allows multiple processes to bind to the same port.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L153" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L153" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3713,7 +3713,7 @@ requests, but it won't accept new connections.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L169" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L169" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3733,7 +3733,7 @@ requests, but it won't accept new connections.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L160" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L160" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3757,7 +3757,7 @@ server.port <span class="c"># =&gt; 12345</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/server.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/server.cr#L141" target="_blank">View source</a>]
         
       </div>
     </div>

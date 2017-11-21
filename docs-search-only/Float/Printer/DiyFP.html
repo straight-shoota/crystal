@@ -3107,7 +3107,7 @@
   <h2>Overview</h2>
 
   <p>This "Do It Yourself Floating Point" struct implements a floating-point number
-with a <code>UIht64</code> significand and an <code><a href="../../Int32.html">Int32</a></code> exponent. Normalized DiyFP numbers will
+with a <code>UIht64</code> significand and an <code>Int32</code> exponent. Normalized DiyFP numbers will
 have the most significant bit of the significand set.
 Multiplication and Subtraction do not normalize their results.
 DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
@@ -3128,7 +3128,7 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L37" target="_blank">float/printer/diy_fp.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L37" target="_blank">float/printer/diy_fp.cr</a>
     
     <br/>
   
@@ -3196,14 +3196,14 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
       <li class="entry-summary">
         <a href="#%2A%28other%3ADiyFP%29-instance-method" class="signature"><strong>#*</strong>(other : DiyFP)</a>
         
-          <div class="summary"><p>Returns a new <code><a href="../../Float/Printer/DiyFP.html">DiyFP</a></code> caculated as self * <em>other</em>.</p></div>
+          <div class="summary"><p>Returns a new <code>DiyFP</code> caculated as self * <em>other</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#-%28other%3ADiyFP%29-instance-method" class="signature"><strong>#-</strong>(other : DiyFP)</a>
         
-          <div class="summary"><p>Returns a new <code><a href="../../Float/Printer/DiyFP.html">DiyFP</a></code> caculated as self - <em>other</em>.</p></div>
+          <div class="summary"><p>Returns a new <code>DiyFP</code> caculated as self - <em>other</em>.</p></div>
         
       </li>
     
@@ -3460,7 +3460,7 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3476,7 +3476,7 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L44" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3497,7 +3497,7 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L119" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L119" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3515,7 +3515,7 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L126" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L126" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3533,7 +3533,7 @@ DiyFP is not designed to contain special Floats (NaN and Infinity).</p>
         <a class="method-permalink" href="#%2A%28other%3ADiyFP%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="../../Float/Printer/DiyFP.html">DiyFP</a></code> caculated as self * <em>other</em>.</p>
+        <div class="doc"><p>Returns a new <code>DiyFP</code> caculated as self * <em>other</em>.</p>
 
 <p>Simply "emulates" a 128 bit multiplication.
 However: the resulting number only contains 64 bits. The least
@@ -3545,7 +3545,7 @@ bits.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L76" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3558,7 +3558,7 @@ bits.</p>
         <a class="method-permalink" href="#-%28other%3ADiyFP%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="../../Float/Printer/DiyFP.html">DiyFP</a></code> caculated as self - <em>other</em>.</p>
+        <div class="doc"><p>Returns a new <code>DiyFP</code> caculated as self - <em>other</em>.</p>
 
 <p>The exponents of both numbers must be the same and the frac of self must be
 greater than the other.</p>
@@ -3568,7 +3568,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3586,7 +3586,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3604,7 +3604,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3622,7 +3622,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3640,7 +3640,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3656,7 +3656,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3672,7 +3672,7 @@ greater than the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float/printer/diy_fp.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float/printer/diy_fp.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>

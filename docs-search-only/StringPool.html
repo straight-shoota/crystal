@@ -3138,7 +3138,7 @@ b.object_id <span class="c"># =&gt; 136294312</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L18" target="_blank">string_pool.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L18" target="_blank">string_pool.cr</a>
     
     <br/>
   
@@ -3169,35 +3169,35 @@ b.object_id <span class="c"># =&gt; 136294312</span></code></pre>
       <li class="entry-summary">
         <a href="#empty%3F-instance-method" class="signature"><strong>#empty?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if the <code><a href="StringPool.html">StringPool</a></code> has no element otherwise returns <code>false</code>.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if the <code>StringPool</code> has no element otherwise returns <code>false</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#get%28str%3APointer%28UInt8%29%2Clen%29-instance-method" class="signature"><strong>#get</strong>(str : Pointer(UInt8), len)</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> with the contents given by the pointer <em>str</em> of size <em>len</em>.</p></div>
+          <div class="summary"><p>Returns a <code>String</code> with the contents given by the pointer <em>str</em> of size <em>len</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#get%28slice%3ABytes%29-instance-method" class="signature"><strong>#get</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> with the contents of the given <em>slice</em>.</p></div>
+          <div class="summary"><p>Returns a <code>String</code> with the contents of the given <em>slice</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#get%28str%3AIO%3A%3AMemory%29-instance-method" class="signature"><strong>#get</strong>(str : IO::Memory)</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> with the contents of the given <code><a href="IO/Memory.html">IO::Memory</a></code>.</p></div>
+          <div class="summary"><p>Returns a <code>String</code> with the contents of the given <code><a href="IO/Memory.html">IO::Memory</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#get%28str%3AString%29-instance-method" class="signature"><strong>#get</strong>(str : String)</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> with the contents of the given string.</p></div>
+          <div class="summary"><p>Returns a <code>String</code> with the contents of the given string.</p></div>
         
       </li>
     
@@ -3432,7 +3432,7 @@ b.object_id <span class="c"># =&gt; 136294312</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3452,7 +3452,7 @@ b.object_id <span class="c"># =&gt; 136294312</span></code></pre>
         <a class="method-permalink" href="#empty%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if the <code><a href="StringPool.html">StringPool</a></code> has no element otherwise returns <code>false</code>.</p>
+        <div class="doc"><p>Returns <code>true</code> if the <code>StringPool</code> has no element otherwise returns <code>false</code>.</p>
 
 <pre><code>pool <span class="o">=</span> <span class="t">StringPool</span>.<span class="k">new</span>
 pool.empty? <span class="c"># =&gt; true</span>
@@ -3462,7 +3462,7 @@ pool.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L49" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L49" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3475,7 +3475,7 @@ pool.empty? <span class="c"># =&gt; false</span></code></pre></div>
         <a class="method-permalink" href="#get%28str%3APointer%28UInt8%29%2Clen%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> with the contents given by the pointer <em>str</em> of size <em>len</em>.</p>
+        <div class="doc"><p>Returns a <code>String</code> with the contents given by the pointer <em>str</em> of size <em>len</em>.</p>
 
 <p>If a string with those contents was already present in the pool, that one is returned.
 Otherwise a new string is created, put in the pool and returned.</p>
@@ -3487,7 +3487,7 @@ pool.size <span class="c"># =&gt; 1</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3500,7 +3500,7 @@ pool.size <span class="c"># =&gt; 1</span></code></pre></div>
         <a class="method-permalink" href="#get%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> with the contents of the given <em>slice</em>.</p>
+        <div class="doc"><p>Returns a <code>String</code> with the contents of the given <em>slice</em>.</p>
 
 <p>If a string with those contents was already present in the pool, that one is returned.
 Otherwise a new string is created, put in the pool and returned.</p>
@@ -3516,7 +3516,7 @@ pool.empty? <span class="c"># =&gt; false</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L66" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3529,7 +3529,7 @@ pool.empty? <span class="c"># =&gt; false</span>
         <a class="method-permalink" href="#get%28str%3AIO%3A%3AMemory%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> with the contents of the given <code><a href="IO/Memory.html">IO::Memory</a></code>.</p>
+        <div class="doc"><p>Returns a <code>String</code> with the contents of the given <code><a href="IO/Memory.html">IO::Memory</a></code>.</p>
 
 <p>If a string with those contents was already present in the pool, that one is returned.
 Otherwise a new string is created, put in the pool and returned.</p>
@@ -3543,7 +3543,7 @@ pool.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L133" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L133" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3556,7 +3556,7 @@ pool.empty? <span class="c"># =&gt; false</span></code></pre></div>
         <a class="method-permalink" href="#get%28str%3AString%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> with the contents of the given string.</p>
+        <div class="doc"><p>Returns a <code>String</code> with the contents of the given string.</p>
 
 <p>If a string with those contents was already present in the pool, that one is returned.
 Otherwise a new string is created, put in the pool and returned.</p>
@@ -3570,7 +3570,7 @@ pool.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L149" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L149" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3591,7 +3591,7 @@ if values of key objects have changed since they were inserted.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L157" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L157" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3612,7 +3612,7 @@ pool.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/string_pool.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/string_pool.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3132,7 +3132,7 @@ a HTTP request or response.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L130" target="_blank">http/cookie.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L130" target="_blank">http/cookie.cr</a>
     
     <br/>
   
@@ -3147,7 +3147,7 @@ a HTTP request or response.</p>
       <li class="entry-summary">
         <a href="#from_headers%28headers%29%3Aself-class-method" class="signature"><strong>.from_headers</strong>(headers) : self</a>
         
-          <div class="summary"><p>Create a new instance by parsing the <code><a href="../HTTP/Cookie.html">Cookie</a></code> and <code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code> headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code>.</p></div>
+          <div class="summary"><p>Create a new instance by parsing the <code>Cookie</code> and <code>Set-Cookie</code> headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code>.</p></div>
         
       </li>
     
@@ -3205,14 +3205,14 @@ a HTTP request or response.</p>
       <li class="entry-summary">
         <a href="#add_request_headers%28headers%29-instance-method" class="signature"><strong>#add_request_headers</strong>(headers)</a>
         
-          <div class="summary"><p>Adds <code><a href="../HTTP/Cookie.html">Cookie</a></code> headers for the cookies in this collection to the given <code>HTTP::Header</code> instance and returns it.</p></div>
+          <div class="summary"><p>Adds <code>Cookie</code> headers for the cookies in this collection to the given <code>HTTP::Header</code> instance and returns it.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#add_response_headers%28headers%29-instance-method" class="signature"><strong>#add_response_headers</strong>(headers)</a>
         
-          <div class="summary"><p>Adds <code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code> headers for the cookies in this collection to the given <code>HTTP::Header</code> instance and returns it.</p></div>
+          <div class="summary"><p>Adds <code>Set-Cookie</code> headers for the cookies in this collection to the given <code>HTTP::Header</code> instance and returns it.</p></div>
         
       </li>
     
@@ -3240,7 +3240,7 @@ a HTTP request or response.</p>
       <li class="entry-summary">
         <a href="#fill_from_headers%28headers%29-instance-method" class="signature"><strong>#fill_from_headers</strong>(headers)</a>
         
-          <div class="summary"><p>Filling cookies by parsing the <code><a href="../HTTP/Cookie.html">Cookie</a></code> and <code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code> headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code>.</p></div>
+          <div class="summary"><p>Filling cookies by parsing the <code>Cookie</code> and <code>Set-Cookie</code> headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code>.</p></div>
         
       </li>
     
@@ -3254,7 +3254,7 @@ a HTTP request or response.</p>
       <li class="entry-summary">
         <a href="#to_h-instance-method" class="signature"><strong>#to_h</strong></a>
         
-          <div class="summary"><p>Returns this collection as a plain <code><a href="../Hash.html">Hash</a></code>.</p></div>
+          <div class="summary"><p>Returns this collection as a plain <code>Hash</code>.</p></div>
         
       </li>
     
@@ -3769,15 +3769,15 @@ a HTTP request or response.</p>
         <a class="method-permalink" href="#from_headers%28headers%29%3Aself-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new instance by parsing the <code><a href="../HTTP/Cookie.html">Cookie</a></code> and <code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code>
+        <div class="doc"><p>Create a new instance by parsing the <code>Cookie</code> and <code>Set-Cookie</code>
 headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code>.</p>
 
-<p>See <code><a href="../HTTP/Request.html#cookies-instance-method">HTTP::Request#cookies</a></code> and <code><a href="../HTTP/Client.html">HTTP::Client</a>::Response#cookies</code>.</p></div>
+<p>See <code><a href="../HTTP/Request.html#cookies-instance-method">HTTP::Request#cookies</a></code> and <code><a href="../HTTP/Client/Response.html#cookies-instance-method">HTTP::Client::Response#cookies</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L137" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L137" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3795,7 +3795,7 @@ headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L159" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L159" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3823,7 +3823,7 @@ with the same name if present.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L227" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L227" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3843,7 +3843,7 @@ with the same name if present.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L196" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3866,7 +3866,7 @@ request.cookies[<span class="s">&quot;foo&quot;</span>] <span class="o">=</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L171" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L171" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3881,7 +3881,7 @@ request.cookies[<span class="s">&quot;foo&quot;</span>] <span class="o">=</span>
       
         <div class="doc"><p>Set a new cookie in the collection to the given <code><a href="../HTTP/Cookie.html">HTTP::Cookie</a></code>
 instance. The name attribute must match the given <em>key</em>, else
-<code><a href="../ArgumentError.html">ArgumentError</a></code> is raised.</p>
+<code>ArgumentError</code> is raised.</p>
 
 <pre><code>response <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Client</span><span class="t">::</span><span class="t">Response</span>.<span class="k">new</span>(<span class="n">200</span>)
 response.cookies[<span class="s">&quot;foo&quot;</span>] <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</span><span class="t">Cookie</span>.<span class="k">new</span>(<span class="s">&quot;foo&quot;</span>, <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;/admin&quot;</span>, <span class="t">Time</span>.now <span class="o">+</span> <span class="n">12</span>.hours, secure: <span class="n">true</span>)</code></pre></div>
@@ -3889,7 +3889,7 @@ response.cookies[<span class="s">&quot;foo&quot;</span>] <span class="o">=</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L183" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L183" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3912,7 +3912,7 @@ request.cookies[<span class="s">&quot;foo&quot;</span>]?.try <span class="o">&</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L208" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L208" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3925,14 +3925,14 @@ request.cookies[<span class="s">&quot;foo&quot;</span>]?.try <span class="o">&</
         <a class="method-permalink" href="#add_request_headers%28headers%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Adds <code><a href="../HTTP/Cookie.html">Cookie</a></code> headers for the cookies in this collection to the
+        <div class="doc"><p>Adds <code>Cookie</code> headers for the cookies in this collection to the
 given <code>HTTP::Header</code> instance and returns it. Removes any existing
-<code><a href="../HTTP/Cookie.html">Cookie</a></code> headers in it.</p></div>
+<code>Cookie</code> headers in it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L251" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L251" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3945,14 +3945,14 @@ given <code>HTTP::Header</code> instance and returns it. Removes any existing
         <a class="method-permalink" href="#add_response_headers%28headers%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Adds <code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code> headers for the cookies in this collection to the
+        <div class="doc"><p>Adds <code>Set-Cookie</code> headers for the cookies in this collection to the
 given <code>HTTP::Header</code> instance and returns it. Removes any existing
-<code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code> headers in it.</p></div>
+<code>Set-Cookie</code> headers in it.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L261" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L261" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3970,7 +3970,7 @@ given <code>HTTP::Header</code> instance and returns it. Removes any existing
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L232" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L232" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3988,7 +3988,7 @@ given <code>HTTP::Header</code> instance and returns it. Removes any existing
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L239" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L239" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4006,7 +4006,7 @@ given <code>HTTP::Header</code> instance and returns it. Removes any existing
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L244" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L244" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4019,13 +4019,13 @@ given <code>HTTP::Header</code> instance and returns it. Removes any existing
         <a class="method-permalink" href="#fill_from_headers%28headers%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Filling cookies by parsing the <code><a href="../HTTP/Cookie.html">Cookie</a></code> and <code><a href="../Set.html">Set</a>-<a href="../HTTP/Cookie.html">Cookie</a></code>
+        <div class="doc"><p>Filling cookies by parsing the <code>Cookie</code> and <code>Set-Cookie</code>
 headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L143" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L143" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4045,7 +4045,7 @@ headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L217" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L217" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4058,12 +4058,12 @@ headers in the given <code><a href="../HTTP/Headers.html">HTTP::Headers</a></cod
         <a class="method-permalink" href="#to_h-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns this collection as a plain <code><a href="../Hash.html">Hash</a></code>.</p></div>
+        <div class="doc"><p>Returns this collection as a plain <code>Hash</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/cookie.cr#L271" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/cookie.cr#L271" target="_blank">View source</a>]
         
       </div>
     </div>

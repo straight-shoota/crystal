@@ -3106,13 +3106,13 @@
 
   <h2>Overview</h2>
 
-  <p><code><a href="Set.html">Set</a></code> implements a collection of unordered values with no duplicates.</p>
+  <p><code>Set</code> implements a collection of unordered values with no duplicates.</p>
 
-<p>An <code><a href="Enumerable.html">Enumerable</a></code> object can be converted to <code><a href="Set.html">Set</a></code> using the <code>#to_set</code> method.</p>
+<p>An <code>Enumerable</code> object can be converted to <code>Set</code> using the <code>#to_set</code> method.</p>
 
-<p><code><a href="Set.html">Set</a></code> uses <code><a href="Hash.html">Hash</a></code> as storage, so you must note the following points:</p>
+<p><code>Set</code> uses <code>Hash</code> as storage, so you must note the following points:</p>
 
-<ul><li>Equality of elements is determined according to <code><a href="Object.html#%3D%3D%28other%29-instance-method">Object#==</a></code> and <code><a href="Object.html#hash-instance-method">Object#hash</a></code>.</li><li><code><a href="Set.html">Set</a></code> assumes that the identity of each element does not change while it is stored. Modifying an element of a set will render the set to an unreliable state.</li></ul>
+<ul><li>Equality of elements is determined according to <code>Object<a href="Set.html#%3D%3D%28other%3ASet%29-instance-method">#==</a></code> and <code>Object<a href="Set.html#hash%28hasher%29-instance-method">#hash</a></code>.</li><li><code>Set</code> assumes that the identity of each element does not change while it is stored. Modifying an element of a set will render the set to an unreliable state.</li></ul>
 
 <h3>Example</h3>
 
@@ -3151,17 +3151,17 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L23" target="_blank">set.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L23" target="_blank">set.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L71" target="_blank">json/to_json.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L71" target="_blank">json/to_json.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L89" target="_blank">yaml/to_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L89" target="_blank">yaml/to_yaml.cr</a>
     
     <br/>
   
@@ -3176,7 +3176,7 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#new%28other%3AIndexable%28T%29%29-class-method" class="signature"><strong>.new</strong>(other : Indexable(T))</a>
         
-          <div class="summary"><p>Optimized version of <code>new</code> used when <em>other</em> is also an <code><a href="Indexable.html">Indexable</a></code></p></div>
+          <div class="summary"><p>Optimized version of <code>new</code> used when <em>other</em> is also an <code>Indexable</code></p></div>
         
       </li>
     
@@ -3195,7 +3195,7 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#new%28initial_capacity%3Dnil%29-class-method" class="signature"><strong>.new</strong>(initial_capacity = <span class="n">nil</span>)</a>
         
-          <div class="summary"><p>Creates a new, empty <code><a href="Set.html">Set</a></code>.</p></div>
+          <div class="summary"><p>Creates a new, empty <code>Set</code>.</p></div>
         
       </li>
     
@@ -3274,7 +3274,7 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Set.html">Set</a></code> with all of the elements cloned.</p></div>
+          <div class="summary"><p>Returns a new <code>Set</code> with all of the elements cloned.</p></div>
         
       </li>
     
@@ -3295,7 +3295,7 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Set.html">Set</a></code> with all of the same elements.</p></div>
+          <div class="summary"><p>Returns a new <code>Set</code> with all of the same elements.</p></div>
         
       </li>
     
@@ -3323,7 +3323,7 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Set.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3398,7 +3398,7 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#to_a-instance-method" class="signature"><strong>#to_a</strong></a>
         
-          <div class="summary"><p>Returns the elements as an <code><a href="Array.html">Array</a></code>.</p></div>
+          <div class="summary"><p>Returns the elements as an <code>Array</code>.</p></div>
         
       </li>
     
@@ -3986,12 +3986,12 @@ s2.subset? s1 <span class="c"># =&gt; true</span></code></pre>
         <a class="method-permalink" href="#new%28other%3AIndexable%28T%29%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Optimized version of <code>new</code> used when <em>other</em> is also an <code><a href="Indexable.html">Indexable</a></code></p></div>
+        <div class="doc"><p>Optimized version of <code>new</code> used when <em>other</em> is also an <code>Indexable</code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4013,7 +4013,7 @@ s.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L52" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L52" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4029,7 +4029,7 @@ s.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L115" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4042,18 +4042,18 @@ s.empty? <span class="c"># =&gt; false</span></code></pre></div>
         <a class="method-permalink" href="#new%28initial_capacity%3Dnil%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new, empty <code><a href="Set.html">Set</a></code>.</p>
+        <div class="doc"><p>Creates a new, empty <code>Set</code>.</p>
 
 <pre><code>s <span class="o">=</span> <span class="t">Set</span>(<span class="t">Int32</span>).<span class="k">new</span>
 s.empty? <span class="c"># =&gt; true</span></code></pre>
 
 <p>An initial capacity can be specified, and it will be set as the initial capacity
-of the internal <code><a href="Hash.html">Hash</a></code>.</p></div>
+of the internal <code>Hash</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L36" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L36" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4081,7 +4081,7 @@ of the internal <code><a href="Hash.html">Hash</a></code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L165" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L165" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4103,7 +4103,7 @@ present in the other.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L200" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L200" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4125,7 +4125,7 @@ present in the other enumerable.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L215" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L215" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4143,7 +4143,7 @@ present in the other enumerable.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4163,7 +4163,7 @@ present in the other enumerable.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L275" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L275" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4185,7 +4185,7 @@ Equivalently, returns <code>(self | other) - (self & other)</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L226" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L226" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4207,7 +4207,7 @@ Equivalently, returns <code>(self | other) - (self & other)</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L244" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L244" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4230,7 +4230,7 @@ s.includes? <span class="n">8</span> <span class="c"># =&gt; true</span></code><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L69" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L69" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4253,7 +4253,7 @@ s.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L130" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L130" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4266,12 +4266,12 @@ s.size <span class="c"># =&gt; 0</span></code></pre></div>
         <a class="method-permalink" href="#clone-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Set.html">Set</a></code> with all of the elements cloned.</p></div>
+        <div class="doc"><p>Returns a new <code>Set</code> with all of the elements cloned.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L285" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L285" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4295,7 +4295,7 @@ s.size <span class="c"># =&gt; 4</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L83" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L83" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4318,7 +4318,7 @@ s.includes? <span class="n">5</span> <span class="c"># =&gt; false</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4331,12 +4331,12 @@ s.includes? <span class="n">5</span> <span class="c"># =&gt; false</span></code>
         <a class="method-permalink" href="#dup-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Set.html">Set</a></code> with all of the same elements.</p></div>
+        <div class="doc"><p>Returns a new <code>Set</code> with all of the same elements.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L280" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L280" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4354,7 +4354,7 @@ s.includes? <span class="n">5</span> <span class="c"># =&gt; false</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L155" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L155" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4372,7 +4372,7 @@ s.includes? <span class="n">5</span> <span class="c"># =&gt; false</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L148" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L148" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4395,7 +4395,7 @@ s.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L143" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L143" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4408,12 +4408,12 @@ s.empty? <span class="c"># =&gt; false</span></code></pre></div>
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Set.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L312" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L312" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4435,7 +4435,7 @@ s.includes? <span class="n">9</span> <span class="c"># =&gt; false</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4453,7 +4453,7 @@ s.includes? <span class="n">9</span> <span class="c"># =&gt; false</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L303" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L303" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4475,7 +4475,7 @@ common.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L321" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L321" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4491,7 +4491,7 @@ common.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L307" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L307" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4515,7 +4515,7 @@ of elements in this set must be present in the <em>other</em> set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L359" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L359" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4539,7 +4539,7 @@ elements in the <em>other</em> set must be present in this set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L386" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L386" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4560,7 +4560,7 @@ s.size <span class="c"># =&gt; 2</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L118" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L118" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4584,7 +4584,7 @@ of elements in this set must be present in the <em>other</em> set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L345" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L345" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4606,7 +4606,7 @@ the given enumerable.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L263" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L263" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4630,7 +4630,7 @@ elements in the <em>other</em> set must be present in this set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L373" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L373" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4643,14 +4643,14 @@ elements in the <em>other</em> set must be present in this set.</p>
         <a class="method-permalink" href="#to_a-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the elements as an <code><a href="Array.html">Array</a></code>.</p>
+        <div class="doc"><p>Returns the elements as an <code>Array</code>.</p>
 
 <pre><code><span class="t">Set</span>{<span class="n">1</span>, <span class="n">5</span>}.to_a <span class="c"># =&gt; [1,5]</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L298" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4666,7 +4666,7 @@ elements in the <em>other</em> set must be present in this set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4684,7 +4684,7 @@ elements in the <em>other</em> set must be present in this set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L330" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L330" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4700,7 +4700,7 @@ elements in the <em>other</em> set must be present in this set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L90" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L90" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4723,7 +4723,7 @@ elements in the <em>other</em> set must be present in this set.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/set.cr#L186" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/set.cr#L186" target="_blank">View source</a>]
         
       </div>
     </div>

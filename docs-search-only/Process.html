@@ -3120,22 +3120,22 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/kernel.cr#L181" target="_blank">kernel.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/kernel.cr#L181" target="_blank">kernel.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L7" target="_blank">process.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L7" target="_blank">process.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process/executable_path.cr#L5" target="_blank">process/executable_path.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process/executable_path.cr#L5" target="_blank">process/executable_path.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process/executable_path.cr#L54" target="_blank">process/executable_path.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process/executable_path.cr#L54" target="_blank">process/executable_path.cr</a>
     
     <br/>
   
@@ -3225,7 +3225,7 @@
       <li class="entry-summary">
         <a href="#fork%28%26block%29-class-method" class="signature"><strong>.fork</strong>(&block)</a>
         
-          <div class="summary"><p>Runs the given block inside a new process and returns a <code><a href="Process.html">Process</a></code> representing the new child process.</p></div>
+          <div class="summary"><p>Runs the given block inside a new process and returns a <code>Process</code> representing the new child process.</p></div>
         
       </li>
     
@@ -3281,7 +3281,7 @@
       <li class="entry-summary">
         <a href="#times%3ATms-class-method" class="signature"><strong>.times</strong> : Tms</a>
         
-          <div class="summary"><p>Returns a <code><a href="Process/Tms.html">Tms</a></code> for the current process.</p></div>
+          <div class="summary"><p>Returns a <code>Tms</code> for the current process.</p></div>
         
       </li>
     
@@ -3337,7 +3337,7 @@
       <li class="entry-summary">
         <a href="#kill%28sig%3DSignal%3A%3ATERM%29-instance-method" class="signature"><strong>#kill</strong>(sig = <span class="t">Signal</span><span class="t">::</span><span class="t">TERM</span>)</a>
         
-          <div class="summary"><p>See also: <code><a href="Process.html#kill%28signal%3ASignal%2C%2Apids%3AInt%29-class-method">Process.kill</a></code></p></div>
+          <div class="summary"><p>See also: <code>Process<a href="Process.html#kill%28signal%3ASignal%2C%2Apids%3AInt%29-class-method">.kill</a></code></p></div>
         
       </li>
     
@@ -3587,13 +3587,13 @@
       </div>
       
         <div class="doc"><p>Duplicates the current process.
-Returns a <code><a href="Process.html">Process</a></code> representing the new child process in the current process
+Returns a <code>Process</code> representing the new child process in the current process
 and <code>nil</code> inside the new child process.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L90" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L90" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3615,7 +3615,7 @@ and <code>nil</code> inside the new child process.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L208" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L208" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3638,7 +3638,7 @@ and <code>nil</code> inside the new child process.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/kernel.cr#L183" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/kernel.cr#L183" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3655,12 +3655,12 @@ and <code>nil</code> inside the new child process.</p></div>
 
 <p>The possible values for <em>input</em>, <em>output</em> and <em>error</em> are:</p>
 
-<ul><li><code>false</code>: no <code><a href="IO.html">IO</a></code> (<code>/dev/null</code>)</li><li><code>true</code>: inherit from parent</li><li><code><a href="IO.html">IO</a></code>: use the given <code><a href="IO.html">IO</a></code></li></ul></div>
+<ul><li><code>false</code>: no <code>IO</code> (<code>/dev/null</code>)</li><li><code>true</code>: inherit from parent</li><li><code>IO</code>: use the given <code>IO</code></li></ul></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L184" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L184" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3674,7 +3674,7 @@ and <code>nil</code> inside the new child process.</p></div>
       </div>
       
         <div class="doc"><p>Returns an absolute path to the executable file of the currently running
-program. This is in opposition to <code><a href="toplevel.html#PROGRAM_NAME">PROGRAM_NAME</a></code> which may be a relative or
+program. This is in opposition to <code>PROGRAM_NAME</code> which may be a relative or
 absolute path, just the executable file name or a symlink.</p>
 
 <p>The executable path will be canonicalized (all symlinks and relative paths
@@ -3685,7 +3685,7 @@ will be expanded).</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process/executable_path.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process/executable_path.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3705,7 +3705,7 @@ returns <code>true</code> for a process in the zombie or similar state.</p></div
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L51" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L51" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3727,7 +3727,7 @@ not run any handlers registered with <code>at_exit</code>, use <code>::exit</cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3747,7 +3747,7 @@ in <em>path</em>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process/executable_path.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process/executable_path.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3761,12 +3761,12 @@ in <em>path</em>.</p></div>
       </div>
       
         <div class="doc"><p>Runs the given block inside a new process and
-returns a <code><a href="Process.html">Process</a></code> representing the new child process.</p></div>
+returns a <code>Process</code> representing the new child process.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3784,7 +3784,7 @@ returns a <code><a href="Process.html">Process</a></code> representing the new c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3802,7 +3802,7 @@ returns a <code><a href="Process.html">Process</a></code> representing the new c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3820,7 +3820,7 @@ returns a <code><a href="Process.html">Process</a></code> representing the new c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3838,7 +3838,7 @@ returns a <code><a href="Process.html">Process</a></code> representing the new c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3856,7 +3856,7 @@ returns a <code><a href="Process.html">Process</a></code> representing the new c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3876,7 +3876,7 @@ returns a <code><a href="Process.html">Process</a></code> representing the new c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L152" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L152" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3899,7 +3899,7 @@ will be closed automatically at the end of the block.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L165" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L165" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3912,13 +3912,13 @@ will be closed automatically at the end of the block.</p>
         <a class="method-permalink" href="#times%3ATms-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Process/Tms.html">Tms</a></code> for the current process. For the children times, only those
+        <div class="doc"><p>Returns a <code>Tms</code> for the current process. For the children times, only those
 of terminated children are returned.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L72" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L72" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3941,7 +3941,7 @@ of terminated children are returned.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L307" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L307" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3959,7 +3959,7 @@ of terminated children are returned.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L199" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L199" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3977,7 +3977,7 @@ of terminated children are returned.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L199" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L199" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3996,7 +3996,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L297" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L297" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4014,7 +4014,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L193" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L193" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4032,7 +4032,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L193" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L193" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4045,12 +4045,12 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
         <a class="method-permalink" href="#kill%28sig%3DSignal%3A%3ATERM%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See also: <code><a href="Process.html#kill%28signal%3ASignal%2C%2Apids%3AInt%29-class-method">Process.kill</a></code></p></div>
+        <div class="doc"><p>See also: <code>Process<a href="Process.html#kill%28signal%3ASignal%2C%2Apids%3AInt%29-class-method">.kill</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L276" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L276" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4068,7 +4068,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L196" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4086,7 +4086,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L196" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4102,7 +4102,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L190" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L190" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4120,7 +4120,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L302" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L302" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4138,7 +4138,7 @@ Note that this returns <code>true</code> for processes in the zombie or similar 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/process.cr#L281" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/process.cr#L281" target="_blank">View source</a>]
         
       </div>
     </div>

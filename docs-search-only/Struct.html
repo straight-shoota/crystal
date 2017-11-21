@@ -3106,13 +3106,13 @@
 
   <h2>Overview</h2>
 
-  <p><code><a href="Struct.html">Struct</a></code> is the base type of structs you create in your program.
+  <p><code>Struct</code> is the base type of structs you create in your program.
 It is set as a struct's superstruct when you don't specify one:</p>
 
 <pre><code><span class="k">struct</span> <span class="t">Foo</span> <span class="c"># &lt; Struct</span>
 <span class="k">end</span></code></pre>
 
-<p>Structs inherit from <code><a href="Value.html">Value</a></code> so they are allocated on the stack and passed
+<p>Structs inherit from <code>Value</code> so they are allocated on the stack and passed
 by value. For this reason you should prefer using structs for immutable
 data types and/or stateless wrappers of other types.</p>
 
@@ -3144,7 +3144,7 @@ mut <span class="o">=</span> change_good(mut)
 mut.value <span class="c"># =&gt; 2</span></code></pre>
 
 <p>The standard library provides a useful <code><a href="toplevel.html#record%28name%2C%2Aproperties%29-macro">record</a></code> macro that allows you to
-create immutable structs with some fields, similar to a <code><a href="Tuple.html">Tuple</a></code> but using
+create immutable structs with some fields, similar to a <code>Tuple</code> but using
 names instead of indices.</p>
 
 
@@ -3338,7 +3338,7 @@ names instead of indices.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/struct.cr#L45" target="_blank">struct.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/struct.cr#L45" target="_blank">struct.cr</a>
     
     <br/>
   
@@ -3364,7 +3364,7 @@ names instead of indices.</p>
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Struct.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3586,7 +3586,7 @@ p1 <span class="o">==</span> p3 <span class="c"># =&gt; false</span></code></pre
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/struct.cr#L66" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/struct.cr#L66" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3599,12 +3599,12 @@ p1 <span class="o">==</span> p3 <span class="c"># =&gt; false</span></code></pre
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Struct.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/struct.cr#L74" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/struct.cr#L74" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3632,7 +3632,7 @@ p1.inspect <span class="c"># &quot;Point(@x=1, @y=2)&quot;</span></code></pre></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/struct.cr#L94" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/struct.cr#L94" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3648,7 +3648,7 @@ p1.inspect <span class="c"># &quot;Point(@x=1, @y=2)&quot;</span></code></pre></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/struct.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/struct.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3666,7 +3666,7 @@ p1.inspect <span class="c"># &quot;Point(@x=1, @y=2)&quot;</span></code></pre></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/struct.cr#L130" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/struct.cr#L130" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3106,11 +3106,11 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="Regex.html">Regex</a></code> represents a regular expression, a pattern that describes the
-contents of strings. A <code><a href="Regex.html">Regex</a></code> can determine whether or not a string matches
+  <p>A <code>Regex</code> represents a regular expression, a pattern that describes the
+contents of strings. A <code>Regex</code> can determine whether or not a string matches
 its description, and extract the parts of the string that match.</p>
 
-<p>A <code><a href="Regex.html">Regex</a></code> can be created using the literal syntax, in which it is delimited by
+<p>A <code>Regex</code> can be created using the literal syntax, in which it is delimited by
 forward slashes (<code>/</code>):</p>
 
 <pre><code><span class="s">/hay/</span> <span class="o">=~</span> <span class="s">&quot;haystack&quot;</span>   <span class="c"># =&gt; 0</span>
@@ -3145,8 +3145,8 @@ a match and <code>nil</code> if there was no match. After performing a match, th
 special variable <code>$~</code> will be an instance of <code><a href="Regex/MatchData.html">Regex::MatchData</a></code> if it matched, <code>nil</code>
 otherwise.</p>
 
-<p>When matching a regular expression using <code><a href="Regex.html#%3D~%28other%3AString%29-instance-method">#=~</a></code> (either <code><a href="String.html#%3D~%28other%29-instance-method">String#=~</a></code> or
-<code><a href="Regex.html#%3D~%28other%3AString%29-instance-method">Regex#=~</a></code>), the returned value will be the index of the first match in the
+<p>When matching a regular expression using <code><a href="Regex.html#%3D~%28other%3AString%29-instance-method">#=~</a></code> (either <code>String<a href="Regex.html#%3D~%28other%3AString%29-instance-method">#=~</a></code> or
+<code>Regex<a href="Regex.html#%3D~%28other%3AString%29-instance-method">#=~</a></code>), the returned value will be the index of the first match in the
 string if the expression matched, <code>nil</code> otherwise.</p>
 
 <pre><code><span class="s">/stack/</span> <span class="o">=~</span> <span class="s">&quot;haystack&quot;</span>  <span class="c"># =&gt; 3</span>
@@ -3156,8 +3156,8 @@ $~                     <span class="c"># =&gt; #&lt;Regex::MatchData &quot;stack
 <span class="s">&quot;haystack&quot;</span> <span class="o">=~</span> <span class="s">/needle/</span> <span class="c"># =&gt; nil</span>
 $~                     <span class="c"># raises Exception</span></code></pre>
 
-<p>When matching a regular expression using <code><a href="Regex.html#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">#match</a></code> (either <code><a href="String.html#match%28regex%3ARegex%2Cpos%3D0%29%3ARegex%3A%3AMatchData%3F-instance-method">String#match</a></code> or
-<code><a href="Regex.html#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">Regex#match</a></code>), the returned value will be a <code><a href="Regex/MatchData.html">Regex::MatchData</a></code> if the expression
+<p>When matching a regular expression using <code><a href="Regex.html#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">#match</a></code> (either <code>String<a href="Regex.html#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">#match</a></code> or
+<code>Regex<a href="Regex.html#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">#match</a></code>), the returned value will be a <code><a href="Regex/MatchData.html">Regex::MatchData</a></code> if the expression
 matched, <code>nil</code> otherwise.</p>
 
 <pre><code><span class="s">/hay/</span>.match(<span class="s">&quot;haystack&quot;</span>)    <span class="c"># =&gt; #&lt;Regex::MatchData &quot;hay&quot;&gt;</span>
@@ -3270,9 +3270,9 @@ enclosed in square brackets (<code>[]</code>):</p>
 regular expressions are also UTF-8 only (by default).</p>
 
 <p>PCRE optionally permits named capture groups (named subpatterns) to not be
-unique. Crystal exposes the name table of a <code><a href="Regex.html">Regex</a></code> as a
-<code><a href="Hash.html">Hash</a></code> of <code><a href="String.html">String</a></code> => <code><a href="Int32.html">Int32</a></code>, and therefore requires named capture groups to have
-unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
+unique. Crystal exposes the name table of a <code>Regex</code> as a
+<code>Hash</code> of <code>String</code> => <code>Int32</code>, and therefore requires named capture groups to have
+unique names within a single <code>Regex</code>.</p>
 
 
 
@@ -3290,22 +3290,22 @@ unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L1" target="_blank">regex/match_data.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L1" target="_blank">regex/match_data.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L194" target="_blank">regex.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L194" target="_blank">regex.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L279" target="_blank">json/any.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L279" target="_blank">json/any.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/any.cr#L291" target="_blank">yaml/any.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/any.cr#L291" target="_blank">yaml/any.cr</a>
     
     <br/>
   
@@ -3320,7 +3320,7 @@ unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
       <li class="entry-summary">
         <a href="#new%28source%3AString%2Coptions%3AOptions%3DOptions%3A%3ANone%29-class-method" class="signature"><strong>.new</strong>(source : String, options : Options = <span class="t">Options</span><span class="t">::</span><span class="t">None</span>)</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Regex.html">Regex</a></code> out of the given source <code><a href="String.html">String</a></code>.</p></div>
+          <div class="summary"><p>Creates a new <code>Regex</code> out of the given source <code>String</code>.</p></div>
         
       </li>
     
@@ -3355,7 +3355,7 @@ unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
       <li class="entry-summary">
         <a href="#escape%28str%29%3AString-class-method" class="signature"><strong>.escape</strong>(str) : String</a>
         
-          <div class="summary"><p>Returns a <code><a href="String.html">String</a></code> constructed by escaping any metacharacters in <em>str</em>.</p></div>
+          <div class="summary"><p>Returns a <code>String</code> constructed by escaping any metacharacters in <em>str</em>.</p></div>
         
       </li>
     
@@ -3424,7 +3424,7 @@ unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
       <li class="entry-summary">
         <a href="#inspect%28io%3AIO%29-instance-method" class="signature"><strong>#inspect</strong>(io : IO)</a>
         
-          <div class="summary"><p>Convert to <code><a href="String.html">String</a></code> in literal format.</p></div>
+          <div class="summary"><p>Convert to <code>String</code> in literal format.</p></div>
         
       </li>
     
@@ -3445,28 +3445,28 @@ unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
       <li class="entry-summary">
         <a href="#name_table%3AHash%28UInt16%2CString%29-instance-method" class="signature"><strong>#name_table</strong> : Hash(UInt16, String)</a>
         
-          <div class="summary"><p>Returns a <code><a href="Hash.html">Hash</a></code> where the values are the names of capture groups and the keys are their indexes.</p></div>
+          <div class="summary"><p>Returns a <code>Hash</code> where the values are the names of capture groups and the keys are their indexes.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#options%3AOptions-instance-method" class="signature"><strong>#options</strong> : Options</a>
         
-          <div class="summary"><p>Return a <code><a href="Regex/Options.html">Regex::Options</a></code> representing the optional flags applied to this <code><a href="Regex.html">Regex</a></code>.</p></div>
+          <div class="summary"><p>Return a <code><a href="Regex/Options.html">Regex::Options</a></code> representing the optional flags applied to this <code>Regex</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#source%3AString-instance-method" class="signature"><strong>#source</strong> : String</a>
         
-          <div class="summary"><p>Return the original <code><a href="String.html">String</a></code> representation of the <code><a href="Regex.html">Regex</a></code> pattern.</p></div>
+          <div class="summary"><p>Return the original <code>String</code> representation of the <code>Regex</code> pattern.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s%28io%3AIO%29-instance-method" class="signature"><strong>#to_s</strong>(io : IO)</a>
         
-          <div class="summary"><p>Convert to <code><a href="String.html">String</a></code> in subpattern format.</p></div>
+          <div class="summary"><p>Convert to <code>String</code> in subpattern format.</p></div>
         
       </li>
     
@@ -3682,7 +3682,7 @@ unique names within a single <code><a href="Regex.html">Regex</a></code>.</p>
         <a class="method-permalink" href="#new%28source%3AString%2Coptions%3AOptions%3DOptions%3A%3ANone%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Regex.html">Regex</a></code> out of the given source <code><a href="String.html">String</a></code>.</p>
+        <div class="doc"><p>Creates a new <code>Regex</code> out of the given source <code>String</code>.</p>
 
 <pre><code><span class="t">Regex</span>.<span class="k">new</span>(<span class="s">&quot;^a-z+:\\s+\\w+&quot;</span>)                   <span class="c"># =&gt; /^a-z+:\s+\w+/</span>
 <span class="t">Regex</span>.<span class="k">new</span>(<span class="s">&quot;cat&quot;</span>, <span class="t">Regex</span><span class="t">::</span><span class="t">Options</span><span class="t">::</span><span class="t">IGNORE_CASE</span>) <span class="c"># =&gt; /cat/i</span>
@@ -3692,7 +3692,7 @@ options <span class="o">=</span> <span class="t">Regex</span><span class="t">::<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L240" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L240" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3705,7 +3705,7 @@ options <span class="o">=</span> <span class="t">Regex</span><span class="t">::<
         <a class="method-permalink" href="#union%28patterns%3AEnumerable%28Regex%7CString%29%29%3Aself-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Union. Returns a <code><a href="Regex.html">Regex</a></code> that matches any of <em>patterns</em>.</p>
+        <div class="doc"><p>Union. Returns a <code>Regex</code> that matches any of <em>patterns</em>.</p>
 
 <p>All capture groups in the patterns after the first one will have their
 indexes offset.</p>
@@ -3720,7 +3720,7 @@ re.match(<span class="s">&quot;sledding&quot;</span>) <span class="c"># =&gt; #&
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L303" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L303" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3733,7 +3733,7 @@ re.match(<span class="s">&quot;sledding&quot;</span>) <span class="c"># =&gt; #&
         <a class="method-permalink" href="#union%28%2Apatterns%3ARegex%7CString%29%3Aself-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Union. Returns a <code><a href="Regex.html">Regex</a></code> that matches any of <em>patterns</em>.</p>
+        <div class="doc"><p>Union. Returns a <code>Regex</code> that matches any of <em>patterns</em>.</p>
 
 <p>All capture groups in the patterns after the first one will have their
 indexes offset.</p>
@@ -3745,7 +3745,7 @@ re.match(<span class="s">&quot;sledding&quot;</span>) <span class="c"># =&gt; #&
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L317" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L317" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3764,7 +3764,7 @@ re.match(<span class="s">&quot;sledding&quot;</span>) <span class="c"># =&gt; #&
       </div>
       
         <div class="doc"><p>Determines Regex's source validity. If it is, <code>nil</code> is returned.
-If it's not, a <code><a href="String.html">String</a></code> containing the error message is returned.</p>
+If it's not, a <code>String</code> containing the error message is returned.</p>
 
 <pre><code><span class="t">Regex</span>.error?(<span class="s">&quot;(foo|bar)&quot;</span>) <span class="c"># =&gt; nil</span>
 <span class="t">Regex</span>.error?(<span class="s">&quot;(foo|bar&quot;</span>)  <span class="c"># =&gt; &quot;missing ) at 8&quot;</span></code></pre></div>
@@ -3772,7 +3772,7 @@ If it's not, a <code><a href="String.html">String</a></code> containing the erro
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L259" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L259" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3785,7 +3785,7 @@ If it's not, a <code><a href="String.html">String</a></code> containing the erro
         <a class="method-permalink" href="#escape%28str%29%3AString-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="String.html">String</a></code> constructed by escaping any metacharacters in <em>str</em>.</p>
+        <div class="doc"><p>Returns a <code>String</code> constructed by escaping any metacharacters in <em>str</em>.</p>
 
 <pre><code>string <span class="o">=</span> <span class="t">Regex</span>.escape(<span class="s">&quot;\*?{}.&quot;</span>) <span class="c"># =&gt; &quot;\\*\\?\\{\\}\\.&quot;</span>
 <span class="s">/</span><span class="i">#{</span></span>string<span class="s"><span class="i">}</span>/</span>                     <span class="c"># =&gt; /\*\?\{\}\./</span></code></pre></div>
@@ -3793,7 +3793,7 @@ If it's not, a <code><a href="String.html">String</a></code> containing the erro
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3811,7 +3811,7 @@ If it's not, a <code><a href="String.html">String</a></code> containing the erro
         <a class="method-permalink" href="#%2B%28other%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Union. Returns a <code><a href="Regex.html">Regex</a></code> that matches either of the operands.</p>
+        <div class="doc"><p>Union. Returns a <code>Regex</code> that matches either of the operands.</p>
 
 <p>All capture groups in the second operand will have their indexes
 offset.</p>
@@ -3823,7 +3823,7 @@ re.match(<span class="s">&quot;sledding&quot;</span>) <span class="c"># =&gt; #&
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L339" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L339" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3845,7 +3845,7 @@ re.match(<span class="s">&quot;sledding&quot;</span>) <span class="c"># =&gt; #&
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L350" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L350" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3876,7 +3876,7 @@ b <span class="c"># =&gt; &quot;Upper case&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L370" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L370" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3892,7 +3892,7 @@ b <span class="c"># =&gt; &quot;Upper case&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/any.cr#L280" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/any.cr#L280" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3908,7 +3908,7 @@ b <span class="c"># =&gt; &quot;Upper case&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/any.cr#L292" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/any.cr#L292" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3922,7 +3922,7 @@ b <span class="c"># =&gt; &quot;Upper case&quot;</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Match. Matches a regular expression against <em>other</em> and returns
-the starting position of the match if <em>other</em> is a matching <code><a href="String.html">String</a></code>,
+the starting position of the match if <em>other</em> is a matching <code>String</code>,
 otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/MatchData.html">Regex::MatchData</a></code> if there was a match,
 <code>nil</code> otherwise.</p>
 
@@ -3932,7 +3932,7 @@ otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L385" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L385" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3945,7 +3945,7 @@ otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/
         <a class="method-permalink" href="#%3D~%28other%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Match. When the argument is not a <code><a href="String.html">String</a></code>, always returns <code>nil</code>.</p>
+        <div class="doc"><p>Match. When the argument is not a <code>String</code>, always returns <code>nil</code>.</p>
 
 <pre><code><span class="s">/at/</span> <span class="o">=~</span> <span class="s">&quot;input data&quot;</span> <span class="c"># =&gt; 7</span>
 <span class="s">/ax/</span> <span class="o">=~</span> <span class="s">&quot;input data&quot;</span> <span class="c"># =&gt; nil</span></code></pre></div>
@@ -3953,7 +3953,7 @@ otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L397" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L397" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3969,7 +3969,7 @@ otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L535" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L535" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3985,7 +3985,7 @@ otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L531" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L531" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3998,7 +3998,7 @@ otherwise <code>nil</code>. <code>$~</code> will contain a <code><a href="Regex/
         <a class="method-permalink" href="#inspect%28io%3AIO%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Convert to <code><a href="String.html">String</a></code> in literal format. Returns the source as a <code><a href="String.html">String</a></code> in
+        <div class="doc"><p>Convert to <code>String</code> in literal format. Returns the source as a <code>String</code> in
 Regex literal format, delimited in forward slashes (<code>/</code>), with any
 optional flags included.</p>
 
@@ -4007,7 +4007,7 @@ optional flags included.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L408" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L408" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4020,7 +4020,7 @@ optional flags included.</p>
         <a class="method-permalink" href="#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Match at character index. Matches a regular expression against <code><a href="String.html">String</a></code>
+        <div class="doc"><p>Match at character index. Matches a regular expression against <code>String</code>
 <em>str</em>. Starts at the character index given by <em>pos</em> if given, otherwise at
 the start of <em>str</em>. Returns a <code><a href="Regex/MatchData.html">Regex::MatchData</a></code> if <em>str</em> matched, otherwise
 <code>nil</code>. <code>$~</code> will contain the same value that was returned.</p>
@@ -4032,7 +4032,7 @@ the start of <em>str</em>. Returns a <code><a href="Regex/MatchData.html">Regex:
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L427" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L427" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4045,7 +4045,7 @@ the start of <em>str</em>. Returns a <code><a href="Regex/MatchData.html">Regex:
         <a class="method-permalink" href="#match_at_byte_index%28str%2Cbyte_index%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Match at byte index. Matches a regular expression against <code><a href="String.html">String</a></code>
+        <div class="doc"><p>Match at byte index. Matches a regular expression against <code>String</code>
 <em>str</em>. Starts at the byte index given by <em>pos</em> if given, otherwise at
 the start of <em>str</em>. Returns a <code><a href="Regex/MatchData.html">Regex::MatchData</a></code> if <em>str</em> matched, otherwise
 <code>nil</code>. <code>$~</code> will contain the same value that was returned.</p>
@@ -4057,7 +4057,7 @@ the start of <em>str</em>. Returns a <code><a href="Regex/MatchData.html">Regex:
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L447" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L447" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4070,9 +4070,9 @@ the start of <em>str</em>. Returns a <code><a href="Regex/MatchData.html">Regex:
         <a class="method-permalink" href="#name_table%3AHash%28UInt16%2CString%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Hash.html">Hash</a></code> where the values are the names of capture groups and the
+        <div class="doc"><p>Returns a <code>Hash</code> where the values are the names of capture groups and the
 keys are their indexes. Non-named capture groups will not have entries in
-the <code><a href="Hash.html">Hash</a></code>. Capture groups are indexed starting from <code>1</code>.</p>
+the <code>Hash</code>. Capture groups are indexed starting from <code>1</code>.</p>
 
 <pre><code><span class="s">/(.)/</span>.name_table                         <span class="c"># =&gt; {}</span>
 <span class="s">/(?&lt;foo&gt;.)/</span>.name_table                   <span class="c"># =&gt; {1 =&gt; &quot;foo&quot;}</span>
@@ -4082,7 +4082,7 @@ the <code><a href="Hash.html">Hash</a></code>. Capture groups are indexed starti
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L472" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L472" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4095,7 +4095,7 @@ the <code><a href="Hash.html">Hash</a></code>. Capture groups are indexed starti
         <a class="method-permalink" href="#options%3AOptions-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Return a <code><a href="Regex/Options.html">Regex::Options</a></code> representing the optional flags applied to this <code><a href="Regex.html">Regex</a></code>.</p>
+        <div class="doc"><p>Return a <code><a href="Regex/Options.html">Regex::Options</a></code> representing the optional flags applied to this <code>Regex</code>.</p>
 
 <pre><code><span class="s">/ab+c/</span>ix.options      <span class="c"># =&gt; Regex::Options::IGNORE_CASE | Regex::Options::EXTENDED</span>
 <span class="s">/ab+c/</span>ix.options.to_s <span class="c"># =&gt; &quot;IGNORE_CASE, EXTENDED&quot;</span></code></pre></div>
@@ -4103,7 +4103,7 @@ the <code><a href="Hash.html">Hash</a></code>. Capture groups are indexed starti
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L223" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L223" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4116,14 +4116,14 @@ the <code><a href="Hash.html">Hash</a></code>. Capture groups are indexed starti
         <a class="method-permalink" href="#source%3AString-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Return the original <code><a href="String.html">String</a></code> representation of the <code><a href="Regex.html">Regex</a></code> pattern.</p>
+        <div class="doc"><p>Return the original <code>String</code> representation of the <code>Regex</code> pattern.</p>
 
 <pre><code><span class="s">/ab+c/</span>x.source <span class="c"># =&gt; &quot;ab+c&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L230" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L230" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4136,8 +4136,8 @@ the <code><a href="Hash.html">Hash</a></code>. Capture groups are indexed starti
         <a class="method-permalink" href="#to_s%28io%3AIO%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Convert to <code><a href="String.html">String</a></code> in subpattern format. Produces a <code><a href="String.html">String</a></code> which can be
-embedded in another <code><a href="Regex.html">Regex</a></code> via interpolation, where it will be interpreted
+        <div class="doc"><p>Convert to <code>String</code> in subpattern format. Produces a <code>String</code> which can be
+embedded in another <code>Regex</code> via interpolation, where it will be interpreted
 as a non-capturing subexpression in another regular expression.</p>
 
 <pre><code>re <span class="o">=</span> <span class="s">/A*/</span>i                 <span class="c"># =&gt; /A*/i</span>
@@ -4149,7 +4149,7 @@ re <span class="o">=</span> <span class="s">/A*/</span>                  <span c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex.cr#L505" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex.cr#L505" target="_blank">View source</a>]
         
       </div>
     </div>

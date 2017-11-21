@@ -3106,19 +3106,19 @@
 
   <h2>Overview</h2>
 
-  <p>An <code><a href="Array.html">Array</a></code> is an ordered, integer-indexed collection of objects of type T.</p>
+  <p>An <code>Array</code> is an ordered, integer-indexed collection of objects of type T.</p>
 
 <p>Array indexing starts at 0. A negative index is assumed to be
 relative to the end of the array: -1 indicates the last element,
 -2 is the next to last element, and so on.</p>
 
-<p>An <code><a href="Array.html">Array</a></code> can be created using the usual <code>new</code> method (several are provided), or with an array literal:</p>
+<p>An <code>Array</code> can be created using the usual <code>new</code> method (several are provided), or with an array literal:</p>
 
 <pre><code><span class="t">Array</span>(<span class="t">Int32</span>).<span class="k">new</span>  <span class="c"># =&gt; []</span>
 [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]         <span class="c"># Array(Int32)</span>
 [<span class="n">1</span>, <span class="s">&quot;hello&quot;</span>, <span class="s">'x'</span>] <span class="c"># Array(Int32 | String | Char)</span></code></pre>
 
-<p>An <code><a href="Array.html">Array</a></code> can have mixed types, meaning T will be a union of types, but these are determined
+<p>An <code>Array</code> can have mixed types, meaning T will be a union of types, but these are determined
 when the array is created, either by specifying T or by using an array literal. In the latter
 case, T will be set to the union of the array literal elements' types.</p>
 
@@ -3127,12 +3127,12 @@ case, T will be set to the union of the array literal elements' types.</p>
 <pre><code><span class="o">[]</span> <span class="k">of</span> <span class="t">Int32</span> <span class="c"># same as Array(Int32)</span>
 <span class="o">[]</span>          <span class="c"># syntax error</span></code></pre>
 
-<p>An <code><a href="Array.html">Array</a></code> is implemented using an internal buffer of some capacity
+<p>An <code>Array</code> is implemented using an internal buffer of some capacity
 and is reallocated when elements are pushed to it when more capacity
 is needed. This is normally known as a <a href="http://en.wikipedia.org/wiki/Dynamic_array" target="_blank">dynamic array</a>.</p>
 
 <p>You can use a special array literal syntax with other types too, as long as they define an argless
-<code>new</code> method and a <code><a href="Array.html#%3C%3C%28value%3AT%29-instance-method">#<<</a></code> method. <code><a href="Set.html">Set</a></code> is one such type:</p>
+<code>new</code> method and a <code><a href="Array.html#%3C%3C%28value%3AT%29-instance-method">#<<</a></code> method. <code>Set</code> is one such type:</p>
 
 <pre><code>set <span class="o">=</span> <span class="t">Set</span>{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>} <span class="c"># =&gt; Set{1, 2, 3}</span>
 set.<span class="k">class</span>          <span class="c"># =&gt; Set(Int32)</span></code></pre>
@@ -3169,17 +3169,17 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L46" target="_blank">array.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L46" target="_blank">array.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L63" target="_blank">json/to_json.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L63" target="_blank">json/to_json.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L34" target="_blank">yaml/to_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L34" target="_blank">yaml/to_yaml.cr</a>
     
     <br/>
   
@@ -3194,14 +3194,14 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#build%28capacity%3AInt%2C%26block%29%3Aself-class-method" class="signature"><strong>.build</strong>(capacity : Int, &block) : self</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Array.html">Array</a></code>, allocating an internal buffer with the given <em>capacity</em>, and yielding that buffer.</p></div>
+          <div class="summary"><p>Creates a new <code>Array</code>, allocating an internal buffer with the given <em>capacity</em>, and yielding that buffer.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28size%3AInt%2Cvalue%3AT%29-class-method" class="signature"><strong>.new</strong>(size : Int, value : T)</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Array.html">Array</a></code> of the given <em>size</em> filled with the same <em>value</em> in each position.</p></div>
+          <div class="summary"><p>Creates a new <code>Array</code> of the given <em>size</em> filled with the same <em>value</em> in each position.</p></div>
         
       </li>
     
@@ -3213,7 +3213,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#new%28initial_capacity%3AInt%29-class-method" class="signature"><strong>.new</strong>(initial_capacity : Int)</a>
         
-          <div class="summary"><p>Creates a new empty <code><a href="Array.html">Array</a></code> backed by a buffer that is initially <code>initial_capacity</code> big.</p></div>
+          <div class="summary"><p>Creates a new empty <code>Array</code> backed by a buffer that is initially <code>initial_capacity</code> big.</p></div>
         
       </li>
     
@@ -3237,7 +3237,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#new%28size%3AInt%2C%26block%3AInt32-%3ET%29-class-method" class="signature"><strong>.new</strong>(size : Int, &block : Int32 -> T)</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Array.html">Array</a></code> of the given <em>size</em> and invokes the given block once for each index of <code>self</code>, assigning the block's value in that index.</p></div>
+          <div class="summary"><p>Creates a new <code>Array</code> of the given <em>size</em> and invokes the given block once for each index of <code>self</code>, assigning the block's value in that index.</p></div>
         
       </li>
     
@@ -3266,7 +3266,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#from_json%28string_or_io%2C%26block%29%3ANil-class-method" class="signature"><strong>.from_json</strong>(string_or_io, &block) : Nil</a>
         
-          <div class="summary"><p>Parses a <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code> denoting a JSON array, yielding each of its elements to the given block.</p></div>
+          <div class="summary"><p>Parses a <code>String</code> or <code>IO</code> denoting a JSON array, yielding each of its elements to the given block.</p></div>
         
       </li>
     
@@ -3295,14 +3295,14 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#%26%28other%3AArray%28U%29%29forallU-instance-method" class="signature"><strong>#&</strong>(other : Array(U)) forall U</a>
         
-          <div class="summary"><p>Set intersection: returns a new <code><a href="Array.html">Array</a></code> containing elements common to <code>self</code> and <em>other</em>, excluding any duplicates.</p></div>
+          <div class="summary"><p>Set intersection: returns a new <code>Array</code> containing elements common to <code>self</code> and <em>other</em>, excluding any duplicates.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%2A%28times%3AInt%29-instance-method" class="signature"><strong>#*</strong>(times : Int)</a>
         
-          <div class="summary"><p>Repetition: Returns a new <code><a href="Array.html">Array</a></code> built by concatenating <em>times</em> copies of <code>self</code>.</p></div>
+          <div class="summary"><p>Repetition: Returns a new <code>Array</code> built by concatenating <em>times</em> copies of <code>self</code>.</p></div>
         
       </li>
     
@@ -3400,7 +3400,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Array.html">Array</a></code> that has <code>self</code>'s elements cloned.</p></div>
+          <div class="summary"><p>Returns a new <code>Array</code> that has <code>self</code>'s elements cloned.</p></div>
         
       </li>
     
@@ -3468,7 +3468,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Array.html">Array</a></code> that has exactly <code>self</code>'s elements.</p></div>
+          <div class="summary"><p>Returns a new <code>Array</code> that has exactly <code>self</code>'s elements.</p></div>
         
       </li>
     
@@ -3485,7 +3485,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#each_permutation%28size%3AInt%3Dself.size%2Creuse%3Dfalse%29-instance-method" class="signature"><strong>#each_permutation</strong>(size : Int = <span class="k">self</span>.size, reuse = <span class="n">false</span>)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> over each possible permutation of <em>size</em> of <code>self</code>.</p></div>
+          <div class="summary"><p>Returns an <code>Iterator</code> over each possible permutation of <em>size</em> of <code>self</code>.</p></div>
         
       </li>
     
@@ -3577,7 +3577,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#flatten-instance-method" class="signature"><strong>#flatten</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Array.html">Array</a></code> that is a one-dimensional flattening of <code>self</code> (recursively).</p></div>
+          <div class="summary"><p>Returns a new <code>Array</code> that is a one-dimensional flattening of <code>self</code> (recursively).</p></div>
         
       </li>
     
@@ -3598,7 +3598,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#map%28%26block%3AT-%3EU%29forallU-instance-method" class="signature"><strong>#map</strong>(&block : T -> U) forall U</a>
         
-          <div class="summary"><p>Optimized version of <code><a href="Enumerable.html#map%28%26block%3AT-%3EU%29forallU-instance-method">Enumerable#map</a></code>.</p></div>
+          <div class="summary"><p>Optimized version of <code>Enumerable<a href="Array.html#map%28%26block%3AT-%3EU%29forallU-instance-method">#map</a></code>.</p></div>
         
       </li>
     
@@ -3612,7 +3612,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method" class="signature"><strong>#map_with_index</strong>(&block : T, Int32 -> U) forall U</a>
         
-          <div class="summary"><p>Optimized version of <code><a href="Enumerable.html#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method">Enumerable#map_with_index</a></code>.</p></div>
+          <div class="summary"><p>Optimized version of <code>Enumerable<a href="Array.html#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method">#map_with_index</a></code>.</p></div>
         
       </li>
     
@@ -3626,7 +3626,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#permutations%28size%3AInt%3Dself.size%29-instance-method" class="signature"><strong>#permutations</strong>(size : Int = <span class="k">self</span>.size)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> with all possible permutations of <em>size</em>.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> with all possible permutations of <em>size</em>.</p></div>
         
       </li>
     
@@ -3870,14 +3870,14 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#uniq-instance-method" class="signature"><strong>#uniq</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Array.html">Array</a></code> by removing duplicate values in <code>self</code>.</p></div>
+          <div class="summary"><p>Returns a new <code>Array</code> by removing duplicate values in <code>self</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#uniq%28%26block%3AT-%3E_%29-instance-method" class="signature"><strong>#uniq</strong>(&block : T -> _)</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Array.html">Array</a></code> by removing duplicate values in <code>self</code>, using the block's value for comparison.</p></div>
+          <div class="summary"><p>Returns a new <code>Array</code> by removing duplicate values in <code>self</code>, using the block's value for comparison.</p></div>
         
       </li>
     
@@ -3922,7 +3922,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
       <li class="entry-summary">
         <a href="#%7C%28other%3AArray%28U%29%29forallU-instance-method" class="signature"><strong>#|</strong>(other : Array(U)) forall U</a>
         
-          <div class="summary"><p>Set union: returns a new <code><a href="Array.html">Array</a></code> by joining <code>self</code> with <em>other</em>, excluding any duplicates, and preserving the order from <code>self</code>.</p></div>
+          <div class="summary"><p>Set union: returns a new <code>Array</code> by joining <code>self</code> with <em>other</em>, excluding any duplicates, and preserving the order from <code>self</code>.</p></div>
         
       </li>
     
@@ -4659,7 +4659,7 @@ set <span class="o"><<</span> <span class="n">3</span></code></pre>
         <a class="method-permalink" href="#build%28capacity%3AInt%2C%26block%29%3Aself-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Array.html">Array</a></code>, allocating an internal buffer with the given <em>capacity</em>,
+        <div class="doc"><p>Creates a new <code>Array</code>, allocating an internal buffer with the given <em>capacity</em>,
 and yielding that buffer. The given block must return the desired size of the array.</p>
 
 <p>This method is <strong>unsafe</strong>, but is usually used to initialize the buffer
@@ -4672,7 +4672,7 @@ by passing it to a C function.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L147" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L147" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4685,7 +4685,7 @@ by passing it to a C function.</p>
         <a class="method-permalink" href="#new%28size%3AInt%2Cvalue%3AT%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Array.html">Array</a></code> of the given <em>size</em> filled with the same <em>value</em> in each position.</p>
+        <div class="doc"><p>Creates a new <code>Array</code> of the given <em>size</em> filled with the same <em>value</em> in each position.</p>
 
 <pre><code><span class="t">Array</span>.<span class="k">new</span>(<span class="n">3</span>, <span class="s">'a'</span>) <span class="c"># =&gt; [&#39;a&#39;, &#39;a&#39;, &#39;a&#39;]</span>
 
@@ -4697,7 +4697,7 @@ ary <span class="c"># =&gt; [[2], [2], [2]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4713,7 +4713,7 @@ ary <span class="c"># =&gt; [[2], [2], [2]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4726,7 +4726,7 @@ ary <span class="c"># =&gt; [[2], [2], [2]]</span></code></pre></div>
         <a class="method-permalink" href="#new%28initial_capacity%3AInt%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new empty <code><a href="Array.html">Array</a></code> backed by a buffer that is initially
+        <div class="doc"><p>Creates a new empty <code>Array</code> backed by a buffer that is initially
 <code>initial_capacity</code> big.</p>
 
 <p>The <em>initial_capacity</em> is useful to avoid unnecessary reallocations
@@ -4740,7 +4740,7 @@ ary.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L77" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4756,7 +4756,7 @@ ary.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4774,7 +4774,7 @@ ary.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L59" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L59" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4790,7 +4790,7 @@ ary.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L82" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L82" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4803,7 +4803,7 @@ ary.size <span class="c"># =&gt; 0</span></code></pre></div>
         <a class="method-permalink" href="#new%28size%3AInt%2C%26block%3AInt32-%3ET%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Array.html">Array</a></code> of the given <em>size</em> and invokes the given block once
+        <div class="doc"><p>Creates a new <code>Array</code> of the given <em>size</em> and invokes the given block once
 for each index of <code>self</code>, assigning the block's value in that index.</p>
 
 <pre><code><span class="t">Array</span>.<span class="k">new</span>(<span class="n">3</span>) { <span class="o">|</span>i<span class="o">|</span> (i <span class="o">+</span> <span class="n">1</span>) <span class="o">**</span> <span class="n">2</span> } <span class="c"># =&gt; [1, 4, 9]</span>
@@ -4816,7 +4816,7 @@ ary <span class="c"># =&gt; [[2], [1], [1]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L127" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L127" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4832,7 +4832,7 @@ ary <span class="c"># =&gt; [[2], [1], [1]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L109" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L109" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4853,7 +4853,7 @@ ary <span class="c"># =&gt; [[2], [1], [1]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1190" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1190" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4869,7 +4869,7 @@ ary <span class="c"># =&gt; [[2], [1], [1]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1225" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1225" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4882,7 +4882,7 @@ ary <span class="c"># =&gt; [[2], [1], [1]]</span></code></pre></div>
         <a class="method-permalink" href="#from_json%28string_or_io%2C%26block%29%3ANil-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Parses a <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code> denoting a JSON array, yielding
+        <div class="doc"><p>Parses a <code>String</code> or <code>IO</code> denoting a JSON array, yielding
 each of its elements to the given block. This is useful
 for decoding an array and processing its elements without
 creating an Array in memory, which might be expensive.</p>
@@ -4899,12 +4899,12 @@ creating an Array in memory, which might be expensive.</p>
 2
 3</code></pre>
 
-<p>To parse and get an <code><a href="Array.html">Array</a></code>, use the block-less overload.</p></div>
+<p>To parse and get an <code>Array</code>, use the block-less overload.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4920,7 +4920,7 @@ creating an Array in memory, which might be expensive.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L5" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L5" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4936,7 +4936,7 @@ creating an Array in memory, which might be expensive.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1178" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1178" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4952,7 +4952,7 @@ creating an Array in memory, which might be expensive.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1186" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1186" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4970,7 +4970,7 @@ creating an Array in memory, which might be expensive.</p>
         <a class="method-permalink" href="#%26%28other%3AArray%28U%29%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Set intersection: returns a new <code><a href="Array.html">Array</a></code> containing elements common to <code>self</code>
+        <div class="doc"><p>Set intersection: returns a new <code>Array</code> containing elements common to <code>self</code>
 and <em>other</em>, excluding any duplicates. The order is preserved from <code>self</code>.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">1</span>, <span class="n">3</span>, <span class="n">5</span>] <span class="o">&</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]               <span class="c"># =&gt; [ 1, 3 ]</span>
@@ -4981,7 +4981,7 @@ and <em>other</em>, excluding any duplicates. The order is preserved from <code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L202" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L202" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4994,14 +4994,14 @@ and <em>other</em>, excluding any duplicates. The order is preserved from <code>
         <a class="method-permalink" href="#%2A%28times%3AInt%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Repetition: Returns a new <code><a href="Array.html">Array</a></code> built by concatenating <em>times</em> copies of <code>self</code>.</p>
+        <div class="doc"><p>Repetition: Returns a new <code>Array</code> built by concatenating <em>times</em> copies of <code>self</code>.</p>
 
 <pre><code>[<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>] <span class="o">*</span> <span class="n">2</span> <span class="c"># =&gt; [ &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot; ]</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L288" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L288" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5014,7 +5014,7 @@ and <em>other</em>, excluding any duplicates. The order is preserved from <code>
         <a class="method-permalink" href="#%2B%28other%3AArray%28U%29%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Concatenation. Returns a new <code><a href="Array.html">Array</a></code> built by concatenating <code>self</code> and <em>other</em>.
+        <div class="doc"><p>Concatenation. Returns a new <code>Array</code> built by concatenating <code>self</code> and <em>other</em>.
 The type of the new array is the union of the types of both the original arrays.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>] <span class="o">+</span> [<span class="s">&quot;a&quot;</span>]  <span class="c"># =&gt; [1,2,&quot;a&quot;] of (Int32 | String)</span>
@@ -5023,7 +5023,7 @@ The type of the new array is the union of the types of both the original arrays.
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L259" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L259" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5036,7 +5036,7 @@ The type of the new array is the union of the types of both the original arrays.
         <a class="method-permalink" href="#-%28other%3AArray%28U%29%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Difference. Returns a new <code><a href="Array.html">Array</a></code> that is a copy of <code>self</code>, removing any items
+        <div class="doc"><p>Difference. Returns a new <code>Array</code> that is a copy of <code>self</code>, removing any items
 that appear in <em>other</em>. The order of <code>self</code> is preserved.</p>
 
 <pre><code>[<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>] <span class="o">-</span> [<span class="n">2</span>, <span class="n">1</span>] <span class="c"># =&gt; [3]</span></code></pre></div>
@@ -5044,7 +5044,7 @@ that appear in <em>other</em>. The order of <code>self</code> is preserved.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5065,7 +5065,7 @@ a <span class="o"><<</span> <span class="n">3</span> <span class="c"># =&gt; [1,
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L302" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L302" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5094,7 +5094,7 @@ value, that result is the return value of the comparison.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L184" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L184" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5117,7 +5117,7 @@ ary <span class="o">==</span> [<span class="n">2</span>, <span class="n">3</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L161" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L161" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5136,7 +5136,7 @@ ary <span class="o">==</span> [<span class="n">2</span>, <span class="n">3</span
 element). Additionally, an empty array is returned when the starting index
 for an element range is at the end of the array.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the starting index is out of range.</p>
+<p>Raises <code>IndexError</code> if the starting index is out of range.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>, <span class="s">&quot;d&quot;</span>, <span class="s">&quot;e&quot;</span>]
 a[<span class="n">1</span>..<span class="n">3</span>]    <span class="c"># =&gt; [&quot;b&quot;, &quot;c&quot;, &quot;d&quot;]</span>
@@ -5148,7 +5148,7 @@ a[<span class="n">-2</span>...<span class="n">-1</span>] <span class="c"># =&gt;
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L456" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L456" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5168,7 +5168,7 @@ given start index.</p>
 element). Additionally, an empty array is returned when the starting index
 for an element range is at the end of the array.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the starting index is out of range.</p>
+<p>Raises <code>IndexError</code> if the starting index is out of range.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>, <span class="s">&quot;d&quot;</span>, <span class="s">&quot;e&quot;</span>]
 a[<span class="n">-3</span>, <span class="n">3</span>] <span class="c"># =&gt; [&quot;c&quot;, &quot;d&quot;, &quot;e&quot;]</span>
@@ -5179,7 +5179,7 @@ a[<span class="n">5</span>, <span class="n">1</span>]  <span class="c"># =&gt; [
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L476" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L476" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5209,7 +5209,7 @@ a <span class="c"># =&gt; [1, 6, 7, 8, 9, 10, 5]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L436" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L436" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5235,7 +5235,7 @@ a <span class="c"># =&gt; [1, 6, 2, 3, 4, 5]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L374" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L374" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5251,7 +5251,7 @@ a <span class="c"># =&gt; [1, 6, 2, 3, 4, 5]</span></code></pre></div>
         <div class="doc"><p>Sets the given value at the given index.</p>
 
 <p>Negative indices can be used to start counting from the end of the array.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to set an element outside the array's range.</p>
+Raises <code>IndexError</code> if trying to set an element outside the array's range.</p>
 
 <pre><code>ary <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
 ary[<span class="n">0</span>] <span class="o">=</span> <span class="n">5</span>
@@ -5262,7 +5262,7 @@ ary[<span class="n">3</span>] <span class="o">=</span> <span class="n">5</span> 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L319" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L319" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5292,7 +5292,7 @@ a <span class="c"># =&gt; [1, 6, 7, 8, 9, 10, 5]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L393" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L393" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5324,7 +5324,7 @@ a <span class="c"># =&gt; [1, 6, 2, 3, 4, 5]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L341" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L341" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5345,7 +5345,7 @@ a.clear <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L509" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L509" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5358,7 +5358,7 @@ a.clear <span class="c"># =&gt; []</span></code></pre></div>
         <a class="method-permalink" href="#clone-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Array.html">Array</a></code> that has <code>self</code>'s elements cloned.
+        <div class="doc"><p>Returns a new <code>Array</code> that has <code>self</code>'s elements cloned.
 That is, it returns a deep copy of <code>self</code>.</p>
 
 <p>Use <code><a href="Array.html#dup-instance-method">#dup</a></code> if you want a shallow copy.</p>
@@ -5376,7 +5376,7 @@ ary2 <span class="c"># =&gt; [[1, 2], [3, 4], [7, 8]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L531" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L531" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5392,7 +5392,7 @@ ary2 <span class="c"># =&gt; [[1, 2], [3, 4], [7, 8]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1042" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1042" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5412,7 +5412,7 @@ ary2 <span class="c"># =&gt; [[1, 2], [3, 4], [7, 8]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L540" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L540" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5434,7 +5434,7 @@ ary <span class="c"># =&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L551" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L551" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5456,7 +5456,7 @@ ary <span class="c"># =&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L576" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L576" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5478,7 +5478,7 @@ ary <span class="c"># =&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L562" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L562" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5506,7 +5506,7 @@ a             <span class="c"># =&gt; [&quot;a&quot;, &quot;c&quot;]</span></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L610" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L610" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5522,7 +5522,7 @@ a             <span class="c"># =&gt; [&quot;a&quot;, &quot;c&quot;]</span></cod
         <div class="doc"><p>Removes <em>count</em> elements from <code>self</code> starting at <em>index</em>.
 If the size of <code>self</code> is less than <em>count</em>, removes values to the end of the array without error.
 Returns an array of the removed elements with the original order of <code>self</code> preserved.
-Raises <code><a href="IndexError.html">IndexError</a></code> if <em>index</em> is out of range.</p>
+Raises <code>IndexError</code> if <em>index</em> is out of range.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;ant&quot;</span>, <span class="s">&quot;bat&quot;</span>, <span class="s">&quot;cat&quot;</span>, <span class="s">&quot;dog&quot;</span>]
 a.delete_at(<span class="n">1</span>, <span class="n">2</span>)  <span class="c"># =&gt; [&quot;bat&quot;, &quot;cat&quot;]</span>
@@ -5532,7 +5532,7 @@ a.delete_at(<span class="n">99</span>, <span class="n">1</span>) <span class="c"
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L659" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L659" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5546,7 +5546,7 @@ a.delete_at(<span class="n">99</span>, <span class="n">1</span>) <span class="c"
       </div>
       
         <div class="doc"><p>Removes the element at <em>index</em>, returning that element.
-Raises <code><a href="IndexError.html">IndexError</a></code> if <em>index</em> is out of range.</p>
+Raises <code>IndexError</code> if <em>index</em> is out of range.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;ant&quot;</span>, <span class="s">&quot;bat&quot;</span>, <span class="s">&quot;cat&quot;</span>, <span class="s">&quot;dog&quot;</span>]
 a.delete_at(<span class="n">2</span>)  <span class="c"># =&gt; &quot;cat&quot;</span>
@@ -5556,7 +5556,7 @@ a.delete_at(<span class="n">99</span>) <span class="c"># raises IndexError</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L623" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L623" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5571,7 +5571,7 @@ a.delete_at(<span class="n">99</span>) <span class="c"># raises IndexError</span
       
         <div class="doc"><p>Removes all elements within the given <em>range</em>.
 Returns an array of the removed elements with the original order of <code>self</code> preserved.
-Raises <code><a href="IndexError.html">IndexError</a></code> if the index is out of range.</p>
+Raises <code>IndexError</code> if the index is out of range.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;ant&quot;</span>, <span class="s">&quot;bat&quot;</span>, <span class="s">&quot;cat&quot;</span>, <span class="s">&quot;dog&quot;</span>]
 a.delete_at(<span class="n">1</span>..<span class="n">2</span>)    <span class="c"># =&gt; [&quot;bat&quot;, &quot;cat&quot;]</span>
@@ -5581,7 +5581,7 @@ a.delete_at(<span class="n">99</span>..<span class="n">100</span>) <span class="
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L643" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L643" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5594,7 +5594,7 @@ a.delete_at(<span class="n">99</span>..<span class="n">100</span>) <span class="
         <a class="method-permalink" href="#dup-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Array.html">Array</a></code> that has exactly <code>self</code>'s elements.
+        <div class="doc"><p>Returns a new <code>Array</code> that has exactly <code>self</code>'s elements.
 That is, it returns a shallow copy of <code>self</code>.</p>
 
 <p>Use <code><a href="Array.html#clone-instance-method">#clone</a></code> if you want a deep copy.</p>
@@ -5612,7 +5612,7 @@ ary2 <span class="c"># =&gt; [[5, 2], [3, 4], [7, 8]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L684" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L684" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5628,7 +5628,7 @@ ary2 <span class="c"># =&gt; [[5, 2], [3, 4], [7, 8]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1098" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1098" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5644,7 +5644,7 @@ ary2 <span class="c"># =&gt; [[5, 2], [3, 4], [7, 8]]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1050" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1050" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5657,7 +5657,7 @@ ary2 <span class="c"># =&gt; [[5, 2], [3, 4], [7, 8]]</span></code></pre></div>
         <a class="method-permalink" href="#each_permutation%28size%3AInt%3Dself.size%2Creuse%3Dfalse%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> over each possible permutation of <em>size</em> of <code>self</code>.</p>
+        <div class="doc"><p>Returns an <code>Iterator</code> over each possible permutation of <em>size</em> of <code>self</code>.</p>
 
 <pre><code>iter <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>].each_permutation
 iter.<span class="k">next</span> <span class="c"># =&gt; [1, 2, 3]</span>
@@ -5670,7 +5670,7 @@ iter.<span class="k">next</span> <span class="c"># =&gt; #&lt;Iterator::Stop&gt;
 
 <p>By default, a new array is created and returned for each permutation.
 If <em>reuse</em> is given, the array can be reused: if <em>reuse</em> is
-an <code><a href="Array.html">Array</a></code>, this array will be reused; if <em>reuse</em> if truthy,
+an <code>Array</code>, this array will be reused; if <em>reuse</em> if truthy,
 the method will create a new array and reuse it. This can be
 used to prevent many memory allocations when each slice of
 interest is to be used in a read-only fashion.</p></div>
@@ -5678,7 +5678,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1036" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1036" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5700,7 +5700,7 @@ sums                                        <span class="c"># =&gt; [3, 4, 3, 5,
 
 <p>By default, a new array is created and yielded for each permutation.
 If <em>reuse</em> is given, the array can be reused: if <em>reuse</em> is
-an <code><a href="Array.html">Array</a></code>, this array will be reused; if <em>reuse</em> if truthy,
+an <code>Array</code>, this array will be reused; if <em>reuse</em> if truthy,
 the method will create a new array and reuse it. This can be
 used to prevent many memory allocations when each slice of
 interest is to be used in a read-only fashion.</p></div>
@@ -5708,7 +5708,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L983" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L983" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5724,7 +5724,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1138" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1138" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5740,7 +5740,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1172" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1172" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5756,7 +5756,7 @@ interest is to be used in a read-only fashion.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1239" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1239" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5774,7 +5774,7 @@ to the given block and then assigns the block's value in that position. Returns 
 
 <p>Negative values of <em>from</em> count from the end of the array.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if <em>from</em> is outside the array range.</p>
+<p>Raises <code>IndexError</code> if <em>from</em> is outside the array range.</p>
 
 <p>Has no effect if <em>count</em> is zero or negative.</p>
 
@@ -5784,7 +5784,7 @@ a.fill(<span class="n">2</span>, <span class="n">2</span>) { <span class="o">|</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L738" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L738" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5802,7 +5802,7 @@ the block's value in that position. Returns <code>self</code>.</p>
 
 <p>Negative values of <em>from</em> count from the end of the array.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if <em>from</em> is outside the array range.</p>
+<p>Raises <code>IndexError</code> if <em>from</em> is outside the array range.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>, <span class="n">4</span>]
 a.fill(<span class="n">2</span>) { <span class="o">|</span>i<span class="o">|</span> i <span class="o">*</span> i } <span class="c"># =&gt; [1, 2, 4, 9]</span></code></pre></div>
@@ -5810,7 +5810,7 @@ a.fill(<span class="n">2</span>) { <span class="o">|</span>i<span class="o">|</s
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L715" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L715" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5832,7 +5832,7 @@ a.fill(<span class="n">2</span>..<span class="n">3</span>) { <span class="o">|</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L757" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L757" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5854,7 +5854,7 @@ a.fill { <span class="o">|</span>i<span class="o">|</span> i <span class="o">*</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L698" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L698" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5878,7 +5878,7 @@ a.fill(<span class="n">9</span>, <span class="n">2</span>, <span class="n">2</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L794" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L794" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5901,7 +5901,7 @@ a.fill(<span class="n">9</span>, <span class="n">2</span>) <span class="c"># =&g
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L781" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L781" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5924,7 +5924,7 @@ a.fill(<span class="n">9</span>, <span class="n">2</span>..<span class="n">3</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L806" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L806" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5945,7 +5945,7 @@ a.fill(<span class="n">9</span>) <span class="c"># =&gt; [9, 9, 9]</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L769" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L769" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5966,7 +5966,7 @@ a.fill(<span class="n">9</span>) <span class="c"># =&gt; [9, 9, 9]</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L816" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L816" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5979,7 +5979,7 @@ a.fill(<span class="n">9</span>) <span class="c"># =&gt; [9, 9, 9]</span></code>
         <a class="method-permalink" href="#flatten-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Array.html">Array</a></code> that is a one-dimensional flattening of <code>self</code> (recursively).</p>
+        <div class="doc"><p>Returns a new <code>Array</code> that is a one-dimensional flattening of <code>self</code> (recursively).</p>
 
 <p>That is, for every element that is an array or an iterator, extract its elements into the new array.</p>
 
@@ -5992,7 +5992,7 @@ a.flatten              <span class="c"># =&gt; [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1126" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1126" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6018,7 +6018,7 @@ a.insert(<span class="n">-1</span>, <span class="s">&quot;z&quot;</span>) <span 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L831" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L831" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6039,7 +6039,7 @@ a.insert(<span class="n">-1</span>, <span class="s">&quot;z&quot;</span>) <span 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L859" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L859" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6052,12 +6052,12 @@ a.insert(<span class="n">-1</span>, <span class="s">&quot;z&quot;</span>) <span 
         <a class="method-permalink" href="#map%28%26block%3AT-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Optimized version of <code><a href="Enumerable.html#map%28%26block%3AT-%3EU%29forallU-instance-method">Enumerable#map</a></code>.</p></div>
+        <div class="doc"><p>Optimized version of <code>Enumerable<a href="Array.html#map%28%26block%3AT-%3EU%29forallU-instance-method">#map</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L873" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L873" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6080,7 +6080,7 @@ a <span class="c"># =&gt; [1, 4, 9]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L885" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L885" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6093,12 +6093,12 @@ a <span class="c"># =&gt; [1, 4, 9]</span></code></pre></div>
         <a class="method-permalink" href="#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Optimized version of <code><a href="Enumerable.html#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method">Enumerable#map_with_index</a></code>.</p></div>
+        <div class="doc"><p>Optimized version of <code>Enumerable<a href="Array.html#map_with_index%28%26block%3AT%2CInt32-%3EU%29forallU-instance-method">#map_with_index</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L939" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L939" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6116,7 +6116,7 @@ a <span class="c"># =&gt; [1, 4, 9]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L944" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L944" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6129,7 +6129,7 @@ a <span class="c"># =&gt; [1, 4, 9]</span></code></pre></div>
         <a class="method-permalink" href="#permutations%28size%3AInt%3Dself.size%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> with all possible permutations of <em>size</em>.</p>
+        <div class="doc"><p>Returns an <code>Array</code> with all possible permutations of <em>size</em>.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]
 a.permutations    <span class="c"># =&gt; [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</span>
@@ -6142,7 +6142,7 @@ a.permutations(<span class="n">4</span>) <span class="c"># =&gt; []</span></code
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L960" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L960" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6165,7 +6165,7 @@ a.pop { <span class="s">&quot;Testing&quot;</span> } <span class="c"># =&gt; &qu
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1272" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1272" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6180,7 +6180,7 @@ a.pop { <span class="s">&quot;Testing&quot;</span> } <span class="c"># =&gt; &qu
       
         <div class="doc"><p>Removes the last value from <code>self</code>, at index <em>size - 1</em>.
 This method returns the removed value.
-Raises <code><a href="IndexError.html">IndexError</a></code> if array is of 0 size.</p>
+Raises <code>IndexError</code> if array is of 0 size.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>]
 a.pop <span class="c"># =&gt; &quot;c&quot;</span>
@@ -6189,7 +6189,7 @@ a     <span class="c"># =&gt; [&quot;a&quot;, &quot;b&quot;]</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1260" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1260" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6219,7 +6219,7 @@ a        <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1298" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1298" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6237,7 +6237,7 @@ a        <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1313" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1313" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6253,7 +6253,7 @@ a        <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1614" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1614" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6269,7 +6269,7 @@ a        <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1325" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1325" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6285,7 +6285,7 @@ a        <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1317" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1317" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6307,7 +6307,7 @@ a.push(<span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1357" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1357" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6336,7 +6336,7 @@ a.push(<span class="n">1</span>)   <span class="c"># =&gt; [&quot;a&quot;, &quot
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1343" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1343" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6357,7 +6357,7 @@ passed block returns <code>true</code>. Returns <code>self</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L902" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L902" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6373,7 +6373,7 @@ passed block returns <code>true</code>. Returns <code>self</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1130" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1130" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6389,7 +6389,7 @@ passed block returns <code>true</code>. Returns <code>self</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1231" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1231" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6405,7 +6405,7 @@ passed block returns <code>true</code>. Returns <code>self</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1367" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1367" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6426,7 +6426,7 @@ a.reverse <span class="c"># =&gt; [3, 2, 1]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1380" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1380" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6444,7 +6444,7 @@ a.reverse <span class="c"># =&gt; [3, 2, 1]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1385" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1385" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6460,7 +6460,7 @@ a.reverse <span class="c"># =&gt; [3, 2, 1]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1406" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1406" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6476,7 +6476,7 @@ a.reverse <span class="c"># =&gt; [3, 2, 1]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1390" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1390" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6499,7 +6499,7 @@ a.sample(<span class="n">2</span>, <span class="t">Random</span>.<span class="k"
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1425" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1425" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6520,7 +6520,7 @@ passed block returns <code>true</code>. Returns <code>self</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L894" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L894" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6550,7 +6550,7 @@ a          <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1494" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1494" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6564,7 +6564,7 @@ a          <span class="c"># =&gt; []</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Removes the first value of <code>self</code>, at index 0. This method returns the removed value.
-If the array is empty, it raises <code><a href="IndexError.html">IndexError</a></code>.</p>
+If the array is empty, it raises <code>IndexError</code>.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>]
 a.shift <span class="c"># =&gt; &quot;a&quot;</span>
@@ -6573,7 +6573,7 @@ a       <span class="c"># =&gt; [&quot;b&quot;, &quot;c&quot;]</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1463" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1463" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6589,7 +6589,7 @@ a       <span class="c"># =&gt; [&quot;b&quot;, &quot;c&quot;]</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1467" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1467" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6616,7 +6616,7 @@ a        <span class="c"># =&gt; []</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1521" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1521" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6635,7 +6635,7 @@ using the given <em>random</em> number generator.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1527" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1527" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6654,7 +6654,7 @@ using the given <em>random</em> number generator.  Returns <code>self</code>.</p
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1533" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1533" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6674,7 +6674,7 @@ using the given <em>random</em> number generator.  Returns <code>self</code>.</p
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L55" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6699,7 +6699,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1548" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1548" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6715,7 +6715,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1552" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1552" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6740,7 +6740,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1566" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1566" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6756,7 +6756,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1571" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1571" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6772,7 +6772,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1576" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1576" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6788,7 +6788,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1580" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1580" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6804,7 +6804,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1588" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1588" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6820,7 +6820,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1601" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1601" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6836,7 +6836,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6852,7 +6852,7 @@ or a comparison between <em>a</em> and <em>b</em>, where a &lt; b yields -1, a =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1605" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1605" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6876,7 +6876,7 @@ ary.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 1</span></code><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1630" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1630" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6892,7 +6892,7 @@ ary.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 1</span></code><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6914,7 +6914,7 @@ a           <span class="c"># =&gt; [[:a, :b], [:c, :d], [:e, :f]]</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1641" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1641" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6927,7 +6927,7 @@ a           <span class="c"># =&gt; [[:a, :b], [:c, :d], [:e, :f]]</span></code>
         <a class="method-permalink" href="#uniq-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Array.html">Array</a></code> by removing duplicate values in <code>self</code>.</p>
+        <div class="doc"><p>Returns a new <code>Array</code> by removing duplicate values in <code>self</code>.</p>
 
 <pre><code>a <span class="o">=</span> [<span class="s">&quot;a&quot;</span>, <span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>]
 a.uniq <span class="c"># =&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</span>
@@ -6936,7 +6936,7 @@ a      <span class="c"># =&gt; [ &quot;a&quot;, &quot;a&quot;, &quot;b&quot;, &q
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1664" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1664" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6949,7 +6949,7 @@ a      <span class="c"># =&gt; [ &quot;a&quot;, &quot;a&quot;, &quot;b&quot;, &q
         <a class="method-permalink" href="#uniq%28%26block%3AT-%3E_%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Array.html">Array</a></code> by removing duplicate values in <code>self</code>, using the block's
+        <div class="doc"><p>Returns a new <code>Array</code> by removing duplicate values in <code>self</code>, using the block's
 value for comparison.</p>
 
 <pre><code>a <span class="o">=</span> [{<span class="s">&quot;student&quot;</span>, <span class="s">&quot;sam&quot;</span>}, {<span class="s">&quot;student&quot;</span>, <span class="s">&quot;george&quot;</span>}, {<span class="s">&quot;teacher&quot;</span>, <span class="s">&quot;matz&quot;</span>}]
@@ -6959,7 +6959,7 @@ a                   <span class="c"># =&gt; [{&quot;student&quot;, &quot;sam&quo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1676" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1676" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -6981,7 +6981,7 @@ a       <span class="c"># =&gt; [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</s
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1692" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1692" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -7003,7 +7003,7 @@ a                    <span class="c"># =&gt; [{&quot;student&quot;, &quot;sam&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1703" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1703" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -7019,7 +7019,7 @@ a                    <span class="c"># =&gt; [{&quot;student&quot;, &quot;sam&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L499" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L499" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -7048,7 +7048,7 @@ a.unshift(<span class="n">1</span>)   <span class="c"># =&gt; [1, &quot;c&quot;,
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1743" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1743" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -7067,7 +7067,7 @@ of values to add to the array. Returns <code>self</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1749" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1749" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -7083,7 +7083,7 @@ of values to add to the array. Returns <code>self</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L1762" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L1762" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -7096,7 +7096,7 @@ of values to add to the array. Returns <code>self</code>.</p></div>
         <a class="method-permalink" href="#%7C%28other%3AArray%28U%29%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Set union: returns a new <code><a href="Array.html">Array</a></code> by joining <code>self</code> with <em>other</em>, excluding
+        <div class="doc"><p>Set union: returns a new <code>Array</code> by joining <code>self</code> with <em>other</em>, excluding
 any duplicates, and preserving the order from <code>self</code>.</p>
 
 <pre><code>[<span class="s">&quot;a&quot;</span>, <span class="s">&quot;b&quot;</span>, <span class="s">&quot;c&quot;</span>] <span class="o">|</span> [<span class="s">&quot;c&quot;</span>, <span class="s">&quot;d&quot;</span>, <span class="s">&quot;a&quot;</span>] <span class="c"># =&gt; [ &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot; ]</span></code></pre>
@@ -7106,7 +7106,7 @@ any duplicates, and preserving the order from <code>self</code>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/array.cr#L230" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/array.cr#L230" target="_blank">View source</a>]
         
       </div>
     </div>

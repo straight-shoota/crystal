@@ -3125,17 +3125,17 @@ utilities in the <code><a href="../HTTP/FormData.html">HTTP::FormData</a></code>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart/builder.cr#L1" target="_blank">http/multipart/builder.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart/builder.cr#L1" target="_blank">http/multipart/builder.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart/parser.cr#L1" target="_blank">http/multipart/parser.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart/parser.cr#L1" target="_blank">http/multipart/parser.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart.cr#L8" target="_blank">http/multipart.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart.cr#L8" target="_blank">http/multipart.cr</a>
     
     <br/>
   
@@ -3152,7 +3152,7 @@ utilities in the <code><a href="../HTTP/FormData.html">HTTP::FormData</a></code>
       <li class="entry-summary">
         <a href="#build%28boundary%3DMultipart.generate_boundary%2C%26block%29-class-method" class="signature"><strong>.build</strong>(boundary = <span class="t">Multipart</span>.generate_boundary, &block)</a>
         
-          <div class="summary"><p>Yields a <code><a href="../HTTP/Multipart/Builder.html">Multipart::Builder</a></code> to the given block, returning the generated message as a <code><a href="../String.html">String</a></code>.</p></div>
+          <div class="summary"><p>Yields a <code><a href="../HTTP/Multipart/Builder.html">Multipart::Builder</a></code> to the given block, returning the generated message as a <code>String</code>.</p></div>
         
       </li>
     
@@ -3166,14 +3166,14 @@ utilities in the <code><a href="../HTTP/FormData.html">HTTP::FormData</a></code>
       <li class="entry-summary">
         <a href="#parse%28io%2Cboundary%2C%26block%29-class-method" class="signature"><strong>.parse</strong>(io, boundary, &block)</a>
         
-          <div class="summary"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code><a href="../IO.html">IO</a></code> for each body part.</p></div>
+          <div class="summary"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code>IO</code> for each body part.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#parse%28request%3AHTTP%3A%3ARequest%2C%26block%29-class-method" class="signature"><strong>.parse</strong>(request : HTTP::Request, &block)</a>
         
-          <div class="summary"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code><a href="../IO.html">IO</a></code> for each body part.</p></div>
+          <div class="summary"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code>IO</code> for each body part.</p></div>
         
       </li>
     
@@ -3210,12 +3210,12 @@ utilities in the <code><a href="../HTTP/FormData.html">HTTP::FormData</a></code>
       </div>
       
         <div class="doc"><p>Yields a <code><a href="../HTTP/Multipart/Builder.html">Multipart::Builder</a></code> to the given block, returning the generated
-message as a <code><a href="../String.html">String</a></code>.</p></div>
+message as a <code>String</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3235,7 +3235,7 @@ message as a <code><a href="../String.html">String</a></code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart.cr#L92" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart.cr#L92" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3248,7 +3248,7 @@ message as a <code><a href="../String.html">String</a></code>.</p></div>
         <a class="method-permalink" href="#parse%28io%2Cboundary%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code><a href="../IO.html">IO</a></code> for
+        <div class="doc"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code>IO</code> for
 each body part.</p>
 
 <p>Please note that the IO object yielded to the block is only valid while the
@@ -3265,7 +3265,7 @@ block is executing. The IO is closed as soon as the supplied block returns.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3278,7 +3278,7 @@ block is executing. The IO is closed as soon as the supplied block returns.</p>
         <a class="method-permalink" href="#parse%28request%3AHTTP%3A%3ARequest%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code><a href="../IO.html">IO</a></code> for
+        <div class="doc"><p>Parses a MIME multipart message, yielding <code><a href="../HTTP/Headers.html">HTTP::Headers</a></code> and an <code>IO</code> for
 each body part.</p>
 
 <p>Please note that the IO object yielded to the block is only valid while the
@@ -3298,7 +3298,7 @@ request <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart.cr#L62" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart.cr#L62" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3319,7 +3319,7 @@ request <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/multipart.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/multipart.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p>A read-only <code><a href="../IO.html">IO</a></code> object to decompress data in the gzip format.</p>
+  <p>A read-only <code>IO</code> object to decompress data in the gzip format.</p>
 
 <p>Instances of this class wrap another IO object. When you read from this instance
 instance, it reads data from the underlying IO, decompresses it, and returns
@@ -3149,7 +3149,7 @@ string <span class="c"># =&gt; &quot;abc&quot;</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L29" target="_blank">gzip/reader.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L29" target="_blank">gzip/reader.cr</a>
     
     <br/>
   
@@ -3227,28 +3227,28 @@ string <span class="c"># =&gt; &quot;abc&quot;</span></code></pre>
       <li class="entry-summary">
         <a href="#read%28slice%3ABytes%29-instance-method" class="signature"><strong>#read</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>See <code><a href="../IO.html#read%28slice%3ABytes%29-instance-method">IO#read</a></code>.</p></div>
+          <div class="summary"><p>See <code>IO<a href="../Gzip/Reader.html#read%28slice%3ABytes%29-instance-method">#read</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#sync_close%3D%28sync_close%29-instance-method" class="signature"><strong>#sync_close=</strong>(sync_close)</a>
         
-          <div class="summary"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this reader.</p></div>
+          <div class="summary"><p>Whether to close the enclosed <code>IO</code> when closing this reader.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#sync_close%3F%3ABool-instance-method" class="signature"><strong>#sync_close?</strong> : Bool</a>
         
-          <div class="summary"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this reader.</p></div>
+          <div class="summary"><p>Whether to close the enclosed <code>IO</code> when closing this reader.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write%28slice%3ABytes%29%3ANil-instance-method" class="signature"><strong>#write</strong>(slice : Bytes) : Nil</a>
         
-          <div class="summary"><p>Always raises <code><a href="../IO/Error.html">IO::Error</a></code> because this is a read-only <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Always raises <code><a href="../IO/Error.html">IO::Error</a></code> because this is a read-only <code>IO</code>.</p></div>
         
       </li>
     
@@ -3687,7 +3687,7 @@ string <span class="c"># =&gt; &quot;abc&quot;</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3705,7 +3705,7 @@ string <span class="c"># =&gt; &quot;abc&quot;</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3729,7 +3729,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L63" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3748,7 +3748,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3771,7 +3771,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3789,7 +3789,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L34" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L34" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3807,7 +3807,7 @@ and closes it at the end.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3820,12 +3820,12 @@ and closes it at the end.</p></div>
         <a class="method-permalink" href="#read%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="../IO.html#read%28slice%3ABytes%29-instance-method">IO#read</a></code>.</p></div>
+        <div class="doc"><p>See <code>IO<a href="../Gzip/Reader.html#read%28slice%3ABytes%29-instance-method">#read</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L76" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3838,12 +3838,12 @@ and closes it at the end.</p></div>
         <a class="method-permalink" href="#sync_close%3D%28sync_close%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this reader.</p></div>
+        <div class="doc"><p>Whether to close the enclosed <code>IO</code> when closing this reader.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3856,12 +3856,12 @@ and closes it at the end.</p></div>
         <a class="method-permalink" href="#sync_close%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Whether to close the enclosed <code><a href="../IO.html">IO</a></code> when closing this reader.</p></div>
+        <div class="doc"><p>Whether to close the enclosed <code>IO</code> when closing this reader.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3874,12 +3874,12 @@ and closes it at the end.</p></div>
         <a class="method-permalink" href="#write%28slice%3ABytes%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Always raises <code><a href="../IO/Error.html">IO::Error</a></code> because this is a read-only <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Always raises <code><a href="../IO/Error.html">IO::Error</a></code> because this is a read-only <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/gzip/reader.cr#L124" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/gzip/reader.cr#L124" target="_blank">View source</a>]
         
       </div>
     </div>

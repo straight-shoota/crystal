@@ -3106,10 +3106,10 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="../Char/Reader.html">Char::Reader</a></code> allows iterating a <code><a href="../String.html">String</a></code> by Chars.</p>
+  <p>A <code><a href="../Char/Reader.html">Char::Reader</a></code> allows iterating a <code>String</code> by Chars.</p>
 
 <p>As soon as you instantiate a <code><a href="../Char/Reader.html">Char::Reader</a></code> it will decode the first
-char in the <code><a href="../String.html">String</a></code>, which can be accessed by invoking <code><a href="../Char/Reader.html#current_char%3AChar-instance-method">#current_char</a></code>.
+char in the <code>String</code>, which can be accessed by invoking <code><a href="../Char/Reader.html#current_char%3AChar-instance-method">#current_char</a></code>.
 At this point <code><a href="../Char/Reader.html#pos%3AInt32-instance-method">#pos</a></code>, the current position in the string, will equal zero.
 Successive calls to <code><a href="../Char/Reader.html#next_char-instance-method">#next_char</a></code> return the next chars in the string,
 advancing <code><a href="../Char/Reader.html#pos%3AInt32-instance-method">#pos</a></code>.</p>
@@ -3142,7 +3142,7 @@ case <code><a href="../Char/Reader.html#current_char%3AChar-instance-method">#cu
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L14" target="_blank">char/reader.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L14" target="_blank">char/reader.cr</a>
     
     <br/>
   
@@ -3778,7 +3778,7 @@ byte index <em>pos</em>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L57" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L57" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3797,7 +3797,7 @@ of the given string.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3827,7 +3827,7 @@ reader.current_char <span class="c"># =&gt; &#39;b&#39;</span></code></pre></div
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3850,7 +3850,7 @@ reader.current_char_width <span class="c"># =&gt; 2</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L38" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L38" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3877,7 +3877,7 @@ C</code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L178" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L178" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3897,7 +3897,7 @@ that produced the invalid encoding. Otherwise returns <code>nil</code>.</p></div
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3921,7 +3921,7 @@ reader.peek_next_char <span class="c"># =&gt; &#39;\0&#39;</span></code></pre></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3940,7 +3940,7 @@ the current one.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L129" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L129" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3954,7 +3954,7 @@ the current one.</p></div>
       </div>
       
         <div class="doc"><p>Reads the next character in the string,
-<code><a href="../Char/Reader.html#pos%3AInt32-instance-method">#pos</a></code> is incremented. Raises <code><a href="../IndexError.html">IndexError</a></code> if the reader is
+<code><a href="../Char/Reader.html#pos%3AInt32-instance-method">#pos</a></code> is incremented. Raises <code>IndexError</code> if the reader is
 at the end of the <code><a href="../Char/Reader.html#string%3AString-instance-method">#string</a></code>.</p>
 
 <pre><code>reader <span class="o">=</span> <span class="t">Char</span><span class="t">::</span><span class="t">Reader</span>.<span class="k">new</span>(<span class="s">&quot;ab&quot;</span>)
@@ -3963,7 +3963,7 @@ reader.next_char <span class="c"># =&gt; &#39;b&#39;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L96" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L96" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3978,7 +3978,7 @@ reader.next_char <span class="c"># =&gt; &#39;b&#39;</span></code></pre></div>
       
         <div class="doc"><p>Returns the next character in the <code><a href="../Char/Reader.html#string%3AString-instance-method">#string</a></code>
 without incrementing <code><a href="../Char/Reader.html#pos%3AInt32-instance-method">#pos</a></code>.
-Raises <code><a href="../IndexError.html">IndexError</a></code> if the reader is at
+Raises <code>IndexError</code> if the reader is at
 the end of the <code><a href="../Char/Reader.html#string%3AString-instance-method">#string</a></code>.</p>
 
 <pre><code>reader <span class="o">=</span> <span class="t">Char</span><span class="t">::</span><span class="t">Reader</span>.<span class="k">new</span>(<span class="s">&quot;ab&quot;</span>)
@@ -3988,7 +3988,7 @@ reader.current_char   <span class="c"># =&gt; &#39;a&#39;</span></code></pre></d
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L115" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4011,7 +4011,7 @@ reader.pos <span class="c"># =&gt; 1</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4035,7 +4035,7 @@ reader.current_char <span class="c"># =&gt; &#39;a&#39;</span></code></pre></div
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L154" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4050,13 +4050,13 @@ reader.current_char <span class="c"># =&gt; &#39;a&#39;</span></code></pre></div
       
         <div class="doc"><p>Returns the previous character, <code><a href="../Char/Reader.html#pos%3AInt32-instance-method">#pos</a></code>
 is decremented.
-Raises <code><a href="../IndexError.html">IndexError</a></code> if the reader is at the begining of
+Raises <code>IndexError</code> if the reader is at the begining of
 the <code><a href="../Char/Reader.html#string%3AString-instance-method">#string</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L137" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L137" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4074,7 +4074,7 @@ the <code><a href="../Char/Reader.html#string%3AString-instance-method">#string<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/char/reader.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/char/reader.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="Proc.html">Proc</a></code> represents a function pointer with an optional context (the closure data).
+  <p>A <code>Proc</code> represents a function pointer with an optional context (the closure data).
 It is typically created with a proc literal:</p>
 
 <pre><code><span class="c"># A proc without arguments</span>
@@ -3130,7 +3130,7 @@ sending a proc literal to a lib fun in C bindings.</p>
 <p>This form allows you to specify the return type and to check it
 against the proc's body.</p>
 
-<p>Another way to create a <code><a href="Proc.html">Proc</a></code> is by capturing a block:</p>
+<p>Another way to create a <code>Proc</code> is by capturing a block:</p>
 
 <pre><code><span class="k">def</span> <span class="m">capture</span>(<span class="o">&</span>block : <span class="t">Int32</span> -> <span class="t">Int32</span>)
   <span class="c"># block argument is used, so block is turned into a Proc</span>
@@ -3145,10 +3145,10 @@ must be specified in the capturing method block signature.</p>
 
 <h3>Passing a Proc to a C function</h3>
 
-<p>Passing a <code><a href="Proc.html">Proc</a></code> to a C function, for example as a callback, is possible
-as long as the <code><a href="Proc.html">Proc</a></code> isn't a closure. If it is, either a compile-time or
+<p>Passing a <code>Proc</code> to a C function, for example as a callback, is possible
+as long as the <code>Proc</code> isn't a closure. If it is, either a compile-time or
 runtime error will happen depending on whether the compiler can check this.
-The reason is that a <code><a href="Proc.html">Proc</a></code> is internally represented as two void pointers,
+The reason is that a <code>Proc</code> is internally represented as two void pointers,
 one having the function pointer and another the closure data. If just
 the function pointer is passed, the closure data will be missing at invocation time.</p>
 
@@ -3161,8 +3161,8 @@ at every tick, passing that tick:</p>
   <span class="k">fun</span> on_tick(callback : (<span class="t">Int32</span>, <span class="t">Void</span><span class="o">*</span> ->), data : <span class="t">Void</span><span class="o">*</span>)
 <span class="k">end</span></code></pre>
 
-<p>To properly define a wrapper for this function we must send the <code><a href="Proc.html">Proc</a></code> as the
-callback data, and then convert that callback data to the <code><a href="Proc.html">Proc</a></code> and finally invoke it.</p>
+<p>To properly define a wrapper for this function we must send the <code>Proc</code> as the
+callback data, and then convert that callback data to the <code>Proc</code> and finally invoke it.</p>
 
 <pre><code><span class="k">module</span> <span class="t">Ticker</span>
   <span class="c"># The callback for the user doesn&#39;t have a Void*</span>
@@ -3212,12 +3212,12 @@ no way of knowing that.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L246" target="_blank">primitives.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L246" target="_blank">primitives.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L100" target="_blank">proc.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L100" target="_blank">proc.cr</a>
     
     <br/>
   
@@ -3261,14 +3261,14 @@ no way of knowing that.</p>
       <li class="entry-summary">
         <a href="#arity-instance-method" class="signature"><strong>#arity</strong></a>
         
-          <div class="summary"><p>Returns the number of arguments of this <code><a href="Proc.html">Proc</a></code>.</p></div>
+          <div class="summary"><p>Returns the number of arguments of this <code>Proc</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#call%28%2Aargs%3A%2AT%29%3AR-instance-method" class="signature"><strong>#call</strong>(*args : *T) : R</a>
         
-          <div class="summary"><p>Invokes this <code><a href="Proc.html">Proc</a></code> and returns the result.</p></div>
+          <div class="summary"><p>Invokes this <code>Proc</code> and returns the result.</p></div>
         
       </li>
     
@@ -3290,14 +3290,14 @@ no way of knowing that.</p>
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Proc.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#partial%28%2Aargs%3A%2AU%29forallU-instance-method" class="signature"><strong>#partial</strong>(*args : *U) forall U</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Proc.html">Proc</a></code> that has its first arguments fixed to the values given by <em>args</em>.</p></div>
+          <div class="summary"><p>Returns a new <code>Proc</code> that has its first arguments fixed to the values given by <em>args</em>.</p></div>
         
       </li>
     
@@ -3487,7 +3487,7 @@ no way of knowing that.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L101" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L101" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3510,7 +3510,7 @@ no way of knowing that.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L172" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L172" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3526,7 +3526,7 @@ no way of knowing that.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L176" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L176" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3542,7 +3542,7 @@ no way of knowing that.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L180" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L180" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3555,7 +3555,7 @@ no way of knowing that.</p>
         <a class="method-permalink" href="#arity-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the number of arguments of this <code><a href="Proc.html">Proc</a></code>.</p>
+        <div class="doc"><p>Returns the number of arguments of this <code>Proc</code>.</p>
 
 <pre><code>add <span class="o">=</span> ->(x : <span class="t">Int32</span>, y : <span class="t">Int32</span>) { x <span class="o">+</span> y }
 add.arity <span class="c"># =&gt; 2</span>
@@ -3566,7 +3566,7 @@ neg.arity <span class="c"># =&gt; 1</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L150" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L150" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3579,7 +3579,7 @@ neg.arity <span class="c"># =&gt; 1</span></code></pre></div>
         <a class="method-permalink" href="#call%28%2Aargs%3A%2AT%29%3AR-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Invokes this <code><a href="Proc.html">Proc</a></code> and returns the result.</p>
+        <div class="doc"><p>Invokes this <code>Proc</code> and returns the result.</p>
 
 <pre><code>add <span class="o">=</span> ->(x : <span class="t">Int32</span>, y : <span class="t">Int32</span>) { x <span class="o">+</span> y }
 add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =&gt; 3</span></code></pre></div>
@@ -3587,7 +3587,7 @@ add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L255" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L255" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3603,7 +3603,7 @@ add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L189" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L189" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3619,7 +3619,7 @@ add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L162" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L162" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3635,7 +3635,7 @@ add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L158" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L158" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3648,12 +3648,12 @@ add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Proc.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L185" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L185" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3666,7 +3666,7 @@ add.call(<span class="n">1</span>, <span class="n">2</span>) <span class="c"># =
         <a class="method-permalink" href="#partial%28%2Aargs%3A%2AU%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Proc.html">Proc</a></code> that has its first arguments fixed to
+        <div class="doc"><p>Returns a new <code>Proc</code> that has its first arguments fixed to
 the values given by <em>args</em>.</p>
 
 <p>See <a href="https://en.wikipedia.org/wiki/Partial_application" target="_blank">Wikipedia, Partial application</a></p>
@@ -3684,7 +3684,7 @@ add_one_and_two.call <span class="c"># =&gt; 3</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L123" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L123" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3700,7 +3700,7 @@ add_one_and_two.call <span class="c"># =&gt; 3</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L154" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L154" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3716,7 +3716,7 @@ add_one_and_two.call <span class="c"># =&gt; 3</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/proc.cr#L193" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/proc.cr#L193" target="_blank">View source</a>]
         
       </div>
     </div>

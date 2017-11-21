@@ -3108,8 +3108,8 @@
 
   <p>Parsing context that holds anchors and what they refer to.</p>
 
-<p>When implementing <code>new(ctx : <a href="../YAML/ParseContext.html">YAML::ParseContext</a>, node : <a href="../YAML/Nodes.html">YAML::Nodes</a>::Node)</code>
-to deserialize an object from a node, <code><a href="../Reference.html">Reference</a></code> types must invoke
+<p>When implementing <code>new(ctx : <a href="../YAML/ParseContext.html">YAML::ParseContext</a>, node : <a href="../YAML/Nodes/Node.html">YAML::Nodes::Node</a>)</code>
+to deserialize an object from a node, <code>Reference</code> types must invoke
 both <code><a href="../YAML/ParseContext.html#read_alias%28node%2Ctype%3AT.class%2C%26block%29forallT-instance-method">#read_alias</a></code> and <code><a href="../YAML/ParseContext.html#record_anchor%28node%2Cobject%3AT%29%3ANilforallT-instance-method">#record_anchor</a></code> in order to support parsing
 recursive data structures.</p>
 
@@ -3132,7 +3132,7 @@ recursive data structures.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/parse_context.cr#L11" target="_blank">yaml/parse_context.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/parse_context.cr#L11" target="_blank">yaml/parse_context.cr</a>
     
     <br/>
   
@@ -3394,7 +3394,7 @@ recursive data structures.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/parse_context.cr#L12" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/parse_context.cr#L12" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3421,7 +3421,7 @@ instead of deserializing their members.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/parse_context.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/parse_context.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3440,7 +3440,7 @@ but an instance of type T isn't associated with the current anchor.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/parse_context.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/parse_context.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3458,7 +3458,7 @@ but an instance of type T isn't associated with the current anchor.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/parse_context.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/parse_context.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>

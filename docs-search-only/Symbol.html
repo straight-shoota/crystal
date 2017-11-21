@@ -3114,7 +3114,7 @@ it a numeric value.</p>
 <span class="n">:&quot;123&quot;</span>
 <span class="n">:&quot;symbol with spaces&quot;</span></code></pre>
 
-<p>Internally a symbol is represented as an <code><a href="Int32.html">Int32</a></code>, so it's very efficient.</p>
+<p>Internally a symbol is represented as an <code>Int32</code>, so it's very efficient.</p>
 
 <p>You can't dynamically create symbols. When you compile your program, each symbol
 gets assigned a unique number.</p>
@@ -3142,22 +3142,22 @@ gets assigned a unique number.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L108" target="_blank">primitives.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L108" target="_blank">primitives.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L15" target="_blank">symbol.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L15" target="_blank">symbol.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L57" target="_blank">json/to_json.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L57" target="_blank">json/to_json.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L97" target="_blank">yaml/to_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L97" target="_blank">yaml/to_yaml.cr</a>
     
     <br/>
   
@@ -3195,7 +3195,7 @@ gets assigned a unique number.</p>
       <li class="entry-summary">
         <a href="#%28other%3ASymbol%29-instance-method" class="signature"><strong>#<=></strong>(other : Symbol)</a>
         
-          <div class="summary"><p>Compares symbol with other based on <code><a href="String.html#%28other%3Aself%29-instance-method">String#<=></a></code> method.</p></div>
+          <div class="summary"><p>Compares symbol with other based on <code>String<a href="Symbol.html#%28other%3ASymbol%29-instance-method">#<=></a></code> method.</p></div>
         
       </li>
     
@@ -3214,7 +3214,7 @@ gets assigned a unique number.</p>
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Symbol.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3240,7 +3240,7 @@ gets assigned a unique number.</p>
       <li class="entry-summary">
         <a href="#to_s%28io%3AIO%29-instance-method" class="signature"><strong>#to_s</strong>(io : IO)</a>
         
-          <div class="summary"><p>Appends the symbol's name to the passed <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Appends the symbol's name to the passed <code>IO</code>.</p></div>
         
       </li>
     
@@ -3483,7 +3483,7 @@ gets assigned a unique number.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L63" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L63" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3506,7 +3506,7 @@ gets assigned a unique number.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L116" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L116" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3519,16 +3519,16 @@ gets assigned a unique number.</p>
         <a class="method-permalink" href="#%28other%3ASymbol%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Compares symbol with other based on <code><a href="String.html#%28other%3Aself%29-instance-method">String#<=></a></code> method. Returns <code>-1</code>, <code>0</code>
+        <div class="doc"><p>Compares symbol with other based on <code>String<a href="Symbol.html#%28other%3ASymbol%29-instance-method">#<=></a></code> method. Returns <code>-1</code>, <code>0</code>
 or <code>+1</code> depending on whether symbol is less than, equal to,
 or greater than <em>other</em>.</p>
 
-<p>See <code><a href="String.html#%28other%3Aself%29-instance-method">String#<=></a></code> for more information.</p></div>
+<p>See <code>String<a href="Symbol.html#%28other%3ASymbol%29-instance-method">#<=></a></code> for more information.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3546,7 +3546,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3562,7 +3562,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L86" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L86" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3575,12 +3575,12 @@ or greater than <em>other</em>.</p>
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Symbol.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3600,7 +3600,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L37" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L37" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3618,7 +3618,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L121" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L121" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3634,7 +3634,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L58" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L58" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3647,14 +3647,14 @@ or greater than <em>other</em>.</p>
         <a class="method-permalink" href="#to_s%28io%3AIO%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Appends the symbol's name to the passed <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Appends the symbol's name to the passed <code>IO</code>.</p>
 
 <pre><code><span class="n">:crystal</span>.to_s <span class="c"># =&gt; &quot;crystal&quot;</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/symbol.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/symbol.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3675,7 +3675,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/primitives.cr#L131" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/primitives.cr#L131" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3691,7 +3691,7 @@ or greater than <em>other</em>.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L98" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L98" target="_blank">View source</a>]
         
       </div>
     </div>

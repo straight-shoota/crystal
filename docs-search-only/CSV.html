@@ -3114,14 +3114,14 @@
 <h3>Parsing</h3>
 
 <p>Several ways of parsing CSV are provided. The most straight-forward, but
-slow or inefficient for some scenarios, is <code><a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">CSV#parse</a></code>, which returns
+slow or inefficient for some scenarios, is <code>CSV<a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">#parse</a></code>, which returns
 an array of arrays of all data.</p>
 
-<p>Rows can be traversed in a linear fashion with <code><a href="CSV.html#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method">CSV#each_row</a></code>, or
-using an <code><a href="Iterator.html">Iterator</a></code>.</p>
+<p>Rows can be traversed in a linear fashion with <code>CSV<a href="CSV.html#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method">#each_row</a></code>, or
+using an <code>Iterator</code>.</p>
 
 <p>To parse a CSV in an efficient way, optionally being able to access
-row values from header names, create an instance of a <code><a href="CSV.html">CSV</a></code>.</p>
+row values from header names, create an instance of a <code>CSV</code>.</p>
 
 <h3>Parsing with <code>CSV#new</code></h3>
 
@@ -3131,10 +3131,10 @@ and <code>false</code> otherwise. A first call to <code><a href="CSV.html#next-i
 csv parser in the first row.</p>
 
 <p>Once positioned in a row, values can be obtained with the several <code><a href="CSV.html#%5B%5D%28header%3AString%29%3AString-instance-method">#[]</a></code> methods,
-which can accept a header name, column position, or header name pattern as a <code><a href="Regex.html">Regex</a></code>.</p>
+which can accept a header name, column position, or header name pattern as a <code>Regex</code>.</p>
 
-<p>Additionally, a <code><a href="CSV/Row.html">Row</a></code> object can be obtained with the <code><a href="CSV.html#row%3ARow-instance-method">#row</a></code> method which
-provides similar methods and can be converted to an <code><a href="Array.html">Array</a></code> or <code><a href="Hash.html">Hash</a></code>.</p>
+<p>Additionally, a <code>Row</code> object can be obtained with the <code><a href="CSV.html#row%3ARow-instance-method">#row</a></code> method which
+provides similar methods and can be converted to an <code>Array</code> or <code>Hash</code>.</p>
 
 <h3>Example</h3>
 
@@ -3160,7 +3160,7 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
 
 <h3>Building</h3>
 
-<p>To create CSV data, check <code><a href="CSV.html#build%28%26block%29%3AString-class-method">CSV#build</a></code> and the <code><a href="CSV/Builder.html">CSV::Builder</a></code> class.</p>
+<p>To create CSV data, check <code>CSV<a href="CSV.html#build%28%26block%29%3AString-class-method">#build</a></code> and the <code><a href="CSV/Builder.html">CSV::Builder</a></code> class.</p>
 
 
 
@@ -3178,12 +3178,12 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L58" target="_blank">csv.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L58" target="_blank">csv.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/error.cr#L3" target="_blank">csv/error.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/error.cr#L3" target="_blank">csv/error.cr</a>
     
     <br/>
   
@@ -3215,14 +3215,14 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
       <li class="entry-summary">
         <a href="#new%28string_or_io%3AString%7CIO%2Cheaders%3Dfalse%2Cstrip%3Dfalse%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29-class-method" class="signature"><strong>.new</strong>(string_or_io : String | IO, headers = <span class="n">false</span>, strip = <span class="n">false</span>, separator : Char = <span class="t">DEFAULT_SEPARATOR</span>, quote_char : Char = <span class="t">DEFAULT_QUOTE_CHAR</span>)</a>
         
-          <div class="summary"><p>Creates a new instance from the given <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Creates a new instance from the given <code>String</code> or <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28string_or_io%3AString%7CIO%2Cheaders%3Dfalse%2Cstrip%3Dfalse%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method" class="signature"><strong>.new</strong>(string_or_io : String | IO, headers = <span class="n">false</span>, strip = <span class="n">false</span>, separator : Char = <span class="t">DEFAULT_SEPARATOR</span>, quote_char : Char = <span class="t">DEFAULT_QUOTE_CHAR</span>, &block)</a>
         
-          <div class="summary"><p>Creates a new instance from the given <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code>, and yields it to the given block once for each row in the CSV.</p></div>
+          <div class="summary"><p>Creates a new instance from the given <code>String</code> or <code>IO</code>, and yields it to the given block once for each row in the CSV.</p></div>
         
       </li>
     
@@ -3236,7 +3236,7 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
       <li class="entry-summary">
         <a href="#build%28io%3AIO%2C%26block%29-class-method" class="signature"><strong>.build</strong>(io : IO, &block)</a>
         
-          <div class="summary"><p>Appends CSV data to the given <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Appends CSV data to the given <code>IO</code>.</p></div>
         
       </li>
     
@@ -3250,21 +3250,21 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
       <li class="entry-summary">
         <a href="#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method" class="signature"><strong>.each_row</strong>(string_or_io : String | IO, separator : Char = <span class="t">DEFAULT_SEPARATOR</span>, quote_char : Char = <span class="t">DEFAULT_QUOTE_CHAR</span>, &block)</a>
         
-          <div class="summary"><p>Yields each of a CSV's rows as an <code><a href="Array.html">Array</a>(<a href="String.html">String</a>)</code>.</p></div>
+          <div class="summary"><p>Yields each of a CSV's rows as an <code>Array(String)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29-class-method" class="signature"><strong>.each_row</strong>(string_or_io : String | IO, separator : Char = <span class="t">DEFAULT_SEPARATOR</span>, quote_char : Char = <span class="t">DEFAULT_QUOTE_CHAR</span>)</a>
         
-          <div class="summary"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> of <code><a href="Array.html">Array</a>(<a href="String.html">String</a>)</code> over a CSV's rows.</p></div>
+          <div class="summary"><p>Returns an <code>Iterator</code> of <code>Array(String)</code> over a CSV's rows.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method" class="signature"><strong>.parse</strong>(string_or_io : String | IO, separator : Char = <span class="t">DEFAULT_SEPARATOR</span>, quote_char : Char = <span class="t">DEFAULT_QUOTE_CHAR</span>) : Array(Array(String))</a>
         
-          <div class="summary"><p>Parses a CSV or <code><a href="IO.html">IO</a></code> into an array.</p></div>
+          <div class="summary"><p>Parses a CSV or <code>IO</code> into an array.</p></div>
         
       </li>
     
@@ -3341,7 +3341,7 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
       <li class="entry-summary">
         <a href="#row%3ARow-instance-method" class="signature"><strong>#row</strong> : Row</a>
         
-          <div class="summary"><p>Returns the current row as a <code><a href="CSV/Row.html">Row</a></code> instance.</p></div>
+          <div class="summary"><p>Returns the current row as a <code>Row</code> instance.</p></div>
         
       </li>
     
@@ -3355,7 +3355,7 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
       <li class="entry-summary">
         <a href="#values_at%28%2Aheaders%3AString%29-instance-method" class="signature"><strong>#values_at</strong>(*headers : String)</a>
         
-          <div class="summary"><p>Returns a tuple of the current row's values corresponding to the given <em>headers</em> Raises <code><a href="KeyError.html">KeyError</a></code> if any header doesn't exist.</p></div>
+          <div class="summary"><p>Returns a tuple of the current row's values corresponding to the given <em>headers</em> Raises <code>KeyError</code> if any header doesn't exist.</p></div>
         
       </li>
     
@@ -3571,18 +3571,18 @@ csv.<span class="k">next</span> <span class="c"># =&gt; false</span></code></pre
         <a class="method-permalink" href="#new%28string_or_io%3AString%7CIO%2Cheaders%3Dfalse%2Cstrip%3Dfalse%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new instance from the given <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Creates a new instance from the given <code>String</code> or <code>IO</code>.</p>
 
-<ul><li>If <em>strip</em> is <code>true</code>, row values are stripped with <code><a href="String.html#strip%28%26block%3AChar-%3E_%29-instance-method">String#strip</a></code> before being
+<ul><li>If <em>strip</em> is <code>true</code>, row values are stripped with <code>String#strip</code> before being
 returned from methods.</li><li>If <em>headers</em> is <code>true</code>, row values can be accessed with header names or patterns.
 Headers are always stripped.</li></ul>
 
-<p>See <code><a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">CSV.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p></div>
+<p>See <code>CSV<a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L155" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L155" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3595,19 +3595,19 @@ Headers are always stripped.</li></ul>
         <a class="method-permalink" href="#new%28string_or_io%3AString%7CIO%2Cheaders%3Dfalse%2Cstrip%3Dfalse%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new instance from the given <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code>, and yields it to
+        <div class="doc"><p>Creates a new instance from the given <code>String</code> or <code>IO</code>, and yields it to
 the given block once for each row in the CSV.</p>
 
-<ul><li>If <em>strip</em> is <code>true</code>, row values are stripped with <code><a href="String.html#strip%28%26block%3AChar-%3E_%29-instance-method">String#strip</a></code> before being
+<ul><li>If <em>strip</em> is <code>true</code>, row values are stripped with <code>String#strip</code> before being
 returned from methods.</li><li>If <em>headers</em> is <code>true</code>, row values can be accessed with header names or patterns.
 Headers are always stripped.</li></ul>
 
-<p>See <code><a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">CSV.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p></div>
+<p>See <code>CSV<a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L177" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L177" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3625,8 +3625,8 @@ Headers are always stripped.</li></ul>
         <a class="method-permalink" href="#build%28io%3AIO%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Appends CSV data to the given <code><a href="IO.html">IO</a></code>. This yields a <code><a href="CSV/Builder.html">CSV::Builder</a></code>
-that writes to the given <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Appends CSV data to the given <code>IO</code>. This yields a <code><a href="CSV/Builder.html">CSV::Builder</a></code>
+that writes to the given <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 io.puts <span class="s">&quot;HEADER&quot;</span>
@@ -3639,7 +3639,7 @@ io.to_s <span class="c"># =&gt; &quot;HEADER\none,two\nthree\n&quot;</span></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L139" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L139" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3663,7 +3663,7 @@ result <span class="c"># =&gt; &quot;one,two\nthree\n&quot;</span></code></pre><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L121" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L121" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3676,9 +3676,9 @@ result <span class="c"># =&gt; &quot;one,two\nthree\n&quot;</span></code></pre><
         <a class="method-permalink" href="#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Yields each of a CSV's rows as an <code><a href="Array.html">Array</a>(<a href="String.html">String</a>)</code>.</p>
+        <div class="doc"><p>Yields each of a CSV's rows as an <code>Array(String)</code>.</p>
 
-<p>See <code><a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">CSV.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p>
+<p>See <code>CSV<a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p>
 
 <pre><code><span class="t">CSV</span>.each_row(<span class="s">&quot;one,two\nthree&quot;</span>) <span class="k">do</span> <span class="o">|</span>row<span class="o">|</span>
   puts row
@@ -3692,7 +3692,7 @@ result <span class="c"># =&gt; &quot;one,two\nthree\n&quot;</span></code></pre><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L93" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L93" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3705,9 +3705,9 @@ result <span class="c"># =&gt; &quot;one,two\nthree\n&quot;</span></code></pre><
         <a class="method-permalink" href="#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Iterator.html">Iterator</a></code> of <code><a href="Array.html">Array</a>(<a href="String.html">String</a>)</code> over a CSV's rows.</p>
+        <div class="doc"><p>Returns an <code>Iterator</code> of <code>Array(String)</code> over a CSV's rows.</p>
 
-<p>See <code><a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">CSV.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p>
+<p>See <code>CSV<a href="CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">.parse</a></code> about the <em>separator</em> and <em>quote_char</em> arguments.</p>
 
 <pre><code>rows <span class="o">=</span> <span class="t">CSV</span>.each_row(<span class="s">&quot;one,two\nthree&quot;</span>)
 rows.<span class="k">next</span> <span class="c"># =&gt; [&quot;one&quot;, &quot;two&quot;]</span>
@@ -3716,7 +3716,7 @@ rows.<span class="k">next</span> <span class="c"># =&gt; [&quot;three&quot;]</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L108" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L108" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3729,7 +3729,7 @@ rows.<span class="k">next</span> <span class="c"># =&gt; [&quot;three&quot;]</sp
         <a class="method-permalink" href="#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Parses a CSV or <code><a href="IO.html">IO</a></code> into an array.</p>
+        <div class="doc"><p>Parses a CSV or <code>IO</code> into an array.</p>
 
 <p>Takes optional <em>separator</em> and <em>quote_char</em> arguments for defining
 non-standard csv cell separators and quote characters.</p>
@@ -3742,7 +3742,7 @@ non-standard csv cell separators and quote characters.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3761,13 +3761,13 @@ non-standard csv cell separators and quote characters.</p>
       </div>
       
         <div class="doc"><p>Returns the current row's value corresponding to the given <em>header</em> name.
-Raises <code><a href="KeyError.html">KeyError</a></code> if no such header exists.
+Raises <code>KeyError</code> if no such header exists.
 Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not requested.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L218" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L218" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3782,12 +3782,12 @@ Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not 
       
         <div class="doc"><p>Returns the current row's value at the given column index.
 A negative index counts from the end.
-Raises <code><a href="IndexError.html">IndexError</a></code> if no such column exists.</p></div>
+Raises <code>IndexError</code> if no such column exists.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L232" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L232" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3801,13 +3801,13 @@ Raises <code><a href="IndexError.html">IndexError</a></code> if no such column e
       </div>
       
         <div class="doc"><p>Returns the current row's value corresponding to the given <em>header_pattern</em>.
-Raises <code><a href="KeyError.html">KeyError</a></code> if no such header exists.
+Raises <code>KeyError</code> if no such header exists.
 Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not requested.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L246" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L246" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3827,7 +3827,7 @@ Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L225" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L225" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3847,7 +3847,7 @@ Returns <code>nil</code> if no such column exists.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L239" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L239" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3867,7 +3867,7 @@ Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L253" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L253" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3885,7 +3885,7 @@ Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L192" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L192" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3904,7 +3904,7 @@ Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L187" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L187" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3924,7 +3924,7 @@ the cursor in the first row. Returns <code>true</code> if a next row was found,
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L201" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L201" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3937,12 +3937,12 @@ the cursor in the first row. Returns <code>true</code> if a next row was found,
         <a class="method-permalink" href="#row%3ARow-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the current row as a <code><a href="CSV/Row.html">Row</a></code> instance.</p></div>
+        <div class="doc"><p>Returns the current row as a <code>Row</code> instance.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3957,13 +3957,13 @@ the cursor in the first row. Returns <code>true</code> if a next row was found,
       
         <div class="doc"><p>Returns a tuple of the current row's values at given indices
 A negative index counts from the end.
-Raises <code><a href="IndexError.html">IndexError</a></code> if any column doesn't exist
-The behavior of returning a tuple is similar to <code><a href="Hash.html#values_at%28%2Aindexes%3AK%29-instance-method">Hash#values_at</a></code></p></div>
+Raises <code>IndexError</code> if any column doesn't exist
+The behavior of returning a tuple is similar to <code>Hash<a href="CSV.html#values_at%28%2Acolumns%3AInt%29-instance-method">#values_at</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L261" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L261" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3977,14 +3977,14 @@ The behavior of returning a tuple is similar to <code><a href="Hash.html#values_
       </div>
       
         <div class="doc"><p>Returns a tuple of the current row's values corresponding to the given <em>headers</em>
-Raises <code><a href="KeyError.html">KeyError</a></code> if any header doesn't exist.
+Raises <code>KeyError</code> if any header doesn't exist.
 Raises <code><a href="CSV/Error.html">CSV::Error</a></code> if headers were not requested
-The behavior of returning a tuple is similar to <code><a href="Hash.html#values_at%28%2Aindexes%3AK%29-instance-method">Hash#values_at</a></code></p></div>
+The behavior of returning a tuple is similar to <code>Hash<a href="CSV.html#values_at%28%2Acolumns%3AInt%29-instance-method">#values_at</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv.cr#L269" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv.cr#L269" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3107,7 +3107,7 @@
   <h2>Overview</h2>
 
   <p><code><a href="../Regex/MatchData.html">Regex::MatchData</a></code> is the type of the special variable <code>$~</code>, and is the type
-returned by <code><a href="../Regex.html#match%28str%2Cpos%3D0%2Coptions%3DRegex%3A%3AOptions%3A%3ANone%29%3AMatchData%3F-instance-method">Regex#match</a></code> and <code><a href="../String.html#match%28regex%3ARegex%2Cpos%3D0%29%3ARegex%3A%3AMatchData%3F-instance-method">String#match</a></code>. It encapsulates all the
+returned by <code>Regex#match</code> and <code>String#match</code>. It encapsulates all the
 results of a regular expression match.</p>
 
 <pre><code><span class="k">if</span> md <span class="o">=</span> <span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/[p-s]/</span>)
@@ -3137,7 +3137,7 @@ expression without needing to capture it explicitly.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L18" target="_blank">regex/match_data.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L18" target="_blank">regex/match_data.cr</a>
     
     <br/>
   
@@ -3161,14 +3161,14 @@ expression without needing to capture it explicitly.</p>
       <li class="entry-summary">
         <a href="#%5B%5D%28group_name%3AString%29-instance-method" class="signature"><strong>#[]</strong>(group_name : String)</a>
         
-          <div class="summary"><p>Returns the match of the capture group named by <em>group_name</em>, or raises an <code><a href="../KeyError.html">KeyError</a></code> if there is no such named capture group.</p></div>
+          <div class="summary"><p>Returns the match of the capture group named by <em>group_name</em>, or raises an <code>KeyError</code> if there is no such named capture group.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#%5B%5D%28n%29-instance-method" class="signature"><strong>#[]</strong>(n)</a>
         
-          <div class="summary"><p>Returns the match of the <em>n</em>th capture group, or raises an <code><a href="../IndexError.html">IndexError</a></code> if there is no <em>n</em>th capture group.</p></div>
+          <div class="summary"><p>Returns the match of the <em>n</em>th capture group, or raises an <code>IndexError</code> if there is no <em>n</em>th capture group.</p></div>
         
       </li>
     
@@ -3528,7 +3528,7 @@ expression without needing to capture it explicitly.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L373" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L373" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3542,7 +3542,7 @@ expression without needing to capture it explicitly.</p>
       </div>
       
         <div class="doc"><p>Returns the match of the capture group named by <em>group_name</em>, or
-raises an <code><a href="../KeyError.html">KeyError</a></code> if there is no such named capture group.</p>
+raises an <code>KeyError</code> if there is no such named capture group.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r(?&lt;ok&gt;ys)/</span>).not_nil![<span class="s">&quot;ok&quot;</span>] <span class="c"># =&gt; &quot;ys&quot;</span>
 <span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r(?&lt;ok&gt;ys)/</span>).not_nil![<span class="s">&quot;ng&quot;</span>] <span class="c"># raises KeyError</span></code></pre>
@@ -3555,7 +3555,7 @@ matched capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L194" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L194" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3568,7 +3568,7 @@ matched capture group.</p>
         <a class="method-permalink" href="#%5B%5D%28n%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the match of the <em>n</em>th capture group, or raises an <code><a href="../IndexError.html">IndexError</a></code>
+        <div class="doc"><p>Returns the match of the <em>n</em>th capture group, or raises an <code>IndexError</code>
 if there is no <em>n</em>th capture group.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r(ys)/</span>).not_nil![<span class="n">1</span>] <span class="c"># =&gt; &quot;ys&quot;</span>
@@ -3577,7 +3577,7 @@ if there is no <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L144" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L144" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3604,7 +3604,7 @@ matched capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L167" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L167" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3620,7 +3620,7 @@ matched capture group.</p>
         <div class="doc"><p>Returns the match of the <em>n</em>th capture group, or <code>nil</code> if there isn't
 an <em>n</em>th capture group.</p>
 
-<p>When <em>n</em> is <code>0</code>, returns the match for the entire <code><a href="../Regex.html">Regex</a></code>.</p>
+<p>When <em>n</em> is <code>0</code>, returns the match for the entire <code>Regex</code>.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r(ys)/</span>).not_nil![<span class="n">0</span>]? <span class="c"># =&gt; &quot;rys&quot;</span>
 <span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r(ys)/</span>).not_nil![<span class="n">1</span>]? <span class="c"># =&gt; &quot;ys&quot;</span>
@@ -3629,7 +3629,7 @@ an <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L127" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L127" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3644,7 +3644,7 @@ an <em>n</em>th capture group.</p>
       
         <div class="doc"><p>Return the position of the first character of the <em>n</em>th match.</p>
 
-<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code><a href="../Regex.html">Regex</a></code>.
+<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code>Regex</code>.
 Otherwise, uses the match of the <em>n</em>th capture group.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r/</span>).not_nil!.<span class="k">begin</span>(<span class="n">0</span>)     <span class="c"># =&gt; 1</span>
@@ -3654,7 +3654,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3669,7 +3669,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       
         <div class="doc"><p>Return the position of the first byte of the <em>n</em>th match.</p>
 
-<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code><a href="../Regex.html">Regex</a></code>.
+<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code>Regex</code>.
 Otherwise, uses the match of the <em>n</em>th capture group.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r/</span>).not_nil!.byte_begin(<span class="n">0</span>)     <span class="c"># =&gt; 1</span>
@@ -3679,7 +3679,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L95" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L95" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3694,7 +3694,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       
         <div class="doc"><p>Return the position of the next byte after the match.</p>
 
-<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code><a href="../Regex.html">Regex</a></code>.
+<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code>Regex</code>.
 Otherwise, uses the match of the <em>n</em>th capture group.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r/</span>).not_nil!.byte_end(<span class="n">0</span>)     <span class="c"># =&gt; 2</span>
@@ -3704,7 +3704,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3719,7 +3719,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       
         <div class="doc"><p>Returns an array of unnamed capture groups.</p>
 
-<p>It is a difference from <code><a href="../Regex/MatchData.html#to_a-instance-method">#to_a</a></code> that the result array does not contain the match for the entire <code><a href="../Regex.html">Regex</a></code> (<code>self[0]</code>).</p>
+<p>It is a difference from <code><a href="../Regex/MatchData.html#to_a-instance-method">#to_a</a></code> that the result array does not contain the match for the entire <code>Regex</code> (<code>self[0]</code>).</p>
 
 <pre><code>match <span class="o">=</span> <span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/(Cr)(?&lt;name1&gt;y)(st)(?&lt;name2&gt;al)/</span>).not_nil!
 match.captures <span class="c"># =&gt; [&quot;Cr&quot;, &quot;st&quot;]</span>
@@ -3732,7 +3732,7 @@ match.captures <span class="c"># =&gt; [&quot;Cr&quot;, nil]</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L252" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L252" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3748,7 +3748,7 @@ match.captures <span class="c"># =&gt; [&quot;Cr&quot;, nil]</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L369" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L369" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3764,7 +3764,7 @@ match.captures <span class="c"># =&gt; [&quot;Cr&quot;, nil]</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L365" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L365" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3779,7 +3779,7 @@ match.captures <span class="c"># =&gt; [&quot;Cr&quot;, nil]</span></code></pre>
       
         <div class="doc"><p>Return the position of the next character after the match.</p>
 
-<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code><a href="../Regex.html">Regex</a></code>.
+<p>When <em>n</em> is <code>0</code> or not given, uses the match of the entire <code>Regex</code>.
 Otherwise, uses the match of the <em>n</em>th capture group.</p>
 
 <pre><code><span class="s">&quot;Crystal&quot;</span>.match(<span class="s">/r/</span>).not_nil!.<span class="k">end</span>(<span class="n">0</span>)     <span class="c"># =&gt; 2</span>
@@ -3789,7 +3789,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3811,7 +3811,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L33" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L33" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3827,7 +3827,7 @@ Otherwise, uses the match of the <em>n</em>th capture group.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L328" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L328" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3853,7 +3853,7 @@ match.named_captures <span class="c"># =&gt; {&quot;name1&quot; =&gt; &quot;Cr&q
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3874,7 +3874,7 @@ at the end of the string, returns the empty string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L235" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L235" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3895,7 +3895,7 @@ starts at the start of the string, returns the empty string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L225" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L225" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3911,7 +3911,7 @@ starts at the start of the string, returns the empty string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L344" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L344" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3931,7 +3931,7 @@ starts at the start of the string, returns the empty string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3953,7 +3953,7 @@ starts at the start of the string, returns the empty string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3973,7 +3973,7 @@ starts at the start of the string, returns the empty string.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3999,7 +3999,7 @@ match.to_a <span class="c"># =&gt; [&quot;Cr&quot;, &quot;Cr&quot;, nil]</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L298" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4025,7 +4025,7 @@ match.to_h <span class="c"># =&gt; {0 =&gt; &quot;Cr&quot;, 1 =&gt; &quot;Cr&quo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L313" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L313" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4041,7 +4041,7 @@ match.to_h <span class="c"># =&gt; {0 =&gt; &quot;Cr&quot;, 1 =&gt; &quot;Cr&quo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/regex/match_data.cr#L332" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/regex/match_data.cr#L332" target="_blank">View source</a>]
         
       </div>
     </div>

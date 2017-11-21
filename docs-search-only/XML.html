@@ -3108,7 +3108,7 @@
 
 <h3>Parsing</h3>
 
-<p><code><a href="XML.html#parse%28string%3AString%2Coptions%3AParserOptions%3DParserOptions.default%29%3ANode-class-method">XML#parse</a></code> will parse xml from <code><a href="String.html">String</a></code> or <code><a href="IO.html">IO</a></code> and return xml document as an <code><a href="XML/Node.html">XML::Node</a></code> which represents all kinds of xml nodes.</p>
+<p><code>XML<a href="XML.html#parse%28string%3AString%2Coptions%3AParserOptions%3DParserOptions.default%29%3ANode-class-method">#parse</a></code> will parse xml from <code>String</code> or <code>IO</code> and return xml document as an <code><a href="XML/Node.html">XML::Node</a></code> which represents all kinds of xml nodes.</p>
 
 <p>Example:</p>
 
@@ -3136,7 +3136,7 @@ person <span class="o">=</span> document.first_element_child <span class="c"># :
 
 <h2>Generating</h2>
 
-<p>Use <code><a href="XML.html#build%28version%3AString%3F%3Dnil%2Cencoding%3AString%3F%3Dnil%2Cindent%3Dnil%2Cquote_char%3Dnil%2C%26block%29-class-method">XML.build</a></code>, which uses an <code><a href="XML/Builder.html">XML::Builder</a></code>:</p>
+<p>Use <code>XML<a href="XML.html#build%28version%3AString%3F%3Dnil%2Cencoding%3AString%3F%3Dnil%2Cindent%3Dnil%2Cquote_char%3Dnil%2C%26block%29-class-method">.build</a></code>, which uses an <code><a href="XML/Builder.html">XML::Builder</a></code>:</p>
 
 <pre><code><span class="k">require</span> <span class="s">&quot;xml&quot;</span>
 
@@ -3165,12 +3165,12 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml.cr#L49" target="_blank">xml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml.cr#L49" target="_blank">xml.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml/builder.cr#L283" target="_blank">xml/builder.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml/builder.cr#L283" target="_blank">xml/builder.cr</a>
     
     <br/>
   
@@ -3187,14 +3187,14 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
       <li class="entry-summary">
         <a href="#build%28version%3AString%3F%3Dnil%2Cencoding%3AString%3F%3Dnil%2Cindent%3Dnil%2Cquote_char%3Dnil%2C%26block%29-class-method" class="signature"><strong>.build</strong>(version : String? = <span class="n">nil</span>, encoding : String? = <span class="n">nil</span>, indent = <span class="n">nil</span>, quote_char = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Returns the resulting <code><a href="String.html">String</a></code> of writing XML to the yielded <code><a href="XML/Builder.html">XML::Builder</a></code>.</p></div>
+          <div class="summary"><p>Returns the resulting <code>String</code> of writing XML to the yielded <code><a href="XML/Builder.html">XML::Builder</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#build%28io%3AIO%2Cversion%3AString%3F%3Dnil%2Cencoding%3AString%3F%3Dnil%2Cindent%3Dnil%2Cquote_char%3Dnil%2C%26block%29-class-method" class="signature"><strong>.build</strong>(io : IO, version : String? = <span class="n">nil</span>, encoding : String? = <span class="n">nil</span>, indent = <span class="n">nil</span>, quote_char = <span class="n">nil</span>, &block)</a>
         
-          <div class="summary"><p>Writes XML into the given <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Writes XML into the given <code>IO</code>.</p></div>
         
       </li>
     
@@ -3251,7 +3251,7 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
         <a class="method-permalink" href="#build%28version%3AString%3F%3Dnil%2Cencoding%3AString%3F%3Dnil%2Cindent%3Dnil%2Cquote_char%3Dnil%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the resulting <code><a href="String.html">String</a></code> of writing XML to the yielded <code><a href="XML/Builder.html">XML::Builder</a></code>.</p>
+        <div class="doc"><p>Returns the resulting <code>String</code> of writing XML to the yielded <code><a href="XML/Builder.html">XML::Builder</a></code>.</p>
 
 <pre><code><span class="k">require</span> <span class="s">&quot;xml&quot;</span>
 
@@ -3267,7 +3267,7 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml/builder.cr#L298" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml/builder.cr#L298" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3280,12 +3280,12 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
         <a class="method-permalink" href="#build%28io%3AIO%2Cversion%3AString%3F%3Dnil%2Cencoding%3AString%3F%3Dnil%2Cindent%3Dnil%2Cquote_char%3Dnil%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes XML into the given <code><a href="IO.html">IO</a></code>. An <code><a href="XML/Builder.html">XML::Builder</a></code> is yielded to the block.</p></div>
+        <div class="doc"><p>Writes XML into the given <code>IO</code>. An <code><a href="XML/Builder.html">XML::Builder</a></code> is yielded to the block.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml/builder.cr#L307" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml/builder.cr#L307" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3305,7 +3305,7 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3325,7 +3325,7 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3345,7 +3345,7 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml.cr#L77" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3365,7 +3365,7 @@ string <span class="c"># =&gt; &quot;&lt;?xml version=\&quot;1.0\&quot;?&gt;\n&l
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/xml.cr#L85" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/xml.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>

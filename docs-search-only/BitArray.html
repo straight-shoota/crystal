@@ -3108,11 +3108,11 @@
 
   <p>BitArray is an array data structure that compactly stores bits.</p>
 
-<p>Bits externally represented as <code><a href="Bool.html">Bool</a></code>s are stored internally as
-<code><a href="UInt32.html">UInt32</a></code>s. The total number of bits stored is set at creation and is
+<p>Bits externally represented as <code>Bool</code>s are stored internally as
+<code>UInt32</code>s. The total number of bits stored is set at creation and is
 immutable.</p>
 
-<p><code><a href="BitArray.html">BitArray</a></code> includes all the methods in <code><a href="Enumerable.html">Enumerable</a></code>.</p>
+<p><code>BitArray</code> includes all the methods in <code>Enumerable</code>.</p>
 
 <h3>Example</h3>
 
@@ -3147,7 +3147,7 @@ ba[<span class="n">2</span>] <span class="c"># =&gt; true</span></code></pre>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L20" target="_blank">bit_array.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L20" target="_blank">bit_array.cr</a>
     
     <br/>
   
@@ -3162,7 +3162,7 @@ ba[<span class="n">2</span>] <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#new%28size%2Cinitial%3ABool%3Dfalse%29-class-method" class="signature"><strong>.new</strong>(size, initial : Bool = <span class="n">false</span>)</a>
         
-          <div class="summary"><p>Create a new <code><a href="BitArray.html">BitArray</a></code> of <em>size</em> bits.</p></div>
+          <div class="summary"><p>Create a new <code>BitArray</code> of <em>size</em> bits.</p></div>
         
       </li>
     
@@ -3209,7 +3209,7 @@ ba[<span class="n">2</span>] <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="BitArray.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3244,7 +3244,7 @@ ba[<span class="n">2</span>] <span class="c"># =&gt; true</span></code></pre>
       <li class="entry-summary">
         <a href="#to_slice%3ABytes-instance-method" class="signature"><strong>#to_slice</strong> : Bytes</a>
         
-          <div class="summary"><p>Returns a <code><a href="Bytes.html">Bytes</a></code> able to read and write bytes from a buffer.</p></div>
+          <div class="summary"><p>Returns a <code>Bytes</code> able to read and write bytes from a buffer.</p></div>
         
       </li>
     
@@ -3949,7 +3949,7 @@ ba[<span class="n">2</span>] <span class="c"># =&gt; true</span></code></pre>
         <a class="method-permalink" href="#new%28size%2Cinitial%3ABool%3Dfalse%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="BitArray.html">BitArray</a></code> of <em>size</em> bits.</p>
+        <div class="doc"><p>Create a new <code>BitArray</code> of <em>size</em> bits.</p>
 
 <p><em>initial</em> optionally sets the starting value, <code>true</code> or <code>false</code>, for all bits
 in the array.</p></div>
@@ -3957,7 +3957,7 @@ in the array.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3980,7 +3980,7 @@ in the array.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3996,7 +3996,7 @@ in the array.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L43" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L43" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4016,7 +4016,7 @@ given start index.</p>
 element). Additionally, an empty array is returned when the starting index
 for an element range is at the end of the array.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the starting index is out of range.</p>
+<p>Raises <code>IndexError</code> if the starting index is out of range.</p>
 
 <pre><code>ba <span class="o">=</span> <span class="t">BitArray</span>.<span class="k">new</span>(<span class="n">5</span>)
 ba[<span class="n">0</span>] <span class="o">=</span> <span class="n">true</span>; ba[<span class="n">2</span>] <span class="o">=</span> <span class="n">true</span>; ba[<span class="n">4</span>] <span class="o">=</span> <span class="n">true</span>
@@ -4030,7 +4030,7 @@ ba[<span class="n">5</span>, <span class="n">1</span>]  <span class="c"># =&gt; 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4049,7 +4049,7 @@ ba[<span class="n">5</span>, <span class="n">1</span>]  <span class="c"># =&gt; 
 element). Additionally, an empty array is returned when the starting index
 for an element range is at the end of the array.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the starting index is out of range.</p>
+<p>Raises <code>IndexError</code> if the starting index is out of range.</p>
 
 <pre><code>ba <span class="o">=</span> <span class="t">BitArray</span>.<span class="k">new</span>(<span class="n">5</span>)
 ba[<span class="n">0</span>] <span class="o">=</span> <span class="n">true</span>; ba[<span class="n">2</span>] <span class="o">=</span> <span class="n">true</span>; ba[<span class="n">4</span>] <span class="o">=</span> <span class="n">true</span>
@@ -4064,7 +4064,7 @@ ba[<span class="n">-2</span>...<span class="n">-1</span>] <span class="c"># =&gt
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L88" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L88" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4079,7 +4079,7 @@ ba[<span class="n">-2</span>...<span class="n">-1</span>] <span class="c"># =&gt
       
         <div class="doc"><p>Sets the bit at the given <em>index</em>.
 Negative indices can be used to start counting from the end of the array.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to access a bit outside the array's range.</p>
+Raises <code>IndexError</code> if trying to access a bit outside the array's range.</p>
 
 <pre><code>ba <span class="o">=</span> <span class="t">BitArray</span>.<span class="k">new</span>(<span class="n">5</span>)
 ba[<span class="n">3</span>] <span class="o">=</span> <span class="n">true</span></code></pre></div>
@@ -4087,7 +4087,7 @@ ba[<span class="n">3</span>] <span class="o">=</span> <span class="n">true</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4100,12 +4100,12 @@ ba[<span class="n">3</span>] <span class="o">=</span> <span class="n">true</span
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="BitArray.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L230" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L230" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4126,7 +4126,7 @@ ba.to_s <span class="c"># =&gt; &quot;BitArray[00000]&quot;</span></code></pre><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L218" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L218" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4150,7 +4150,7 @@ ba <span class="c"># =&gt; BitArray[11001]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L197" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L197" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4168,7 +4168,7 @@ ba <span class="c"># =&gt; BitArray[11001]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4189,7 +4189,7 @@ ba.to_s <span class="c"># =&gt; &quot;BitArray[00000]&quot;</span></code></pre><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L209" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L209" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4202,14 +4202,14 @@ ba.to_s <span class="c"># =&gt; &quot;BitArray[00000]&quot;</span></code></pre><
         <a class="method-permalink" href="#to_slice%3ABytes-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="Bytes.html">Bytes</a></code> able to read and write bytes from a buffer.
-The slice will be long enough to hold all the bits groups in bytes despite the <code><a href="UInt32.html">UInt32</a></code> internal representation.
+        <div class="doc"><p>Returns a <code>Bytes</code> able to read and write bytes from a buffer.
+The slice will be long enough to hold all the bits groups in bytes despite the <code>UInt32</code> internal representation.
 It's useful for reading and writing a bit array from a byte buffer directly.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L225" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L225" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4225,7 +4225,7 @@ It's useful for reading and writing a bit array from a byte buffer directly.</p>
         <div class="doc"><p>Toggles the bit at the given <em>index</em>. A false bit becomes a <code>true</code> bit, and
 vice versa.
 Negative indices can be used to start counting from the end of the array.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to access a bit outside the array's range.</p>
+Raises <code>IndexError</code> if trying to access a bit outside the array's range.</p>
 
 <pre><code>ba <span class="o">=</span> <span class="t">BitArray</span>.<span class="k">new</span>(<span class="n">5</span>)
 ba[<span class="n">3</span>] <span class="c"># =&gt; false</span>
@@ -4235,7 +4235,7 @@ ba[<span class="n">3</span>] <span class="c"># =&gt; true</span></code></pre></d
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L183" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L183" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4251,7 +4251,7 @@ ba[<span class="n">3</span>] <span class="c"># =&gt; true</span></code></pre></d
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/bit_array.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/bit_array.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>

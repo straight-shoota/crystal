@@ -3108,7 +3108,7 @@
 
   <p>Float is the base type of all floating point numbers.</p>
 
-<p>There are two floating point types, <code><a href="Float32.html">Float32</a></code> and <code><a href="Float64.html">Float64</a></code>,
+<p>There are two floating point types, <code>Float32</code> and <code>Float64</code>,
 which correspond to the <a href="http://en.wikipedia.org/wiki/Single_precision_floating-point_format" target="_blank">binary32</a>
 and <a href="http://en.wikipedia.org/wiki/Double_precision_floating-point_format" target="_blank">binary64</a>
 types defined by IEEE.</p>
@@ -3116,7 +3116,7 @@ types defined by IEEE.</p>
 <p>A floating point literal is an optional <code>+</code> or <code><a href="Float.html#--instance-method">#-</a></code> sign, followed by
 a sequence of numbers or underscores, followed by a dot,
 followed by numbers or underscores, followed by an optional exponent suffix,
-followed by an optional type suffix. If no suffix is present, the literal's type is <code><a href="Float64.html">Float64</a></code>.</p>
+followed by an optional type suffix. If no suffix is present, the literal's type is <code>Float64</code>.</p>
 
 <pre><code><span class="n">1.0</span>     <span class="c"># Float64</span>
 <span class="n">1.0_f32</span> <span class="c"># Float32</span>
@@ -3171,27 +3171,27 @@ followed by an optional type suffix. If no suffix is present, the literal's type
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L37" target="_blank">float.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L37" target="_blank">float.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L452" target="_blank">time/span.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L452" target="_blank">time/span.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/big/big_int.cr#L527" target="_blank">big/big_int.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/big/big_int.cr#L527" target="_blank">big/big_int.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/big/big_rational.cr#L260" target="_blank">big/big_rational.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/big/big_rational.cr#L260" target="_blank">big/big_rational.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L45" target="_blank">json/to_json.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L45" target="_blank">json/to_json.cr</a>
     
     <br/>
   
@@ -3259,7 +3259,7 @@ followed by an optional type suffix. If no suffix is present, the literal's type
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Float.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3321,14 +3321,14 @@ followed by an optional type suffix. If no suffix is present, the literal's type
       <li class="entry-summary">
         <a href="#to_big_i%3ABigInt-instance-method" class="signature"><strong>#to_big_i</strong> : BigInt</a>
         
-          <div class="summary"><p>Returns a <code><a href="BigInt.html">BigInt</a></code> representing this float (rounded using <code>floor</code>).</p></div>
+          <div class="summary"><p>Returns a <code>BigInt</code> representing this float (rounded using <code>floor</code>).</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_big_r-instance-method" class="signature"><strong>#to_big_r</strong></a>
         
-          <div class="summary"><p>Returns a <code><a href="BigRational.html">BigRational</a></code> representing this float.</p></div>
+          <div class="summary"><p>Returns a <code>BigRational</code> representing this float.</p></div>
         
       </li>
     
@@ -3817,12 +3817,12 @@ followed by an optional type suffix. If no suffix is present, the literal's type
       </div>
       
         <div class="doc"><p>Reads a float from the given <em>io</em> in the given <em>format</em>.
-See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat%3DIO%3A%3AByteFormat%3A%3ASystemEndian%29-instance-method">IO#read_bytes</a></code>.</p></div>
+See also: <code>IO#read_bytes</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L102" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L102" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3845,7 +3845,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L44" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L44" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3861,7 +3861,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L40" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L40" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3877,7 +3877,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/big/big_rational.cr#L268" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/big/big_rational.cr#L268" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3893,7 +3893,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/big/big_int.cr#L530" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/big/big_int.cr#L530" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3911,7 +3911,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L454" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L454" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3927,7 +3927,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L64" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L64" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3943,7 +3943,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L60" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L60" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3956,12 +3956,12 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Float.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L90" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L90" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3979,7 +3979,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L459" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L459" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3995,7 +3995,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L52" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L52" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4013,7 +4013,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L483" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L483" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4031,7 +4031,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L464" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L464" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4047,7 +4047,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L68" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L68" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4063,7 +4063,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4081,7 +4081,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L488" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L488" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4097,7 +4097,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L76" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4115,7 +4115,7 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/time/span.cr#L469" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/time/span.cr#L469" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4128,12 +4128,12 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
         <a class="method-permalink" href="#to_big_i%3ABigInt-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="BigInt.html">BigInt</a></code> representing this float (rounded using <code>floor</code>).</p></div>
+        <div class="doc"><p>Returns a <code>BigInt</code> representing this float (rounded using <code>floor</code>).</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/big/big_int.cr#L535" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/big/big_int.cr#L535" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4146,12 +4146,12 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
         <a class="method-permalink" href="#to_big_r-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a <code><a href="BigRational.html">BigRational</a></code> representing this float.</p></div>
+        <div class="doc"><p>Returns a <code>BigRational</code> representing this float.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/big/big_rational.cr#L264" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/big/big_rational.cr#L264" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4165,12 +4165,12 @@ See also: <code><a href="IO.html#read_bytes%28type%2Cformat%3AIO%3A%3AByteFormat
       </div>
       
         <div class="doc"><p>Writes this float to the given <em>io</em> in the given <em>format</em>.
-See also: <code><a href="IO.html#write_bytes%28object%2Cformat%3AIO%3A%3AByteFormat%3DIO%3A%3AByteFormat%3A%3ASystemEndian%29-instance-method">IO#write_bytes</a></code>.</p></div>
+See also: <code>IO#write_bytes</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/float.cr#L96" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/float.cr#L96" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4186,7 +4186,7 @@ See also: <code><a href="IO.html#write_bytes%28object%2Cformat%3AIO%3A%3AByteFor
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L46" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L46" target="_blank">View source</a>]
         
       </div>
     </div>

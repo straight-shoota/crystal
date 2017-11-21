@@ -3106,15 +3106,15 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="Slice.html">Slice</a></code> is a <code><a href="Pointer.html">Pointer</a></code> with an associated size.</p>
+  <p>A <code>Slice</code> is a <code>Pointer</code> with an associated size.</p>
 
 <p>While a pointer is unsafe because no bound checks are performed when reading from and writing to it,
 reading from and writing to a slice involve bound checks.
-In this way, a slice is a safe alternative to <code><a href="Pointer.html">Pointer</a></code>.</p>
+In this way, a slice is a safe alternative to <code>Pointer</code>.</p>
 
 <p>A Slice can be created as read-only: trying to write to it
 will raise. For example the slice of bytes returned by
-<code><a href="String.html#to_slice%3ABytes-instance-method">String#to_slice</a></code> is read-only.</p>
+<code>String<a href="Slice.html#to_slice-instance-method">#to_slice</a></code> is read-only.</p>
 
 
 
@@ -3139,17 +3139,17 @@ will raise. For example the slice of bytes returned by
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L12" target="_blank">slice.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L12" target="_blank">slice.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L240" target="_blank">yaml/from_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L240" target="_blank">yaml/from_yaml.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L145" target="_blank">yaml/to_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L145" target="_blank">yaml/to_yaml.cr</a>
     
     <br/>
   
@@ -3280,21 +3280,21 @@ will raise. For example the slice of bytes returned by
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Slice.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#hexdump-instance-method" class="signature"><strong>#hexdump</strong></a>
         
-          <div class="summary"><p>Returns a hexdump of this slice, assuming it's a <code><a href="Slice.html">Slice</a>(<a href="UInt8.html">UInt8</a>)</code>.</p></div>
+          <div class="summary"><p>Returns a hexdump of this slice, assuming it's a <code>Slice(UInt8)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#hexstring-instance-method" class="signature"><strong>#hexstring</strong></a>
         
-          <div class="summary"><p>Returns a hexstring representation of this slice, assuming it's a <code><a href="Slice.html">Slice</a>(<a href="UInt8.html">UInt8</a>)</code>.</p></div>
+          <div class="summary"><p>Returns a hexstring representation of this slice, assuming it's a <code>Slice(UInt8)</code>.</p></div>
         
       </li>
     
@@ -3433,7 +3433,7 @@ will raise. For example the slice of bytes returned by
       <li class="entry-summary">
         <a href="#%5B%5D%28%2Aargs%2Cread_only%3Dfalse%29-macro" class="signature"><strong>[]</strong>(*args, read_only = false)</a>
         
-          <div class="summary"><p>Create a new <code><a href="Slice.html">Slice</a></code> with the given <em>args</em>.</p></div>
+          <div class="summary"><p>Create a new <code>Slice</code> with the given <em>args</em>.</p></div>
         
       </li>
     
@@ -4127,7 +4127,7 @@ will raise. For example the slice of bytes returned by
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L241" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L241" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4154,7 +4154,7 @@ slice      <span class="c"># =&gt; Bytes[97, 98, 99]</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L67" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L67" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4170,7 +4170,7 @@ slice      <span class="c"># =&gt; Bytes[97, 98, 99]</span>
         <div class="doc"><p>Allocates <code>size * sizeof(T)</code> bytes of heap memory initialized to <em>value</em>
 and returns a slice pointing to that memory.</p>
 
-<p>The memory is allocated by the <code><a href="GC.html">GC</a></code>, so when there are
+<p>The memory is allocated by the <code>GC</code>, so when there are
 no pointers to this memory, it will be automatically freed.</p>
 
 <pre><code>slice <span class="o">=</span> <span class="t">Slice</span>.<span class="k">new</span>(<span class="n">3</span>, <span class="n">10</span>)
@@ -4179,7 +4179,7 @@ slice <span class="c"># =&gt; Slice[10, 10, 10]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L118" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L118" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4195,10 +4195,10 @@ slice <span class="c"># =&gt; Slice[10, 10, 10]</span></code></pre></div>
         <div class="doc"><p>Allocates <code>size * sizeof(T)</code> bytes of heap memory initialized to zero
 and returns a slice pointing to that memory.</p>
 
-<p>The memory is allocated by the <code><a href="GC.html">GC</a></code>, so when there are
+<p>The memory is allocated by the <code>GC</code>, so when there are
 no pointers to this memory, it will be automatically freed.</p>
 
-<p>Only works for primitive integers and floats (<code><a href="UInt8.html">UInt8</a></code>, <code><a href="Int32.html">Int32</a></code>, <code><a href="Float64.html">Float64</a></code>, etc.)</p>
+<p>Only works for primitive integers and floats (<code>UInt8</code>, <code>Int32</code>, <code>Float64</code>, etc.)</p>
 
 <pre><code>slice <span class="o">=</span> <span class="t">Slice</span>(<span class="t">UInt8</span>).<span class="k">new</span>(<span class="n">3</span>)
 slice <span class="c"># =&gt; Bytes[0, 0, 0]</span></code></pre></div>
@@ -4206,7 +4206,7 @@ slice <span class="c"># =&gt; Bytes[0, 0, 0]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L83" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L83" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4223,7 +4223,7 @@ slice <span class="c"># =&gt; Bytes[0, 0, 0]</span></code></pre></div>
 returned by the block (which is invoked once with each index in the range <code>0..<a href="Slice.html#size%3AInt32-instance-method">.size</a></code>)
 and returns a slice pointing to that memory.</p>
 
-<p>The memory is allocated by the <code><a href="GC.html">GC</a></code>, so when there are
+<p>The memory is allocated by the <code>GC</code>, so when there are
 no pointers to this memory, it will be automatically freed.</p>
 
 <pre><code>slice <span class="o">=</span> <span class="t">Slice</span>.<span class="k">new</span>(<span class="n">3</span>) { <span class="o">|</span>i<span class="o">|</span> i <span class="o">+</span> <span class="n">10</span> }
@@ -4232,7 +4232,7 @@ slice <span class="c"># =&gt; Slice[10, 11, 12]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L103" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L103" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4258,7 +4258,7 @@ slice.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L136" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L136" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4287,7 +4287,7 @@ slice2 <span class="c"># =&gt; Slice[12, 13, 14]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L149" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L149" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4303,7 +4303,7 @@ slice2 <span class="c"># =&gt; Slice[12, 13, 14]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L466" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L466" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4319,7 +4319,7 @@ slice2 <span class="c"># =&gt; Slice[12, 13, 14]</span></code></pre></div>
         <div class="doc"><p>Returns a new slice that starts at <em>start</em> elements from this slice's start,
 and of <em>count</em> size.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the new slice falls outside this slice.</p>
+<p>Raises <code>IndexError</code> if the new slice falls outside this slice.</p>
 
 <pre><code>slice <span class="o">=</span> <span class="t">Slice</span>.<span class="k">new</span>(<span class="n">5</span>) { <span class="o">|</span>i<span class="o">|</span> i <span class="o">+</span> <span class="n">10</span> }
 slice <span class="c"># =&gt; Slice[10, 11, 12, 13, 14]</span>
@@ -4330,7 +4330,7 @@ slice2 <span class="c"># =&gt; Slice[11, 12, 13]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L194" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L194" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4346,7 +4346,7 @@ slice2 <span class="c"># =&gt; Slice[11, 12, 13]</span></code></pre></div>
         <div class="doc"><p>Sets the given value at the given <em>index</em>.</p>
 
 <p>Negative indices can be used to start counting from the end of the slice.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to set an element outside the slice's range.</p>
+Raises <code>IndexError</code> if trying to set an element outside the slice's range.</p>
 
 <pre><code>slice <span class="o">=</span> <span class="t">Slice</span>.<span class="k">new</span>(<span class="n">5</span>) { <span class="o">|</span>i<span class="o">|</span> i <span class="o">+</span> <span class="n">10</span> }
 slice[<span class="n">0</span>] <span class="o">=</span> <span class="n">20</span>
@@ -4358,7 +4358,7 @@ slice[<span class="n">10</span>] <span class="o">=</span> <span class="n">1</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L171" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L171" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4374,7 +4374,7 @@ slice[<span class="n">10</span>] <span class="o">=</span> <span class="n">1</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L462" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L462" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4393,7 +4393,7 @@ This method allocates memory for the slice copy.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L124" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L124" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4408,12 +4408,12 @@ This method allocates memory for the slice copy.</p></div>
       
         <div class="doc"><p>Copies the contents of <em>source</em> into this slice.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the desination slice cannot fit the data being transferred.</p></div>
+<p>Raises <code>IndexError</code> if the desination slice cannot fit the data being transferred.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L309" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L309" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4429,7 +4429,7 @@ This method allocates memory for the slice copy.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L277" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L277" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4445,7 +4445,7 @@ This method allocates memory for the slice copy.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L283" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L283" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4460,7 +4460,7 @@ This method allocates memory for the slice copy.</p></div>
       
         <div class="doc"><p>Copies the contents of this slice into <em>target</em>.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the desination slice cannot fit the data being transferred
+<p>Raises <code>IndexError</code> if the desination slice cannot fit the data being transferred
 e.g. dest.size &lt; self.size.</p>
 
 <pre><code>src <span class="o">=</span> <span class="t">Slice</span>[<span class="s">'a'</span>, <span class="s">'a'</span>, <span class="s">'a'</span>]
@@ -4472,7 +4472,7 @@ dst.copy_to src <span class="c"># raises IndexError</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L299" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L299" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4485,12 +4485,12 @@ dst.copy_to src <span class="c"># raises IndexError</span></code></pre></div>
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Slice.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L537" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L537" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4503,7 +4503,7 @@ dst.copy_to src <span class="c"># raises IndexError</span></code></pre></div>
         <a class="method-permalink" href="#hexdump-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a hexdump of this slice, assuming it's a <code><a href="Slice.html">Slice</a>(<a href="UInt8.html">UInt8</a>)</code>.
+        <div class="doc"><p>Returns a hexdump of this slice, assuming it's a <code>Slice(UInt8)</code>.
 This method is specially useful for debugging binary data and
 incoming/outgoing data in protocols.</p>
 
@@ -4513,7 +4513,7 @@ slice.hexdump <span class="c"># =&gt; &quot;00000000  61 3e 3f 08 ff            
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L396" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L396" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4527,7 +4527,7 @@ slice.hexdump <span class="c"># =&gt; &quot;00000000  61 3e 3f 08 ff            
       </div>
       
         <div class="doc"><p>Returns a hexstring representation of this slice, assuming it's
-a <code><a href="Slice.html">Slice</a>(<a href="UInt8.html">UInt8</a>)</code>.</p>
+a <code>Slice(UInt8)</code>.</p>
 
 <pre><code>slice <span class="o">=</span> <span class="t">UInt8</span>.slice(<span class="n">97</span>, <span class="n">62</span>, <span class="n">63</span>, <span class="n">8</span>, <span class="n">255</span>)
 slice.hexstring <span class="c"># =&gt; &quot;613e3f08ff&quot;</span></code></pre></div>
@@ -4535,7 +4535,7 @@ slice.hexstring <span class="c"># =&gt; &quot;613e3f08ff&quot;</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L364" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L364" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4551,7 +4551,7 @@ slice.hexstring <span class="c"># =&gt; &quot;613e3f08ff&quot;</span></code></pr
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L353" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L353" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4572,7 +4572,7 @@ slice.map <span class="o">&</span>.to_s <span class="c"># =&gt; Slice[&quot;1&qu
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L260" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L260" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4595,7 +4595,7 @@ slice <span class="c"># =&gt; Slice[1, 4, 9]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L247" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L247" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4613,7 +4613,7 @@ slice <span class="c"># =&gt; Slice[1, 4, 9]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L273" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L273" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4631,7 +4631,7 @@ slice <span class="c"># =&gt; Slice[1, 4, 9]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L265" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L265" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4647,12 +4647,12 @@ slice <span class="c"># =&gt; Slice[1, 4, 9]</span></code></pre></div>
         <div class="doc"><p>Moves the contents of <em>source</em> into this slice. <em>source</em> and <code>self</code> may
 overlap; the copy is always done in a non-destructive manner.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the desination slice cannot fit the data being transferred.</p></div>
+<p>Raises <code>IndexError</code> if the desination slice cannot fit the data being transferred.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L349" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L349" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4668,7 +4668,7 @@ overlap; the copy is always done in a non-destructive manner.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L313" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L313" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4684,7 +4684,7 @@ overlap; the copy is always done in a non-destructive manner.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L319" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L319" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4700,7 +4700,7 @@ overlap; the copy is always done in a non-destructive manner.</p>
         <div class="doc"><p>Moves the contents of this slice into <em>target</em>. <em>target</em> and <code>self</code> may
 overlap; the copy is always done in a non-destructive manner.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the desination slice cannot fit the data being transferred
+<p>Raises <code>IndexError</code> if the desination slice cannot fit the data being transferred
 e.g. <code>dest<a href="Slice.html#size%3AInt32-instance-method">.size</a> < self<a href="Slice.html#size%3AInt32-instance-method">.size</a></code>.</p>
 
 <pre><code>src <span class="o">=</span> <span class="t">Slice</span>[<span class="s">'a'</span>, <span class="s">'a'</span>, <span class="s">'a'</span>]
@@ -4709,12 +4709,12 @@ src.move_to dst
 dst             <span class="c"># =&gt; Slice[&#39;a&#39;, &#39;a&#39;, &#39;a&#39;, &#39;b&#39;, &#39;b&#39;]</span>
 dst.move_to src <span class="c"># raises IndexError</span></code></pre>
 
-<p>See also: <code><a href="Pointer.html#move_to%28target%3APointer%2Ccount%3AInt%29-instance-method">Pointer#move_to</a></code>.</p></div>
+<p>See also: <code>Pointer<a href="Slice.html#move_to%28target%3APointer%28T%29%2Ccount%29-instance-method">#move_to</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L338" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L338" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4730,7 +4730,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L225" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L225" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4746,7 +4746,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L490" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L490" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4764,7 +4764,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L53" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L53" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4782,7 +4782,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L212" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L212" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4798,7 +4798,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L233" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L233" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4818,7 +4818,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L50" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L50" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4834,7 +4834,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L495" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L495" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4850,7 +4850,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L475" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L475" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4866,7 +4866,7 @@ dst.move_to src <span class="c"># raises IndexError</span></code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L471" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L471" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4887,7 +4887,7 @@ slice.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 10</span></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L508" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L508" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4903,7 +4903,7 @@ slice.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 10</span></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L146" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L146" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4919,7 +4919,7 @@ slice.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 10</span></cod
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L207" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L207" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4937,7 +4937,7 @@ slice.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 10</span></cod
         <a class="method-permalink" href="#%5B%5D%28%2Aargs%2Cread_only%3Dfalse%29-macro">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="Slice.html">Slice</a></code> with the given <em>args</em>. The type of the
+        <div class="doc"><p>Create a new <code>Slice</code> with the given <em>args</em>. The type of the
 slice will be the union of the type of the given <em>args</em>.</p>
 
 <p>The slice is allocated on the heap.</p>
@@ -4947,15 +4947,15 @@ slice[<span class="n">0</span>]    <span class="c"># =&gt; 1</span>
 slice[<span class="n">1</span>]    <span class="c"># =&gt; &#39;a&#39;</span>
 slice.<span class="k">class</span> <span class="c"># =&gt; Slice(Char | Int32)</span></code></pre>
 
-<p>If <code>T</code> is a <code><a href="Number.html">Number</a></code> then this is equivalent to
-<code><a href="Number.html#slice%28%2Anums%2Cread_only%3Dfalse%29-macro">Number.slice</a></code> (numbers will be coerced to the type <code>T</code>)</p>
+<p>If <code>T</code> is a <code>Number</code> then this is equivalent to
+<code>Number.slice</code> (numbers will be coerced to the type <code>T</code>)</p>
 
-<p>See also: <code><a href="Number.html#slice%28%2Anums%2Cread_only%3Dfalse%29-macro">Number.slice</a></code>.</p></div>
+<p>See also: <code>Number.slice</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/slice.cr#L31" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/slice.cr#L31" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3111,9 +3111,9 @@ having more than one possible type at compile time.</p>
 
 <p>When invoking a method on a union type, the language checks that the
 method exists and can be resolved (typed) for each type in the union.
-For this reason, adding instance methods to <code><a href="Union.html">Union</a></code> makes no sense and
-has no effect. However, adding class method to <code><a href="Union.html">Union</a></code> is possible
-and can be useful. One example is parsing <code><a href="JSON.html">JSON</a></code> into one of many
+For this reason, adding instance methods to <code>Union</code> makes no sense and
+has no effect. However, adding class method to <code>Union</code> is possible
+and can be useful. One example is parsing <code>JSON</code> into one of many
 possible types.</p>
 
 <p>Union is special in that it is a generic type but instantiating it
@@ -3139,7 +3139,7 @@ might not return a union type:</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/union.cr#L19" target="_blank">union.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/union.cr#L19" target="_blank">union.cr</a>
     
     <br/>
   
@@ -3176,7 +3176,7 @@ might not return a union type:</p>
       <li class="entry-summary">
         <a href="#nilable%3F-class-method" class="signature"><strong>.nilable?</strong></a>
         
-          <div class="summary"><p>Returns <code>true</code> if this union includes the <code><a href="Nil.html">Nil</a></code> type.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if this union includes the <code>Nil</code> type.</p></div>
         
       </li>
     
@@ -3358,7 +3358,7 @@ might not return a union type:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L182" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L182" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3374,7 +3374,7 @@ might not return a union type:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L192" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L192" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3390,7 +3390,7 @@ might not return a union type:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/union.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/union.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3408,7 +3408,7 @@ might not return a union type:</p>
         <a class="method-permalink" href="#nilable%3F-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if this union includes the <code><a href="Nil.html">Nil</a></code> type.</p>
+        <div class="doc"><p>Returns <code>true</code> if this union includes the <code>Nil</code> type.</p>
 
 <pre><code>(<span class="t">Int32</span> <span class="o">|</span> <span class="t">String</span>).nilable? <span class="c"># =&gt; false</span>
 (<span class="t">Int32</span> <span class="o">|</span> <span class="t">Nil</span>).nilable?    <span class="c"># =&gt; true</span></code></pre></div>
@@ -3416,7 +3416,7 @@ might not return a union type:</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/union.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/union.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>

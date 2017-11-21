@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p>An <code><a href="../IO.html">IO</a></code> that wraps another <code><a href="../IO.html">IO</a></code>, and only reads up to the beginning of a
+  <p>An <code>IO</code> that wraps another <code>IO</code>, and only reads up to the beginning of a
 specified delimiter.</p>
 
 <p>This is useful for exposing part of an underlying stream to a client.</p>
@@ -3134,7 +3134,7 @@ io.gets_to_end        <span class="c"># =&gt; &quot;123&quot;</span></code></pre
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L14" target="_blank">io/delimited.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L14" target="_blank">io/delimited.cr</a>
     
     <br/>
   
@@ -3192,14 +3192,14 @@ io.gets_to_end        <span class="c"># =&gt; &quot;123&quot;</span></code></pre
       <li class="entry-summary">
         <a href="#sync_close%3D%28sync_close%29-instance-method" class="signature"><strong>#sync_close=</strong>(sync_close)</a>
         
-          <div class="summary"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code><a href="../IO.html">IO</a></code> will close the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code>IO</code> will close the underlying <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#sync_close%3F%3ABool-instance-method" class="signature"><strong>#sync_close?</strong> : Bool</a>
         
-          <div class="summary"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code><a href="../IO.html">IO</a></code> will close the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code>IO</code> will close the underlying <code>IO</code>.</p></div>
         
       </li>
     
@@ -3641,12 +3641,12 @@ io.gets_to_end        <span class="c"># =&gt; &quot;123&quot;</span></code></pre
         <div class="doc"><p>Creates a new <code><a href="../IO/Delimited.html">IO::Delimited</a></code> which wraps <em>io</em>, and can read until the
 byte sequence <em>read_delimiter</em> (interpreted as UTF-8) is found. If
 <em>sync_close</em> is set, calling <code><a href="../IO/Delimited.html#close-instance-method">#close</a></code> calls <code><a href="../IO/Delimited.html#close-instance-method">#close</a></code> on the underlying
-<code><a href="../IO.html">IO</a></code>.</p></div>
+<code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L28" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L28" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3661,12 +3661,12 @@ byte sequence <em>read_delimiter</em> (interpreted as UTF-8) is found. If
       
         <div class="doc"><p>Creates a new <code><a href="../IO/Delimited.html">IO::Delimited</a></code> which wraps <em>io</em>, and can read until the
 byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, calling
-<code><a href="../IO/Delimited.html#close-instance-method">#close</a></code> calls <code><a href="../IO/Delimited.html#close-instance-method">#close</a></code> on the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+<code><a href="../IO/Delimited.html#close-instance-method">#close</a></code> calls <code><a href="../IO/Delimited.html#close-instance-method">#close</a></code> on the underlying <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3689,7 +3689,7 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L114" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L114" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3705,7 +3705,7 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L19" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L19" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3721,7 +3721,7 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3737,7 +3737,7 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L18" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L18" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3750,12 +3750,12 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
         <a class="method-permalink" href="#sync_close%3D%28sync_close%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code><a href="../IO.html">IO</a></code> will close the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code>IO</code> will close the underlying <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3768,12 +3768,12 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
         <a class="method-permalink" href="#sync_close%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code><a href="../IO.html">IO</a></code> will close the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>If <code><a href="../IO/Delimited.html#sync_close%3F%3ABool-instance-method">#sync_close?</a></code> is <code>true</code>, closing this <code>IO</code> will close the underlying <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3789,7 +3789,7 @@ byte sequence <em>read_delimiter</em> is found. If <em>sync_close</em> is set, c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/delimited.cr#L110" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/delimited.cr#L110" target="_blank">View source</a>]
         
       </div>
     </div>

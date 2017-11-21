@@ -3108,7 +3108,7 @@
 
   <p>A CSV parser. It lets you consume a CSV row by row.</p>
 
-<p>Most of the time <code><a href="../CSV.html#parse%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29%3AArray%28Array%28String%29%29-class-method">CSV#parse</a></code> and <code><a href="../CSV.html#each_row%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%2C%26block%29-class-method">CSV#each_row</a></code> are more convenient.</p>
+<p>Most of the time <code>CSV<a href="../CSV/Parser.html#parse%3AArray%28Array%28String%29%29-instance-method">#parse</a></code> and <code>CSV<a href="../CSV/Parser.html#each_row%28%26block%29%3ANil-instance-method">#each_row</a></code> are more convenient.</p>
 
 
 
@@ -3126,7 +3126,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L6" target="_blank">csv/parser.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L6" target="_blank">csv/parser.cr</a>
     
     <br/>
   
@@ -3141,7 +3141,7 @@
       <li class="entry-summary">
         <a href="#new%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29-class-method" class="signature"><strong>.new</strong>(string_or_io : String | IO, separator : Char = <span class="t">DEFAULT_SEPARATOR</span>, quote_char : Char = <span class="t">DEFAULT_QUOTE_CHAR</span>)</a>
         
-          <div class="summary"><p>Creates a parser from a <code><a href="../String.html">String</a></code> or <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Creates a parser from a <code>String</code> or <code>IO</code>.</p></div>
         
       </li>
     
@@ -3157,14 +3157,14 @@
       <li class="entry-summary">
         <a href="#each_row%28%26block%29%3ANil-instance-method" class="signature"><strong>#each_row</strong>(&block) : Nil</a>
         
-          <div class="summary"><p>Yields each of the remaining rows as an <code><a href="../Array.html">Array</a>(<a href="../String.html">String</a>)</code>.</p></div>
+          <div class="summary"><p>Yields each of the remaining rows as an <code>Array(String)</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#each_row-instance-method" class="signature"><strong>#each_row</strong></a>
         
-          <div class="summary"><p>Returns an <code><a href="../Iterator.html">Iterator</a></code> of <code><a href="../Array.html">Array</a>(<a href="../String.html">String</a>)</code> for the remaining rows.</p></div>
+          <div class="summary"><p>Returns an <code>Iterator</code> of <code>Array(String)</code> for the remaining rows.</p></div>
         
       </li>
     
@@ -3408,14 +3408,14 @@
         <a class="method-permalink" href="#new%28string_or_io%3AString%7CIO%2Cseparator%3AChar%3DDEFAULT_SEPARATOR%2Cquote_char%3AChar%3DDEFAULT_QUOTE_CHAR%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a parser from a <code><a href="../String.html">String</a></code> or <code><a href="../IO.html">IO</a></code>.
+        <div class="doc"><p>Creates a parser from a <code>String</code> or <code>IO</code>.
 Optionally takes the optional <em>separator</em> and <em>quote_char</em> arguments for
 specifying non-standard cell separators and quote characters</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3435,12 +3435,12 @@ specifying non-standard cell separators and quote characters</p></div>
         <a class="method-permalink" href="#each_row%28%26block%29%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Yields each of the remaining rows as an <code><a href="../Array.html">Array</a>(<a href="../String.html">String</a>)</code>.</p></div>
+        <div class="doc"><p>Yields each of the remaining rows as an <code>Array(String)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L23" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L23" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3453,12 +3453,12 @@ specifying non-standard cell separators and quote characters</p></div>
         <a class="method-permalink" href="#each_row-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="../Iterator.html">Iterator</a></code> of <code><a href="../Array.html">Array</a>(<a href="../String.html">String</a>)</code> for the remaining rows.</p></div>
+        <div class="doc"><p>Returns an <code>Iterator</code> of <code>Array(String)</code> for the remaining rows.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3477,7 +3477,7 @@ Returns that same array, if a row was found, or <code>nil</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3495,7 +3495,7 @@ Returns that same array, if a row was found, or <code>nil</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L35" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L35" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3513,7 +3513,7 @@ Returns that same array, if a row was found, or <code>nil</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3531,7 +3531,7 @@ Returns that same array, if a row was found, or <code>nil</code>.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/csv/parser.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/csv/parser.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>

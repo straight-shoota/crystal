@@ -3189,22 +3189,22 @@ is an example showing how to upload a file to the server above in crystal.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata/builder.cr#L1" target="_blank">http/formdata/builder.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata/builder.cr#L1" target="_blank">http/formdata/builder.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata/parser.cr#L1" target="_blank">http/formdata/parser.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata/parser.cr#L1" target="_blank">http/formdata/parser.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata/part.cr#L1" target="_blank">http/formdata/part.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata/part.cr#L1" target="_blank">http/formdata/part.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata.cr#L78" target="_blank">http/formdata.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata.cr#L78" target="_blank">http/formdata.cr</a>
     
     <br/>
   
@@ -3249,7 +3249,7 @@ is an example showing how to upload a file to the server above in crystal.</p>
       <li class="entry-summary">
         <a href="#parse_content_disposition%28content_disposition%29%3ATuple%28String%2CFileMetadata%29-class-method" class="signature"><strong>.parse_content_disposition</strong>(content_disposition) : Tuple(String, FileMetadata)</a>
         
-          <div class="summary"><p>Parses a <code>Content-Disposition</code> header string into a field name and <code><a href="../HTTP/FormData/FileMetadata.html">FileMetadata</a></code>.</p></div>
+          <div class="summary"><p>Parses a <code>Content-Disposition</code> header string into a field name and <code>FileMetadata</code>.</p></div>
         
       </li>
     
@@ -3280,7 +3280,7 @@ is an example showing how to upload a file to the server above in crystal.</p>
       
         <div class="doc"><p>Builds a multipart/form-data message, yielding a <code><a href="../HTTP/FormData/Builder.html">FormData::Builder</a></code>
 object to the block which writes to <em>response</em> using *boundary.
-Content-Type is set on <em>response</em> and <code><a href="../HTTP/FormData/Builder.html#finish-instance-method">Builder#finish</a></code> is called on the
+Content-Type is set on <em>response</em> and <code>Builder#finish</code> is called on the
 builder when the block returns.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
@@ -3298,7 +3298,7 @@ io.to_s                          <span class="c"># =&gt; &quot;HTTP/1.1 200 OK\r
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata.cr#L204" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata.cr#L204" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3313,7 +3313,7 @@ io.to_s                          <span class="c"># =&gt; &quot;HTTP/1.1 200 OK\r
       
         <div class="doc"><p>Builds a multipart/form-data message, yielding a <code><a href="../HTTP/FormData/Builder.html">FormData::Builder</a></code>
 object to the block which writes to <em>io</em> using <em>boundary</em>.
-<code><a href="../HTTP/FormData/Builder.html#finish-instance-method">Builder#finish</a></code> is called on the builder when the block returns.</p>
+<code>Builder#finish</code> is called on the builder when the block returns.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 <span class="t">HTTP</span><span class="t">::</span><span class="t">FormData</span>.build(io, <span class="s">&quot;boundary&quot;</span>) <span class="k">do</span> <span class="o">|</span>builder<span class="o">|</span>
@@ -3326,7 +3326,7 @@ io.to_s <span class="c"># =&gt; &quot;--boundary\r\nContent-Disposition: form-da
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata.cr#L180" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata.cr#L180" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3352,7 +3352,7 @@ io.to_s <span class="c"># =&gt; &quot;--boundary\r\nContent-Disposition: form-da
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata.cr#L90" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata.cr#L90" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3381,7 +3381,7 @@ request <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata.cr#L111" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata.cr#L111" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3395,7 +3395,7 @@ request <span class="o">=</span> <span class="t">HTTP</span><span class="t">::</
       </div>
       
         <div class="doc"><p>Parses a <code>Content-Disposition</code> header string into a field name and
-<code><a href="../HTTP/FormData/FileMetadata.html">FileMetadata</a></code>. Please note that the <code>Content-Disposition</code> header for
+<code>FileMetadata</code>. Please note that the <code>Content-Disposition</code> header for
 <code>multipart/form-data</code> is not compatible with the original definition in
 <a href="https://tools.ietf.org/html/rfc2183" target="_blank">RFC 2183</a>, but are instead specified
 in <a href="https://tools.ietf.org/html/rfc2388" target="_blank">RFC 2388</a>.</p></div>
@@ -3403,7 +3403,7 @@ in <a href="https://tools.ietf.org/html/rfc2388" target="_blank">RFC 2388</a>.</
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/http/formdata.cr#L126" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/http/formdata.cr#L126" target="_blank">View source</a>]
         
       </div>
     </div>

@@ -3131,7 +3131,7 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L2" target="_blank">static_array.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L2" target="_blank">static_array.cr</a>
     
     <br/>
   
@@ -3197,7 +3197,7 @@
       <li class="entry-summary">
         <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="StaticArray.html">StaticArray</a></code> where each element is cloned from elements in <code>self</code>.</p></div>
+          <div class="summary"><p>Returns a new <code>StaticArray</code> where each element is cloned from elements in <code>self</code>.</p></div>
         
       </li>
     
@@ -3258,7 +3258,7 @@
       <li class="entry-summary">
         <a href="#to_s%28io%3AIO%29-instance-method" class="signature"><strong>#to_s</strong>(io : IO)</a>
         
-          <div class="summary"><p>Appends a string representation of this static array to the given <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Appends a string representation of this static array to the given <code>IO</code>.</p></div>
         
       </li>
     
@@ -3298,7 +3298,7 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28%2Aargs%29-macro" class="signature"><strong>[]</strong>(*args)</a>
         
-          <div class="summary"><p>Create a new <code><a href="StaticArray.html">StaticArray</a></code> with the given <em>args</em>.</p></div>
+          <div class="summary"><p>Create a new <code>StaticArray</code> with the given <em>args</em>.</p></div>
         
       </li>
     
@@ -3959,7 +3959,7 @@ block's value in that index.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L32" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L32" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3979,7 +3979,7 @@ block's value in that index.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L45" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L45" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4011,7 +4011,7 @@ array <span class="o">==</span> array3                      <span class="c"># =&
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L65" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L65" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4032,7 +4032,7 @@ array <span class="o">==</span> <span class="n">nil</span>                      
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L79" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L79" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4048,7 +4048,7 @@ array <span class="o">==</span> <span class="n">nil</span>                      
         <div class="doc"><p>Sets the given value at the given <em>index</em>.</p>
 
 <p>Negative indices can be used to start counting from the end of the array.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to set an element outside the array's range.</p>
+Raises <code>IndexError</code> if trying to set an element outside the array's range.</p>
 
 <pre><code>array <span class="o">=</span> <span class="t">StaticArray</span>(<span class="t">Int32</span>, <span class="n">3</span>).<span class="k">new</span> { <span class="o">|</span>i<span class="o">|</span> i <span class="o">+</span> <span class="n">1</span> } <span class="c"># =&gt; StaticArray[1, 2, 3]</span>
 array[<span class="n">2</span>] <span class="o">=</span> <span class="n">2</span>                                    <span class="c"># =&gt; 2</span>
@@ -4058,7 +4058,7 @@ array[<span class="n">4</span>] <span class="o">=</span> <span class="n">4</span
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L100" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L100" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4080,7 +4080,7 @@ array       <span class="c"># =&gt; StaticArray[2, 2, 2]</span></code></pre></di
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L137" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L137" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4093,12 +4093,12 @@ array       <span class="c"># =&gt; StaticArray[2, 2, 2]</span></code></pre></di
         <a class="method-permalink" href="#clone-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="StaticArray.html">StaticArray</a></code> where each element is cloned from elements in <code>self</code>.</p></div>
+        <div class="doc"><p>Returns a new <code>StaticArray</code> where each element is cloned from elements in <code>self</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L244" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L244" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4119,7 +4119,7 @@ tuple.map <span class="o">&</span>.to_s <span class="c"># =&gt; StaticArray[&quo
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L174" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L174" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4141,7 +4141,7 @@ array.map! { <span class="o">|</span>x<span class="o">|</span> x<span class="o">
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L163" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L163" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4159,7 +4159,7 @@ array.map! { <span class="o">|</span>x<span class="o">|</span> x<span class="o">
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L185" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L185" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4177,7 +4177,7 @@ array.map! { <span class="o">|</span>x<span class="o">|</span> x<span class="o">
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L179" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L179" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4193,7 +4193,7 @@ array.map! { <span class="o">|</span>x<span class="o">|</span> x<span class="o">
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L235" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L235" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4214,7 +4214,7 @@ array.reverse! <span class="c"># =&gt; StaticArray[3, 2, 1]</span></code></pre><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L195" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L195" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4237,7 +4237,7 @@ a                                           <span class="c"># =&gt; StaticArray[
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L151" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L151" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4258,7 +4258,7 @@ array.size <span class="c"># =&gt; 3</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L126" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L126" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4271,7 +4271,7 @@ array.size <span class="c"># =&gt; 3</span></code></pre></div>
         <a class="method-permalink" href="#to_s%28io%3AIO%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Appends a string representation of this static array to the given <code><a href="IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Appends a string representation of this static array to the given <code>IO</code>.</p>
 
 <pre><code>array <span class="o">=</span> <span class="t">StaticArray</span>(<span class="t">Int32</span>, <span class="n">3</span>).<span class="k">new</span> { <span class="o">|</span>i<span class="o">|</span> i <span class="o">+</span> <span class="n">1</span> }
 array.to_s <span class="c"># =&gt; &quot;StaticArray[1, 2, 3]&quot;</span></code></pre></div>
@@ -4279,7 +4279,7 @@ array.to_s <span class="c"># =&gt; &quot;StaticArray[1, 2, 3]&quot;</span></code
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L229" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L229" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4303,7 +4303,7 @@ array <span class="c"># =&gt; StaticArray[3, 2, 2]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L209" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L209" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4324,7 +4324,7 @@ ary.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 42</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L219" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L219" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4340,7 +4340,7 @@ ary.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 42</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L84" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L84" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4355,7 +4355,7 @@ ary.to_unsafe[<span class="n">0</span>] <span class="c"># =&gt; 42</span></code>
       
         <div class="doc"><p>Yields the current element at the given index and updates the value
 at the given <em>index</em> with the block's value.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to set an element outside the array's range.</p>
+Raises <code>IndexError</code> if trying to set an element outside the array's range.</p>
 
 <pre><code>array <span class="o">=</span> <span class="t">StaticArray</span>(<span class="t">Int32</span>, <span class="n">3</span>).<span class="k">new</span> { <span class="o">|</span>i<span class="o">|</span> i <span class="o">+</span> <span class="n">1</span> } <span class="c"># =&gt; StaticArray[1, 2, 3]</span>
 array.update(<span class="n">1</span>) { <span class="o">|</span>x<span class="o">|</span> x <span class="o">*</span> <span class="n">2</span> }                   <span class="c"># =&gt; 4</span>
@@ -4365,7 +4365,7 @@ array.update(<span class="n">5</span>) { <span class="o">|</span>x<span class="o
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L115" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L115" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4383,7 +4383,7 @@ array.update(<span class="n">5</span>) { <span class="o">|</span>x<span class="o
         <a class="method-permalink" href="#%5B%5D%28%2Aargs%29-macro">#</a>
       </div>
       
-        <div class="doc"><p>Create a new <code><a href="StaticArray.html">StaticArray</a></code> with the given <em>args</em>. The type of the
+        <div class="doc"><p>Create a new <code>StaticArray</code> with the given <em>args</em>. The type of the
 static array will be the union of the type of the given <em>args</em>,
 and its size will be the number of elements in <em>args</em>.</p>
 
@@ -4392,12 +4392,12 @@ ary[<span class="n">0</span>]    <span class="c"># =&gt; 1</span>
 ary[<span class="n">1</span>]    <span class="c"># =&gt; &#39;a&#39;</span>
 ary.<span class="k">class</span> <span class="c"># =&gt; StaticArray(Char | Int32, 2)</span></code></pre>
 
-<p>See also: <code><a href="Number.html#static_array%28%2Anums%29-macro">Number.static_array</a></code>.</p></div>
+<p>See also: <code>Number.static_array</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/static_array.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/static_array.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>

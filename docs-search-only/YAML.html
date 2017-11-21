@@ -3110,7 +3110,7 @@ independent types specified in http://yaml.org/type/</p>
 
 <h3>Parsing with <code><a href="YAML.html#parse%28data%3AString%7CIO%29%3AAny-class-method">#parse</a></code> and <code><a href="YAML.html#parse_all%28data%3AString%29%3AArray%28Any%29-class-method">#parse_all</a></code></h3>
 
-<p><code><a href="YAML.html#parse%28data%3AString%7CIO%29%3AAny-class-method">YAML#parse</a></code> will return an <code><a href="YAML/Any.html">Any</a></code>, which is a convenient wrapper around all possible
+<p><code>YAML<a href="YAML.html#parse%28data%3AString%7CIO%29%3AAny-class-method">#parse</a></code> will return an <code>Any</code>, which is a convenient wrapper around all possible
 YAML core types, making it easy to traverse a complex YAML structure but requires
 some casts from time to time, mostly via some method invocations.</p>
 
@@ -3130,26 +3130,26 @@ data[<span class="s">&quot;foo&quot;</span>][<span class="s">&quot;bar&quot;</sp
 
 <p>A type <code>T</code> can be deserialized from YAML by invoking <code>T.from_yaml(string_or_io)</code>.
 For this to work, <code>T</code> must implement
-<code>new(ctx : <a href="YAML/PullParser.html">YAML::PullParser</a>, node : <a href="YAML/Nodes.html">YAML::Nodes</a>::Node)</code> and decode
+<code>new(ctx : <a href="YAML/PullParser.html">YAML::PullParser</a>, node : <a href="YAML/Nodes/Node.html">YAML::Nodes::Node</a>)</code> and decode
 a value from the given <em>node</em>, using <em>ctx</em> to store and retrieve
 anchored values (see <code><a href="YAML/PullParser.html">YAML::PullParser</a></code> for an explanation of this).</p>
 
-<p>Crystal primitive types, <code><a href="Time.html">Time</a></code>, <code><a href="Bytes.html">Bytes</a></code> and <code><a href="Union.html">Union</a></code> implement
-this method. <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code> can be used to implement this method
+<p>Crystal primitive types, <code>Time</code>, <code>Bytes</code> and <code>Union</code> implement
+this method. <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code> can be used to implement this method
 for user types.</p>
 
-<h3>Dumping with <code><a href="YAML.html#dump%28object%2Cio%3AIO%29-class-method">YAML.dump</a></code> or <code>#to_yaml</code></h3>
+<h3>Dumping with <code>YAML<a href="YAML.html#dump%28object%2Cio%3AIO%29-class-method">.dump</a></code> or <code>#to_yaml</code></h3>
 
-<p><code><a href="YAML.html#dump%28object%2Cio%3AIO%29-class-method">YAML.dump</a></code> generates the YAML representation for an object.
-An <code><a href="IO.html">IO</a></code> can be passed and it will be written there,
+<p><code>YAML<a href="YAML.html#dump%28object%2Cio%3AIO%29-class-method">.dump</a></code> generates the YAML representation for an object.
+An <code>IO</code> can be passed and it will be written there,
 otherwise it will be returned as a string. Similarly, <code>#to_yaml</code>
-(with or without an <code><a href="IO.html">IO</a></code>) on any object does the same.</p>
+(with or without an <code>IO</code>) on any object does the same.</p>
 
-<p>For this to work, the type given to <code><a href="YAML.html#dump%28object%2Cio%3AIO%29-class-method">YAML.dump</a></code> must implement
-<code>to_yaml(builder : <a href="YAML/Nodes.html">YAML::Nodes</a>::Builder</code>).</p>
+<p>For this to work, the type given to <code>YAML<a href="YAML.html#dump%28object%2Cio%3AIO%29-class-method">.dump</a></code> must implement
+<code>to_yaml(builder : <a href="YAML/Nodes/Builder.html">YAML::Nodes::Builder</a></code>).</p>
 
-<p>Crystal primitive types, <code><a href="Time.html">Time</a></code> and <code><a href="Bytes.html">Bytes</a></code> implement
-this method. <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code> can be used to implement this method
+<p>Crystal primitive types, <code>Time</code> and <code>Bytes</code> implement
+this method. <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code> can be used to implement this method
 for user types.</p>
 
 <pre><code>yaml <span class="o">=</span> <span class="t">YAML</span>.dump({hello: <span class="s">&quot;world&quot;</span>})                               <span class="c"># =&gt; &quot;---\nhello: world\n&quot;</span>
@@ -3174,27 +3174,27 @@ yaml <span class="o">=</span> {hello: <span class="s">&quot;world&quot;</span>}.
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/any.cr#L26" target="_blank">yaml/any.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/any.cr#L26" target="_blank">yaml/any.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/builder.cr#L160" target="_blank">yaml/builder.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/builder.cr#L160" target="_blank">yaml/builder.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/enums.cr#L1" target="_blank">yaml/enums.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/enums.cr#L1" target="_blank">yaml/enums.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/mapping.cr#L1" target="_blank">yaml/mapping.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/mapping.cr#L1" target="_blank">yaml/mapping.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml.cr#L61" target="_blank">yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml.cr#L61" target="_blank">yaml.cr</a>
     
     <br/>
   
@@ -3211,7 +3211,7 @@ yaml <span class="o">=</span> {hello: <span class="s">&quot;world&quot;</span>}.
       <li class="entry-summary">
         <a href="#build%28io%3AIO%2C%26block%29-class-method" class="signature"><strong>.build</strong>(io : IO, &block)</a>
         
-          <div class="summary"><p>Writes YAML into the given <code><a href="IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Writes YAML into the given <code>IO</code>.</p></div>
         
       </li>
     
@@ -3232,7 +3232,7 @@ yaml <span class="o">=</span> {hello: <span class="s">&quot;world&quot;</span>}.
       <li class="entry-summary">
         <a href="#dump%28object%29%3AString-class-method" class="signature"><strong>.dump</strong>(object) : String</a>
         
-          <div class="summary"><p>Serializes an object to YAML, returning it as a <code><a href="String.html">String</a></code>.</p></div>
+          <div class="summary"><p>Serializes an object to YAML, returning it as a <code>String</code>.</p></div>
         
       </li>
     
@@ -3262,14 +3262,14 @@ yaml <span class="o">=</span> {hello: <span class="s">&quot;world&quot;</span>}.
       <li class="entry-summary">
         <a href="#mapping%28properties%2Cstrict%3Dfalse%29-macro" class="signature"><strong>mapping</strong>(properties, strict = false)</a>
         
-          <div class="summary"><p>The <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code> macro defines how an object is mapped to YAML.</p></div>
+          <div class="summary"><p>The <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code> macro defines how an object is mapped to YAML.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#mapping-macro" class="signature"><strong>mapping</strong></a>
         
-          <div class="summary"><p>This is a convenience method to allow invoking <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code> with named arguments instead of with a hash/named-tuple literal.</p></div>
+          <div class="summary"><p>This is a convenience method to allow invoking <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code> with named arguments instead of with a hash/named-tuple literal.</p></div>
         
       </li>
     
@@ -3294,12 +3294,12 @@ yaml <span class="o">=</span> {hello: <span class="s">&quot;world&quot;</span>}.
         <a class="method-permalink" href="#build%28io%3AIO%2C%26block%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes YAML into the given <code><a href="IO.html">IO</a></code>. A <code><a href="YAML/Builder.html">YAML::Builder</a></code> is yielded to the block.</p></div>
+        <div class="doc"><p>Writes YAML into the given <code>IO</code>. A <code><a href="YAML/Builder.html">YAML::Builder</a></code> is yielded to the block.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/builder.cr#L186" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/builder.cr#L186" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3330,7 +3330,7 @@ string <span class="c"># =&gt; &quot;---\nfoo:\n- 1\n- 2\n&quot;</span></code></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/builder.cr#L177" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/builder.cr#L177" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3348,7 +3348,7 @@ string <span class="c"># =&gt; &quot;---\nfoo:\n- 1\n- 2\n&quot;</span></code></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml.cr#L145" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml.cr#L145" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3361,12 +3361,12 @@ string <span class="c"># =&gt; &quot;---\nfoo:\n- 1\n- 2\n&quot;</span></code></
         <a class="method-permalink" href="#dump%28object%29%3AString-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Serializes an object to YAML, returning it as a <code><a href="String.html">String</a></code>.</p></div>
+        <div class="doc"><p>Serializes an object to YAML, returning it as a <code>String</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml.cr#L140" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml.cr#L140" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3406,7 +3406,7 @@ data:
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml.cr#L116" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml.cr#L116" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3434,7 +3434,7 @@ hello: world</code></pre>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml.cr#L135" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml.cr#L135" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3454,7 +3454,7 @@ hello: world</code></pre>
         <a class="method-permalink" href="#mapping%28properties%2Cstrict%3Dfalse%29-macro">#</a>
       </div>
       
-        <div class="doc"><p>The <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code> macro defines how an object is mapped to YAML.</p>
+        <div class="doc"><p>The <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code> macro defines how an object is mapped to YAML.</p>
 
 <p>It takes named arguments, a named tuple literal or a hash literal as argument,
 in which attributes and types are defined.
@@ -3477,8 +3477,8 @@ employee.name  <span class="c"># =&gt; &quot;John&quot;</span>
 employee.name <span class="o">=</span> <span class="s">&quot;Jenny&quot;</span>
 employee.name <span class="c"># =&gt; &quot;Jenny&quot;</span></code></pre>
 
-<p>Attributes not mapped with <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code> are not defined as properties.
-Also, missing attributes raise a <code><a href="YAML/ParseException.html">ParseException</a></code>.</p>
+<p>Attributes not mapped with <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code> are not defined as properties.
+Also, missing attributes raise a <code>ParseException</code>.</p>
 
 <pre><code>employee <span class="o">=</span> <span class="t">Employee</span>.from_yaml(<span class="s">&quot;title: Manager\nname: John\nage: 30&quot;</span>)
 employee.age <span class="c"># undefined method &#39;age&#39;. (compile error)</span>
@@ -3500,7 +3500,7 @@ employee.age <span class="c"># undefined method &#39;age&#39;. (compile error)</
 
 <p>Available attributes:</p>
 
-<ul><li><em>type</em> (required) defines its type. In the example above, <em>title: String</em> is a shortcut to <em>title: {type: String}</em>.</li><li><em>nilable</em> defines if a property can be a <code><a href="Nil.html">Nil</a></code>. Passing <code>T?</code> as a type has the same effect.</li><li><strong>default</strong>: value to use if the property is missing in the YAML document, or if it's <code>null</code> and <code>nilable</code> was not set to <code>true</code>. If the default value creates a new instance of an object (for example <code>[1, 2, 3]</code> or <code>SomeObject.new</code>), a different instance will be used each time a YAML document is parsed.</li><li><em>key</em> defines which key to read from a YAML document. It defaults to the name of the property.</li><li><em>converter</em> takes an alternate type for parsing. It requires a <code>#from_yaml</code> method in that class, and returns an instance of the given type. Examples of converters are <code><a href="Time/Format.html">Time::Format</a></code> and <code><a href="Time/EpochConverter.html">Time::EpochConverter</a></code> for <code><a href="Time.html">Time</a></code>.</li><li><strong>setter</strong>: if <code>true</code>, will generate a setter for the variable, <code>true</code> by default</li><li><strong>getter</strong>: if <code>true</code>, will generate a getter for the variable, <code>true</code> by default</li><li><strong>presence</strong>: if <code>true</code>, a <code>{{key}}_present?</code> method will be generated when the key was present (even if it has a <code>null</code> value), <code>false</code> by default</li></ul>
+<ul><li><em>type</em> (required) defines its type. In the example above, <em>title: String</em> is a shortcut to <em>title: {type: String}</em>.</li><li><em>nilable</em> defines if a property can be a <code>Nil</code>. Passing <code>T?</code> as a type has the same effect.</li><li><strong>default</strong>: value to use if the property is missing in the YAML document, or if it's <code>null</code> and <code>nilable</code> was not set to <code>true</code>. If the default value creates a new instance of an object (for example <code>[1, 2, 3]</code> or <code>SomeObject.new</code>), a different instance will be used each time a YAML document is parsed.</li><li><em>key</em> defines which key to read from a YAML document. It defaults to the name of the property.</li><li><em>converter</em> takes an alternate type for parsing. It requires a <code>#from_yaml</code> method in that class, and returns an instance of the given type. Examples of converters are <code><a href="Time/Format.html">Time::Format</a></code> and <code><a href="Time/EpochConverter.html">Time::EpochConverter</a></code> for <code>Time</code>.</li><li><strong>setter</strong>: if <code>true</code>, will generate a setter for the variable, <code>true</code> by default</li><li><strong>getter</strong>: if <code>true</code>, will generate a getter for the variable, <code>true</code> by default</li><li><strong>presence</strong>: if <code>true</code>, a <code>{{key}}_present?</code> method will be generated when the key was present (even if it has a <code>null</code> value), <code>false</code> by default</li></ul>
 
 <p>This macro by default defines getters and setters for each variable (this can be overrided with <em>setter</em> and <em>getter</em>).
 The mapping doesn't define a constructor accepting these variables as arguments, but you can provide an overload.</p>
@@ -3513,7 +3513,7 @@ it and initializes this type's instance variables.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/mapping.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/mapping.cr#L70" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3526,13 +3526,13 @@ it and initializes this type's instance variables.</p>
         <a class="method-permalink" href="#mapping-macro">#</a>
       </div>
       
-        <div class="doc"><p>This is a convenience method to allow invoking <code><a href="YAML.html#mapping-macro">YAML.mapping</a></code>
+        <div class="doc"><p>This is a convenience method to allow invoking <code>YAML<a href="YAML.html#mapping-macro">.mapping</a></code>
 with named arguments instead of with a hash/named-tuple literal.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/mapping.cr#L219" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/mapping.cr#L219" target="_blank">View source</a>]
         
       </div>
     </div>

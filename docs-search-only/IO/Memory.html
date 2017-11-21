@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p>An <code><a href="../IO.html">IO</a></code> that reads and writes from a buffer in memory.</p>
+  <p>An <code>IO</code> that reads and writes from a buffer in memory.</p>
 
 <p>The internal buffer can be resizeable and/or writeable depending
 on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed.</p>
@@ -3127,7 +3127,7 @@ on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L5" target="_blank">io/memory.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L5" target="_blank">io/memory.cr</a>
     
     <br/>
   
@@ -3172,7 +3172,7 @@ on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed
       <li class="entry-summary">
         <a href="#buffer%3APointer%28UInt8%29-instance-method" class="signature"><strong>#buffer</strong> : Pointer(UInt8)</a>
         
-          <div class="summary"><p>Returns the internal buffer as a <code><a href="../Pointer.html">Pointer</a>(<a href="../UInt8.html">UInt8</a>)</code>.</p></div>
+          <div class="summary"><p>Returns the internal buffer as a <code>Pointer(UInt8)</code>.</p></div>
         
       </li>
     
@@ -3193,14 +3193,14 @@ on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed
       <li class="entry-summary">
         <a href="#close-instance-method" class="signature"><strong>#close</strong></a>
         
-          <div class="summary"><p>Closes this <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Closes this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#closed%3F%3ABool-instance-method" class="signature"><strong>#closed?</strong> : Bool</a>
         
-          <div class="summary"><p>Determines if this <code><a href="../IO.html">IO</a></code> is closed.</p></div>
+          <div class="summary"><p>Determines if this <code>IO</code> is closed.</p></div>
         
       </li>
     
@@ -3214,35 +3214,35 @@ on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed
       <li class="entry-summary">
         <a href="#pos%3AInt32-instance-method" class="signature"><strong>#pos</strong> : Int32</a>
         
-          <div class="summary"><p>Returns the current position (in bytes) of this <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Returns the current position (in bytes) of this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#pos%3D%28value%29-instance-method" class="signature"><strong>#pos=</strong>(value)</a>
         
-          <div class="summary"><p>Sets the current position (in bytes) of this <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Sets the current position (in bytes) of this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read%28slice%3ABytes%29-instance-method" class="signature"><strong>#read</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>See <code><a href="../IO.html#read%28slice%3ABytes%29-instance-method">IO#read(slice)</a></code>.</p></div>
+          <div class="summary"><p>See <code>IO<a href="../IO/Memory.html#read%28slice%3ABytes%29-instance-method">#read(slice)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#read_at%28offset%2Cbytesize%2C%26block%29-instance-method" class="signature"><strong>#read_at</strong>(offset, bytesize, &block)</a>
         
-          <div class="summary"><p>Yields an <code><a href="../IO/Memory.html">IO::Memory</a></code> to read a section of this <code><a href="../IO.html">IO</a></code>'s buffer.</p></div>
+          <div class="summary"><p>Yields an <code><a href="../IO/Memory.html">IO::Memory</a></code> to read a section of this <code>IO</code>'s buffer.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#rewind-instance-method" class="signature"><strong>#rewind</strong></a>
         
-          <div class="summary"><p>Rewinds this <code><a href="../IO.html">IO</a></code> to the initial position (zero).</p></div>
+          <div class="summary"><p>Rewinds this <code>IO</code> to the initial position (zero).</p></div>
         
       </li>
     
@@ -3256,21 +3256,21 @@ on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed
       <li class="entry-summary">
         <a href="#size%3AInt32-instance-method" class="signature"><strong>#size</strong> : Int32</a>
         
-          <div class="summary"><p>Returns the total number of bytes in this <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Returns the total number of bytes in this <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s%28io%29-instance-method" class="signature"><strong>#to_s</strong>(io)</a>
         
-          <div class="summary"><p>Appends this internal buffer to the given <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Appends this internal buffer to the given <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#to_s-instance-method" class="signature"><strong>#to_s</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="../String.html">String</a></code> that contains the contents of the internal buffer.</p></div>
+          <div class="summary"><p>Returns a new <code>String</code> that contains the contents of the internal buffer.</p></div>
         
       </li>
     
@@ -3284,14 +3284,14 @@ on how an <code><a href="../IO/Memory.html">IO::Memory</a></code> is constructed
       <li class="entry-summary">
         <a href="#write%28slice%3ABytes%29-instance-method" class="signature"><strong>#write</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>See <code><a href="../IO.html#write%28slice%3ABytes%29%3ANil-instance-method">IO#write(slice)</a></code>.</p></div>
+          <div class="summary"><p>See <code>IO<a href="../IO/Memory.html#write%28slice%3ABytes%29-instance-method">#write(slice)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write_byte%28byte%3AUInt8%29-instance-method" class="signature"><strong>#write_byte</strong>(byte : UInt8)</a>
         
-          <div class="summary"><p>See <code><a href="../IO.html#write_byte%28byte%3AUInt8%29-instance-method">IO#write_byte</a></code>.</p></div>
+          <div class="summary"><p>See <code>IO<a href="../IO/Memory.html#write_byte%28byte%3AUInt8%29-instance-method">#write_byte</a></code>.</p></div>
         
       </li>
     
@@ -3737,7 +3737,7 @@ slice          <span class="c"># =&gt; Bytes[0]</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3753,7 +3753,7 @@ slice          <span class="c"># =&gt; Bytes[0]</span></code></pre></div>
         <div class="doc"><p>Creates an <code><a href="../IO/Memory.html">IO::Memory</a></code> whose contents are the exact contents of <em>string</em>.
 The created <code><a href="../IO/Memory.html">IO::Memory</a></code> is non-resizeable and non-writeable.</p>
 
-<p>The <code><a href="../IO.html">IO</a></code> starts at position zero for reading.</p>
+<p>The <code>IO</code> starts at position zero for reading.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.pos        <span class="c"># =&gt; 0</span>
@@ -3763,7 +3763,7 @@ io.print <span class="s">&quot;hi&quot;</span> <span class="c"># raises IO::Erro
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L68" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L68" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3790,7 +3790,7 @@ io.read(slice)    <span class="c"># =&gt; 6</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L48" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L48" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3810,12 +3810,12 @@ io.read(slice)    <span class="c"># =&gt; 6</span>
         <a class="method-permalink" href="#buffer%3APointer%28UInt8%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the internal buffer as a <code><a href="../Pointer.html">Pointer</a>(<a href="../UInt8.html">UInt8</a>)</code>.</p></div>
+        <div class="doc"><p>Returns the internal buffer as a <code>Pointer(UInt8)</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L7" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L7" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3833,7 +3833,7 @@ io.read(slice)    <span class="c"># =&gt; 6</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3863,7 +3863,7 @@ io.clear <span class="c"># raises IO::Error</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L247" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L247" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3876,7 +3876,7 @@ io.clear <span class="c"># raises IO::Error</span></code></pre></div>
         <a class="method-permalink" href="#close-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Closes this <code><a href="../IO.html">IO</a></code>. Further operations on this <code><a href="../IO.html">IO</a></code> will raise an <code><a href="../IO/Error.html">IO::Error</a></code>.</p>
+        <div class="doc"><p>Closes this <code>IO</code>. Further operations on this <code>IO</code> will raise an <code><a href="../IO/Error.html">IO::Error</a></code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.close
@@ -3885,7 +3885,7 @@ io.gets_to_end <span class="c"># raises IO::Error (closed stream)</span></code><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L377" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L377" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3898,7 +3898,7 @@ io.gets_to_end <span class="c"># raises IO::Error (closed stream)</span></code><
         <a class="method-permalink" href="#closed%3F%3ABool-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Determines if this <code><a href="../IO.html">IO</a></code> is closed.</p>
+        <div class="doc"><p>Determines if this <code>IO</code> is closed.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.closed? <span class="c"># =&gt; false</span>
@@ -3908,7 +3908,7 @@ io.closed? <span class="c"># =&gt; true</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L389" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L389" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3931,7 +3931,7 @@ io.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L262" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L262" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3944,7 +3944,7 @@ io.empty? <span class="c"># =&gt; false</span></code></pre></div>
         <a class="method-permalink" href="#pos%3AInt32-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the current position (in bytes) of this <code><a href="../IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Returns the current position (in bytes) of this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.pos     <span class="c"># =&gt; 0</span>
@@ -3954,7 +3954,7 @@ io.pos     <span class="c"># =&gt; 2</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L322" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L322" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3967,7 +3967,7 @@ io.pos     <span class="c"># =&gt; 2</span></code></pre></div>
         <a class="method-permalink" href="#pos%3D%28value%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Sets the current position (in bytes) of this <code><a href="../IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Sets the current position (in bytes) of this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.pos <span class="o">=</span> <span class="n">3</span>
@@ -3976,7 +3976,7 @@ io.gets <span class="c"># =&gt; &quot;lo&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L333" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L333" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3989,12 +3989,12 @@ io.gets <span class="c"># =&gt; &quot;lo&quot;</span></code></pre></div>
         <a class="method-permalink" href="#read%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="../IO.html#read%28slice%3ABytes%29-instance-method">IO#read(slice)</a></code>.</p></div>
+        <div class="doc"><p>See <code>IO<a href="../IO/Memory.html#read%28slice%3ABytes%29-instance-method">#read(slice)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L73" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L73" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4007,7 +4007,7 @@ io.gets <span class="c"># =&gt; &quot;lo&quot;</span></code></pre></div>
         <a class="method-permalink" href="#read_at%28offset%2Cbytesize%2C%26block%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Yields an <code><a href="../IO/Memory.html">IO::Memory</a></code> to read a section of this <code><a href="../IO.html">IO</a></code>'s buffer.</p>
+        <div class="doc"><p>Yields an <code><a href="../IO/Memory.html">IO::Memory</a></code> to read a section of this <code>IO</code>'s buffer.</p>
 
 <p>During the block duration <code>self</code> becomes read-only,
 so multiple concurrent open are allowed.</p></div>
@@ -4015,7 +4015,7 @@ so multiple concurrent open are allowed.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L343" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L343" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4028,7 +4028,7 @@ so multiple concurrent open are allowed.</p></div>
         <a class="method-permalink" href="#rewind-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Rewinds this <code><a href="../IO.html">IO</a></code> to the initial position (zero).</p>
+        <div class="doc"><p>Rewinds this <code>IO</code> to the initial position (zero).</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.gets(<span class="n">2</span>) <span class="c"># =&gt; &quot;he&quot;</span>
@@ -4038,7 +4038,7 @@ io.gets(<span class="n">2</span>) <span class="c"># =&gt; &quot;he&quot;</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L274" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L274" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4063,7 +4063,7 @@ io.gets(<span class="n">1</span>) <span class="c"># =&gt; &quot;c&quot;</span></
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L299" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L299" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4076,7 +4076,7 @@ io.gets(<span class="n">1</span>) <span class="c"># =&gt; &quot;c&quot;</span></
         <a class="method-permalink" href="#size%3AInt32-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the total number of bytes in this <code><a href="../IO.html">IO</a></code>.</p>
+        <div class="doc"><p>Returns the total number of bytes in this <code>IO</code>.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span> <span class="s">&quot;hello&quot;</span>
 io.size <span class="c"># =&gt; 5</span></code></pre></div>
@@ -4084,7 +4084,7 @@ io.size <span class="c"># =&gt; 5</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L285" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L285" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4097,12 +4097,12 @@ io.size <span class="c"># =&gt; 5</span></code></pre></div>
         <a class="method-permalink" href="#to_s%28io%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Appends this internal buffer to the given <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Appends this internal buffer to the given <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L417" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L417" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4115,7 +4115,7 @@ io.size <span class="c"># =&gt; 5</span></code></pre></div>
         <a class="method-permalink" href="#to_s-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="../String.html">String</a></code> that contains the contents of the internal buffer.</p>
+        <div class="doc"><p>Returns a new <code>String</code> that contains the contents of the internal buffer.</p>
 
 <pre><code>io <span class="o">=</span> <span class="t">IO</span><span class="t">::</span><span class="t">Memory</span>.<span class="k">new</span>
 io.print <span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>
@@ -4124,7 +4124,7 @@ io.to_s <span class="c"># =&gt; &quot;123&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L400" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L400" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4147,7 +4147,7 @@ io.to_slice <span class="c"># =&gt; Bytes[104, 101, 108, 108, 111]</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L412" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L412" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4160,13 +4160,13 @@ io.to_slice <span class="c"># =&gt; Bytes[104, 101, 108, 108, 111]</span></code>
         <a class="method-permalink" href="#write%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="../IO.html#write%28slice%3ABytes%29%3ANil-instance-method">IO#write(slice)</a></code>. Raises if this <code><a href="../IO/Memory.html">IO::Memory</a></code> is non-writeable,
+        <div class="doc"><p>See <code>IO<a href="../IO/Memory.html#write%28slice%3ABytes%29-instance-method">#write(slice)</a></code>. Raises if this <code><a href="../IO/Memory.html">IO::Memory</a></code> is non-writeable,
 or if it's non-resizeable and a resize is needed.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L85" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L85" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4179,13 +4179,13 @@ or if it's non-resizeable and a resize is needed.</p></div>
         <a class="method-permalink" href="#write_byte%28byte%3AUInt8%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="../IO.html#write_byte%28byte%3AUInt8%29-instance-method">IO#write_byte</a></code>. Raises if this <code><a href="../IO/Memory.html">IO::Memory</a></code> is non-writeable,
+        <div class="doc"><p>See <code>IO<a href="../IO/Memory.html#write_byte%28byte%3AUInt8%29-instance-method">#write_byte</a></code>. Raises if this <code><a href="../IO/Memory.html">IO::Memory</a></code> is non-writeable,
 or if it's non-resizeable and a resize is needed.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/memory.cr#L113" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/memory.cr#L113" target="_blank">View source</a>]
         
       </div>
     </div>

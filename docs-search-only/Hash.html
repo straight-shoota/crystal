@@ -3106,7 +3106,7 @@
 
   <h2>Overview</h2>
 
-  <p>A <code><a href="Hash.html">Hash</a></code> represents a mapping of keys to values.</p>
+  <p>A <code>Hash</code> represents a mapping of keys to values.</p>
 
 <p>See the <a href="http://crystal-lang.org/docs/syntax_and_semantics/literals/hash.html" target="_blank">official docs</a> for the basics.</p>
 
@@ -3135,17 +3135,17 @@
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L6" target="_blank">hash.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L6" target="_blank">hash.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L79" target="_blank">json/to_json.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L79" target="_blank">json/to_json.cr</a>
     
     <br/>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L23" target="_blank">yaml/to_yaml.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L23" target="_blank">yaml/to_yaml.cr</a>
     
     <br/>
   
@@ -3197,7 +3197,7 @@
       <li class="entry-summary">
         <a href="#zip%28ary1%3AArray%28K%29%2Cary2%3AArray%28V%29%29-class-method" class="signature"><strong>.zip</strong>(ary1 : Array(K), ary2 : Array(V))</a>
         
-          <div class="summary"><p>Zips two arrays into a <code><a href="Hash.html">Hash</a></code>, taking keys from <em>ary1</em> and values from <em>ary2</em>.</p></div>
+          <div class="summary"><p>Zips two arrays into a <code>Hash</code>, taking keys from <em>ary1</em> and values from <em>ary2</em>.</p></div>
         
       </li>
     
@@ -3218,7 +3218,7 @@
       <li class="entry-summary">
         <a href="#%5B%5D%28key%29-instance-method" class="signature"><strong>#[]</strong>(key)</a>
         
-          <div class="summary"><p>See also: <code><a href="Hash.html#fetch%28key%2C%26block%29-instance-method">Hash#fetch</a></code>.</p></div>
+          <div class="summary"><p>See also: <code>Hash<a href="Hash.html#fetch%28key%2C%26block%29-instance-method">#fetch</a></code>.</p></div>
         
       </li>
     
@@ -3239,7 +3239,7 @@
       <li class="entry-summary">
         <a href="#clear-instance-method" class="signature"><strong>#clear</strong></a>
         
-          <div class="summary"><p>Empties a <code><a href="Hash.html">Hash</a></code> and returns it.</p></div>
+          <div class="summary"><p>Empties a <code>Hash</code> and returns it.</p></div>
         
       </li>
     
@@ -3253,7 +3253,7 @@
       <li class="entry-summary">
         <a href="#compact-instance-method" class="signature"><strong>#compact</strong></a>
         
-          <div class="summary"><p>Returns new <code><a href="Hash.html">Hash</a></code> without <code>nil</code> values.</p></div>
+          <div class="summary"><p>Returns new <code>Hash</code> without <code>nil</code> values.</p></div>
         
       </li>
     
@@ -3288,7 +3288,7 @@
       <li class="entry-summary">
         <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
-          <div class="summary"><p>Duplicates a <code><a href="Hash.html">Hash</a></code>.</p></div>
+          <div class="summary"><p>Duplicates a <code>Hash</code>.</p></div>
         
       </li>
     
@@ -3407,7 +3407,7 @@
       <li class="entry-summary">
         <a href="#hash%28hasher%29-instance-method" class="signature"><strong>#hash</strong>(hasher)</a>
         
-          <div class="summary"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+          <div class="summary"><p>See <code>Object<a href="Hash.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
         
       </li>
     
@@ -3426,7 +3426,7 @@
       <li class="entry-summary">
         <a href="#key%28value%29-instance-method" class="signature"><strong>#key</strong>(value)</a>
         
-          <div class="summary"><p>Returns the first key with the given <em>value</em>, else raises <code><a href="KeyError.html">KeyError</a></code>.</p></div>
+          <div class="summary"><p>Returns the first key with the given <em>value</em>, else raises <code>KeyError</code>.</p></div>
         
       </li>
     
@@ -3454,14 +3454,14 @@
       <li class="entry-summary">
         <a href="#keys-instance-method" class="signature"><strong>#keys</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Array.html">Array</a></code> with all the keys.</p></div>
+          <div class="summary"><p>Returns a new <code>Array</code> with all the keys.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#merge%28other%3AHash%28L%2CW%29%29forallL%2CW-instance-method" class="signature"><strong>#merge</strong>(other : Hash(L, W)) forall L, W</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Hash.html">Hash</a></code> with the keys and values of this hash and <em>other</em> combined.</p></div>
+          <div class="summary"><p>Returns a new <code>Hash</code> with the keys and values of this hash and <em>other</em> combined.</p></div>
         
       </li>
     
@@ -3495,7 +3495,7 @@
       <li class="entry-summary">
         <a href="#reject%28%2Akeys%29-instance-method" class="signature"><strong>#reject</strong>(*keys)</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Hash.html">Hash</a></code> without the given keys.</p></div>
+          <div class="summary"><p>Returns a new <code>Hash</code> without the given keys.</p></div>
         
       </li>
     
@@ -3509,7 +3509,7 @@
       <li class="entry-summary">
         <a href="#reject%21%28%26block%3AK%2CV-%3E_%29-instance-method" class="signature"><strong>#reject!</strong>(&block : K, V -> _)</a>
         
-          <div class="summary"><p>Equivalent to <code><a href="Hash.html#reject%28%26block%3AK%2CV-%3E_%29-instance-method">Hash#reject</a></code>, but makes modification on the current object rather that returning a new one.</p></div>
+          <div class="summary"><p>Equivalent to <code>Hash<a href="Hash.html#reject%28%26block%3AK%2CV-%3E_%29-instance-method">#reject</a></code>, but makes modification on the current object rather that returning a new one.</p></div>
         
       </li>
     
@@ -3535,7 +3535,7 @@
       <li class="entry-summary">
         <a href="#select%28keys%3AArray%7CTuple%29-instance-method" class="signature"><strong>#select</strong>(keys : Array | Tuple)</a>
         
-          <div class="summary"><p>Returns a new <code><a href="Hash.html">Hash</a></code> with the given keys.</p></div>
+          <div class="summary"><p>Returns a new <code>Hash</code> with the given keys.</p></div>
         
       </li>
     
@@ -3547,7 +3547,7 @@
       <li class="entry-summary">
         <a href="#select%21%28%26block%3AK%2CV-%3E_%29-instance-method" class="signature"><strong>#select!</strong>(&block : K, V -> _)</a>
         
-          <div class="summary"><p>Equivalent to <code><a href="Hash.html#select%28%26block%3AK%2CV-%3E_%29-instance-method">Hash#select</a></code> but makes modification on the current object rather that returning a new one.</p></div>
+          <div class="summary"><p>Equivalent to <code>Hash<a href="Hash.html#select%28%26block%3AK%2CV-%3E_%29-instance-method">#select</a></code> but makes modification on the current object rather that returning a new one.</p></div>
         
       </li>
     
@@ -3573,7 +3573,7 @@
       <li class="entry-summary">
         <a href="#shift-instance-method" class="signature"><strong>#shift</strong></a>
         
-          <div class="summary"><p>Deletes and returns the first key-value pair in the hash, or raises <code><a href="IndexError.html">IndexError</a></code> if the hash is empty.</p></div>
+          <div class="summary"><p>Deletes and returns the first key-value pair in the hash, or raises <code>IndexError</code> if the hash is empty.</p></div>
         
       </li>
     
@@ -3604,7 +3604,7 @@
       <li class="entry-summary">
         <a href="#to_s%28io%3AIO%29-instance-method" class="signature"><strong>#to_s</strong>(io : IO)</a>
         
-          <div class="summary"><p>Converts to a <code><a href="String.html">String</a></code>.</p></div>
+          <div class="summary"><p>Converts to a <code>String</code>.</p></div>
         
       </li>
     
@@ -3616,7 +3616,7 @@
       <li class="entry-summary">
         <a href="#values-instance-method" class="signature"><strong>#values</strong></a>
         
-          <div class="summary"><p>Returns only the values as an <code><a href="Array.html">Array</a></code>.</p></div>
+          <div class="summary"><p>Returns only the values as an <code>Array</code>.</p></div>
         
       </li>
     
@@ -4190,7 +4190,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L16" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L16" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4206,7 +4206,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L107" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L107" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4222,7 +4222,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4238,7 +4238,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4254,7 +4254,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/from_yaml.cr#L92" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/from_yaml.cr#L92" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4270,7 +4270,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/from_json.cr#L123" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/from_json.cr#L123" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4288,7 +4288,7 @@
         <a class="method-permalink" href="#zip%28ary1%3AArray%28K%29%2Cary2%3AArray%28V%29%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Zips two arrays into a <code><a href="Hash.html">Hash</a></code>, taking keys from <em>ary1</em> and values from <em>ary2</em>.</p>
+        <div class="doc"><p>Zips two arrays into a <code>Hash</code>, taking keys from <em>ary1</em> and values from <em>ary2</em>.</p>
 
 <pre><code><span class="t">Hash</span>.zip([<span class="s">&quot;key1&quot;</span>, <span class="s">&quot;key2&quot;</span>, <span class="s">&quot;key3&quot;</span>], [<span class="s">&quot;value1&quot;</span>, <span class="s">&quot;value2&quot;</span>, <span class="s">&quot;value3&quot;</span>])
 <span class="c"># =&gt; {&quot;key1&quot; =&gt; &quot;value1&quot;, &quot;key2&quot; =&gt; &quot;value2&quot;, &quot;key3&quot; =&gt; &quot;value3&quot;}</span></code></pre></div>
@@ -4296,7 +4296,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L599" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L599" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4319,7 +4319,7 @@
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L702" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L702" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4332,12 +4332,12 @@
         <a class="method-permalink" href="#%5B%5D%28key%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See also: <code><a href="Hash.html#fetch%28key%2C%26block%29-instance-method">Hash#fetch</a></code>.</p></div>
+        <div class="doc"><p>See also: <code>Hash<a href="Hash.html#fetch%28key%2C%26block%29-instance-method">#fetch</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4359,7 +4359,7 @@ h[<span class="s">&quot;foo&quot;</span>] <span class="c"># =&gt; &quot;bar&quot
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L41" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L41" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4385,7 +4385,7 @@ h[<span class="s">&quot;foo&quot;</span>]? <span class="c"># =&gt; nil</span></c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L76" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L76" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4398,7 +4398,7 @@ h[<span class="s">&quot;foo&quot;</span>]? <span class="c"># =&gt; nil</span></c
         <a class="method-permalink" href="#clear-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Empties a <code><a href="Hash.html">Hash</a></code> and returns it.</p>
+        <div class="doc"><p>Empties a <code>Hash</code> and returns it.</p>
 
 <pre><code>hash <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>}
 hash.clear <span class="c"># =&gt; {}</span></code></pre></div>
@@ -4406,7 +4406,7 @@ hash.clear <span class="c"># =&gt; {}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L691" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L691" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4429,7 +4429,7 @@ hash_a <span class="c"># =&gt; {&quot;foobar&quot; =&gt; {&quot;foo&quot; =&gt; 
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L751" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L751" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4442,7 +4442,7 @@ hash_a <span class="c"># =&gt; {&quot;foobar&quot; =&gt; {&quot;foo&quot; =&gt; 
         <a class="method-permalink" href="#compact-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns new <code><a href="Hash.html">Hash</a></code> without <code>nil</code> values.</p>
+        <div class="doc"><p>Returns new <code>Hash</code> without <code>nil</code> values.</p>
 
 <pre><code>hash <span class="o">=</span> {<span class="s">&quot;hello&quot;</span> => <span class="s">&quot;world&quot;</span>, <span class="s">&quot;foo&quot;</span> => <span class="n">nil</span>}
 hash.compact <span class="c"># =&gt; {&quot;hello&quot; =&gt; &quot;world&quot;}</span></code></pre></div>
@@ -4450,7 +4450,7 @@ hash.compact <span class="c"># =&gt; {&quot;hello&quot; =&gt; &quot;world&quot;}
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L576" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L576" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4472,7 +4472,7 @@ hash.compact! <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L589" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L589" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4494,7 +4494,7 @@ h.fetch(<span class="s">&quot;foo&quot;</span>, <span class="n">nil</span>) <spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L210" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L210" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4517,7 +4517,7 @@ h.delete(<span class="s">&quot;baz&quot;</span>) { <span class="o">|</span>key<s
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L222" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L222" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4539,7 +4539,7 @@ h <span class="c"># =&gt; { &quot;bar&quot; =&gt; &quot;qux&quot; }</span></code
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L269" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L269" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4552,7 +4552,7 @@ h <span class="c"># =&gt; { &quot;bar&quot; =&gt; &quot;qux&quot; }</span></code
         <a class="method-permalink" href="#dup-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Duplicates a <code><a href="Hash.html">Hash</a></code>.</p>
+        <div class="doc"><p>Duplicates a <code>Hash</code>.</p>
 
 <pre><code>hash_a <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>}
 hash_b <span class="o">=</span> hash_a.dup
@@ -4562,7 +4562,7 @@ hash_a <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;}</span></c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L735" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L735" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4576,7 +4576,7 @@ hash_a <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;}</span></c
       </div>
       
         <div class="doc"><p>Returns an iterator over the hash entries.
-Which behaves like an <code><a href="Iterator.html">Iterator</a></code> returning a <code><a href="Tuple.html">Tuple</a></code> consisting of the key and value types.</p>
+Which behaves like an <code>Iterator</code> returning a <code>Tuple</code> consisting of the key and value types.</p>
 
 <pre><code>hsh <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;qux&quot;</span>}
 iterator <span class="o">=</span> hsh.each
@@ -4587,7 +4587,7 @@ iterator.<span class="k">next</span> <span class="c"># =&gt; {&quot;baz&quot;, &
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L325" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L325" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4616,7 +4616,7 @@ h.each <span class="k">do</span> <span class="o">|</span>key_and_value<span clas
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L307" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L307" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4630,7 +4630,7 @@ h.each <span class="k">do</span> <span class="o">|</span>key_and_value<span clas
       </div>
       
         <div class="doc"><p>Returns an iterator over the hash keys.
-Which behaves like an <code><a href="Iterator.html">Iterator</a></code> consisting of the key's types.</p>
+Which behaves like an <code>Iterator</code> consisting of the key's types.</p>
 
 <pre><code>hsh <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;qux&quot;</span>}
 iterator <span class="o">=</span> hsh.each_key
@@ -4644,7 +4644,7 @@ key <span class="c"># =&gt; &quot;baz&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L356" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L356" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4667,7 +4667,7 @@ h.each_key <span class="k">do</span> <span class="o">|</span>key<span class="o">
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L337" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L337" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4690,7 +4690,7 @@ h.each_value <span class="k">do</span> <span class="o">|</span>value<span class=
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L368" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L368" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4704,7 +4704,7 @@ h.each_value <span class="k">do</span> <span class="o">|</span>value<span class=
       </div>
       
         <div class="doc"><p>Returns an iterator over the hash values.
-Which behaves like an <code><a href="Iterator.html">Iterator</a></code> consisting of the value's types.</p>
+Which behaves like an <code>Iterator</code> consisting of the value's types.</p>
 
 <pre><code>hsh <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;qux&quot;</span>}
 iterator <span class="o">=</span> hsh.each_value
@@ -4718,7 +4718,7 @@ value <span class="c"># =&gt; &quot;qux&quot;</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L387" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L387" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4742,7 +4742,7 @@ h.empty? <span class="c"># =&gt; false</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L289" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L289" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4764,7 +4764,7 @@ h.fetch(<span class="s">&quot;bar&quot;</span>) { <span class="o">|</span>key<sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L150" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L150" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4787,7 +4787,7 @@ h.fetch(<span class="s">&quot;bar&quot;</span>, <span class="s">&quot;foo&quot;<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L139" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L139" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4801,7 +4801,7 @@ h.fetch(<span class="s">&quot;bar&quot;</span>, <span class="s">&quot;foo&quot;<
       </div>
       
         <div class="doc"><p>Returns the value for the key given by <em>key</em>.
-If not found, returns the default value given by <code>Hash.new</code>, otherwise raises <code><a href="KeyError.html">KeyError</a></code>.</p>
+If not found, returns the default value given by <code>Hash.new</code>, otherwise raises <code>KeyError</code>.</p>
 
 <pre><code>h <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>}
 h[<span class="s">&quot;foo&quot;</span>] <span class="c"># =&gt; &quot;bar&quot;</span>
@@ -4818,7 +4818,7 @@ h[<span class="s">&quot;foo&quot;</span>] <span class="c"># raises KeyError</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L121" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L121" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4836,7 +4836,7 @@ h[<span class="s">&quot;foo&quot;</span>] <span class="c"># raises KeyError</spa
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L608" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L608" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4859,7 +4859,7 @@ hash.first_key? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L620" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L620" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4877,7 +4877,7 @@ hash.first_key? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L625" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L625" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4895,7 +4895,7 @@ hash.first_key? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L630" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L630" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4917,7 +4917,7 @@ h.has_key?(<span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; false
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L87" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L87" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4939,7 +4939,7 @@ h.has_value?(<span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; tru
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L98" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L98" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4952,12 +4952,12 @@ h.has_value?(<span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; tru
         <a class="method-permalink" href="#hash%28hasher%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>See <code><a href="Object.html#hash%28hasher%29-instance-method">Object#hash(hasher)</a></code></p></div>
+        <div class="doc"><p>See <code>Object<a href="Hash.html#hash%28hasher%29-instance-method">#hash(hasher)</a></code></p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L712" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L712" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4973,7 +4973,7 @@ h.has_value?(<span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; tru
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L759" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L759" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4994,7 +4994,7 @@ h.has_value?(<span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; tru
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L827" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L827" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5007,7 +5007,7 @@ h.has_value?(<span class="s">&quot;bar&quot;</span>) <span class="c"># =&gt; tru
         <a class="method-permalink" href="#key%28value%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns the first key with the given <em>value</em>, else raises <code><a href="KeyError.html">KeyError</a></code>.</p>
+        <div class="doc"><p>Returns the first key with the given <em>value</em>, else raises <code>KeyError</code>.</p>
 
 <pre><code>hash <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;qux&quot;</span>}
 hash.key(<span class="s">&quot;bar&quot;</span>)    <span class="c"># =&gt; &quot;foo&quot;</span>
@@ -5017,7 +5017,7 @@ hash.key(<span class="s">&quot;foobar&quot;</span>) <span class="c"># raises Key
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L173" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L173" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5039,7 +5039,7 @@ hash.key(<span class="s">&quot;qux&quot;</span>) { <span class="o">|</span>value
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L196" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L196" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5062,7 +5062,7 @@ hash.key?(<span class="s">&quot;foobar&quot;</span>) <span class="c"># =&gt; nil
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L185" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L185" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5085,7 +5085,7 @@ h.key_index(<span class="s">&quot;qux&quot;</span>) <span class="c"># =&gt; nil<
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L423" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L423" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5098,7 +5098,7 @@ h.key_index(<span class="s">&quot;qux&quot;</span>) <span class="c"># =&gt; nil<
         <a class="method-permalink" href="#keys-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Array.html">Array</a></code> with all the keys.</p>
+        <div class="doc"><p>Returns a new <code>Array</code> with all the keys.</p>
 
 <pre><code>h <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;bar&quot;</span>}
 h.keys <span class="c"># =&gt; [&quot;foo&quot;, &quot;baz&quot;]</span></code></pre></div>
@@ -5106,7 +5106,7 @@ h.keys <span class="c"># =&gt; [&quot;foo&quot;, &quot;baz&quot;]</span></code><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L397" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L397" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5119,7 +5119,7 @@ h.keys <span class="c"># =&gt; [&quot;foo&quot;, &quot;baz&quot;]</span></code><
         <a class="method-permalink" href="#merge%28other%3AHash%28L%2CW%29%29forallL%2CW-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Hash.html">Hash</a></code> with the keys and values of this hash and <em>other</em> combined.
+        <div class="doc"><p>Returns a new <code>Hash</code> with the keys and values of this hash and <em>other</em> combined.
 A value in <em>other</em> takes precedence over the one in this hash.</p>
 
 <pre><code>hash <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>}
@@ -5131,7 +5131,7 @@ hash
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L440" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L440" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5147,7 +5147,7 @@ hash
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L447" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L447" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5169,7 +5169,7 @@ hash <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&q
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L461" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L461" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5185,7 +5185,7 @@ hash <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&q
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L468" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L468" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5201,7 +5201,7 @@ hash <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&q
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L786" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L786" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5217,7 +5217,7 @@ hash <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&q
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L807" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L807" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5230,14 +5230,14 @@ hash <span class="c"># =&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&q
         <a class="method-permalink" href="#reject%28%2Akeys%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Hash.html">Hash</a></code> without the given keys.</p>
+        <div class="doc"><p>Returns a new <code>Hash</code> without the given keys.</p>
 
 <pre><code>{<span class="s">&quot;a&quot;</span> => <span class="n">1</span>, <span class="s">&quot;b&quot;</span> => <span class="n">2</span>, <span class="s">&quot;c&quot;</span> => <span class="n">3</span>, <span class="s">&quot;d&quot;</span> => <span class="n">4</span>}.reject(<span class="s">&quot;a&quot;</span>, <span class="s">&quot;c&quot;</span>) <span class="c"># =&gt; {&quot;b&quot; =&gt; 2, &quot;d&quot; =&gt; 4}</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L520" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L520" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5259,7 +5259,7 @@ h.reject { <span class="o">|</span>k, v<span class="o">|</span> v <span class="o
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L500" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L500" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5272,12 +5272,12 @@ h.reject { <span class="o">|</span>k, v<span class="o">|</span> v <span class="o
         <a class="method-permalink" href="#reject%21%28%26block%3AK%2CV-%3E_%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Equivalent to <code><a href="Hash.html#reject%28%26block%3AK%2CV-%3E_%29-instance-method">Hash#reject</a></code>, but makes modification on the current object rather that returning a new one. Returns <code>nil</code> if no changes were made.</p></div>
+        <div class="doc"><p>Equivalent to <code>Hash<a href="Hash.html#reject%28%26block%3AK%2CV-%3E_%29-instance-method">#reject</a></code>, but makes modification on the current object rather that returning a new one. Returns <code>nil</code> if no changes were made.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L507" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L507" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5298,7 +5298,7 @@ h <span class="c"># =&gt; {&quot;b&quot; =&gt; 2, &quot;d&quot; =&gt; 4}</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L531" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L531" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5314,7 +5314,7 @@ h <span class="c"># =&gt; {&quot;b&quot; =&gt; 2, &quot;d&quot; =&gt; 4}</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L536" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L536" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5336,7 +5336,7 @@ h.select { <span class="o">|</span>k, v<span class="o">|</span> v <span class="o
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L485" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L485" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5349,14 +5349,14 @@ h.select { <span class="o">|</span>k, v<span class="o">|</span> v <span class="o
         <a class="method-permalink" href="#select%28keys%3AArray%7CTuple%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Hash.html">Hash</a></code> with the given keys.</p>
+        <div class="doc"><p>Returns a new <code>Hash</code> with the given keys.</p>
 
 <pre><code>{<span class="s">&quot;a&quot;</span> => <span class="n">1</span>, <span class="s">&quot;b&quot;</span> => <span class="n">2</span>, <span class="s">&quot;c&quot;</span> => <span class="n">3</span>, <span class="s">&quot;d&quot;</span> => <span class="n">4</span>}.select(<span class="s">&quot;a&quot;</span>, <span class="s">&quot;c&quot;</span>) <span class="c"># =&gt; {&quot;a&quot; =&gt; 1, &quot;c&quot; =&gt; 3}</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L545" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L545" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5372,7 +5372,7 @@ h.select { <span class="o">|</span>k, v<span class="o">|</span> v <span class="o
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L551" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L551" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5385,12 +5385,12 @@ h.select { <span class="o">|</span>k, v<span class="o">|</span> v <span class="o
         <a class="method-permalink" href="#select%21%28%26block%3AK%2CV-%3E_%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Equivalent to <code><a href="Hash.html#select%28%26block%3AK%2CV-%3E_%29-instance-method">Hash#select</a></code> but makes modification on the current object rather that returning a new one. Returns <code>nil</code> if no changes were made</p></div>
+        <div class="doc"><p>Equivalent to <code>Hash<a href="Hash.html#select%28%26block%3AK%2CV-%3E_%29-instance-method">#select</a></code> but makes modification on the current object rather that returning a new one. Returns <code>nil</code> if no changes were made</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L490" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L490" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5411,7 +5411,7 @@ h <span class="c"># =&gt; {&quot;a&quot; =&gt; 1, &quot;c&quot; =&gt; 3}</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L561" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L561" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5427,7 +5427,7 @@ h <span class="c"># =&gt; {&quot;a&quot; =&gt; 1, &quot;c&quot; =&gt; 3}</span><
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L566" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L566" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5454,7 +5454,7 @@ hash                <span class="c"># =&gt; {}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L675" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L675" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5468,7 +5468,7 @@ hash                <span class="c"># =&gt; {}</span></code></pre></div>
       </div>
       
         <div class="doc"><p>Deletes and returns the first key-value pair in the hash,
-or raises <code><a href="IndexError.html">IndexError</a></code> if the hash is empty.</p>
+or raises <code>IndexError</code> if the hash is empty.</p>
 
 <pre><code>hash <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;qux&quot;</span>}
 hash.shift <span class="c"># =&gt; {&quot;foo&quot;, &quot;bar&quot;}</span>
@@ -5480,7 +5480,7 @@ hash.shift <span class="c"># raises IndexError</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L645" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L645" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5505,7 +5505,7 @@ hash.shift? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L659" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L659" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5521,7 +5521,7 @@ hash.shift? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L10" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L10" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5539,7 +5539,7 @@ hash.shift? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L803" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L803" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5555,7 +5555,7 @@ hash.shift? <span class="c"># =&gt; nil</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/json/to_json.cr#L80" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/json/to_json.cr#L80" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5568,7 +5568,7 @@ hash.shift? <span class="c"># =&gt; nil</span></code></pre></div>
         <a class="method-permalink" href="#to_s%28io%3AIO%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Converts to a <code><a href="String.html">String</a></code>.</p>
+        <div class="doc"><p>Converts to a <code>String</code>.</p>
 
 <pre><code>h <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>}
 h.to_s       <span class="c"># =&gt; &quot;{\&quot;foo\&quot; =&gt; \&quot;bar\&quot;}&quot;</span>
@@ -5577,7 +5577,7 @@ h.to_s.<span class="k">class</span> <span class="c"># =&gt; String</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L770" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L770" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5593,7 +5593,7 @@ h.to_s.<span class="k">class</span> <span class="c"># =&gt; String</span></code>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/yaml/to_yaml.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/yaml/to_yaml.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5606,7 +5606,7 @@ h.to_s.<span class="k">class</span> <span class="c"># =&gt; String</span></code>
         <a class="method-permalink" href="#values-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns only the values as an <code><a href="Array.html">Array</a></code>.</p>
+        <div class="doc"><p>Returns only the values as an <code>Array</code>.</p>
 
 <pre><code>h <span class="o">=</span> {<span class="s">&quot;foo&quot;</span> => <span class="s">&quot;bar&quot;</span>, <span class="s">&quot;baz&quot;</span> => <span class="s">&quot;qux&quot;</span>}
 h.values <span class="c"># =&gt; [&quot;bar&quot;, &quot;qux&quot;]</span></code></pre></div>
@@ -5614,7 +5614,7 @@ h.values <span class="c"># =&gt; [&quot;bar&quot;, &quot;qux&quot;]</span></code
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L409" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L409" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -5635,7 +5635,7 @@ Raises if any index is invalid.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/hash.cr#L161" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/hash.cr#L161" target="_blank">View source</a>]
         
       </div>
     </div>

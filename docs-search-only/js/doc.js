@@ -614,7 +614,6 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   }
 
   function handleKeyUp(event) {
-    if(CrystalDoc.DEBUG) { console.log("sidebar-up", event) }
     switch(event.key) {
       case "ArrowUp":
       case "ArrowDown":
@@ -632,8 +631,6 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   }
 
   function handleKeyDown(event) {
-    if(CrystalDoc.DEBUG) { console.log("sidebar-down", event) }
-
     switch(event.key) {
       case "Enter":
         event.stopPropagation();
@@ -684,7 +681,6 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   }
 
   function handleInputKeyUp(event) {
-    if(CrystalDoc.DEBUG) { console.log("input-up", event) }
     switch(event.key) {
       case "ArrowUp":
       case "ArrowDown":
@@ -695,8 +691,6 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   }
 
   function handleInputKeyDown(event) {
-    event.stopPropagation();
-    if(CrystalDoc.DEBUG) { console.log("input-down", event) }
     switch(event.key) {
       case "Enter":
         event.stopPropagation();
@@ -704,13 +698,6 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
         self.openSelectedResult();
         leaveSearchScope();
         break;
-      /*case "p":
-        if(event.ctrlKey) {
-          event.stopPropagation();
-          event.preventDefault();
-          self.openSelectedResult();
-        }
-        break;*/
       case "Escape":
         event.stopPropagation();
         event.preventDefault();
@@ -882,7 +869,6 @@ document.addEventListener('DOMContentLoaded', function() {
       searchInput.value = searchText;
     }
   }
-  searchInput.focus();
   searchInput.addEventListener('keyup', performSearch);
   searchInput.addEventListener('input', performSearch);
 

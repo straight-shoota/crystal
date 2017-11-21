@@ -3104,7 +3104,7 @@
 
   <h2>Overview</h2>
 
-  <p>The <code><a href="../IO/Buffered.html">IO::Buffered</a></code> mixin enhances an <code><a href="../IO.html">IO</a></code> with input/output buffering.</p>
+  <p>The <code><a href="../IO/Buffered.html">IO::Buffered</a></code> mixin enhances an <code>IO</code> with input/output buffering.</p>
 
 <p>The buffering behaviour can be turned on/off with the <code><a href="../IO/Buffered.html#sync%3D%28sync%29-instance-method">#sync=</a></code> method.</p>
 
@@ -3138,7 +3138,7 @@ efficient way.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L7" target="_blank">io/buffered.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L7" target="_blank">io/buffered.cr</a>
     
     <br/>
   
@@ -3169,28 +3169,28 @@ efficient way.</p>
       <li class="entry-summary">
         <a href="#close%3ANil-instance-method" class="signature"><strong>#close</strong> : Nil</a>
         
-          <div class="summary"><p>Flushes and closes the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Flushes and closes the underlying <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#flush-instance-method" class="signature"><strong>#flush</strong></a>
         
-          <div class="summary"><p>Flushes any buffered data and the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Flushes any buffered data and the underlying <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#flush_on_newline%3D%28flush_on_newline%29-instance-method" class="signature"><strong>#flush_on_newline=</strong>(flush_on_newline)</a>
         
-          <div class="summary"><p>Turns on/off flushing the underlying <code><a href="../IO.html">IO</a></code> when a newline is written.</p></div>
+          <div class="summary"><p>Turns on/off flushing the underlying <code>IO</code> when a newline is written.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#flush_on_newline%3F-instance-method" class="signature"><strong>#flush_on_newline?</strong></a>
         
-          <div class="summary"><p>Determines if this <code><a href="../IO.html">IO</a></code> flushes automatically when a newline is written.</p></div>
+          <div class="summary"><p>Determines if this <code>IO</code> flushes automatically when a newline is written.</p></div>
         
       </li>
     
@@ -3204,70 +3204,70 @@ efficient way.</p>
       <li class="entry-summary">
         <a href="#read%28slice%3ABytes%29-instance-method" class="signature"><strong>#read</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Buffered implementation of <code><a href="../IO.html#read%28slice%3ABytes%29-instance-method">IO#read(slice)</a></code>.</p></div>
+          <div class="summary"><p>Buffered implementation of <code>IO<a href="../IO/Buffered.html#read%28slice%3ABytes%29-instance-method">#read(slice)</a></code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#rewind-instance-method" class="signature"><strong>#rewind</strong></a>
         
-          <div class="summary"><p>Rewinds the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Rewinds the underlying <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#sync%3D%28sync%29-instance-method" class="signature"><strong>#sync=</strong>(sync)</a>
         
-          <div class="summary"><p>Turns on/off <code><a href="../IO.html">IO</a></code> buffering.</p></div>
+          <div class="summary"><p>Turns on/off <code>IO</code> buffering.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#sync%3F-instance-method" class="signature"><strong>#sync?</strong></a>
         
-          <div class="summary"><p>Determines if this <code><a href="../IO.html">IO</a></code> does buffering.</p></div>
+          <div class="summary"><p>Determines if this <code>IO</code> does buffering.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unbuffered_close-instance-method" class="signature"><strong>#unbuffered_close</strong></a>
         
-          <div class="summary"><p>Closes the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Closes the wrapped <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unbuffered_flush-instance-method" class="signature"><strong>#unbuffered_flush</strong></a>
         
-          <div class="summary"><p>Flushes the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Flushes the wrapped <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unbuffered_read%28slice%3ABytes%29-instance-method" class="signature"><strong>#unbuffered_read</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Reads at most <em>slice.size</em> bytes from the wrapped <code><a href="../IO.html">IO</a></code> into <em>slice</em>.</p></div>
+          <div class="summary"><p>Reads at most <em>slice.size</em> bytes from the wrapped <code>IO</code> into <em>slice</em>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unbuffered_rewind-instance-method" class="signature"><strong>#unbuffered_rewind</strong></a>
         
-          <div class="summary"><p>Rewinds the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Rewinds the wrapped <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#unbuffered_write%28slice%3ABytes%29-instance-method" class="signature"><strong>#unbuffered_write</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Writes at most <em>slice.size</em> bytes from <em>slice</em> into the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+          <div class="summary"><p>Writes at most <em>slice.size</em> bytes from <em>slice</em> into the wrapped <code>IO</code>.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#write%28slice%3ABytes%29-instance-method" class="signature"><strong>#write</strong>(slice : Bytes)</a>
         
-          <div class="summary"><p>Buffered implementation of <code><a href="../IO.html#write%28slice%3ABytes%29%3ANil-instance-method">IO#write(slice)</a></code>.</p></div>
+          <div class="summary"><p>Buffered implementation of <code>IO<a href="../IO/Buffered.html#write%28slice%3ABytes%29-instance-method">#write(slice)</a></code>.</p></div>
         
       </li>
     
@@ -3296,12 +3296,12 @@ efficient way.</p>
         <a class="method-permalink" href="#close%3ANil-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Flushes and closes the underlying <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Flushes and closes the underlying <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L191" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L191" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3314,12 +3314,12 @@ efficient way.</p>
         <a class="method-permalink" href="#flush-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Flushes any buffered data and the underlying <code><a href="../IO.html">IO</a></code>. Returns <code>self</code>.</p></div>
+        <div class="doc"><p>Flushes any buffered data and the underlying <code>IO</code>. Returns <code>self</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L183" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L183" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3332,12 +3332,12 @@ efficient way.</p>
         <a class="method-permalink" href="#flush_on_newline%3D%28flush_on_newline%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Turns on/off flushing the underlying <code><a href="../IO.html">IO</a></code> when a newline is written.</p></div>
+        <div class="doc"><p>Turns on/off flushing the underlying <code>IO</code> when a newline is written.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L160" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L160" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3350,12 +3350,12 @@ efficient way.</p>
         <a class="method-permalink" href="#flush_on_newline%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Determines if this <code><a href="../IO.html">IO</a></code> flushes automatically when a newline is written.</p></div>
+        <div class="doc"><p>Determines if this <code>IO</code> flushes automatically when a newline is written.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L165" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L165" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3378,7 +3378,7 @@ is in the buffer is returned.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L77" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L77" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3391,12 +3391,12 @@ is in the buffer is returned.</p></div>
         <a class="method-permalink" href="#read%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Buffered implementation of <code><a href="../IO.html#read%28slice%3ABytes%29-instance-method">IO#read(slice)</a></code>.</p></div>
+        <div class="doc"><p>Buffered implementation of <code>IO<a href="../IO/Buffered.html#read%28slice%3ABytes%29-instance-method">#read(slice)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L47" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L47" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3409,12 +3409,12 @@ is in the buffer is returned.</p></div>
         <a class="method-permalink" href="#rewind-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Rewinds the underlying <code><a href="../IO.html">IO</a></code>. Returns <code>self</code>.</p></div>
+        <div class="doc"><p>Rewinds the underlying <code>IO</code>. Returns <code>self</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L198" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L198" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3427,14 +3427,14 @@ is in the buffer is returned.</p></div>
         <a class="method-permalink" href="#sync%3D%28sync%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Turns on/off <code><a href="../IO.html">IO</a></code> buffering. When <em>sync</em> is set to <code>true</code>, no buffering
-will be done (that is, writing to this <code><a href="../IO.html">IO</a></code> is immediately synced to the
-underlying <code><a href="../IO.html">IO</a></code>).</p></div>
+        <div class="doc"><p>Turns on/off <code>IO</code> buffering. When <em>sync</em> is set to <code>true</code>, no buffering
+will be done (that is, writing to this <code>IO</code> is immediately synced to the
+underlying <code>IO</code>).</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L172" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L172" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3447,12 +3447,12 @@ underlying <code><a href="../IO.html">IO</a></code>).</p></div>
         <a class="method-permalink" href="#sync%3F-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Determines if this <code><a href="../IO.html">IO</a></code> does buffering. If <code>true</code>, no buffering is done.</p></div>
+        <div class="doc"><p>Determines if this <code>IO</code> does buffering. If <code>true</code>, no buffering is done.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L178" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L178" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3465,12 +3465,12 @@ underlying <code><a href="../IO.html">IO</a></code>).</p></div>
         <a class="method-permalink" href="#unbuffered_close-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Closes the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Closes the wrapped <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L27" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L27" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3483,12 +3483,12 @@ underlying <code><a href="../IO.html">IO</a></code>).</p></div>
         <a class="method-permalink" href="#unbuffered_flush-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Flushes the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Flushes the wrapped <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L24" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L24" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3501,13 +3501,13 @@ underlying <code><a href="../IO.html">IO</a></code>).</p></div>
         <a class="method-permalink" href="#unbuffered_read%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Reads at most <em>slice.size</em> bytes from the wrapped <code><a href="../IO.html">IO</a></code> into <em>slice</em>.
+        <div class="doc"><p>Reads at most <em>slice.size</em> bytes from the wrapped <code>IO</code> into <em>slice</em>.
 Returns the number of bytes read.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L17" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L17" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3520,12 +3520,12 @@ Returns the number of bytes read.</p></div>
         <a class="method-permalink" href="#unbuffered_rewind-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Rewinds the wrapped <code><a href="../IO.html">IO</a></code>.</p></div>
+        <div class="doc"><p>Rewinds the wrapped <code>IO</code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L30" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3538,13 +3538,13 @@ Returns the number of bytes read.</p></div>
         <a class="method-permalink" href="#unbuffered_write%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Writes at most <em>slice.size</em> bytes from <em>slice</em> into the wrapped <code><a href="../IO.html">IO</a></code>.
+        <div class="doc"><p>Writes at most <em>slice.size</em> bytes from <em>slice</em> into the wrapped <code>IO</code>.
 Returns the number of bytes written.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L21" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L21" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3557,12 +3557,12 @@ Returns the number of bytes written.</p></div>
         <a class="method-permalink" href="#write%28slice%3ABytes%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Buffered implementation of <code><a href="../IO.html#write%28slice%3ABytes%29%3ANil-instance-method">IO#write(slice)</a></code>.</p></div>
+        <div class="doc"><p>Buffered implementation of <code>IO<a href="../IO/Buffered.html#write%28slice%3ABytes%29-instance-method">#write(slice)</a></code>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/io/buffered.cr#L106" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/io/buffered.cr#L106" target="_blank">View source</a>]
         
       </div>
     </div>

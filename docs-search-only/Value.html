@@ -3106,15 +3106,15 @@
 
   <h2>Overview</h2>
 
-  <p><code><a href="Value.html">Value</a></code> is the base type of the primitive types (<code><a href="Nil.html">Nil</a></code>, <code><a href="Bool.html">Bool</a></code>, <code><a href="Char.html">Char</a></code>, <code><a href="Number.html">Number</a></code>),
-<code><a href="Symbol.html">Symbol</a></code>, <code><a href="Pointer.html">Pointer</a></code>, <code><a href="Tuple.html">Tuple</a></code>, <code><a href="StaticArray.html">StaticArray</a></code> and all structs.</p>
+  <p><code>Value</code> is the base type of the primitive types (<code>Nil</code>, <code>Bool</code>, <code>Char</code>, <code>Number</code>),
+<code>Symbol</code>, <code>Pointer</code>, <code>Tuple</code>, <code>StaticArray</code> and all structs.</p>
 
-<p>A <code><a href="Value.html">Value</a></code> is passed by value: when you pass it to methods,
+<p>A <code>Value</code> is passed by value: when you pass it to methods,
 return it from methods or assign it to variables, a copy
 of the value is actually passed.
 This is not important for nil, bools, integers, floats, symbols,
 pointers and tuples, because they are immutable, but with a mutable
-<code><a href="Struct.html">Struct</a></code> or with a <code><a href="StaticArray.html">StaticArray</a></code> you have to be careful. Read their
+<code>Struct</code> or with a <code>StaticArray</code> you have to be careful. Read their
 documentation to learn more about this.</p>
 
 
@@ -3166,7 +3166,7 @@ documentation to learn more about this.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/value.cr#L11" target="_blank">value.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/value.cr#L11" target="_blank">value.cr</a>
     
     <br/>
   
@@ -3354,7 +3354,7 @@ documentation to learn more about this.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/value.cr#L13" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/value.cr#L13" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -3369,14 +3369,14 @@ documentation to learn more about this.</p>
       
         <div class="doc"><p>Returns a shallow copy of this object.</p>
 
-<p>Because <code><a href="Value.html">Value</a></code> is a value type, this method returns <code>self</code>,
+<p>Because <code>Value</code> is a value type, this method returns <code>self</code>,
 which already involves a shallow copy of this object because
 value types are passed by value.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/value.cr#L22" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/value.cr#L22" target="_blank">View source</a>]
         
       </div>
     </div>

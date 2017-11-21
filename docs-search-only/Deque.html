@@ -3109,7 +3109,7 @@
   <p>A Deque ("<a href="https://en.wikipedia.org/wiki/Double-ended_queue" target="_blank">double-ended queue</a>") is a collection of objects of type
 T that behaves much like an Array.</p>
 
-<p>Deque has a subset of Array's API. It performs better than an <code><a href="Array.html">Array</a></code> when there are frequent insertions or deletions
+<p>Deque has a subset of Array's API. It performs better than an <code>Array</code> when there are frequent insertions or deletions
 of items near the beginning or the end.</p>
 
 <p>The most typical use case of a Deque is a queue: use <code><a href="Deque.html#push%28value%3AT%29-instance-method">#push</a></code> to add items to the end of the queue and <code><a href="Deque.html#shift%28%26block%29-instance-method">#shift</a></code> to get
@@ -3143,7 +3143,7 @@ and remove the item at the beginning of the queue.</p>
   <h2>Defined in:</h2>
   
     
-      <a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L12" target="_blank">deque.cr</a>
+      <a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L12" target="_blank">deque.cr</a>
     
     <br/>
   
@@ -3158,21 +3158,21 @@ and remove the item at the beginning of the queue.</p>
       <li class="entry-summary">
         <a href="#new%28size%3AInt%2Cvalue%3AT%29-class-method" class="signature"><strong>.new</strong>(size : Int, value : T)</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Deque.html">Deque</a></code> of the given size filled with the same value in each position.</p></div>
+          <div class="summary"><p>Creates a new <code>Deque</code> of the given size filled with the same value in each position.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28initial_capacity%3AInt%29-class-method" class="signature"><strong>.new</strong>(initial_capacity : Int)</a>
         
-          <div class="summary"><p>Creates a new empty <code><a href="Deque.html">Deque</a></code> backed by a buffer that is initially <code>initial_capacity</code> big.</p></div>
+          <div class="summary"><p>Creates a new empty <code>Deque</code> backed by a buffer that is initially <code>initial_capacity</code> big.</p></div>
         
       </li>
     
       <li class="entry-summary">
         <a href="#new%28array%3AArray%28T%29%29-class-method" class="signature"><strong>.new</strong>(array : Array(T))</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Deque.html">Deque</a></code> that copies its items from an Array.</p></div>
+          <div class="summary"><p>Creates a new <code>Deque</code> that copies its items from an Array.</p></div>
         
       </li>
     
@@ -3186,7 +3186,7 @@ and remove the item at the beginning of the queue.</p>
       <li class="entry-summary">
         <a href="#new%28size%3AInt%2C%26block%3AInt32-%3ET%29-class-method" class="signature"><strong>.new</strong>(size : Int, &block : Int32 -> T)</a>
         
-          <div class="summary"><p>Creates a new <code><a href="Deque.html">Deque</a></code> of the given size and invokes the block once for each index of the deque, assigning the block's value in that index.</p></div>
+          <div class="summary"><p>Creates a new <code>Deque</code> of the given size and invokes the block once for each index of the deque, assigning the block's value in that index.</p></div>
         
       </li>
     
@@ -3216,7 +3216,7 @@ and remove the item at the beginning of the queue.</p>
       <li class="entry-summary">
         <a href="#%3D%3D%28other%3ADeque%29-instance-method" class="signature"><strong>#==</strong>(other : Deque)</a>
         
-          <div class="summary"><p>Returns <code>true</code> if it is passed a <code><a href="Deque.html">Deque</a></code> and <code>equals?</code> returns <code>true</code> for both deques, the caller and the argument.</p></div>
+          <div class="summary"><p>Returns <code>true</code> if it is passed a <code>Deque</code> and <code>equals?</code> returns <code>true</code> for both deques, the caller and the argument.</p></div>
         
       </li>
     
@@ -3237,7 +3237,7 @@ and remove the item at the beginning of the queue.</p>
       <li class="entry-summary">
         <a href="#clone-instance-method" class="signature"><strong>#clone</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Deque.html">Deque</a></code> that has this deque's elements cloned.</p></div>
+          <div class="summary"><p>Returns a new <code>Deque</code> that has this deque's elements cloned.</p></div>
         
       </li>
     
@@ -3265,7 +3265,7 @@ and remove the item at the beginning of the queue.</p>
       <li class="entry-summary">
         <a href="#dup-instance-method" class="signature"><strong>#dup</strong></a>
         
-          <div class="summary"><p>Returns a new <code><a href="Deque.html">Deque</a></code> that has exactly this deque's elements.</p></div>
+          <div class="summary"><p>Returns a new <code>Deque</code> that has exactly this deque's elements.</p></div>
         
       </li>
     
@@ -3380,7 +3380,7 @@ and remove the item at the beginning of the queue.</p>
       <li class="entry-summary">
         <a href="#to_a-instance-method" class="signature"><strong>#to_a</strong></a>
         
-          <div class="summary"><p>Returns an <code><a href="Array.html">Array</a></code> (shallow copy) that contains all the items of this deque.</p></div>
+          <div class="summary"><p>Returns an <code>Array</code> (shallow copy) that contains all the items of this deque.</p></div>
         
       </li>
     
@@ -4134,14 +4134,14 @@ and remove the item at the beginning of the queue.</p>
         <a class="method-permalink" href="#new%28size%3AInt%2Cvalue%3AT%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Deque.html">Deque</a></code> of the given size filled with the same value in each position.</p>
+        <div class="doc"><p>Creates a new <code>Deque</code> of the given size filled with the same value in each position.</p>
 
 <pre><code><span class="t">Deque</span>.<span class="k">new</span>(<span class="n">3</span>, <span class="s">'a'</span>) <span class="c"># =&gt; Deque{&#39;a&#39;, &#39;a&#39;, &#39;a&#39;}</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L61" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L61" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4154,7 +4154,7 @@ and remove the item at the beginning of the queue.</p>
         <a class="method-permalink" href="#new%28initial_capacity%3AInt%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new empty <code><a href="Deque.html">Deque</a></code> backed by a buffer that is initially <code>initial_capacity</code> big.</p>
+        <div class="doc"><p>Creates a new empty <code>Deque</code> backed by a buffer that is initially <code>initial_capacity</code> big.</p>
 
 <p>The <code>initial_capacity</code> is useful to avoid unnecessary reallocations of the internal buffer in case of growth. If you
 have an estimate of the maximum number of elements a deque will hold, you should initialize it with that capacity
@@ -4166,7 +4166,7 @@ deq.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L42" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L42" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4179,14 +4179,14 @@ deq.size <span class="c"># =&gt; 0</span></code></pre></div>
         <a class="method-permalink" href="#new%28array%3AArray%28T%29%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Deque.html">Deque</a></code> that copies its items from an Array.</p>
+        <div class="doc"><p>Creates a new <code>Deque</code> that copies its items from an Array.</p>
 
 <pre><code><span class="t">Deque</span>.<span class="k">new</span>([<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>]) <span class="c"># =&gt; Deque{1, 2, 3}</span></code></pre></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L99" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L99" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4204,7 +4204,7 @@ deq.size <span class="c"># =&gt; 0</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L26" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L26" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4217,7 +4217,7 @@ deq.size <span class="c"># =&gt; 0</span></code></pre></div>
         <a class="method-permalink" href="#new%28size%3AInt%2C%26block%3AInt32-%3ET%29-class-method">#</a>
       </div>
       
-        <div class="doc"><p>Creates a new <code><a href="Deque.html">Deque</a></code> of the given size and invokes the block once for
+        <div class="doc"><p>Creates a new <code>Deque</code> of the given size and invokes the block once for
 each index of the deque, assigning the block's value in that index.</p>
 
 <pre><code><span class="t">Deque</span>.<span class="k">new</span>(<span class="n">3</span>) { <span class="o">|</span>i<span class="o">|</span> (i <span class="o">+</span> <span class="n">1</span>) <span class="o">**</span> <span class="n">2</span> } <span class="c"># =&gt; Deque{1, 4, 9}</span></code></pre></div>
@@ -4225,7 +4225,7 @@ each index of the deque, assigning the block's value in that index.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L81" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4245,14 +4245,14 @@ each index of the deque, assigning the block's value in that index.</p>
         <a class="method-permalink" href="#%2B%28other%3ADeque%28U%29%29forallU-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Concatenation. Returns a new <code><a href="Deque.html">Deque</a></code> built by concatenating
+        <div class="doc"><p>Concatenation. Returns a new <code>Deque</code> built by concatenating
 two deques together to create a third. The type of the new deque
 is the union of the types of both the other deques.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L124" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L124" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4270,7 +4270,7 @@ is the union of the types of both the other deques.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L134" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L134" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4283,7 +4283,7 @@ is the union of the types of both the other deques.</p></div>
         <a class="method-permalink" href="#%3D%3D%28other%3ADeque%29-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns <code>true</code> if it is passed a <code><a href="Deque.html">Deque</a></code> and <code>equals?</code> returns <code>true</code>
+        <div class="doc"><p>Returns <code>true</code> if it is passed a <code>Deque</code> and <code>equals?</code> returns <code>true</code>
 for both deques, the caller and the argument.</p>
 
 <pre><code>deq <span class="o">=</span> <span class="t">Deque</span>{<span class="n">2</span>, <span class="n">3</span>}
@@ -4294,7 +4294,7 @@ deq <span class="o">==</span> <span class="t">Deque</span>{<span class="n">2</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L112" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L112" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4309,12 +4309,12 @@ deq <span class="o">==</span> <span class="t">Deque</span>{<span class="n">2</sp
       
         <div class="doc"><p>Sets the given value at the given <em>index</em>.</p>
 
-<p>Raises <code><a href="IndexError.html">IndexError</a></code> if the deque had no previous value at the given <em>index</em>.</p></div>
+<p>Raises <code>IndexError</code> if the deque had no previous value at the given <em>index</em>.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L141" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L141" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4332,7 +4332,7 @@ deq <span class="o">==</span> <span class="t">Deque</span>{<span class="n">2</sp
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L158" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L158" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4345,7 +4345,7 @@ deq <span class="o">==</span> <span class="t">Deque</span>{<span class="n">2</sp
         <a class="method-permalink" href="#clone-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Deque.html">Deque</a></code> that has this deque's elements cloned.
+        <div class="doc"><p>Returns a new <code>Deque</code> that has this deque's elements cloned.
 That is, it returns a deep copy of this deque.</p>
 
 <p>Use <code><a href="Deque.html#dup-instance-method">#dup</a></code> if you want a shallow copy.</p></div>
@@ -4353,7 +4353,7 @@ That is, it returns a deep copy of this deque.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L171" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L171" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4371,7 +4371,7 @@ That is, it returns a deep copy of this deque.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L176" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L176" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4393,7 +4393,7 @@ a             <span class="c"># =&gt; Deque{&quot;a&quot;, &quot;c&quot;}</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L190" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L190" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4408,7 +4408,7 @@ a             <span class="c"># =&gt; Deque{&quot;a&quot;, &quot;c&quot;}</span>
       
         <div class="doc"><p>Delete the item that is present at the <em>index</em>. Items to the right
 of this one will have their indices decremented.
-Raises <code><a href="IndexError.html">IndexError</a></code> if trying to delete an element outside the deque's range.</p>
+Raises <code>IndexError</code> if trying to delete an element outside the deque's range.</p>
 
 <pre><code>a <span class="o">=</span> <span class="t">Deque</span>{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>}
 a.delete_at(<span class="n">1</span>) <span class="c"># =&gt; 2</span>
@@ -4417,7 +4417,7 @@ a              <span class="c"># =&gt; Deque{1, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L213" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L213" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4430,13 +4430,13 @@ a              <span class="c"># =&gt; Deque{1, 3}</span></code></pre></div>
         <a class="method-permalink" href="#dup-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns a new <code><a href="Deque.html">Deque</a></code> that has exactly this deque's elements.
+        <div class="doc"><p>Returns a new <code>Deque</code> that has exactly this deque's elements.
 That is, it returns a shallow copy of this deque.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L263" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L263" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4456,7 +4456,7 @@ That is, it returns a shallow copy of this deque.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L270" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L270" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4478,7 +4478,7 @@ a.insert(<span class="n">1</span>, <span class="n">7</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L285" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L285" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4494,7 +4494,7 @@ a.insert(<span class="n">1</span>, <span class="n">7</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L333" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L333" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4512,7 +4512,7 @@ a.insert(<span class="n">1</span>, <span class="n">7</span>) <span class="c"># =
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L390" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L390" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4525,7 +4525,7 @@ a.insert(<span class="n">1</span>, <span class="n">7</span>) <span class="c"># =
         <a class="method-permalink" href="#pop-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Removes and returns the last item. Raises <code><a href="IndexError.html">IndexError</a></code> if empty.</p>
+        <div class="doc"><p>Removes and returns the last item. Raises <code>IndexError</code> if empty.</p>
 
 <pre><code>a <span class="o">=</span> <span class="t">Deque</span>{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>}
 a.pop <span class="c"># =&gt; 3</span>
@@ -4534,7 +4534,7 @@ a     <span class="c"># =&gt; Deque{1, 2}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L365" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L365" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4553,7 +4553,7 @@ the given block and returns its value.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L371" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L371" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4571,7 +4571,7 @@ the given block and returns its value.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L385" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L385" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4587,7 +4587,7 @@ the given block and returns its value.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L342" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L342" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4608,7 +4608,7 @@ a.push <span class="n">3</span> <span class="c"># =&gt; Deque{1, 2, 3}</span></c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L405" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L405" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4628,7 +4628,7 @@ a.push <span class="n">3</span> <span class="c"># =&gt; Deque{1, 2, 3}</span></c
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L418" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L418" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4647,7 +4647,7 @@ the given block and returns its value.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L451" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L451" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4665,7 +4665,7 @@ the given block and returns its value.</p></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L470" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L470" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4678,7 +4678,7 @@ the given block and returns its value.</p></div>
         <a class="method-permalink" href="#shift-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Removes and returns the first item. Raises <code><a href="IndexError.html">IndexError</a></code> if empty.</p>
+        <div class="doc"><p>Removes and returns the first item. Raises <code>IndexError</code> if empty.</p>
 
 <pre><code>a <span class="o">=</span> <span class="t">Deque</span>{<span class="n">1</span>, <span class="n">2</span>, <span class="n">3</span>}
 a.shift <span class="c"># =&gt; 1</span>
@@ -4687,7 +4687,7 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L445" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L445" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4705,7 +4705,7 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L465" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L465" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4725,7 +4725,7 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L354" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L354" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4743,7 +4743,7 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L480" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L480" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4756,12 +4756,12 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
         <a class="method-permalink" href="#to_a-instance-method">#</a>
       </div>
       
-        <div class="doc"><p>Returns an <code><a href="Array.html">Array</a></code> (shallow copy) that contains all the items of this deque.</p></div>
+        <div class="doc"><p>Returns an <code>Array</code> (shallow copy) that contains all the items of this deque.</p></div>
       
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L486" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L486" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4777,7 +4777,7 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L494" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L494" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4793,7 +4793,7 @@ a       <span class="c"># =&gt; Deque{2, 3}</span></code></pre></div>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L151" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L151" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -4814,7 +4814,7 @@ a.unshift <span class="n">0</span> <span class="c"># =&gt; Deque{0, 1, 2}</span>
       <br/>
       <div>
         
-          [<a href="https://github.com/straight-shoota/crystal/blob/4ef2ac089dde085fee6e9267145321ce7630f886/src/deque.cr#L504" target="_blank">View source</a>]
+          [<a href="https://github.com/straight-shoota/crystal/blob/7d3285e766ce35e5d73a94a2fe58859b68566357/src/deque.cr#L504" target="_blank">View source</a>]
         
       </div>
     </div>
