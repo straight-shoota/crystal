@@ -478,7 +478,12 @@ CrystalDoc.Query.stripModifiers = function(term) {
 
 CrystalDoc.search = function(string) {
   if(!CrystalDoc.searchIndex) {
-    console.error("CrystalDoc search index not initialized.");
+    console.log("CrystalDoc search index not initialized, delaying search");
+
+    document.addEventListener("CrystalDoc:loaded", function listener(){
+      document.removeEventListener("CrystalDoc:loaded", listener);
+      CrystalDoc.search(string);
+    });
     return;
   }
 
@@ -559,6 +564,9 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   document.addEventListener('CrystalDoc:searchPerformed', function(){
     performingSearch = false;
   });
+  document.addEventListener('CrystalDoc:searchDebounceStopped', function(event){
+    performingSearch = false;
+  });
 
   function delayWhileSearching(callback) {
     if(performingSearch){
@@ -599,7 +607,7 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
     var next = upwards ? this.current.previousElementSibling : this.current.nextElementSibling;
     if(next && next.classList) {
       this.highlight(next);
-      next.scrollIntoViewIfNeeded();
+      next.scrollIntoView({behaviour: 'smooth', block: 'center'});
       return true;
     }
     return false;
@@ -877,7 +885,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if(text == "") {
         CrystalDoc.toggleResultsList(false);
-      }else if(text != lastSearchText){
+      }else if(text == lastSearchText){
+        document.dispatchEvent(new Event("CrystalDoc:searchDebounceStopped"));
+      }else{
         CrystalDoc.search(text);
         navigator.highlightFirst();
         searchInput.focus();
@@ -976,11 +986,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.addEventListener('keyup', handleShortkeys);
-
-  typesList.onscroll = function() {
-    var y = typesList.scrollTop;
-    sessionStorage.setItem(repositoryName + '::types-list:scrollTop', y);
-  };
 
   var initialY = parseInt(sessionStorage.getItem(repositoryName + '::types-list:scrollTop') + "", 10);
   if(initialY > 0) {
