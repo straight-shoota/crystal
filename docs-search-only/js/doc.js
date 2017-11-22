@@ -481,10 +481,15 @@ CrystalDoc.search = function(string) {
     console.error("CrystalDoc search index not initialized.");
     return;
   }
+
+  document.dispatchEvent(new Event("CrystalDoc:searchStarted"));
+
   var query = new CrystalDoc.Query(string);
   var results = CrystalDoc.runQuery(query);
   results = CrystalDoc.rankResults(results, query);
   CrystalDoc.displaySearchResults(results, query);
+
+  document.dispatchEvent(new Event("CrystalDoc:searchPerformed"));
 };
 
 CrystalDoc.initializeIndex = function(data) {
@@ -542,6 +547,31 @@ function crystal_doc_search_index_callback(data) {
 Navigator = function(sidebar, searchInput, list, leaveSearchScope){
   this.list = list;
   var self = this;
+
+  var performingSearch = false;
+
+  document.addEventListener('CrystalDoc:searchStarted', function(){
+    performingSearch = true;
+  });
+  document.addEventListener('CrystalDoc:searchDebounceStarted', function(){
+    performingSearch = true;
+  });
+  document.addEventListener('CrystalDoc:searchPerformed', function(){
+    performingSearch = false;
+  });
+
+  function delayWhileSearching(callback) {
+    if(performingSearch){
+      document.addEventListener('CrystalDoc:searchPerformed', function listener(){
+        document.removeEventListener('CrystalDoc:searchPerformed', listener);
+
+        // add some delay to let search results display kick in
+        setTimeout(callback, 100);
+      });
+    }else{
+      callback();
+    }
+  }
 
   function clearMoveTimeout() {
     clearTimeout(self.moveTimeout);
@@ -695,8 +725,10 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
       case "Enter":
         event.stopPropagation();
         event.preventDefault();
-        self.openSelectedResult();
-        leaveSearchScope();
+        delayWhileSearching(function(){
+          self.openSelectedResult();
+          leaveSearchScope();
+        });
         break;
       case "Escape":
         event.stopPropagation();
@@ -837,6 +869,8 @@ document.addEventListener('DOMContentLoaded', function() {
   var searchTimeout;
   var lastSearchText = false;
   var performSearch = function() {
+    document.dispatchEvent(new Event("CrystalDoc:searchDebounceStarted"));
+
     clearTimeout(searchTimeout);
     searchTimeout = setTimeout(function() {
       var text = searchInput.value;
