@@ -599,6 +599,12 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
     self.moveTimeout = setTimeout(go, 800);*/
   }
 
+  function scrollCenter(element) {
+    var rect = element.getBoundingClientRect();
+    var middle = sidebar.clientHeight / 2;
+    sidebar.scrollTop += rect.top + rect.height / 2 - middle;
+  }
+
   var move = this.move = function(upwards){
     if(!this.current){
       this.highlightFirst();
@@ -607,7 +613,7 @@ Navigator = function(sidebar, searchInput, list, leaveSearchScope){
     var next = upwards ? this.current.previousElementSibling : this.current.nextElementSibling;
     if(next && next.classList) {
       this.highlight(next);
-      next.scrollIntoView({behaviour: 'smooth', block: 'center'});
+      scrollCenter(next);
       return true;
     }
     return false;
@@ -986,11 +992,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   document.addEventListener('keyup', handleShortkeys);
-
-  var initialY = parseInt(sessionStorage.getItem(repositoryName + '::types-list:scrollTop') + "", 10);
-  if(initialY > 0) {
-    typesList.scrollTop = initialY;
-  }
 
   var scrollToEntryFromLocationHash = function() {
     var hash = window.location.hash;
