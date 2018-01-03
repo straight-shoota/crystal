@@ -13,9 +13,11 @@ lib LibC
     dli_saddr : Void*
   end
 
-  fun dlclose(handle : Void*) : Int
+  alias DL = Void*
+
+  fun dlclose(handle : DL) : Int
   fun dlerror : Char*
-  fun dlopen(file : Char*, mode : Int) : Void*
-  fun dlsym(handle : Void*, name : Char*) : Void*
+  fun dlopen(file : Char*, mode : Int) : DL
+  fun dlsym(handle : DL, name : Char*) : Void*
   fun dladdr(address : Void*, info : DlInfo*) : Int
 end
