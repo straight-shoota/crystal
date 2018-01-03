@@ -1615,4 +1615,73 @@ describe "macro methods" do
   it "compares versions" do
     assert_macro "", %({{compare_versions("1.10.3", "1.2.3")}}), [] of ASTNode, %(1)
   end
+
+  describe "responds_to?" do
+    describe "with class" do
+      it "is true" do
+        assert_macro "", "{{Foo.responds_to?(:foo)}}", %(true) do |program|
+          type = NonGenericModuleType.new(program, program, "Foo")
+          type.metaclass.as(MetaclassType).add_def Def.new("foo", body: Nop.new)
+          program.types[type.name] = type
+
+          [] of ASTNode
+        end
+      end
+
+      it "is false" do
+        assert_macro "", "{{Foo.responds_to?(:foo)}}", %(false) do |program|
+          type = NonGenericModuleType.new(program, program, "Foo")
+          program.types[type.name] = type
+
+          [] of ASTNode
+        end
+      end
+
+      it "runs when true" do
+        run(%(
+          class Foo
+            def self.foo
+              42
+            end
+          end
+
+          {% if Foo.responds_to?(:foo) %}
+            Foo.foo
+          {% end %}
+          )).to_i.should eq(42)
+      end
+
+      it "runs when false" do
+        run(%(
+          class Foo
+          end
+
+          {% if Foo.responds_to?(:foo) %}
+            Foo.foo
+          {% end %}
+          ))
+      end
+    end
+
+    describe "with lib" do
+      it "is true" do
+        run(%(
+          lib LibC
+            fun tzset : Void
+          end
+
+          {{LibC.responds_to?(:tzset)}}
+          )).to_b.should be_true
+      end
+
+      it "is false" do
+        run(%(
+          lib LibC
+          end
+
+          {{LibC.responds_to?(:tzset)}}
+          )).to_b.should be_false
+      end
+    end
+  end
 end

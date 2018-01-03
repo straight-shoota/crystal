@@ -515,6 +515,21 @@ module Crystal
       false
     end
 
+    def visit(node : RespondsTo)
+      if (path = node.obj).is_a?(Crystal::Path)
+        resolved = resolve(path)
+        if resolved.is_a?(Crystal::TypeNode)
+          type = resolved.type
+
+          @last = BoolLiteral.new(!! type.metaclass.has_def?(node.name))
+
+          return false
+        end
+      end
+
+      node.raise "can't execute RespondsTo in a macro unless the receiver is a Path"
+    end
+
     def visit(node : ASTNode)
       node.raise "can't execute #{node.class_desc} in a macro"
     end
