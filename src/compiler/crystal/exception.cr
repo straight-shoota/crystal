@@ -3,6 +3,8 @@ require "colorize"
 
 module Crystal
   abstract class Exception < ::Exception
+    include JSON::Serializable
+
     property? color = false
 
     @filename : String | VirtualFile | Nil

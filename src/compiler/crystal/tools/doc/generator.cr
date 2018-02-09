@@ -361,6 +361,8 @@ class Crystal::Doc::Generator
   end
 
   record RelativeLocation, filename : String, line_number : Int32, url : String? do
+    include JSON::Serializable
+
     def to_json(builder : JSON::Builder)
       builder.object do
         builder.field "filename", filename
