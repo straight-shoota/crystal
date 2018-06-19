@@ -1,6 +1,6 @@
 # This module describes an interface for types to serialize instances to JSON
 # and provides methods to easily serialize directly to a `String` or an `IO`.
-module JSON::Serializable
+module JSON::Serializable::Helper
   # Serializes `self` to a `JSON::Builder` *builder*.
   abstract def to_json(builder : JSON::Builder)
 
@@ -32,7 +32,7 @@ module JSON::Serializable
 end
 
 struct Nil
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.null
@@ -40,7 +40,7 @@ struct Nil
 end
 
 struct Bool
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.bool(self)
@@ -48,7 +48,7 @@ struct Bool
 end
 
 struct Int
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.number(self)
@@ -56,7 +56,7 @@ struct Int
 end
 
 struct Float
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.number(self)
@@ -64,7 +64,7 @@ struct Float
 end
 
 class String
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.string(self)
@@ -72,7 +72,7 @@ class String
 end
 
 struct Symbol
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.string(to_s)
@@ -80,7 +80,7 @@ struct Symbol
 end
 
 class Array
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.array do
@@ -90,7 +90,7 @@ class Array
 end
 
 struct Set
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.array do
@@ -100,7 +100,7 @@ struct Set
 end
 
 class Hash
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.object do
@@ -114,7 +114,7 @@ class Hash
 end
 
 struct Tuple
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.array do
@@ -126,7 +126,7 @@ struct Tuple
 end
 
 struct NamedTuple
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.object do
@@ -146,7 +146,7 @@ struct Time::Format
 end
 
 struct Enum
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(json : JSON::Builder)
     json.number(value)
@@ -154,7 +154,7 @@ struct Enum
 end
 
 struct Time
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   # Emits a string formated according to [RFC 3339](https://tools.ietf.org/html/rfc3339)
   # ([ISO 8601](http://xml.coverpages.org/ISO-FDIS-8601.pdf) profile).

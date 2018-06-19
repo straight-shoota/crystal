@@ -1,5 +1,5 @@
 class Crystal::Arg
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(builder : JSON::Builder)
     builder.object do
@@ -13,7 +13,7 @@ class Crystal::Arg
 end
 
 class Crystal::Def
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(builder : JSON::Builder)
     builder.object do
@@ -31,7 +31,7 @@ class Crystal::Def
 end
 
 class Crystal::Macro
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def to_json(builder : JSON::Builder)
     builder.object do

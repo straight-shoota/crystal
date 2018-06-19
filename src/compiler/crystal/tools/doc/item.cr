@@ -1,5 +1,5 @@
 module Crystal::Doc::Item
-  include JSON::Serializable
+  include JSON::Serializable::Helper
 
   def formatted_doc
     @generator.doc(self)

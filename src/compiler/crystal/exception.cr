@@ -3,7 +3,7 @@ require "colorize"
 
 module Crystal
   abstract class Exception < ::Exception
-    include JSON::Serializable
+    include JSON::Serializable::Helper
 
     property? color = false
 
