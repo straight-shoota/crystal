@@ -1,6 +1,6 @@
 # This module describes an interface for types to serialize instances to YAML
 # and provides methods to easily serialize directly to a `String` or an `IO`.
-module YAML::Serializable
+module YAML::Serializable::Helper
   # Serializes `self` to a `YAML::Nodes::Builder` *builder*.
   abstract def to_yaml(builder : YAML::Nodes::Builder)
 
@@ -28,7 +28,7 @@ module YAML::Serializable
 end
 
 class Hash
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.mapping(reference: self) do
@@ -41,7 +41,7 @@ class Hash
 end
 
 class Array
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.sequence(reference: self) do
@@ -51,7 +51,7 @@ class Array
 end
 
 struct Tuple
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.sequence do
@@ -61,7 +61,7 @@ struct Tuple
 end
 
 struct NamedTuple
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.mapping do
@@ -74,7 +74,7 @@ struct NamedTuple
 end
 
 class String
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     if YAML::Schema::Core.reserved_string?(self)
@@ -86,7 +86,7 @@ class String
 end
 
 struct Number
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.scalar self.to_s
@@ -94,7 +94,7 @@ struct Number
 end
 
 struct Nil
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.scalar ""
@@ -102,7 +102,7 @@ struct Nil
 end
 
 struct Bool
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.scalar self
@@ -110,7 +110,7 @@ struct Bool
 end
 
 struct Set
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.sequence do
@@ -120,7 +120,7 @@ struct Set
 end
 
 struct Symbol
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.scalar self
@@ -128,7 +128,7 @@ struct Symbol
 end
 
 struct Enum
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.scalar value
@@ -136,7 +136,7 @@ struct Enum
 end
 
 struct Time
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     yaml.scalar Time::Format::YAML_DATE.format(self)
@@ -162,7 +162,7 @@ module Time::EpochMillisConverter
 end
 
 struct Slice
-  include YAML::Serializable
+  include YAML::Serializable::Helper
 
   def to_yaml(yaml : YAML::Nodes::Builder)
     {% if T != UInt8 %}
