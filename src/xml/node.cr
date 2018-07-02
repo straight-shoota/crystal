@@ -545,6 +545,18 @@ struct XML::Node
     xpath(path, namespaces, variables).as(String)
   end
 
+  def css(selector, namespaces = nil, variables = nil)
+    xpath(SelectorParser.new(selector).parse, namespaces, variables)
+  end
+
+  def css_nodes(selector, namespaces = nil, variables = nil)
+    css(selector, namespaces, variables).as(NodeSet)
+  end
+
+  def css_node(selector, namespaces = nil, variables = nil)
+    css_nodes(selector, namespaces, variables).first?
+  end
+
   # :nodoc:
   def errors=(errors)
     @node.value._private = errors.as(Void*)
