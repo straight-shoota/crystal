@@ -66,7 +66,7 @@ class Crystal::Command
     excludes = excludes - includes
 
     if files.empty?
-      files = Dir["./**/*.cr"]
+      files = ["src", "spec"]
     else
       files = normalize_paths files
     end
