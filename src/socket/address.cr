@@ -3,10 +3,17 @@ require "uri"
 
 class Socket
   abstract struct Address
+    # Returns `true` if the string represents a valid IPv4 or IPv6 address.
+    def self.ip?(string : String)
+      addr = LibC::In6Addr.new
+      ptr = pointerof(addr).as(Void*)
+      LibC.inet_pton(LibC::AF_INET, string, ptr) > 0 || LibC.inet_pton(LibC::AF_INET6, string, ptr) > 0
+    end
+
     getter family : Family
     getter size : Int32
 
-    # Returns either an `IPAddress` or `UNIXAddres` from the internal OS
+    # Returns either an `IPAddress` or `UNIXAddress` from the internal OS
     # representation. Only INET, INET6 and UNIX families are supported.
     def self.from(sockaddr : LibC::Sockaddr*, addrlen) : Address
       case family = Family.new(sockaddr.value.sa_family)
