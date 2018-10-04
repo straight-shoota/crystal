@@ -6,12 +6,10 @@ describe UDPSocket do
     it "sends and receives messages" do
       port = unused_local_port
 
-      server = UDPSocket.new(family)
-      server.bind(address, port)
+      server = UDPSocket.new(address, port)
       server.local_address.should eq(Socket::IPAddress.new(address, port))
 
-      client = UDPSocket.new(family)
-      client.bind(address, 0)
+      client = UDPSocket.new(address)
 
       client.send "message", to: server.local_address
       server.receive.should eq({"message", client.local_address})
@@ -47,8 +45,7 @@ describe UDPSocket do
     it "sends broadcast message" do
       port = unused_local_port
 
-      client = UDPSocket.new(Socket::Family::INET)
-      client.bind("localhost", 0)
+      client = UDPSocket.new("localhost")
       client.broadcast = true
       client.broadcast?.should be_true
       client.connect("255.255.255.255", port)

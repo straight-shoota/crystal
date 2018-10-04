@@ -55,6 +55,44 @@ class TCPSocket < IPSocket
     end
   end
 
+  # Creates a new TCP connection to a remote TCP server.
+  #
+  # *local_address* and *local_port* specify the local socket used to connect to
+  # the remote socket.
+  #
+  # You may limit the DNS resolution time with *dns_timeout* and limit the
+  # connection time to the remote server with *connect_timeout*. Both values
+  # must be in seconds (integers or floats).
+  #
+  # Note that *dns_timeout* is currently ignored.
+  def self.new(host : String, port : Int32, local_address : String, local_port : Int32, dns_timeout = nil, connect_timeout = nil) : TCPSocket
+    Addrinfo.tcp(host, port, timeout: dns_timeout) do |addrinfo|
+      socket = new(addrinfo.family, addrinfo.type, addrinfo.protocol)
+      socket.bind(local_address, local_port)
+      socket.connect(addrinfo, timeout: connect_timeout) do |error|
+        socket.close
+        error
+      end
+      return socket
+    end
+  end
+
+  # Opens a TCP socket to a remote TCP server, yields it to the block, then
+  # eventually closes the socket when the block returns.
+  #
+  # *local_address* and *local_port* specify the local socket used to connect to
+  # the remote socket.
+  #
+  # Returns the value of the block.
+  def self.open(host : String, port : Int32, local_address : String, local_port : Int32)
+    sock = new(host, port, local_address, local_port)
+    begin
+      yield sock
+    ensure
+      sock.close
+    end
+  end
+
   # Returns `true` if the Nable algorithm is disabled.
   def tcp_nodelay?
     getsockopt_bool LibC::TCP_NODELAY, level: Protocol::TCP
