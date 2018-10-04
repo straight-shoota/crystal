@@ -8,18 +8,24 @@ describe TCPSocket do
 
         TCPServer.open(address, port) do |server|
           TCPSocket.open(address, port) do |client|
-            client.local_address.address.should eq address
-
+            local_port = client.local_address.port
             sock = server.accept
 
             sock.closed?.should be_false
             client.closed?.should be_false
 
-            sock.local_address.port.should eq(port)
-            sock.local_address.address.should eq(address)
+            local_address = Socket::IPAddress.new(address, local_port)
+            remote_address = Socket::IPAddress.new(address, port)
 
-            client.remote_address.port.should eq(port)
-            sock.remote_address.address.should eq address
+            sock.local_address.should eq remote_address
+            sock.local_address?.should eq remote_address
+            client.local_address.should eq local_address
+            client.local_address?.should eq local_address
+
+            sock.remote_address.should eq local_address
+            sock.remote_address?.should eq local_address
+            client.remote_address.should eq remote_address
+            client.remote_address?.should eq remote_address
           end
         end
       end
@@ -32,17 +38,18 @@ describe TCPSocket do
           TCPSocket.open(address, port, address, local_port) do |client|
             sock = server.accept
 
-            sock.local_address.address.should eq(address)
-            sock.local_address.port.should eq(port)
-            sock.remote_address.address.should eq(address)
-            sock.remote_address.port.should eq(local_port)
+            local_address = Socket::IPAddress.new(address, local_port)
+            remote_address = Socket::IPAddress.new(address, port)
 
-            client.remote_address.address.should eq(address)
-            client.remote_address.port.should eq(port)
-            client.remote_address.family.should eq(family)
-            client.local_address.address.should eq(address)
-            client.local_address.port.should eq(local_port)
-            client.local_address.family.should eq(family)
+            sock.local_address.should eq remote_address
+            sock.local_address?.should eq remote_address
+            sock.remote_address.should eq local_address
+            sock.remote_address?.should eq local_address
+
+            client.remote_address.should eq remote_address
+            client.remote_address?.should eq remote_address
+            client.local_address.should eq local_address
+            client.local_address?.should eq local_address
           end
         end
       end
@@ -54,14 +61,19 @@ describe TCPSocket do
           TCPSocket.open(address, port, address, 0) do |client|
             sock = server.accept
 
-            sock.local_address.address.should eq(address)
-            sock.local_address.port.should eq(port)
-            sock.remote_address.address.should eq(address)
+            local_port = client.local_address.port
+            local_address = Socket::IPAddress.new(address, local_port)
+            remote_address = Socket::IPAddress.new(address, port)
 
-            client.remote_address.address.should eq(address)
-            client.remote_address.port.should eq(port)
-            client.local_address.address.should eq(address)
-            client.local_address.port.should eq(sock.remote_address.port)
+            sock.local_address.should eq remote_address
+            sock.local_address?.should eq remote_address
+            client.local_address.should eq local_address
+            client.local_address?.should eq local_address
+
+            sock.remote_address.should eq local_address
+            sock.remote_address?.should eq local_address
+            client.remote_address.should eq remote_address
+            client.remote_address?.should eq remote_address
           end
         end
       end
@@ -185,6 +197,42 @@ describe TCPSocket do
         sock.gets(4).should eq("ping")
         sock << "pong"
         client.gets(4).should eq("pong")
+      end
+    end
+  end
+
+  it "#local_address" do
+    TCPServer.open(0) do |server|
+      TCPSocket.open("::1", server.local_address.port) do |socket|
+        client = server.accept
+
+        client.local_address.should eq Socket::IPAddress.new("::1", server.local_address.port)
+        client.local_address?.should eq Socket::IPAddress.new("::1", server.local_address.port)
+
+        client.close
+
+        expect_raises(Exception, "foo") do
+          client.local_address
+        end
+        client.local_address?.should be_nil
+      end
+    end
+  end
+
+  it "#remote_address" do
+    TCPServer.open(0) do |server|
+      TCPSocket.open("::1", server.local_address.port) do |socket|
+        server.accept
+
+        socket.remote_address.should eq Socket::IPAddress.new("::1", server.local_address.port)
+        socket.remote_address?.should eq Socket::IPAddress.new("::1", server.local_address.port)
+
+        socket.close
+
+        expect_raises(Errno, "getpeername: Bad file descriptor") do
+          socket.remote_address
+        end
+        socket.remote_address?.should be_nil
       end
     end
   end
