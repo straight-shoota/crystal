@@ -137,8 +137,11 @@ class HTTP::Client::Response
     body_type = HTTP::BodyType::Mandatory if mandatory_body?(status_code)
     body_type = HTTP::BodyType::Prohibited if ignore_body
 
-    HTTP.parse_headers_and_body(io, body_type: body_type, decompress: decompress) do |headers, body|
-      return yield new status_code, nil, headers, status_message, http_version, body
+    headers_and_body = HTTP.parse_headers_and_body(io, body_type: body_type, decompress: decompress)
+
+    if headers_and_body
+      headers, body = headers_and_body
+      yield new status_code, nil, headers, status_message, http_version, body
     end
   end
 end

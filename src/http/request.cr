@@ -98,12 +98,15 @@ class HTTP::Request
 
     return BadRequest.new unless HTTP::SUPPORTED_VERSIONS.includes?(http_version)
 
-    HTTP.parse_headers_and_body(io) do |headers, body|
-      return new method, resource, headers, body, http_version
-    end
+    headers_and_body = HTTP.parse_headers_and_body(io)
 
-    # Malformed or unexpectedly ended http request
-    BadRequest.new
+    if headers_and_body
+      headers, body = headers_and_body
+      return new method, resource, headers, body, http_version
+    else
+      # Malformed or unexpectedly ended http request
+      BadRequest.new
+    end
   end
 
   # Lazily parses and return the request's path component.

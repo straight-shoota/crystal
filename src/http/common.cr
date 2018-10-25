@@ -17,52 +17,50 @@ module HTTP
   SUPPORTED_VERSIONS = {"HTTP/1.0", "HTTP/1.1"}
 
   # :nodoc:
-  def self.parse_headers_and_body(io, body_type : BodyType = BodyType::OnDemand, decompress = true)
+  def self.parse_headers_and_body(io, body_type : BodyType = BodyType::OnDemand, decompress = true) : {Headers, IO?}?
     headers = Headers.new
 
     headers_size = 0
     while line = io.gets(MAX_HEADER_SIZE, chomp: true)
       headers_size += line.bytesize
-      break if headers_size > MAX_HEADER_SIZE
+      return if headers_size > MAX_HEADER_SIZE
 
-      if line.empty?
-        body = nil
-        if body_type.prohibited?
-          body = nil
-        elsif content_length = content_length(headers)
-          if content_length != 0
-            # Don't create IO for Content-Length == 0
-            body = FixedLengthContent.new(io, content_length)
-          end
-        elsif headers["Transfer-Encoding"]? == "chunked"
-          body = ChunkedContent.new(io)
-        elsif body_type.mandatory?
-          body = UnknownLengthContent.new(io)
-        end
-
-        if decompress && body
-          {% if flag?(:without_zlib) %}
-            raise "Can't decompress because `-D without_zlib` was passed at compile time"
-          {% else %}
-            encoding = headers["Content-Encoding"]?
-            case encoding
-            when "gzip"
-              body = Gzip::Reader.new(body, sync_close: true)
-            when "deflate"
-              body = Flate::Reader.new(body, sync_close: true)
-            end
-          {% end %}
-        end
-
-        check_content_type_charset(body, headers)
-
-        yield headers, body
-        break
-      end
+      break if line.empty?
 
       name, value = parse_header(line)
-      break unless headers.add?(name, value)
+      return unless headers.add?(name, value)
     end
+
+    body = nil
+    if body_type.prohibited?
+      body = nil
+    elsif content_length = content_length(headers)
+      if content_length != 0
+        # Don't create IO for Content-Length == 0
+        body = FixedLengthContent.new(io, content_length)
+      end
+    elsif headers["Transfer-Encoding"]? == "chunked"
+      body = ChunkedContent.new(io)
+    elsif body_type.mandatory?
+      body = UnknownLengthContent.new(io)
+    end
+
+    if decompress && body
+      {% if flag?(:without_zlib) %}
+        raise "Can't decompress because `-D without_zlib` was passed at compile time"
+      {% else %}
+        case headers["Content-Encoding"]?
+        when "gzip"
+          body = Gzip::Reader.new(body, sync_close: true)
+        when "deflate"
+          body = Flate::Reader.new(body, sync_close: true)
+        end
+      {% end %}
+    end
+
+    check_content_type_charset(body, headers)
+
+    return headers, body
   end
 
   private def self.check_content_type_charset(body, headers)
