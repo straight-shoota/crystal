@@ -139,13 +139,13 @@ describe Time do
     end
 
     it "fails with negative nanosecond" do
-      expect_raises ArgumentError, "Invalid time" do
+      expect_raises ArgumentError, "Invalid nanosecond: -1" do
         Time.local(9999, 12, 31, 23, 59, 59, nanosecond: -1)
       end
     end
 
     it "fails with too big nanoseconds" do
-      expect_raises ArgumentError, "Invalid time" do
+      expect_raises ArgumentError, "Invalid nanosecond: 1000000000" do
         Time.local(9999, 12, 31, 23, 59, 59, nanosecond: 1_000_000_000)
       end
     end
@@ -171,6 +171,68 @@ describe Time do
         expect_raises ArgumentError, "Invalid time" do
           Time.new(seconds: seconds + 1, nanoseconds: 0, location: location)
         end
+      end
+    end
+
+    it "fail initialize with negative nanosecond" do
+      expect_raises ArgumentError, "Invalid nanosecond: -1" do
+        Time.utc(9999, 12, 31, 23, 59, 59, nanosecond: -1)
+      end
+    end
+
+    it "fail initialize with 1_000_000_000" do
+      expect_raises ArgumentError, "Invalid nanosecond: 1000000000" do
+        Time.utc(9999, 12, 31, 23, 59, 59, nanosecond: 1_000_000_000)
+      end
+    end
+
+    it "fail initialize with invalid year" do
+      {-1, 0, 10_000}.each do |year|
+        expect_raises ArgumentError, "Invalid year: #{year}" do
+          Time.utc(year, 1, 1, 0, 0, 0)
+        end
+      end
+    end
+
+    it "fail initialize with invalid month" do
+      {-1, 0, 13}.each do |month|
+        expect_raises ArgumentError, "Invalid month: #{month}" do
+          Time.utc(2018, month, 1, 0, 0, 0)
+        end
+      end
+    end
+
+    it "fail initialize with invalid day" do
+      {-1, 0, 32}.each do |day|
+        expect_raises ArgumentError, sprintf("Invalid date: 2018-03-%0d", day) do
+          Time.utc(2018, 3, day, 0, 0, 0)
+        end
+      end
+      {-1, 0, 29}.each do |day|
+        expect_raises ArgumentError, sprintf("Invalid date: 2018-02-%0d", day) do
+          Time.utc(2018, 2, day, 0, 0, 0)
+        end
+      end
+    end
+
+    it "fail initialize with invalid time" do
+      expect_raises ArgumentError, "Invalid time: 00:00:60" do
+        Time.utc(2018, 3, 1, 0, 0, 60)
+      end
+      expect_raises ArgumentError, "Invalid time: 00:00:-1" do
+        Time.utc(2018, 3, 1, 0, 0, -1)
+      end
+      expect_raises ArgumentError, "Invalid time: 00:60:00" do
+        Time.utc(2018, 3, 1, 0, 60, 0)
+      end
+      expect_raises ArgumentError, "Invalid time: 00:-1:00" do
+        Time.utc(2018, 3, 1, 0, -1, 0)
+      end
+      expect_raises ArgumentError, "Invalid time: 24:00:00" do
+        Time.utc(2018, 3, 1, 24, 0, 0)
+      end
+      expect_raises ArgumentError, "Invalid time: -1:00:00" do
+        Time.utc(2018, 3, 1, -1, 0, 0)
       end
     end
   end

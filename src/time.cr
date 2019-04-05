@@ -407,14 +407,14 @@ struct Time
   # well-defined. This method returns a time that is correct in one of the two
   # zones involved in the transition, but it does not guarantee which.
   def self.local(year : Int32, month : Int32, day : Int32, hour : Int32 = 0, minute : Int32 = 0, second : Int32 = 0, *, nanosecond : Int32 = 0, location : Location = Location.local) : Time
-    unless 1 <= year <= 9999 &&
-           1 <= month <= 12 &&
-           1 <= day <= Time.days_in_month(year, month) &&
-           0 <= hour <= 23 &&
+    unless 1 <= day <= Time.days_in_month(year, month)
+      raise ArgumentError.new sprintf("Invalid date: %04d-%02d-%02d", year, month, day)
+    end
+
+    unless 0 <= hour <= 23 &&
            0 <= minute <= 59 &&
-           0 <= second <= 59 &&
-           0 <= nanosecond <= 999_999_999
-      raise ArgumentError.new "Invalid time"
+           0 <= second <= 59
+      raise ArgumentError.new sprintf("Invalid time: %02d:%02d:%02d", hour, minute, second)
     end
 
     days = absolute_days(year, month, day)
@@ -473,7 +473,7 @@ struct Time
     end
 
     unless 0 <= @nanoseconds < NANOSECONDS_PER_SECOND
-      raise ArgumentError.new "Invalid time: nanoseconds out of range"
+      raise ArgumentError.new "Invalid nanosecond: #{nanoseconds}"
     end
   end
 
@@ -988,7 +988,7 @@ struct Time
   # ```
   def self.days_in_month(year : Int, month : Int) : Int32
     unless 1 <= month <= 12
-      raise ArgumentError.new "Invalid month"
+      raise ArgumentError.new "Invalid month: #{month}"
     end
 
     days = leap_year?(year) ? DAYS_MONTH_LEAP : DAYS_MONTH
@@ -1011,7 +1011,7 @@ struct Time
   # calendar.
   def self.leap_year?(year : Int) : Bool
     unless 1 <= year <= 9999
-      raise ArgumentError.new "Invalid year"
+      raise ArgumentError.new "Invalid year: #{year}"
     end
 
     year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
