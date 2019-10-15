@@ -100,7 +100,7 @@ std_spec: $(O)/std_spec ## Run standard library specs
 
 .PHONY: compiler_spec
 compiler_spec: $(O)/compiler_spec ## Run compiler specs
-	$(O)/compiler_spec $(SPEC_FLAGS)
+	$(O)/compiler_spec $(SPEC_FLAGS) --verbose
 
 .PHONY: docs
 docs: ## Generate standard library documentation
