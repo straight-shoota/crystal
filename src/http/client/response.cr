@@ -7,23 +7,22 @@ class HTTP::Client::Response
   getter status : HTTP::Status
   getter status_message : String?
   getter headers : Headers
-  getter! body_io : IO
   @cookies : Cookies?
 
-  def initialize(@status : HTTP::Status, @body : String? = nil, @headers : Headers = Headers.new, status_message = nil, @version = "HTTP/1.1", @body_io = nil)
+  def initialize(@status : HTTP::Status, @body : String? = nil, @headers : Headers = Headers.new, status_message = nil, @version = "HTTP/1.1")
     @status_message = status_message || @status.description
 
     if Response.mandatory_body?(@status)
-      @body = "" unless @body || @body_io
+      #@body = "" unless @body
     else
-      if (@body || @body_io) && (headers["Content-Length"]? != "0")
+      if @body && (headers["Content-Length"]? != "0")
         raise ArgumentError.new("Status #{status.code} should not have a body")
       end
     end
   end
 
-  def self.new(status_code : Int32, body : String? = nil, headers : Headers = Headers.new, status_message = nil, version = "HTTP/1.1", body_io = nil)
-    new(HTTP::Status.new(status_code), body, headers, status_message, version, body_io)
+  def self.new(status_code : Int32, body : String? = nil, headers : Headers = Headers.new, status_message = nil, version = "HTTP/1.1")
+    new(HTTP::Status.new(status_code), body, headers, status_message, version)
   end
 
   def body
@@ -68,19 +67,16 @@ class HTTP::Client::Response
     end
   end
 
-  def to_io(io)
+  def to_io(io, body_io = nil)
     io << @version << ' ' << @status.code << ' ' << @status_message << "\r\n"
     cookies = @cookies
     headers = cookies ? cookies.add_response_headers(@headers) : @headers
-    HTTP.serialize_headers_and_body(io, headers, @body, @body_io, @version)
+    HTTP.serialize_headers_and_body(io, headers, body_io, nil, @version)
   end
 
   # :nodoc:
-  def consume_body_io
-    if io = @body_io
-      @body = io.gets_to_end
-      @body_io = nil
-    end
+  def consume_body_io(body_io : IO)
+    @body = body_io.gets_to_end
   end
 
   def self.mandatory_body?(status : HTTP::Status) : Bool
@@ -102,7 +98,8 @@ class HTTP::Client::Response
   def self.from_io?(io, ignore_body = false, decompress = true)
     from_io?(io, ignore_body: ignore_body, decompress: decompress) do |response|
       if response
-        response.consume_body_io
+        response, body_io = response
+        response.consume_body_io(body_io) if body_io
         return response
       else
         return nil
@@ -111,9 +108,10 @@ class HTTP::Client::Response
   end
 
   def self.from_io(io, ignore_body = false, decompress = true)
-    from_io?(io, ignore_body, decompress) do |response|
-      if response
-        yield response
+    from_io?(io, ignore_body, decompress) do |r|
+      if r
+        response, body_io = r
+        yield response, body_io.not_nil!
       else
         raise("Unexpected end of http request")
       end
@@ -147,7 +145,7 @@ class HTTP::Client::Response
     body_type = HTTP::BodyType::Prohibited if ignore_body
 
     HTTP.parse_headers_and_body(io, body_type: body_type, decompress: decompress) do |headers, body|
-      return yield new status, nil, headers, status_message, http_version, body
+      return yield({new(status, nil, headers, status_message, http_version), body})
     end
 
     nil

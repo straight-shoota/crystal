@@ -14,14 +14,14 @@ class HTTP::Client
     end
 
     it "parses response with streamed body" do
-      Response.from_io(IO::Memory.new("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 5\r\n\r\nhelloworld")) do |response|
+      Response.from_io(IO::Memory.new("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 5\r\n\r\nhelloworld")) do |response, body_io|
         response.version.should eq("HTTP/1.1")
         response.status_code.should eq(200)
         response.status_message.should eq("OK")
         response.headers["content-type"].should eq("text/plain")
         response.headers["content-length"].should eq("5")
         response.body?.should be_nil
-        response.body_io.gets_to_end.should eq("hello")
+        body_io.gets_to_end.should eq("hello")
       end
     end
 
@@ -91,8 +91,8 @@ class HTTP::Client
     end
 
     it "parses response with streamed chunked body" do
-      Response.from_io(io = IO::Memory.new("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n5\r\nabcde\r\na\r\n0123456789\r\n0\r\n\r\n")) do |response|
-        response.body_io.gets_to_end.should eq("abcde0123456789")
+      Response.from_io(io = IO::Memory.new("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n5\r\nabcde\r\na\r\n0123456789\r\n0\r\n\r\n")) do |response, body_io|
+        body_io.gets_to_end.should eq("abcde0123456789")
         io.gets.should be_nil
       end
     end
@@ -235,16 +235,16 @@ class HTTP::Client
     end
 
     it "serialize as chunked with body_io" do
-      response = Response.new(:ok, body_io: IO::Memory.new("hello"))
+      response = Response.new(:ok)
       io = IO::Memory.new
-      response.to_io(io)
+      response.to_io(io, IO::Memory.new("hello"))
       io.to_s.should eq("HTTP/1.1 200 OK\r\nTransfer-Encoding: chunked\r\n\r\n5\r\nhello\r\n0\r\n\r\n")
     end
 
     it "serialize as not chunked with body_io if HTTP/1.0" do
-      response = Response.new(:ok, version: "HTTP/1.0", body_io: IO::Memory.new("hello"))
+      response = Response.new(:ok, version: "HTTP/1.0")
       io = IO::Memory.new
-      response.to_io(io)
+      response.to_io(io, IO::Memory.new("hello"))
       io.to_s.should eq("HTTP/1.0 200 OK\r\nContent-Length: 5\r\n\r\nhello")
     end
 

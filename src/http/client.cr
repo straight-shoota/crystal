@@ -413,8 +413,8 @@ class HTTP::Client
     # end
     # ```
     def {{method.id}}(path, headers : HTTP::Headers? = nil, body : BodyType = nil)
-      exec {{method.upcase}}, path, headers, body do |response|
-        yield response
+      exec {{method.upcase}}, path, headers, body do |response, body_io|
+        yield response, body_io
       end
     end
 
@@ -442,8 +442,8 @@ class HTTP::Client
     # end
     # ```
     def self.{{method.id}}(url : String | URI, headers : HTTP::Headers? = nil, body : BodyType = nil, tls = nil)
-      exec {{method.upcase}}, url, headers, body, tls do |response|
-        yield response
+      exec {{method.upcase}}, url, headers, body, tls do |response, body_io|
+        yield response, body_io
       end
     end
 
@@ -477,8 +477,8 @@ class HTTP::Client
     def {{method.id}}(path, headers : HTTP::Headers? = nil, *, form : String | IO)
       request = new_request({{method.upcase}}, path, headers, form)
       request.headers["Content-Type"] = "application/x-www-form-urlencoded"
-      exec(request) do |response|
-        yield response
+      exec(request) do |response, body_io|
+        yield response, body_io
       end
     end
 
@@ -510,8 +510,8 @@ class HTTP::Client
     # ```
     def {{method.id}}(path, headers : HTTP::Headers? = nil, *, form : Hash(String, String) | NamedTuple)
       body = HTTP::Params.encode(form)
-      {{method.id}}(path, form: body, headers: headers) do |response|
-        yield response
+      {{method.id}}(path, form: body, headers: headers) do |response, body_io|
+        yield response, body_io
       end
     end
 
@@ -542,8 +542,8 @@ class HTTP::Client
     # ```
     def self.{{method.id}}(url, headers : HTTP::Headers? = nil, tls = nil, *, form : String | IO | Hash)
       exec(url, tls) do |client, path|
-        client.{{method.id}}(path, form: form, headers: headers) do |response|
-          yield response
+        client.{{method.id}}(path, form: form, headers: headers) do |response, body_io|
+          yield response, body_io
         end
       end
     end
@@ -598,15 +598,15 @@ class HTTP::Client
   # end
   # ```
   def exec(request : HTTP::Request, &block)
-    exec_internal(request) do |response|
-      yield response
+    exec_internal(request) do |response, body_io|
+      yield response, body_io
     end
   end
 
-  private def exec_internal(request, &block : Response -> T) : T forall T
+  private def exec_internal(request, &block : Response, IO? -> T) : T forall T
     exec_internal_single(request) do |response|
       if response
-        return handle_response(response) { yield response }
+        return handle_response(*response) { yield *response }
       end
 
       # Server probably closed the connection, so retry once
@@ -614,8 +614,8 @@ class HTTP::Client
       request.body.try &.rewind
       exec_internal_single(request) do |response|
         if response
-          return handle_response(response) do
-            yield response
+          return handle_response(*response) do
+            yield *response
           end
         end
       end
@@ -630,9 +630,9 @@ class HTTP::Client
     end
   end
 
-  private def handle_response(response)
+  private def handle_response(response, body_io)
     value = yield
-    response.body_io?.try &.close
+    body_io.try &.close
     close unless response.keep_alive?
     value
   end
@@ -697,8 +697,8 @@ class HTTP::Client
   # end
   # ```
   def exec(method : String, path, headers : HTTP::Headers? = nil, body : BodyType = nil)
-    exec(new_request(method, path, headers, body)) do |response|
-      yield response
+    exec(new_request(method, path, headers, body)) do |response, body_io|
+      yield response, body_io
     end
   end
 
@@ -731,8 +731,8 @@ class HTTP::Client
   def self.exec(method, url : String | URI, headers : HTTP::Headers? = nil, body : BodyType = nil, tls = nil)
     headers = default_one_shot_headers(headers)
     exec(url, tls) do |client, path|
-      client.exec(method, path, headers, body) do |response|
-        yield response
+      client.exec(method, path, headers, body) do |response, body_io|
+        yield response, body_io
       end
     end
   end
