@@ -172,7 +172,7 @@ module HTTP
 
       run_server(server) do
         HTTP::Client.get("http://[::1]:#{address.port}/") do |response, body_io|
-          body_io.gets_to_end
+          body_io.not_nil!.gets_to_end
         end.should eq("close")
       end
     end
