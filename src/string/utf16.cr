@@ -12,9 +12,25 @@ class String
   # "hi 𐂥".to_utf16 # => Slice[104_u16, 105_u16, 32_u16, 55296_u16, 56485_u16]
   # ```
   def to_utf16 : Slice(UInt16)
-    size = 0
-    each_char do |char|
-      size += char.ord < 0x10000 ? 1 : 2
+    if ascii_only?
+      # size == bytesize, so each char fits in one UInt16
+      size = self.bytesize
+    else
+      # size < bytesize, so we need to add one UInt16 for each character that
+      # is two UInt16 wide.
+      size = bytesize
+
+      # TODO: A potential optimization could remove this additional loop if
+      # bytesize - size is only a small difference (i.e. there are not many 
+      # Unicode characters at all) and just allocate the maximum number.
+      # For very long strings an iterative approach could allocate an estimated
+      # size (informed by bytesize - size) and reallocate a larger slice later
+      # if necessary.
+      each_char do |char|
+        if char.ord >= 0x10000
+          size += 1
+        end
+      end
     end
 
     slice = Slice(UInt16).new(size + 1)
