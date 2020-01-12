@@ -35,7 +35,7 @@ class HTTP::StaticFileHandler
       return
     end
 
-    original_path = context.request.path.not_nil!
+    original_path = context.request.path
     is_dir_path = original_path.ends_with?("/")
     request_path = self.request_path(URI.decode(original_path))
 
