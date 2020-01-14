@@ -18,10 +18,8 @@ class HTTP::StaticFileHandler
   #
   # If *directory_listing* is `false`, directory listing is disabled. This means that
   # paths matching directories are ignored and next handler is called.
-  def initialize(public_dir : String, fallthrough = true, directory_listing = true)
+  def initialize(public_dir : String, *, @fallthrough : Bool = true, @directory_listing : Bool = true)
     @public_dir = Path.new(public_dir).expand
-    @fallthrough = !!fallthrough
-    @directory_listing = !!directory_listing
   end
 
   def call(context)
@@ -35,60 +33,83 @@ class HTTP::StaticFileHandler
       return
     end
 
-    original_path = context.request.path
-    is_dir_path = original_path.ends_with?("/")
-    request_path = self.request_path(URI.decode(original_path))
+    raw_path = context.request.path
+    is_dir_path = raw_path.ends_with?("/")
+    request_path = URI.decode(raw_path)
 
-    # File path cannot contains '\0' (NUL) because all filesystem I know
-    # don't accept '\0' character as file name.
-    if request_path.includes? '\0'
+    expanded_path = expand_request_path(request_path)
+    unless expanded_path
       context.response.respond_with_status(:bad_request)
       return
     end
 
-    request_path = Path.posix(request_path)
-    expanded_path = request_path.expand("/")
-
-    file_path = @public_dir.join(expanded_path.to_kind(Path::Kind.native))
-    is_dir = Dir.exists? file_path
-    is_file = !is_dir && File.exists?(file_path)
-
-    if request_path != expanded_path || is_dir && !is_dir_path
-      redirect_path = expanded_path
-      if is_dir && !is_dir_path
-        # Append / to path if missing
-        redirect_path = expanded_path.join("")
+    local_info = local_path_info(expanded_path)
+    unless local_info
+      # Redirect `foo` to `/foo`
+      if request_path != expanded_path.to_s
+        redirect_to context, expanded_path
+        return
+      else
+        # Path not found
+        call_next(context)
+        return
       end
-      redirect_to context, redirect_path
+    end
+
+    # Redirect `/foo` to `/foo/` if local_path is a directory
+    if local_info.directory? && !is_dir_path
+      redirect_to context, expanded_path.join("")
       return
     end
 
-    if @directory_listing && is_dir
-      context.response.content_type = "text/html"
-      directory_listing(context.response, request_path, file_path)
-    elsif is_file
-      last_modified = modification_time(file_path)
-      add_cache_headers(context.response.headers, last_modified)
+    # Redirect `foo` to `/foo`
+    if request_path != expanded_path.to_s
+      redirect_to context, expanded_path
+      return
+    end
 
-      if cache_request?(context, last_modified)
-        context.response.status = :not_modified
-        return
-      end
+    if local_info.file?
+      serve_file(context, local_info, expanded_path)
+    elsif local_info.directory? && @directory_listing
+      # Pass on directory if @directory_listing is false
 
-      context.response.content_type = MIME.from_filename(file_path.to_s, "application/octet-stream")
-      context.response.content_length = File.size(file_path)
-      File.open(file_path) do |file|
-        IO.copy(file, context.response)
-      end
+      serve_directory(context, local_info, expanded_path)
     else
+      # Can't handle other file types
       call_next(context)
     end
   end
 
-  # given a full path of the request, returns the path
-  # of the file that should be expanded at the public_dir
-  protected def request_path(path : String) : String
-    path
+  private def expand_request_path(request_path : String) : Path?
+    # File path cannot contains '\0' (NUL) because all filesystem I know
+    # don't accept '\0' character as file name.
+    return if request_path.includes? '\0'
+
+    request_path = Path.posix(request_path)
+
+    # Ensure the request path always starts with "/"
+    request_path.expand("/")
+  end
+
+  # :nodoc:
+  #
+  # This struct encapsulates information about a local file.
+  # It consists of the local path, file type and modification time.
+  record LocalInfo, path : Path, type : File::Type, last_modified : Time
+
+  # Translates a fully expanded request_path into a local path and information
+  # about the file.
+  # Returns `nil` if the file does not exist.
+  private def local_path_info(request_path) : LocalInfo
+    local_path = local_path(request_path)
+    file_info = File.info?(local_path)
+    return nil unless file_info
+
+    LocalInfo.new local_path, file_info.type, file_info.modification_time
+  end
+
+  private def local_path(request_path)
+    @public_dir.join(request_path.to_kind(Path::Kind.native))
   end
 
   private def redirect_to(context, url)
@@ -96,6 +117,29 @@ class HTTP::StaticFileHandler
 
     url = URI.encode(url.to_s)
     context.response.headers.add "Location", url
+  end
+
+  private def serve_directory(context : HTTP::Server::Context, local_info : LocalInfo, request_path : Path)
+    context.response.content_type = "text/html"
+
+    DirectoryListing.new(request_path.to_s, path.to_s).to_s(context.response)
+  end
+
+  private def serve_file(context : HTTP::Server::Context, local_info : LocalInfo, request_path : Path))
+    last_modified = local_info.modification_time
+    add_cache_headers(context.response.headers, last_modified)
+
+    if cache_request?(context, last_modified)
+      context.response.status = :not_modified
+      return
+    end
+
+    context.response.content_type = MIME.from_filename(local_path.to_s, "application/octet-stream")
+    context.response.content_length = File.size(local_path)
+
+    File.open(local_path) do |file|
+      IO.copy(file, context.response)
+    end
   end
 
   private def add_cache_headers(response_headers : HTTP::Headers, last_modified : Time) : Nil
@@ -125,10 +169,6 @@ class HTTP::StaticFileHandler
     %{W/"#{modification_time.to_unix}"}
   end
 
-  private def modification_time(file_path)
-    File.info(file_path).modification_time
-  end
-
   record DirectoryListing, request_path : String, path : String do
     def each_entry
       Dir.each_child(path) do |entry|
@@ -137,9 +177,5 @@ class HTTP::StaticFileHandler
     end
 
     ECR.def_to_s "#{__DIR__}/static_file_handler.html"
-  end
-
-  private def directory_listing(io, request_path, path)
-    DirectoryListing.new(request_path.to_s, path.to_s).to_s(io)
   end
 end

@@ -5,7 +5,7 @@ private def handle(request, fallthrough = true, directory_listing = true, ignore
   io = IO::Memory.new
   response = HTTP::Server::Response.new(io)
   context = HTTP::Server::Context.new(request, response)
-  handler = HTTP::StaticFileHandler.new datapath("static_file_handler"), fallthrough, directory_listing
+  handler = HTTP::StaticFileHandler.new datapath("static_file_handler"), fallthrough: fallthrough, directory_listing: directory_listing
   handler.call context
   response.close
   io.rewind
