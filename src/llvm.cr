@@ -94,9 +94,14 @@ module LLVM
     normalized
   end
 
-  def self.to_io(chars, io)
+  def self.to_io(io : IO, chars)
     io.write Slice.new(chars, LibC.strlen(chars))
     LibLLVM.dispose_message(chars)
+  end
+
+  @[Deprecated("Use `.to_io(io : IO, chars)` instead")]
+  def self.to_io(chars, io)
+    to_io(io, chars)
   end
 
   def self.string_and_dispose(chars) : String
