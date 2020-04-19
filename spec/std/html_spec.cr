@@ -14,6 +14,40 @@ describe "HTML" do
 
       str.should eq("&lt; &amp; &gt; &#39; &quot;")
     end
+
+    context "with io" do
+      it "does not change a safe string" do
+        str = String.build do |io|
+          HTML.escape(io, "safe_string")
+        end
+
+        str.should eq("safe_string")
+      end
+
+      it "does not change a safe string (deprecated)" do
+        str = String.build do |io|
+          HTML.escape("safe_string", io)
+        end
+
+        str.should eq("safe_string")
+      end
+
+      it "escapes dangerous characters from a string" do
+        str = String.build do |io|
+          HTML.escape(io, "< & > ' \"")
+        end
+
+        str.should eq("&lt; &amp; &gt; &#39; &quot;")
+      end
+
+      it "escapes dangerous characters from a string (deprecated)" do
+        str = String.build do |io|
+          HTML.escape("< & > ' \"", io)
+        end
+
+        str.should eq("&lt; &amp; &gt; &#39; &quot;")
+      end
+    end
   end
 
   describe ".unescape" do

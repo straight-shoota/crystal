@@ -30,14 +30,29 @@ module HTML
   # ```
   # require "html"
   #
-  # io = IO::Memory.new
-  # HTML.escape("Crystal & You", io) # => nil
-  # io.to_s                          # => "Crystal &amp; You"
+  # String.build do |io|
+  #   HTML.escape(io, "Crystal & You") # => nil
+  # end                                # => "Crystal &amp; You"
   # ```
-  def self.escape(string : String, io : IO) : Nil
+  def self.escape(io : IO, string : String) : Nil
     string.each_char do |char|
       io << SUBSTITUTIONS.fetch(char, char)
     end
+  end
+
+  # Same as `escape(string)` but ouputs the result to
+  # the given *io*.
+  #
+  # ```
+  # require "html"
+  #
+  # String.build do |io|
+  #   HTML.escape(io, "Crystal & You") # => nil
+  # end                                # => "Crystal &amp; You"
+  # ```
+  @[Deprecated("Use `.escape(io : IO, string : String)` instead")]
+  def self.escape(string : String, io : IO) : Nil
+    escape(io, string)
   end
 
   # These replacements permit compatibility with old numeric entities that
