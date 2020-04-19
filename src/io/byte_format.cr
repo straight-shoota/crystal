@@ -33,16 +33,16 @@
 # io.to_slice # => Bytes[0x34, 0x12]
 # ```
 module IO::ByteFormat
-  abstract def encode(int : Int8, io : IO)
-  abstract def encode(int : UInt8, io : IO)
-  abstract def encode(int : Int16, io : IO)
-  abstract def encode(int : UInt16, io : IO)
-  abstract def encode(int : Int32, io : IO)
-  abstract def encode(int : UInt32, io : IO)
-  abstract def encode(int : Int64, io : IO)
-  abstract def encode(int : UInt64, io : IO)
-  abstract def encode(int : Int128, io : IO)
-  abstract def encode(int : UInt128, io : IO)
+  abstract def encode(io : IO, int : Int8)
+  abstract def encode(io : IO, int : UInt8)
+  abstract def encode(io : IO, int : Int16)
+  abstract def encode(io : IO, int : UInt16)
+  abstract def encode(io : IO, int : Int32)
+  abstract def encode(io : IO, int : UInt32)
+  abstract def encode(io : IO, int : Int64)
+  abstract def encode(io : IO, int : UInt64)
+  abstract def encode(io : IO, int : Int128)
+  abstract def encode(io : IO, int : UInt128)
 
   abstract def encode(int : Int8, bytes : Bytes)
   abstract def encode(int : UInt8, bytes : Bytes)
@@ -55,16 +55,16 @@ module IO::ByteFormat
   abstract def encode(int : Int128, bytes : Bytes)
   abstract def encode(int : UInt128, bytes : Bytes)
 
-  abstract def decode(int : Int8.class, io : IO)
-  abstract def decode(int : UInt8.class, io : IO)
-  abstract def decode(int : Int16.class, io : IO)
-  abstract def decode(int : UInt16.class, io : IO)
-  abstract def decode(int : Int32.class, io : IO)
-  abstract def decode(int : UInt32.class, io : IO)
-  abstract def decode(int : Int64.class, io : IO)
-  abstract def decode(int : UInt64.class, io : IO)
-  abstract def decode(int : Int128.class, io : IO)
-  abstract def decode(int : UInt128.class, io : IO)
+  abstract def decode(io : IO, int : Int8.class)
+  abstract def decode(io : IO, int : UInt8.class)
+  abstract def decode(io : IO, int : Int16.class)
+  abstract def decode(io : IO, int : UInt16.class)
+  abstract def decode(io : IO, int : Int32.class)
+  abstract def decode(io : IO, int : UInt32.class)
+  abstract def decode(io : IO, int : Int64.class)
+  abstract def decode(io : IO, int : UInt64.class)
+  abstract def decode(io : IO, int : Int128.class)
+  abstract def decode(io : IO, int : UInt128.class)
 
   abstract def decode(int : Int8.class, bytes : Bytes)
   abstract def decode(int : UInt8.class, bytes : Bytes)
@@ -77,7 +77,7 @@ module IO::ByteFormat
   abstract def decode(int : Int128.class, bytes : Bytes)
   abstract def decode(int : UInt128.class, bytes : Bytes)
 
-  def encode(float : Float32, io : IO)
+  def encode(io : IO, float : Float32)
     encode(float.unsafe_as(Int32), io)
   end
 
@@ -85,7 +85,7 @@ module IO::ByteFormat
     encode(float.unsafe_as(Int32), bytes)
   end
 
-  def decode(type : Float32.class, io : IO)
+  def decode(io : IO, type : Float32.class)
     decode(Int32, io).unsafe_as(Float32)
   end
 
@@ -93,7 +93,7 @@ module IO::ByteFormat
     decode(Int32, bytes).unsafe_as(Float32)
   end
 
-  def encode(float : Float64, io : IO)
+  def encode(io : IO, float : Float64)
     encode(float.unsafe_as(Int64), io)
   end
 
@@ -101,7 +101,7 @@ module IO::ByteFormat
     encode(float.unsafe_as(Int64), bytes)
   end
 
-  def decode(type : Float64.class, io : IO)
+  def decode(io : IO, type : Float64.class)
     decode(Int64, io).unsafe_as(Float64)
   end
 
@@ -125,7 +125,7 @@ module IO::ByteFormat
       {% for type, i in %w(Int8 UInt8 Int16 UInt16 Int32 UInt32 Int64 UInt64 Int128 UInt128) %}
         {% bytesize = 2 ** (i // 2) %}
 
-        def self.encode(int : {{type.id}}, io : IO)
+        def self.encode(io : IO, int : {{type.id}})
           buffer = int.unsafe_as(StaticArray(UInt8, {{bytesize}}))
           buffer.reverse! unless SystemEndian == self
           io.write(buffer.to_slice)
@@ -137,7 +137,7 @@ module IO::ByteFormat
           buffer.to_slice.copy_to(bytes)
         end
 
-        def self.decode(type : {{type.id}}.class, io : IO)
+        def self.decode(io : IO, type : {{type.id}}.class)
           buffer = uninitialized UInt8[{{bytesize}}]
           io.read_fully(buffer.to_slice)
           buffer.reverse! unless SystemEndian == self

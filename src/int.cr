@@ -637,14 +637,14 @@ struct Int
   #
   # See also: `IO#write_bytes`.
   def to_io(io : IO, format : IO::ByteFormat)
-    format.encode(self, io)
+    format.encode(io, self)
   end
 
   # Reads an integer from the given *io* in the given *format*.
   #
   # See also: `IO#read_bytes`.
   def self.from_io(io : IO, format : IO::ByteFormat) : self
-    format.decode(self, io)
+    format.decode(io, self)
   end
 
   # Counts `1`-bits in the binary representation of this integer.
