@@ -21,7 +21,7 @@ struct Time::Format
     end
 
     # Formats a `Time` into the given *io*.
-    def self.format(time : Time, io : IO)
+    def self.format(io : IO, time : Time)
       formatter = Formatter.new(time, io)
 
       if time.hour == 0 && time.minute == 0 && time.second == 0 && time.nanosecond == 0
@@ -29,6 +29,12 @@ struct Time::Format
       else
         formatter.yaml_date_time
       end
+    end
+
+    # Formats a `Time` into the given *io*.
+    @[Deprecated("Use `.format(io : IO, time : Time)` instead")]
+    def self.format(time : Time, io : IO)
+      format(io, time)
     end
 
     # Formats a `Time` into a `String`.

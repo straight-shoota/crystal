@@ -8,7 +8,12 @@ struct Time::Format
     getter io : IO
     getter time : Time
 
-    def initialize(@time : Time, @io : IO)
+    @[Deprecated("Use `.new(io : IO, time : Time)` instead")]
+    def self.new(time : Time, io : IO)
+      new(io, time)
+    end
+
+    def initialize(@io : IO, @time : Time)
     end
 
     def year

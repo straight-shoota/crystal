@@ -9,10 +9,16 @@ struct Time::Format
     end
 
     # Formats a `Time` into the given *io*.
-    def self.format(time : Time, io : IO, fraction_digits = nil)
+    def self.format(io : IO, time : Time, fraction_digits = nil)
       formatter = Formatter.new(time, io)
       formatter.rfc_3339(fraction_digits: fraction_digits)
       io
+    end
+
+    # Formats a `Time` into the given *io*.
+    @[Deprecated("Use `.format(io : IO, time : Time)` instead")]
+    def self.format(time : Time, io : IO)
+      format(io, time)
     end
 
     # Formats a `Time` into a `String`.

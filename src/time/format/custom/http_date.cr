@@ -28,10 +28,18 @@ struct Time::Format
     # Formats a `Time` into the given *io*.
     #
     # *time* is always converted to UTC.
-    def self.format(time : Time, io : IO)
+    def self.format(io : IO, time : Time)
       formatter = Formatter.new(time.to_utc, io)
       formatter.rfc_2822(time_zone_gmt: true, two_digit_day: true)
       io
+    end
+
+    # Formats a `Time` into the given *io*.
+    #
+    # *time* is always converted to UTC.
+    @[Deprecated("Use `.format(io : IO, time : Time)` instead")]
+    def self.format(time : Time, io : IO)
+      format(io, time)
     end
 
     # Formats a `Time` into a `String`.

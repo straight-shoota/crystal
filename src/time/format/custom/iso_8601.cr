@@ -125,10 +125,16 @@ struct Time::Format
     end
 
     # Formats a `Time` into the given *io*.
-    def self.format(time : Time, io : IO)
+    def self.format(io : IO, time : Time)
       formatter = Formatter.new(time, io)
       formatter.year_month_day_iso_8601
       io
+    end
+
+    # Formats a `Time` into the given *io*.
+    @[Deprecated("Use `.format(io : IO, time : Time)` instead")]
+    def self.format(time : Time, io : IO)
+      format(io, time)
     end
 
     # Formats a `Time` into a `String`.
@@ -149,10 +155,16 @@ struct Time::Format
     end
 
     # Formats a `Time` into the given *io*.
-    def self.format(time : Time, io : IO)
+    def self.format(io : IO, time : Time)
       formatter = Formatter.new(time, io)
       formatter.rfc_3339
       io
+    end
+
+    # Formats a `Time` into the given *io*.
+    @[Deprecated("Use `.format(io : IO, time : Time)` instead")]
+    def self.format(time : Time, io : IO)
+      format(io, time)
     end
 
     # Formats a `Time` into a `String`.
@@ -173,10 +185,16 @@ struct Time::Format
     end
 
     # Formats a `Time` into the given *io*.
-    def self.format(time : Time, io : IO)
+    def self.format(io : IO, time : Time)
       formatter = Formatter.new(time, io)
       formatter.time_iso_8601
       io
+    end
+
+    # Formats a `Time` into the given *io*.
+    @[Deprecated("Use `.format(io : IO, time : Time)` instead")]
+    def self.format(time : Time, io : IO)
+      format(io, time)
     end
 
     # Formats a `Time` into a `String`.
