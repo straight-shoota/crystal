@@ -65,6 +65,14 @@ describe "Base64" do
 
     it "encode to stream" do
       io = IO::Memory.new
+      count = Base64.encode(io, "Now is the time for all good coders\nto learn Crystal")
+      count.should eq 74
+      io.rewind
+      io.gets_to_end.should eq "Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4g\nQ3J5c3RhbA==\n"
+    end
+
+    it "encode to stream (deprecated)" do
+      io = IO::Memory.new
       count = Base64.encode("Now is the time for all good coders\nto learn Crystal", io)
       count.should eq 74
       io.rewind
@@ -72,6 +80,14 @@ describe "Base64" do
     end
 
     it "decode from stream" do
+      io = IO::Memory.new
+      count = Base64.decode(io, "Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gQ3J5c3RhbA==")
+      count.should eq 52
+      io.rewind
+      io.gets_to_end.should eq "Now is the time for all good coders\nto learn Crystal"
+    end
+
+    it "decode from stream (deprecated)" do
       io = IO::Memory.new
       count = Base64.decode("Tm93IGlzIHRoZSB0aW1lIGZvciBhbGwgZ29vZCBjb2RlcnMKdG8gbGVhcm4gQ3J5c3RhbA==", io)
       count.should eq 52
@@ -164,6 +180,15 @@ describe "Base64" do
       s = String.build { |b| (160..179).each { |i| b << i.chr } }
       se = "wqDCocKiwqPCpMKlwqbCp8KowqnCqsKrwqzCrcKuwq/CsMKxwrLCsw=="
       io = IO::Memory.new
+      Base64.strict_encode(io, s).should eq(56)
+      io.rewind
+      io.gets_to_end.should eq se
+    end
+
+    it "encode to stream (deprecated)" do
+      s = String.build { |b| (160..179).each { |i| b << i.chr } }
+      se = "wqDCocKiwqPCpMKlwqbCp8KowqnCqsKrwqzCrcKuwq/CsMKxwrLCsw=="
+      io = IO::Memory.new
       Base64.strict_encode(s, io).should eq(56)
       io.rewind
       io.gets_to_end.should eq se
@@ -178,6 +203,15 @@ describe "Base64" do
     end
 
     it "encode to stream" do
+      s = String.build { |b| (160..179).each { |i| b << i.chr } }
+      se = "wqDCocKiwqPCpMKlwqbCp8KowqnCqsKrwqzCrcKuwq_CsMKxwrLCsw=="
+      io = IO::Memory.new
+      Base64.urlsafe_encode(io, s).should eq(56)
+      io.rewind
+      io.gets_to_end.should eq se
+    end
+
+    it "encode to stream (deprecated)" do
       s = String.build { |b| (160..179).each { |i| b << i.chr } }
       se = "wqDCocKiwqPCpMKlwqbCp8KowqnCqsKrwqzCrcKuwq_CsMKxwrLCsw=="
       io = IO::Memory.new
