@@ -62,11 +62,11 @@ module Spec
     # -------- private utility methods
     private def write_report(result, io)
       io << %(  <testcase file=")
-      HTML.escape(result.file, io)
+      HTML.escape(io, result.file)
       io << %(" classname=")
-      HTML.escape(classname(result), io)
+      HTML.escape(io, classname(result))
       io << %(" name=")
-      HTML.escape(escape_xml_attr(result.description), io)
+      HTML.escape(io, escape_xml_attr(result.description))
 
       if elapsed = result.elapsed
         io << %(" time=")
@@ -101,7 +101,7 @@ module Spec
 
       if message = exception.message
         io << %( message=")
-        HTML.escape(message, io)
+        HTML.escape(io, message)
         io << '"'
       end
       if tag == :error
@@ -112,7 +112,7 @@ module Spec
       io << '>'
 
       if backtrace = exception.backtrace?
-        HTML.escape(backtrace.join('\n'), io)
+        HTML.escape(io, backtrace.join('\n'))
       end
 
       io << "</" << tag << ">\n"

@@ -272,7 +272,7 @@ class Crystal::Doc::Method
     if arg.external_name != arg.name
       name = arg.external_name.presence || "_"
       if Symbol.needs_quotes? name
-        HTML.escape name.inspect, io
+        HTML.escape io, name.inspect
       else
         io << name
       end
