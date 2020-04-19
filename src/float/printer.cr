@@ -13,7 +13,7 @@ module Float::Printer
   #
   # It is used by `Float64#to_s` and it is probably not necessary to use
   # this directly.
-  def print(v : Float64 | Float32, io : IO) : Nil
+  def print(io : IO, v : Float64 | Float32) : Nil
     d = IEEE.to_uint(v)
 
     if IEEE.sign(d) < 0
@@ -34,7 +34,7 @@ module Float::Printer
     end
   end
 
-  private def internal(v : Float64 | Float32, io : IO)
+  private def internal(io : IO, v : Float64 | Float32)
     buffer = StaticArray(UInt8, BUFFER_SIZE).new(0_u8)
     success, decimal_exponent, length = Grisu3.grisu3(v, buffer.to_unsafe)
 

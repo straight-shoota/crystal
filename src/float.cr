@@ -177,12 +177,12 @@ struct Float32
 
   def to_s : String
     String.build(22) do |buffer|
-      Printer.print(self, buffer)
+      to_s(buffer)
     end
   end
 
   def to_s(io : IO) : Nil
-    Printer.print(self, io)
+    Printer.print(io, self)
   end
 
   def clone
