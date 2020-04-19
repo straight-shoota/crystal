@@ -104,7 +104,7 @@ class LLVM::Module
   end
 
   def to_s(io : IO) : Nil
-    LLVM.to_io(LibLLVM.print_module_to_string(self), io)
+    LLVM.to_io(io, LibLLVM.print_module_to_string(self))
     self
   end
 

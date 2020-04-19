@@ -163,7 +163,7 @@ struct LLVM::Type
   end
 
   def inspect(io : IO) : Nil
-    LLVM.to_io(LibLLVM.print_type_to_string(self), io)
+    LLVM.to_io(io, LibLLVM.print_type_to_string(self))
     self
   end
 end
