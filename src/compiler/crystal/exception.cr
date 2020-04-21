@@ -48,7 +48,8 @@ module Crystal
     end
 
     def relative_filename(filename)
-      Crystal.relative_filename(filename)
+      filename = filename.as?(String) || return
+      ::Path.new(filename).relative_to(Dir.current)
     end
 
     def colorize(obj)

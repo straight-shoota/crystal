@@ -411,10 +411,10 @@ class Crystal::Doc::Generator
     location = relative_location node
     return unless location
 
-    filename = relative_filename location
+    filename = location.relative_filename
     return unless filename
 
-    "#{@repository}#{filename}#L#{location.line_number}"
+    "#{@repository}/#{filename}#L#{location.line_number}"
   end
 
   def relative_location(node : ASTNode)
@@ -435,23 +435,16 @@ class Crystal::Doc::Generator
     location
   end
 
-  def relative_filename(location)
-    filename = location.filename
-    return unless filename.is_a?(String)
-    return unless filename.starts_with? @base_dir
-    filename[@base_dir.size..-1]
-  end
-
   class RelativeLocation
     property show_line_number
     getter filename, line_number, url
 
-    def initialize(@filename : String, @line_number : Int32, @url : String?, @show_line_number : Bool)
+    def initialize(@filename : ::Path, @line_number : Int32, @url : String?, @show_line_number : Bool)
     end
 
     def to_json(builder : JSON::Builder)
       builder.object do
-        builder.field "filename", filename
+        builder.field "filename", filename.to_s
         builder.field "line_number", line_number
         builder.field "url", url
       end
@@ -467,13 +460,12 @@ class Crystal::Doc::Generator
       location = relative_location location
       next unless location
 
-      filename = relative_filename location
+      filename = location.relative_filename
       next unless filename
 
       url = "#{repository}#{filename}" if repository
 
-      filename = filename[1..-1] if filename.starts_with? File::SEPARATOR
-      filename = filename[4..-1] if filename.starts_with? SRC_SEP
+      filename = filename.relative_to(Dir.current).relative_to("src")
 
       # Prevent identical link generation in the "Defined in:" section in the docs because of macros
       next if locations.any? { |loc| loc.filename == filename && loc.line_number == location.line_number }

@@ -85,7 +85,7 @@ class LLVM::Module
   end
 
   def print_to_file(filename)
-    if LibLLVM.print_module_to_file(self, filename, out error_msg) != 0
+    if LibLLVM.print_module_to_file(self, filename.to_s, out error_msg) != 0
       raise LLVM.string_and_dispose(error_msg)
     end
     self

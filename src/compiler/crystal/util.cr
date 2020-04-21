@@ -1,20 +1,6 @@
 require "path"
 
 module Crystal
-  def self.relative_filename(filename)
-    return filename unless filename.is_a?(String)
-
-    if base_file = filename.lchop? Dir.current
-      ::Path::SEPARATORS.each do |sep|
-        if file_prefix = base_file.lchop? sep
-          return file_prefix
-        end
-      end
-      return base_file
-    end
-    filename
-  end
-
   def self.error(msg, color, exit_code = 1, stderr = STDERR, leading_error = true)
     stderr.print "Error: ".colorize.toggle(color).red.bold if leading_error
     stderr.puts msg.colorize.toggle(color).bright

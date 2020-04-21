@@ -489,13 +489,12 @@ class Crystal::Command
       sources << Compiler::Source.new(filenames.shift, STDIN.gets_to_end)
     end
     sources += gather_sources(filenames)
-    first_filename = sources.first.filename
-    first_file_ext = File.extname(first_filename)
-    original_output_filename = File.basename(first_filename, first_file_ext)
+    first_filename = ::Path.new(sources.first.filename).expand
+    original_output_filename = first_filename.basename
 
     # Check if we'll overwrite the main source file
-    if first_file_ext.empty? && !output_filename && !no_codegen && !run && first_filename == File.expand_path(original_output_filename)
-      error "compilation will overwrite source file '#{Crystal.relative_filename(first_filename)}', either change its extension to '.cr' or specify an output file with '-o'"
+    if first_filename.extension.empty? && !output_filename && !no_codegen && !run && first_filename == ::Path.new(original_output_filename).expand
+      error "compilation will overwrite source file '#{first_filename.relative_to(Dir.current)}', either change its extension to '.cr' or specify an output file with '-o'"
     end
 
     output_filename ||= original_output_filename

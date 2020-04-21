@@ -44,7 +44,7 @@ module Crystal
           io << part
         end
       end
-      output_dir = File.join(dir, name)
+      output_dir = ::Path.new(dir, name)
       Dir.mkdir_p(output_dir)
       output_dir
     end
