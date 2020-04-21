@@ -34,6 +34,11 @@ class Crystal::Location
     original_location.try &.filename.as?(String)
   end
 
+  def relative_filename
+    filename = self.filename.as?(String) || return
+    ::Path.new(filename).relative_to(Dir.current)
+  end
+
   def between?(min, max)
     return false unless min && max
 

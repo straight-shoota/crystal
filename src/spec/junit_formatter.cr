@@ -119,13 +119,11 @@ module Spec
     end
 
     private def classname(result)
-      path = Path[result.file].expand
-      path = path.to_s
-        .lchop(Dir.current)
-        .rchop(path.extension)
-        .lchop(Path::SEPARATORS[0])
+      extension = File.extname(result.file)
+      path = Path.new(result.file.rchop(extension))
+      path = path.expand.relative_to(Dir.current)
 
-      Path[path].parts.join(".")
+      path.parts.join(".")
     end
   end
 end

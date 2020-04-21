@@ -88,7 +88,7 @@ module Crystal
     getter string_pool = StringPool.new
 
     # The cache directory where temporary files are placed.
-    setter cache_dir : String?
+    setter cache_dir : ::Path?
 
     # Here we store constants, in the
     # order that they are used. They will be initialized as soon

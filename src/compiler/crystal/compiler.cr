@@ -27,7 +27,11 @@ module Crystal
     # A source to the compiler: its filename and source code.
     record Source,
       filename : String,
-      code : String
+      code : String do
+      def relative_filename
+        ::Path.new(filename).relative_to(Dir.current)
+      end
+    end
 
     # The result of a compilation: the program containing all
     # the type and method definitions, and the parsed program
@@ -244,7 +248,7 @@ module Crystal
       parser.parse
     rescue ex : InvalidByteSequenceError
       stderr.print colorize("Error: ").red.bold
-      stderr.print colorize("file '#{Crystal.relative_filename(source.filename)}' is not a valid Crystal source file: ").bold
+      stderr.print colorize("file '#{source.relative_filename}' is not a valid Crystal source file: ").bold
       stderr.puts ex.message
       exit 1
     end
@@ -252,7 +256,7 @@ module Crystal
     private def bc_flags_changed?(output_dir)
       bc_flags_changed = true
       current_bc_flags = "#{@codegen_target}|#{@mcpu}|#{@mattr}|#{@release}|#{@link_flags}|#{@mcmodel}"
-      bc_flags_filename = "#{output_dir}/bc_flags"
+      bc_flags_filename = output_dir.join("bc_flags")
       if File.file?(bc_flags_filename)
         previous_bc_flags = File.read(bc_flags_filename).strip
         bc_flags_changed = previous_bc_flags != current_bc_flags
@@ -314,14 +318,14 @@ module Crystal
 
       target_machine.emit_obj_to_file llvm_mod, object_name
 
-      print_command(*linker_command(program, [object_name], output_filename, nil))
+      print_command(*linker_command(program, [object_name], output_filename, ::Path.new("")))
     end
 
     private def print_command(command, args)
       stdout.puts command.sub(%("${@}"), args && args.join(" "))
     end
 
-    private def linker_command(program : Program, object_names, output_filename, output_dir, expand = false)
+    private def linker_command(program : Program, object_names, output_filename, output_dir : ::Path?, expand = false)
       if program.has_flag? "windows"
         lib_flags = program.lib_flags
         # Execute and expand `subcommands`.
@@ -337,7 +341,7 @@ module Crystal
           args_16 = "\ufeff#{args}".to_utf16
           args_bytes = args_16.to_unsafe.as(UInt8*).to_slice(args_16.bytesize)
 
-          args_filename = "#{output_dir}/linker_args.txt"
+          args_filename = output_dir.join("linker_args.txt")
           File.write(args_filename, args_bytes)
           cmd = "#{CL} @#{args_filename}"
         end
@@ -346,7 +350,7 @@ module Crystal
       else
         if thin_lto
           clang = ENV["CLANG"]? || "clang"
-          lto_cache_dir = "#{output_dir}/lto.cache"
+          lto_cache_dir = output_dir.join("lto.cache")
           Dir.mkdir_p(lto_cache_dir)
           {% if flag?(:darwin) %}
             cc = ENV["CC"]? || "#{clang} -flto=thin -Wl,-mllvm,-threads=#{n_threads},-cache_path_lto,#{lto_cache_dir},#{@release ? "-mllvm,-O2" : "-mllvm,-O0"}"
@@ -599,7 +603,7 @@ module Crystal
       getter? reused_previous_compilation = false
 
       def initialize(@compiler : Compiler, @name : String, @llvm_mod : LLVM::Module,
-                     @output_dir : String, @bc_flags_changed : Bool)
+                     @output_dir : ::Path, @bc_flags_changed : Bool)
         @name = "_main" if @name == ""
         @original_name = @name
         @name = String.build do |str|
@@ -715,18 +719,18 @@ module Crystal
           compiler.target_machine.emit_asm_to_file llvm_mod, "#{output_filename}.s"
         end
         if emit_target.llvm_bc?
-          FileUtils.cp(bc_name, "#{output_filename}.bc")
+          FileUtils.cp(bc_name.to_s, "#{output_filename}.bc")
         end
         if emit_target.llvm_ir?
           llvm_mod.print_to_file "#{output_filename}.ll"
         end
         if emit_target.obj?
-          FileUtils.cp(object_name, "#{output_filename}.o")
+          FileUtils.cp(object_name.to_s, "#{output_filename}.o")
         end
       end
 
       def object_name
-        Crystal.relative_filename("#{@output_dir}/#{object_filename}")
+        @output_dir.join(object_filename).relative_to(Dir.current)
       end
 
       def object_filename
@@ -734,19 +738,19 @@ module Crystal
       end
 
       def temporary_object_name
-        Crystal.relative_filename("#{@output_dir}/#{object_filename}.tmp")
+        @output_dir.join("#{object_filename}.tmp").relative_to(Dir.current).to_s
       end
 
       def bc_name
-        "#{@output_dir}/#{@name}.bc"
+        @output_dir.join("#{@name}.bc")
       end
 
       def bc_name_new
-        "#{@output_dir}/#{@name}.new.bc"
+        @output_dir.join("#{@name}.new.bc")
       end
 
       def ll_name
-        "#{@output_dir}/#{@name}.ll"
+        @output_dir.join("#{@name}.ll")
       end
     end
   end
