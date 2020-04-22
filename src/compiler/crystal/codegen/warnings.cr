@@ -7,7 +7,7 @@ module Crystal
       return false unless filename
 
       @program.warnings_exclude.any? do |path|
-        filename.starts_with?(path)
+        filename.to_s.starts_with?(path)
       end
     end
   end

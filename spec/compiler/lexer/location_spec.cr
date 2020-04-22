@@ -133,8 +133,8 @@ describe "Lexer: location" do
   end
 
   it "locations in different files have no order" do
-    loc1 = Location.new("file1", 1, 1)
-    loc2 = Location.new("file2", 2, 2)
+    loc1 = Location.new(Path.new("file1"), 1, 1)
+    loc2 = Location.new(Path.new("file2"), 2, 2)
 
     (loc1 < loc2).should be_false
     (loc1 <= loc2).should be_false
@@ -144,9 +144,9 @@ describe "Lexer: location" do
   end
 
   it "locations in same files are comparable based on line" do
-    loc1 = Location.new("file1", 1, 1)
-    loc2 = Location.new("file1", 2, 1)
-    loc3 = Location.new("file1", 1, 1)
+    loc1 = Location.new(Path.new("file1"), 1, 1)
+    loc2 = Location.new(Path.new("file1"), 2, 1)
+    loc3 = Location.new(Path.new("file1"), 1, 1)
     (loc1 < loc2).should be_true
     (loc1 <= loc2).should be_true
     (loc1 <= loc3).should be_true
@@ -165,8 +165,8 @@ describe "Lexer: location" do
   end
 
   it "locations with virtual files shoud be comparable" do
-    loc1 = Location.new("file1", 1, 1)
-    loc2 = Location.new(VirtualFile.new(Macro.new("macro", [] of Arg, Nop.new), "", Location.new("f", 1, 1)), 2, 1)
+    loc1 = Location.new(Path.new("file1"), 1, 1)
+    loc2 = Location.new(VirtualFile.new(Macro.new("macro", [] of Arg, Nop.new), "", Location.new(Path.new("f"), 1, 1)), 2, 1)
     (loc1 < loc2).should be_false
     (loc2 < loc1).should be_false
   end

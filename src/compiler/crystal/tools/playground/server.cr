@@ -40,8 +40,8 @@ module Crystal::Playground
         )
 
       [
-        Compiler::Source.new("playground_prelude", prelude),
-        Compiler::Source.new("play", instrumented),
+        Compiler::Source.new(::Path.new("playground_prelude"), prelude),
+        Compiler::Source.new(::Path.new("play"), instrumented),
       ]
     end
 
@@ -68,7 +68,7 @@ module Crystal::Playground
         # due to instrumentation, we compile the original program
         begin
           Log.info { "Original code compilation started (session=#{@session_key}, tag=#{tag})." }
-          compiler.compile Compiler::Source.new("play", source), output_filename
+          compiler.compile Compiler::Source.new(::Path.new("play"), source), output_filename
         rescue ex
           Log.info { "Original code compilation failed (session=#{@session_key}, tag=#{tag})." }
           send_exception ex, tag

@@ -49,6 +49,10 @@ module Crystal
       output_dir
     end
 
+    def directory_for(filename : ::Path)
+      directory_for(filename.to_s)
+    end
+
     # Keeps the 10 most recently used directories in the cache,
     # and removes all others.
     def cleanup

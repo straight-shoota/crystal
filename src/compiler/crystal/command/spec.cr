@@ -64,10 +64,8 @@ class Crystal::Command
       options << "--no-color"
     end
 
-    source_filename = File.expand_path("spec")
-
     source = target_filenames.map { |filename| %(require "./#{filename}") }.join('\n')
-    sources = [Compiler::Source.new(source_filename, source)]
+    sources = [Compiler::Source.new(::Path.new("spec").expand, source)]
 
     output_filename = Crystal.temp_executable "spec"
 

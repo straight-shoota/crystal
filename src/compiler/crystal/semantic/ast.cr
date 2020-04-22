@@ -712,9 +712,9 @@ module Crystal
   # Fictitious node that means "all these nodes come from this file"
   class FileNode < ASTNode
     property node : ASTNode
-    property filename : String
+    property filename : ::Path
 
-    def initialize(@node : ASTNode, @filename : String)
+    def initialize(@node : ASTNode, @filename : ::Path)
     end
 
     def accept_children(visitor)

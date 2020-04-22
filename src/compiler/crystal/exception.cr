@@ -6,7 +6,7 @@ module Crystal
     property? color = false
     property? error_trace = false
 
-    @filename : String | VirtualFile | Nil
+    @filename : ::Path | VirtualFile | Nil
 
     def to_s(io) : Nil
       to_s_with_source(nil, io)
@@ -24,19 +24,19 @@ module Crystal
       end
     end
 
-    def true_filename(filename = @filename) : String
+    def true_filename(filename = @filename) : ::Path
       if filename.is_a? VirtualFile
         loc = filename.expanded_location
         if loc
           return true_filename loc.filename
         else
-          return ""
+          return ::Path.new
         end
       else
         if filename
           return filename
         else
-          return ""
+          return ::Path.new
         end
       end
     end
@@ -48,7 +48,7 @@ module Crystal
     end
 
     def relative_filename(filename)
-      filename = filename.as?(String) || return
+      filename = filename.as?(::Path) || return
       ::Path.new(filename).relative_to(Dir.current)
     end
 
@@ -109,7 +109,7 @@ module Crystal
       case filename = @filename
       when VirtualFile
         return format_macro_error(filename)
-      when String
+      when ::Path
         if File.file?(filename)
           return format_error_from_file(filename)
         end
@@ -152,7 +152,7 @@ module Crystal
 
       String.build do |io|
         case filename
-        when String
+        when ::Path
           io << filename_row_col_message(filename, line_number, column_number)
         when VirtualFile
           io << "macro '" << colorize("#{filename.macro.name}").underline << '\''
@@ -170,7 +170,7 @@ module Crystal
       end
     end
 
-    def format_error_from_file(filename : String)
+    def format_error_from_file(filename : ::Path)
       lines = File.read_lines(filename)
       formatted_error = format_error(
         filename: @filename,
@@ -212,7 +212,7 @@ module Crystal
       case filename
       when Nil
         nil
-      when String
+      when ::Path
         if File.file? filename
           File.read_lines(filename)
         else
@@ -230,7 +230,7 @@ module Crystal
       column_number = macro_source.try &.column_number
 
       case source_filename
-      when String
+      when ::Path
         io << colorize("#{relative_filename(source_filename)}:#{line_number}:#{column_number}").underline
       when VirtualFile
         io << "macro '" << colorize("#{source_filename.macro.name}").underline << '\''

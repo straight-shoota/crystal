@@ -36,20 +36,20 @@ module Crystal
 
     property line : Int32
     property column : Int32
-    property filename : String
+    property filename : ::Path
     property macro : String?
     property expands : ImplementationTrace?
 
     def initialize(loc : Location)
       f = loc.filename
-      if f.is_a?(String)
+      if f.is_a?(::Path)
         @line = loc.line_number
         @column = loc.column_number
         @filename = f
       elsif f.is_a?(VirtualFile)
         macro_location = f.macro.location.not_nil!
         @macro = f.macro.name
-        @filename = macro_location.filename.to_s
+        @filename = macro_location.filename.as(::Path)
         @line = macro_location.line_number + loc.line_number
         @column = loc.column_number
       else

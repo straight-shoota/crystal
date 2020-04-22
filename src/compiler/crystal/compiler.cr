@@ -26,10 +26,14 @@ module Crystal
 
     # A source to the compiler: its filename and source code.
     record Source,
-      filename : String,
+      filename : ::Path,
       code : String do
+      def self.new(filename : String, code : String)
+        new(::Path.new(filename), code)
+      end
+
       def relative_filename
-        ::Path.new(filename).relative_to(Dir.current)
+        filename.relative_to(Dir.current)
       end
     end
 

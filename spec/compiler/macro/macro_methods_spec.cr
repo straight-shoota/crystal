@@ -14,7 +14,7 @@ module Crystal
   describe Macro do
     describe "node methods" do
       describe "location" do
-        location = Location.new("foo.cr", 1, 2)
+        location = Location.new(::Path.new("foo.cr"), 1, 2)
 
         it "filename" do
           assert_macro "x", "{{x.filename}}", ["hello".string.tap { |n| n.location = location }] of ASTNode, %("foo.cr")

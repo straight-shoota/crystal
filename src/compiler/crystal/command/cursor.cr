@@ -49,7 +49,7 @@ class Crystal::Command
       error "column must be a positive integer, not #{col}"
     end
 
-    file = File.expand_path(file)
+    file = ::Path.new(file).expand
 
     result = @progress_tracker.stage("Tool (#{command.split(' ')[1]})") do
       yield Location.new(file, line_number, column_number), config, result

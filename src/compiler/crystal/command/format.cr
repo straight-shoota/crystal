@@ -124,7 +124,7 @@ class Crystal::Command
     end
 
     private def format_source(filename, source)
-      result = format(filename, source)
+      result = format(::Path.new(filename), source)
       @stdout.print result if @format_stdin
       return if result == source
 

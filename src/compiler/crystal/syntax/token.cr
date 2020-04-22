@@ -7,7 +7,7 @@ module Crystal
     property number_kind : Symbol
     property line_number : Int32
     property column_number : Int32
-    property filename : String | VirtualFile | Nil
+    property filename : ::Path | VirtualFile | Nil
     property delimiter_state : DelimiterState
     property macro_state : MacroState
     property passed_backslash_newline : Bool

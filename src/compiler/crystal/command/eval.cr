@@ -22,7 +22,7 @@ class Crystal::Command
       end
     end
 
-    sources = [Compiler::Source.new("eval", program_source)]
+    sources = [Compiler::Source.new(::Path.new("eval"), program_source)]
 
     output_filename = Crystal.temp_executable "eval"
 

@@ -159,11 +159,11 @@ describe "MacroExpander" do
 
   it "outputs invisible location pragmas" do
     node = 42.int32
-    node.location = Location.new "foo.cr", 10, 20
+    node.location = Location.new Path.new("foo.cr"), 10, 20
     assert_macro "node", %({{node}}), [node] of ASTNode, "42", {
       0 => [
         Lexer::LocPushPragma.new,
-        Lexer::LocSetPragma.new("foo.cr", 10, 20),
+        Lexer::LocSetPragma.new(Path.new("foo.cr"), 10, 20),
       ] of Lexer::LocPragma,
       2 => [
         Lexer::LocPopPragma.new,

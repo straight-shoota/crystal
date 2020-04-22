@@ -17,11 +17,11 @@ private def assert_implementations(code)
 
   code.lines.each_with_index do |line, line_number_0|
     if column_number = line.index('‸')
-      cursor_location = Location.new(".", line_number_0 + 1, column_number + 1)
+      cursor_location = Location.new(Path.new("."), line_number_0 + 1, column_number + 1)
     end
 
     if column_number = line.index('༓')
-      expected_locations << Location.new(".", line_number_0 + 1, column_number + 1)
+      expected_locations << Location.new(Path.new("."), line_number_0 + 1, column_number + 1)
     end
   end
 
@@ -185,7 +185,7 @@ describe "implementations" do
 
       baz
       bar
-    ), Location.new(".", 12, 9))
+    ), Location.new(::Path.new("."), 12, 9))
 
     result.implementations.should_not be_nil
     impls = result.implementations.not_nil!
@@ -193,21 +193,21 @@ describe "implementations" do
 
     impls[0].line.should eq(11) # location of baz
     impls[0].column.should eq(7)
-    impls[0].filename.should eq(".")
+    impls[0].filename.should eq(::Path.new("."))
 
     impls[0].expands.should_not be_nil
     exp = impls[0].expands.not_nil!
     exp.line.should eq(8) # location of foo call in macro baz
     exp.column.should eq(9)
     exp.macro.should eq("baz")
-    exp.filename.should eq(".")
+    exp.filename.should eq(::Path.new("."))
 
     exp.expands.should_not be_nil
     exp = exp.expands.not_nil!
     exp.line.should eq(3) # location of def bar in macro foo
     exp.column.should eq(9)
     exp.macro.should eq("foo")
-    exp.filename.should eq(".")
+    exp.filename.should eq(::Path.new("."))
   end
 
   it "can display text output" do
@@ -223,7 +223,7 @@ describe "implementations" do
 
       baz
       bar
-    ), Location.new(".", 12, 9))
+    ), Location.new(::Path.new("."), 12, 9))
 
     String::Builder.build do |io|
       result.to_text(io)
@@ -247,7 +247,7 @@ describe "implementations" do
 
       baz
       bar
-    ), Location.new(".", 12, 9))
+    ), Location.new(::Path.new("."), 12, 9))
 
     String::Builder.build do |io|
       result.to_json(io)

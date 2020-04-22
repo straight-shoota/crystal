@@ -6,21 +6,21 @@ class Crystal::Location
   getter column_number
   getter filename
 
-  def initialize(@filename : String | VirtualFile | Nil, @line_number : Int32, @column_number : Int32)
+  def initialize(@filename : ::Path | VirtualFile | Nil, @line_number : Int32, @column_number : Int32)
   end
 
   # Returns the directory name of this location's filename. If
   # the filename is a VirtualFile, this is invoked on its expanded
   # location.
-  def dirname : String?
-    original_filename.try { |filename| File.dirname(filename) }
+  def dirname : ::Path?
+    original_filename.try &.parent
   end
 
-  # Returns the Location whose filename is a String, not a VirtualFile,
+  # Returns the Location whose filename is a ::Path, not a VirtualFile,
   # traversing virtual file expanded locations.
   def original_location
     case filename = @filename
-    when String
+    when ::Path
       self
     when VirtualFile
       filename.expanded_location.try &.original_location
@@ -31,11 +31,11 @@ class Crystal::Location
 
   # Returns the filename of the `original_location`
   def original_filename
-    original_location.try &.filename.as?(String)
+    original_location.try &.filename.as?(::Path)
   end
 
   def relative_filename
-    filename = self.filename.as?(String) || return
+    filename = self.filename.as?(::Path) || return
     ::Path.new(filename).relative_to(Dir.current)
   end
 
@@ -60,7 +60,7 @@ class Crystal::Location
   def <=>(other)
     self_file = @filename
     other_file = other.filename
-    if self_file.is_a?(String) && other_file.is_a?(String) && self_file == other_file
+    if self_file.is_a?(::Path) && other_file.is_a?(::Path) && self_file == other_file
       {@line_number, @column_number} <=> {other.line_number, other.column_number}
     else
       nil

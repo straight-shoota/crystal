@@ -486,10 +486,10 @@ class Crystal::Command
 
     sources = [] of Compiler::Source
     if has_stdin_filename
-      sources << Compiler::Source.new(filenames.shift, STDIN.gets_to_end)
+      sources << Compiler::Source.new(::Path.new(filenames.shift), STDIN.gets_to_end)
     end
     sources += gather_sources(filenames)
-    first_filename = ::Path.new(sources.first.filename).expand
+    first_filename = sources.first.filename.expand
     original_output_filename = first_filename.basename
 
     # Check if we'll overwrite the main source file
@@ -517,7 +517,7 @@ class Crystal::Command
       unless File.file?(filename)
         error "file '#{filename}' does not exist"
       end
-      filename = File.expand_path(filename)
+      filename = ::Path.new(filename).expand
       Compiler::Source.new(filename, File.read(filename))
     end
   end

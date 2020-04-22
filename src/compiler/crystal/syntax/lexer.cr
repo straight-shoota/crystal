@@ -14,8 +14,8 @@ module Crystal
     getter token : Token
     property line_number : Int32
     property column_number : Int32
-    @filename : String | VirtualFile | Nil
-    @stacked_filename : String | VirtualFile | Nil
+    @filename : ::Path | VirtualFile | Nil
+    @stacked_filename : ::Path | VirtualFile | Nil
     @token_end_location : Location?
     @string_pool : StringPool
 
@@ -31,7 +31,7 @@ module Crystal
     alias LocPragma = LocSetPragma | LocPushPragma | LocPopPragma
 
     record LocSetPragma,
-      filename : String,
+      filename : ::Path,
       line_number : Int32,
       column_number : Int32 do
       def run_pragma(lexer)
@@ -56,7 +56,7 @@ module Crystal
       @token = Token.new
       @line_number = 1
       @column_number = 1
-      @filename = ""
+      @filename = nil
       @wants_regex = true
       @doc_enabled = false
       @comments_enabled = false
@@ -79,13 +79,17 @@ module Crystal
       @macro_curly_count = 0
 
       @stacked = false
-      @stacked_filename = ""
+      @stacked_filename = nil
       @stacked_line_number = 1
       @stacked_column_number = 1
     end
 
     def filename=(filename)
       @filename = filename
+    end
+
+    def filename=(filename : String)
+      self.filename = ::Path.new(filename)
     end
 
     def next_token
@@ -2811,7 +2815,7 @@ module Crystal
         end
 
         incr_column_number (current_pos - filename_pos) + 7 # == "#<loc:\"".size
-        filename = string_range(filename_pos)
+        filename = ::Path.new(string_range(filename_pos))
 
         # skip '"'
         next_char
@@ -2949,7 +2953,7 @@ module Crystal
       char
     end
 
-    def next_char(token_type)
+    def next_char(token_type) #
       next_char
       @token.type = token_type
     end

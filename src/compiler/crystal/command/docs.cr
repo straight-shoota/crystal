@@ -116,7 +116,7 @@ class Crystal::Command
     end
 
     if options.empty?
-      sources = [Compiler::Source.new("require", %(require "./src/**"))]
+      sources = [Compiler::Source.new(::Path.new("require"), %(require "./src/**"))]
       included_dirs = [] of String
     else
       filenames = options

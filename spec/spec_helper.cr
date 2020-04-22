@@ -259,7 +259,7 @@ def run(code, filename = nil, inject_primitives = true, debug = Crystal::Debug::
     compiler.debug = debug
     compiler.flags.concat flags if flags
     apply_program_flags(compiler.flags)
-    compiler.compile Compiler::Source.new("spec", code), output_filename
+    compiler.compile Compiler::Source.new(::Path.new("spec"), code), output_filename
 
     output = `#{output_filename}`
     File.delete(output_filename)

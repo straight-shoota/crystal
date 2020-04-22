@@ -2199,7 +2199,7 @@ module Crystal
     end
 
     def self.expand_dir(location)
-      location.try(&.dirname) || "?"
+      location.try(&.dirname.to_s) || "?"
     end
 
     def_equals_and_hash name

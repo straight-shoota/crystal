@@ -18,10 +18,10 @@ describe Doc::Type do
     # Set locations to types relative to the included dir
     # so they are included by the doc generator
     foo_bar_type = program.types["Foo"].types["Bar"]
-    foo_bar_type.add_location(Location.new("./foo.cr", 1, 1))
+    foo_bar_type.add_location(Location.new(Path.new("./foo.cr"), 1, 1))
 
     alias_type = program.types["Alias"]
-    alias_type.add_location(Location.new("./foo.cr", 1, 1))
+    alias_type.add_location(Location.new(Path.new("./foo.cr"), 1, 1))
 
     generator = Doc::Generator.new program, ["."]
 

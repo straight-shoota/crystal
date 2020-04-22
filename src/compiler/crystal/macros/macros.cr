@@ -13,7 +13,7 @@ class Crystal::Program
   # compilation was reused.
   # The elapsed time is only needed for stats.
   record CompiledMacroRun, filename : String, elapsed : Time::Span, reused : Bool
-  property compiled_macros_cache = {} of String => CompiledMacroRun
+  property compiled_macros_cache = {} of ::Path => CompiledMacroRun
 
   def expand_macro(a_macro : Macro, call : Call, scope : Type, path_lookup : Type? = nil, a_def : Def? = nil)
     interpreter = MacroInterpreter.new self, scope, path_lookup || scope, a_macro, call, a_def, in_macro: true
@@ -59,7 +59,7 @@ class Crystal::Program
     MacroRunResult.new(out_io.to_s, err_io.to_s, $?)
   end
 
-  record RequireWithTimestamp, filename : String, epoch : Int64 do
+  record RequireWithTimestamp, filename : ::Path, epoch : Int64 do
     include JSON::Serializable
   end
 

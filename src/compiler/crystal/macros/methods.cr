@@ -5,36 +5,40 @@ require "semantic_version"
 module Crystal
   class MacroInterpreter
     private def find_source_file(filename)
+      path = ::Path.new(filename)
       # Support absolute paths
-      if filename.starts_with?('/')
-        filename = "#{filename}.cr" unless filename.ends_with?(".cr")
+      if path.absolute?
+        if path.extension != ".cr"
+          path = ::Path.new("#{path}.cr")
+        end
 
-        if File.exists?(filename)
-          unless File.file?(filename)
-            return yield "#{filename.inspect} is not a file"
+        if info = File.info(path)
+          unless info.file?
+            return yield "#{path.inspect} is not a file"
           end
         else
-          return yield "can't find file #{filename.inspect}"
+          return yield "can't find file #{path.inspect}"
         end
+
+        path
       else
         begin
           relative_to = @location.try &.original_filename
-          found_filenames = @program.find_in_path(filename, relative_to)
+          path_candidates = @program.find_in_path(path.to_s, relative_to)
         rescue ex
           return yield ex.message
         end
 
-        unless found_filenames
-          return yield "can't find file #{filename.inspect}"
+        unless path_candidates
+          return yield "can't find file #{path.inspect}"
         end
 
-        if found_filenames.size > 1
-          return yield "#{filename.inspect} is a directory"
+        if path_candidates.size > 1
+          return yield "#{path.inspect} is a directory"
         end
 
-        filename = found_filenames.first
+        path_candidates.first
       end
-      filename
     end
 
     def interpret_top_level_call(node)
@@ -340,7 +344,7 @@ module Crystal
       when "filename"
         interpret_argless_method("filename", args) do
           filename = location.try &.original_filename
-          filename ? StringLiteral.new(filename) : NilLiteral.new
+          filename ? StringLiteral.new(filename.to_s) : NilLiteral.new
         end
       when "line_number"
         interpret_argless_method("line_number", args) do

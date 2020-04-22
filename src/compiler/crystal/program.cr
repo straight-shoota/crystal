@@ -51,7 +51,7 @@ module Crystal
     # All FileModules indexed by their filename.
     # These store file-private defs, and top-level variables in files other
     # than the main file.
-    getter file_modules = {} of String => FileModule
+    getter file_modules = {} of ::Path => FileModule
 
     # Types that have instance vars initializers which need to be visited
     # (transformed) by `CleanupTransformer` once the semantic analysis finishes.
@@ -72,7 +72,7 @@ module Crystal
 
     # All required files. The set stores absolute files. This way
     # files loaded by `require` nodes are only processed once.
-    getter requires = Set(String).new
+    getter requires = Set(::Path).new
 
     # All created unions in a program, indexed by an array of opaque
     # ids of each type in the union. The array (the key) is sorted
@@ -111,7 +111,7 @@ module Crystal
     property? show_error_trace = false
 
     # The main filename of this program
-    property filename : String?
+    property filename : ::Path?
 
     # A `ProgressTracker` object which tracks compilation progress.
     property progress_tracker = ProgressTracker.new
@@ -441,7 +441,7 @@ module Crystal
       end
     end
 
-    record RecordedRequire, filename : String, relative_to : String? do
+    record RecordedRequire, filename : String, relative_to : ::Path? do
       include JSON::Serializable
     end
     property recorded_requires = [] of RecordedRequire
@@ -452,10 +452,10 @@ module Crystal
     end
 
     # Finds *filename* in the configured CRYSTAL_PATH for this program,
-    # relative to *relative_to*.
-    def find_in_path(filename, relative_to = nil) : Array(String)?
+    # relative to *relative_to*.p
+    def find_in_path(filename, relative_to = nil) : Array(::Path)?
       crystal_path.find filename, relative_to
-    end
+    end #
 
     {% for name in %w(object no_return value number reference void nil bool char int int8 int16 int32 int64 int128
                      uint8 uint16 uint32 uint64 uint128 float float32 float64 string symbol pointer array static_array
@@ -581,7 +581,7 @@ module Crystal
     end
 
     def file_module(filename)
-      file_modules[filename] ||= FileModule.new(self, self, filename)
+      file_modules[filename] ||= FileModule.new(self, self, filename.to_s)
     end
 
     def check_private(node)
@@ -590,7 +590,7 @@ module Crystal
       filename = node.location.try &.original_filename
       return nil unless filename
 
-      file_module(filename)
+      file_module(::Path.new(filename))
     end
 
     def to_s(io : IO) : Nil

@@ -3,7 +3,7 @@ require "../../../spec_helper"
 private def processed_context_visitor(code, cursor_location)
   compiler = Compiler.new
   compiler.no_codegen = true
-  result = compiler.compile(Compiler::Source.new(".", code), "fake-no-build")
+  result = compiler.compile(Compiler::Source.new(Path.new("."), code), "fake-no-build")
 
   visitor = ContextVisitor.new(cursor_location)
   process_result = visitor.process(result)
@@ -16,7 +16,7 @@ private def run_context_tool(code)
 
   code.lines.each_with_index do |line, line_number_0|
     if column_number = line.index('‸')
-      cursor_location = Location.new(".", line_number_0 + 1, column_number + 1)
+      cursor_location = Location.new(Path.new("."), line_number_0 + 1, column_number + 1)
     end
   end
 
