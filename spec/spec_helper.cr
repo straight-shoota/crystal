@@ -206,6 +206,7 @@ def program_flags_options : Array(String)
   if (n_threads = spec_compiler_threads)
     options << "--threads=#{n_threads}"
   end
+  options << "--error-trace"
   options
 end
 
