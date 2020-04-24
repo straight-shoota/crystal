@@ -187,11 +187,11 @@ class Crystal::Doc::Generator
 
   def must_include?(location : Crystal::Location)
     case filename = location.filename
-    when String
-      @included_dirs.any? { |included_dir| filename.starts_with? included_dir }
+    when ::Path
+      @included_dirs.any? { |included_dir| filename.to_s.starts_with? included_dir }
     when VirtualFile
       must_include? filename.expanded_location
-    else
+    when Nil
       false
     end
   end

@@ -56,7 +56,7 @@ module Crystal
       @token = Token.new
       @line_number = 1
       @column_number = 1
-      @filename = nil
+      @filename = ::Path.new
       @wants_regex = true
       @doc_enabled = false
       @comments_enabled = false
@@ -79,7 +79,7 @@ module Crystal
       @macro_curly_count = 0
 
       @stacked = false
-      @stacked_filename = nil
+      @stacked_filename = ::Path.new
       @stacked_line_number = 1
       @stacked_column_number = 1
     end
@@ -2953,7 +2953,7 @@ module Crystal
       char
     end
 
-    def next_char(token_type) #
+    def next_char(token_type)
       next_char
       @token.type = token_type
     end

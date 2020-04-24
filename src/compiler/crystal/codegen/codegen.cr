@@ -248,7 +248,7 @@ module Crystal
       initialize_argv_and_argc
 
       if @debug.line_numbers?
-        set_current_debug_location Location.new(@program.filename || ::Path.new("(no name)"), 1, 1)
+        set_current_debug_location Location.new(@program.filename || "(no name)", 1, 1)
       end
 
       once_init

@@ -256,9 +256,9 @@ module Crystal
       when VirtualFile
         lines = filename.source.lines.to_a
         filename = "macro #{filename.macro.name} (in #{filename.macro.location.try &.filename}:#{filename.macro.location.try &.line_number})"
-      when String
+      when ::Path
         lines = File.read_lines(filename) if File.file?(filename)
-      else
+      when Nil
         return
       end
 

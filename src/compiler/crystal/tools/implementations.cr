@@ -41,28 +41,28 @@ module Crystal
     property expands : ImplementationTrace?
 
     def initialize(loc : Location)
-      f = loc.filename
-      if f.is_a?(::Path)
+      case f = loc.filename
+      when ::Path
         @line = loc.line_number
         @column = loc.column_number
         @filename = f
-      elsif f.is_a?(VirtualFile)
+      when VirtualFile
         macro_location = f.macro.location.not_nil!
         @macro = f.macro.name
         @filename = macro_location.filename.as(::Path)
         @line = macro_location.line_number + loc.line_number
         @column = loc.column_number
       else
+        # TODO: With exhaustive case this branch should be `when Nil`
         raise "not implemented"
       end
     end
 
     def self.parent(loc : Location)
-      f = loc.filename
-
-      if f.is_a?(VirtualFile)
-        f.expanded_location
-      else
+      case filename = loc.filename
+      when VirtualFile
+        filename.expanded_location
+      when ::Path, Nil
         nil
       end
     end

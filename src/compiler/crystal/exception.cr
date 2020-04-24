@@ -113,7 +113,7 @@ module Crystal
         if File.file?(filename)
           return format_error_from_file(filename)
         end
-      else
+      when Nil
         # go on
       end
 
@@ -156,7 +156,7 @@ module Crystal
           io << filename_row_col_message(filename, line_number, column_number)
         when VirtualFile
           io << "macro '" << colorize("#{filename.macro.name}").underline << '\''
-        else
+        when Nil
           io << "unknown location"
         end
 
@@ -234,7 +234,7 @@ module Crystal
         io << colorize("#{relative_filename(source_filename)}:#{line_number}:#{column_number}").underline
       when VirtualFile
         io << "macro '" << colorize("#{source_filename.macro.name}").underline << '\''
-      else
+      when Nil
         "unknown location"
       end
 

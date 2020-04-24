@@ -28,7 +28,7 @@ class Crystal::Location
       self
     when VirtualFile
       filename.expanded_location.try &.original_location
-    else
+    when Nil
       nil
     end
   end
@@ -39,8 +39,9 @@ class Crystal::Location
   end
 
   def relative_filename
-    filename = self.filename.as?(::Path) || return
-    ::Path.new(filename).relative_to(Dir.current)
+    if (filename = self.filename).is_a?(::Path)
+      filename.relative_to(Dir.current)
+    end
   end
 
   def between?(min, max)
