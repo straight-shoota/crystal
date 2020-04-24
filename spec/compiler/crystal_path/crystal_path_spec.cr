@@ -3,8 +3,10 @@ require "../../spec_helper"
 private def assert_finds(search, results, relative_to = nil, path = __DIR__, file = __FILE__, line = __LINE__)
   it "finds #{search.inspect}", file, line do
     crystal_path = Crystal::CrystalPath.new(path)
-    relative_to = "#{__DIR__}/#{relative_to}" if relative_to
-    results = results.map { |result| "#{__DIR__}/#{result}" }
+    if r = relative_to
+      relative_to = Path.new(__DIR__, r).to_s
+    end
+    results = results.map { |result| Path.new(__DIR__, result).to_s }
     matches = crystal_path.find search, relative_to: relative_to
     matches.should eq(results)
   end
@@ -13,7 +15,9 @@ end
 private def assert_doesnt_find(search, relative_to = nil, path = __DIR__, file = __FILE__, line = __LINE__)
   it "doesn't finds #{search.inspect}", file, line do
     crystal_path = Crystal::CrystalPath.new(path)
-    relative_to = "#{__DIR__}/#{relative_to}" if relative_to
+    if r = relative_to
+      relative_to = Path.new(__DIR__, r).to_s
+    end
     expect_raises Exception, /can't find file/ do
       crystal_path.find search, relative_to: relative_to
     end
