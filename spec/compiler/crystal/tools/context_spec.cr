@@ -16,7 +16,7 @@ private def run_context_tool(code)
 
   code.lines.each_with_index do |line, line_number_0|
     if column_number = line.index('‸')
-      cursor_location = Location.new(Path.new("."), line_number_0 + 1, column_number + 1)
+      cursor_location = Location.new(".", line_number_0 + 1, column_number + 1)
     end
   end
 

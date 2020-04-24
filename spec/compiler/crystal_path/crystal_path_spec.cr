@@ -19,7 +19,7 @@ private def assert_doesnt_find(search, relative_to = nil, path = __DIR__, file =
       relative_to = Path.new(__DIR__, r)
     end
     expect_raises Exception, /can't find file/ do
-      p! crystal_path.find search, relative_to: relative_to
+      crystal_path.find search, relative_to: relative_to
     end
   end
 end

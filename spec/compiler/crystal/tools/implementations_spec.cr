@@ -17,11 +17,11 @@ private def assert_implementations(code)
 
   code.lines.each_with_index do |line, line_number_0|
     if column_number = line.index('‸')
-      cursor_location = Location.new(Path.new("."), line_number_0 + 1, column_number + 1)
+      cursor_location = Location.new(".", line_number_0 + 1, column_number + 1)
     end
 
     if column_number = line.index('༓')
-      expected_locations << Location.new(Path.new("."), line_number_0 + 1, column_number + 1)
+      expected_locations << Location.new(".", line_number_0 + 1, column_number + 1)
     end
   end
 
@@ -185,7 +185,7 @@ describe "implementations" do
 
       baz
       bar
-    ), Location.new(::Path.new("."), 12, 9))
+    ), Location.new(".", 12, 9))
 
     result.implementations.should_not be_nil
     impls = result.implementations.not_nil!
@@ -223,7 +223,7 @@ describe "implementations" do
 
       baz
       bar
-    ), Location.new(::Path.new("."), 12, 9))
+    ), Location.new(".", 12, 9))
 
     String::Builder.build do |io|
       result.to_text(io)
@@ -247,7 +247,7 @@ describe "implementations" do
 
       baz
       bar
-    ), Location.new(::Path.new("."), 12, 9))
+    ), Location.new(".", 12, 9))
 
     String::Builder.build do |io|
       result.to_json(io)

@@ -6,6 +6,10 @@ class Crystal::Location
   getter column_number
   getter filename
 
+  def self.new(filename : String, line_number : Int32, column_number : Int32)
+    new(::Path.new(filename), line_number, column_number)
+  end
+
   def initialize(@filename : ::Path | VirtualFile | Nil, @line_number : Int32, @column_number : Int32)
   end
 

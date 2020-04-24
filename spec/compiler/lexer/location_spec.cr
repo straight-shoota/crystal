@@ -44,7 +44,7 @@ describe "Lexer: location" do
     token.type.should eq(:NUMBER)
     token.line_number.should eq(1)
     token.column_number.should eq(1)
-    token.filename.should eq("bar")
+    token.filename.should eq(Path.new("bar"))
 
     token = lexer.next_token
     token.type.should eq(:SPACE)
@@ -65,7 +65,7 @@ describe "Lexer: location" do
     token.type.should eq(:NUMBER)
     token.line_number.should eq(12)
     token.column_number.should eq(34)
-    token.filename.should eq("foo")
+    token.filename.should eq(Path.new("foo"))
   end
 
   it "pushes and pops its location" do
@@ -76,7 +76,7 @@ describe "Lexer: location" do
     token.type.should eq(:NUMBER)
     token.line_number.should eq(12)
     token.column_number.should eq(34)
-    token.filename.should eq("foo")
+    token.filename.should eq(Path.new("foo"))
 
     token = lexer.next_token
     token.type.should eq(:SPACE)
@@ -97,7 +97,7 @@ describe "Lexer: location" do
     token.type.should eq(:NUMBER)
     token.line_number.should eq(1)
     token.column_number.should eq(44)
-    token.filename.should eq("bar")
+    token.filename.should eq(Path.new("bar"))
   end
 
   it "uses two consecutive loc pragma " do
@@ -108,13 +108,13 @@ describe "Lexer: location" do
     token.type.should eq(:NUMBER)
     token.line_number.should eq(1)
     token.column_number.should eq(1)
-    token.filename.should eq("bar")
+    token.filename.should eq(Path.new("bar"))
 
     token = lexer.next_token
     token.type.should eq(:NUMBER)
     token.line_number.should eq(56)
     token.column_number.should eq(78)
-    token.filename.should eq("foo")
+    token.filename.should eq(Path.new("foo"))
   end
 
   it "assigns correct loc location to node" do
@@ -123,7 +123,7 @@ describe "Lexer: location" do
     location = node.location.not_nil!
     location.line_number.should eq(2)
     location.column_number.should eq(3)
-    location.filename.should eq("foo.txt")
+    location.filename.should eq(Path.new("foo.txt"))
   end
 
   it "parses var/call right after loc (#491)" do
@@ -133,8 +133,8 @@ describe "Lexer: location" do
   end
 
   it "locations in different files have no order" do
-    loc1 = Location.new(Path.new("file1"), 1, 1)
-    loc2 = Location.new(Path.new("file2"), 2, 2)
+    loc1 = Location.new("file1", 1, 1)
+    loc2 = Location.new("file2", 2, 2)
 
     (loc1 < loc2).should be_false
     (loc1 <= loc2).should be_false
@@ -144,9 +144,9 @@ describe "Lexer: location" do
   end
 
   it "locations in same files are comparable based on line" do
-    loc1 = Location.new(Path.new("file1"), 1, 1)
-    loc2 = Location.new(Path.new("file1"), 2, 1)
-    loc3 = Location.new(Path.new("file1"), 1, 1)
+    loc1 = Location.new("file1", 1, 1)
+    loc2 = Location.new("file1", 2, 1)
+    loc3 = Location.new("file1", 1, 1)
     (loc1 < loc2).should be_true
     (loc1 <= loc2).should be_true
     (loc1 <= loc3).should be_true
@@ -165,8 +165,8 @@ describe "Lexer: location" do
   end
 
   it "locations with virtual files shoud be comparable" do
-    loc1 = Location.new(Path.new("file1"), 1, 1)
-    loc2 = Location.new(VirtualFile.new(Macro.new("macro", [] of Arg, Nop.new), "", Location.new(Path.new("f"), 1, 1)), 2, 1)
+    loc1 = Location.new("file1", 1, 1)
+    loc2 = Location.new(VirtualFile.new(Macro.new("macro", [] of Arg, Nop.new), "", Location.new("f", 1, 1)), 2, 1)
     (loc1 < loc2).should be_false
     (loc2 < loc1).should be_false
   end
