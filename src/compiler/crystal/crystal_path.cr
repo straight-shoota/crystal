@@ -10,123 +10,135 @@ module Crystal
       ENV["CRYSTAL_PATH"]? || Crystal::Config.path
     end
 
-    @crystal_path : Array(String)
+    @crystal_paths : Array(::Path)
 
     def initialize(path = CrystalPath.default_path, codegen_target = Config.default_target)
-      @crystal_path = path.split(Process::PATH_DELIMITER).reject &.empty?
+      @crystal_paths = path.split(Process::PATH_DELIMITER).compact_map do |path|
+        ::Path.new(path) unless path.empty?
+      end
       add_target_path(codegen_target)
     end
 
     private def add_target_path(codegen_target)
       target = "#{codegen_target.architecture}-#{codegen_target.os_name}"
 
-      @crystal_path.each do |path|
-        path = File.join(path, "lib_c", target)
+      @crystal_paths.each do |path|
+        path = path.join("lib_c", target)
         if Dir.exists?(path)
-          @crystal_path << path unless @crystal_path.includes?(path)
+          @crystal_paths << path unless @crystal_paths.includes?(path)
           return
         end
       end
     end
 
     def find(filename, relative_to = nil) : Array(String)?
-      relative_to = File.dirname(relative_to) if relative_to.is_a?(String)
+      relative_to = ::Path.new(relative_to) if relative_to.is_a?(String)
 
-      if filename.starts_with? '.'
-        result = find_in_path_relative_to_dir(filename, relative_to)
+      if filename.to_s.starts_with? '.'
+        if relative_to
+          result = find_in_path_relative_to_dir(filename, relative_to.parent)
+        end
       else
         result = find_in_crystal_path(filename)
       end
 
-      cant_find_file filename, relative_to unless result
-
-      result = [result] if result.is_a?(String)
-      result
+      case result
+      when Array
+        result.map(&.to_s)
+      when ::Path
+        [result.to_s]
+      when Nil
+        cant_find_file filename, relative_to
+      else raise "unreachable"
+      end
     end
 
-    private def find_in_path_relative_to_dir(filename, relative_to)
-      return unless relative_to.is_a?(String)
-
+    private def find_in_path_relative_to_dir(filename, relative_to : ::Path)
+      path = ::Path.posix(filename)
+      basename = path.basename
       # Check if it's a wildcard.
-      if filename.ends_with?("/*") || (recursive = filename.ends_with?("/**"))
-        filename_dir_index = filename.rindex('/').not_nil!
-        filename_dir = filename[0..filename_dir_index]
-        relative_dir = "#{relative_to}/#{filename_dir}"
-        if File.exists?(relative_dir)
-          files = [] of String
-          gather_dir_files(relative_dir, files, recursive)
-          return files
-        end
+      if basename == "*" || (recursive = basename == "**")
+        relative_dir = relative_to.join(path.parent)
 
-        return nil
+        if File.exists?(relative_dir)
+          files = [] of ::Path
+          gather_dir_files(relative_dir.to_native, files, recursive)
+          return files
+        else
+          return nil
+        end
       end
 
-      relative_filename = "#{relative_to}/#{filename}"
+      relative_filename = relative_to.join(filename)
 
       # Check if .cr file exists.
-      relative_filename_cr = relative_filename.ends_with?(".cr") ? relative_filename : "#{relative_filename}.cr"
+      if relative_filename.extension == ".cr"
+        relative_filename_cr = relative_filename
+      else
+        relative_filename_cr = ::Path.posix("#{relative_filename}.cr")
+      end
+
       if File.exists?(relative_filename_cr)
-        return File.expand_path(relative_filename_cr)
+        return relative_filename_cr.to_native.expand
       end
 
       filename_is_relative = filename.starts_with?('.')
 
       if !filename_is_relative && (slash_index = filename.index('/'))
-        # If it's "foo/bar/baz", check if "foo/src/bar/baz.cr" exists (for a shard, non-namespaced structure)
-        before_slash, after_slash = filename.split('/', 2)
+        lib_name, after_slash = filename.split('/', 2)
+        lib_path = relative_to.join(lib_name, "src")
+        relative_path_cr = "#{after_slash}.cr"
 
-        absolute_filename = File.expand_path("#{relative_to}/#{before_slash}/src/#{after_slash}.cr")
-        return absolute_filename if File.exists?(absolute_filename)
+        # If it's "foo/bar/baz", check if "foo/src/bar/baz.cr" exists (for a shard, non-namespaced structure)
+        absolute_path = lib_path.join(relative_path_cr).expand
+        return absolute_path if File.exists?(absolute_path)
 
         # Then check if "foo/src/foo/bar/baz.cr" exists (for a shard, namespaced structure)
-        absolute_filename = File.expand_path("#{relative_to}/#{before_slash}/src/#{before_slash}/#{after_slash}.cr")
-        return absolute_filename if File.exists?(absolute_filename)
+        absolute_path = lib_path.join(lib_name, relative_path_cr).expand
+        return absolute_path if File.exists?(absolute_path)
 
         # If it's "foo/bar/baz", check if "foo/bar/baz/baz.cr" exists (std, nested)
-        basename = File.basename(relative_filename)
-        absolute_filename = File.expand_path("#{relative_to}/#{filename}/#{basename}.cr")
-        return absolute_filename if File.exists?(absolute_filename)
+        absolute_path = relative_to.join(filename, relative_filename_cr.basename).expand
+        return absolute_path if File.exists?(absolute_path)
 
         # If it's "foo/bar/baz", check if "foo/src/foo/bar/baz/baz.cr" exists (shard, non-namespaced, nested)
-        absolute_filename = File.expand_path("#{relative_to}/#{before_slash}/src/#{after_slash}/#{after_slash}.cr")
-        return absolute_filename if File.exists?(absolute_filename)
+        absolute_path = lib_path.join(after_slash, relative_path_cr).expand
+        return absolute_path if File.exists?(absolute_path)
 
         # If it's "foo/bar/baz", check if "foo/src/foo/bar/baz/baz.cr" exists (shard, namespaced, nested)
-        absolute_filename = File.expand_path("#{relative_to}/#{before_slash}/src/#{before_slash}/#{after_slash}/#{after_slash}.cr")
-        return absolute_filename if File.exists?(absolute_filename)
+        absolute_path = lib_path.join(lib_name, after_slash, relative_path_cr).expand
+        return absolute_path if File.exists?(absolute_path)
 
         return nil
       end
 
-      basename = File.basename(relative_filename)
-
       # If it's "foo", check if "foo/foo.cr" exists (for the std, nested)
-      absolute_filename = File.expand_path("#{relative_filename}/#{basename}.cr")
-      return absolute_filename if File.exists?(absolute_filename)
+      absolute_path = relative_filename.join("#{basename}.cr").expand
+      return absolute_path if File.exists?(absolute_path)
 
       unless filename_is_relative
         # If it's "foo", check if "foo/src/foo.cr" exists (for a shard)
-        absolute_filename = File.expand_path("#{relative_filename}/src/#{basename}.cr")
-        return absolute_filename if File.exists?(absolute_filename)
+        absolute_path = relative_filename.join("src", "#{basename}.cr").expand
+        return absolute_path if File.exists?(absolute_path)
       end
 
       nil
     end
 
     private def gather_dir_files(dir, files_accumulator, recursive)
-      files = [] of String
-      dirs = [] of String
+      files = [] of ::Path
+      dirs = [] of ::Path
 
       Dir.each_child(dir) do |filename|
-        full_name = "#{dir}/#{filename}"
+        path = dir.join(filename)
 
-        if File.directory?(full_name)
+        if File.directory?(path)
           if recursive
-            dirs << filename
+            dirs << path
           end
         else
-          if filename.ends_with?(".cr")
-            files << full_name
+          if path.extension == ".cr"
+            files << path
           end
         end
       end
@@ -135,16 +147,16 @@ module Crystal
       dirs.sort!
 
       files.each do |file|
-        files_accumulator << File.expand_path(file)
+        files_accumulator << ::Path.new(file).expand
       end
 
       dirs.each do |subdir|
-        gather_dir_files("#{dir}/#{subdir}", files_accumulator, recursive)
+        gather_dir_files(subdir, files_accumulator, recursive)
       end
     end
 
     private def find_in_crystal_path(filename)
-      @crystal_path.each do |path|
+      @crystal_paths.each do |path|
         required = find_in_path_relative_to_dir(filename, path)
         return required if required
       end
