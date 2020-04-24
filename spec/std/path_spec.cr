@@ -823,9 +823,13 @@ describe Path do
 
     it "paths that can't be relativized" do
       path = Path.posix(".")
-      path.relative_to(Dir.current).should eq path
+      path.relative_to(Path.posix("/cwd")).should eq path
       path = Path.windows(".")
-      path.relative_to(Dir.current).should eq path
+      path.relative_to(Path.windows("/cwd")).should eq path
+      path = Path.windows(".")
+      path.relative_to(Path.windows("C:/cwd")).should eq path
+      path = Path.windows(".")
+      path.relative_to(Path.windows("C:cwd")).should eq path
     end
   end
 end
