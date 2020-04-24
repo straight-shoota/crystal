@@ -119,9 +119,8 @@ module Spec
     end
 
     private def classname(result)
-      path_without_extension = result.file.rchop(File.extname(result.file))
-
-      Path.new(path_without_extension).expand.relative_to(Dir.current).parts.join(".")
+      path = Path.new result.file
+      path.expand.relative_to(Dir.current).parts.join('.').rchop path.extension
     end
   end
 end
