@@ -6,7 +6,7 @@ module Crystal
     property? color = false
     property? error_trace = false
 
-    @filename : String | VirtualFile | Nil
+    @filename : ::Path | VirtualFile | Nil
 
     def to_s(io) : Nil
       to_s_with_source(nil, io)
@@ -24,20 +24,22 @@ module Crystal
       end
     end
 
-    def true_filename(filename = @filename) : String
-      if filename.is_a? VirtualFile
+    def true_filename(filename = @filename) : ::Path
+      case filename
+      when VirtualFile
         loc = filename.expanded_location
         if loc
-          return true_filename loc.filename
+          true_filename loc.filename
         else
-          return ""
+          ::Path.new
         end
+      when ::Path
+        filename
+      when Nil
+        ::Path.new
       else
-        if filename
-          return filename
-        else
-          return ""
-        end
+        # TODO: Remove this branch when strict exhaustive case is enabled
+        raise "unreachable"
       end
     end
 
@@ -48,7 +50,7 @@ module Crystal
     end
 
     def relative_filename(filename)
-      filename = filename.as?(String) || return
+      filename = filename.as?(::Path) || return
       ::Path.new(filename).relative_to(Dir.current)
     end
 
@@ -109,11 +111,11 @@ module Crystal
       case filename = @filename
       when VirtualFile
         return format_macro_error(filename)
-      when String
+      when ::Path
         if File.file?(filename)
           return format_error_from_file(filename)
         end
-      else
+      when Nil
         # go on
       end
 
@@ -143,7 +145,12 @@ module Crystal
       end
     end
 
-    def format_error(filename, lines, line_number, column_number, size = 0)
+    # TODO: Path
+    def format_error(filename : String, lines, line_number, column_number, size = 0)
+      format_error(::Path.new(filename), lines, line_number, column_number, size)
+    end
+
+    def format_error(filename : VirtualFile | ::Path | Nil, lines, line_number, column_number, size = 0)
       return "#{relative_filename(filename)}" unless line_number
 
       unless line = lines[line_number - 1]?
@@ -152,11 +159,11 @@ module Crystal
 
       String.build do |io|
         case filename
-        when String
+        when ::Path
           io << filename_row_col_message(filename, line_number, column_number)
         when VirtualFile
           io << "macro '" << colorize("#{filename.macro.name}").underline << '\''
-        else
+        when Nil
           io << "unknown location"
         end
 
@@ -170,7 +177,7 @@ module Crystal
       end
     end
 
-    def format_error_from_file(filename : String)
+    def format_error_from_file(filename : ::Path)
       lines = File.read_lines(filename)
       formatted_error = format_error(
         filename: @filename,
@@ -208,11 +215,16 @@ module Crystal
       end
     end
 
-    def source_lines(filename)
+    # TODO: Path
+    def source_lines(filename : String)
+      source_lines(::Path.new(filename))
+    end
+
+    def source_lines(filename : VirtualFile | ::Path | Nil)
       case filename
       when Nil
         nil
-      when String
+      when ::Path
         if File.file? filename
           File.read_lines(filename)
         else
@@ -230,11 +242,12 @@ module Crystal
       column_number = macro_source.try &.column_number
 
       case source_filename
-      when String
+      when ::Path, String
+        # TODO: Path
         io << colorize("#{relative_filename(source_filename)}:#{line_number}:#{column_number}").underline
       when VirtualFile
         io << "macro '" << colorize("#{source_filename.macro.name}").underline << '\''
-      else
+      when Nil
         "unknown location"
       end
 

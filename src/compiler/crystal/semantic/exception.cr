@@ -36,7 +36,12 @@ module Crystal
       end
     end
 
-    def initialize(message, @line_number, @column_number : Int32, @filename, @size, @inner = nil)
+    # TODO: Path
+    def self.new(message, line_number, column_number, filename : String, size, inner = nil)
+      new(message, line_number, column_number, ::Path.new(filename), size, inner)
+    end
+
+    def initialize(message, @line_number, @column_number : Int32, @filename : VirtualFile | ::Path | Nil, @size, @inner = nil)
       @error_trace = true
 
       # If the inner exception is a macro raise, we replace this exception's
@@ -256,10 +261,12 @@ module Crystal
       when VirtualFile
         lines = filename.source.lines.to_a
         filename = "macro #{filename.macro.name} (in #{filename.macro.location.try &.filename}:#{filename.macro.location.try &.line_number})"
-      when String
+      when ::Path
         lines = File.read_lines(filename) if File.file?(filename)
-      else
+      when Nil
         return
+      else
+        raise "unreachable"
       end
 
       io << "\n\n"

@@ -9,7 +9,12 @@ module Crystal
     getter filename
     getter size : Int32?
 
-    def initialize(message, @line_number, @column_number, @filename, @size = nil)
+    # TODO: Path
+    def self.new(message, line_number, column_number, filename : String, size = nil)
+      new(message, line_number, column_number, ::Path.new(filename), size)
+    end
+
+    def initialize(message, @line_number, @column_number, @filename : VirtualFile | ::Path | Nil, @size = nil)
       super(message)
     end
 
