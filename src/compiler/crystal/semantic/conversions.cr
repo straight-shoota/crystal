@@ -6,11 +6,11 @@ module Crystal::Conversions
     begin
       convert_call.accept visitor
     rescue ex : Crystal::Error
-      if ex.message.try(&.includes?("undefined method '#{convert_call_name}'"))
+      if ex.is_a?(UndefinedMethodError) && ex.method_name == convert_call_name
         return nil
       end
 
-      node.raise "converting from #{actual_type} to #{expected_type} by invoking '#{convert_call_name}'", ex
+      raise Crystal::SemanticError.new("converting from #{actual_type} to #{expected_type} by invoking '#{convert_call_name}'", node, cause: ex)
     end
 
     if convert_call.type? != unaliased_type
@@ -45,6 +45,6 @@ module Crystal::Conversions
   end
 
   def self.to_unsafe_lookup_failed?(ex)
-    ex.message.try(&.includes?("undefined method 'to_unsafe'"))
+    ex.is_a?(UndefinedMethodError) && ex.method_name == "to_unsafe"
   end
 end

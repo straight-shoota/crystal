@@ -469,7 +469,7 @@ module Crystal
         if args.empty?
           num = to_number
           if num.is_a?(Int::Unsigned)
-            raise "undefined method '-' for unsigned integer literal: #{self}"
+            raise UndefinedMethodError.new(method, "unsigned integer literal #{self}", self)
           else
             NumberLiteral.new(-num)
           end
@@ -502,7 +502,7 @@ module Crystal
           if num.is_a?(Int)
             NumberLiteral.new(~num)
           else
-            raise "undefined method '~' for float literal: #{self}"
+            raise UndefinedMethodError.new(method, "float literal: #{self}", self)
           end
         else
           wrong_number_of_arguments "NumberLiteral#~", args.size, 0
@@ -528,7 +528,7 @@ module Crystal
 
     def int_bin_op(op, args)
       if @kind == :f32 || @kind == :f64
-        raise "undefined method '#{op}' for float literal: #{self}"
+        raise UndefinedMethodError.new(op, "float literal: #{self}", self)
       end
 
       NumberLiteral.new(bin_op(op, args) do |me, other|
@@ -1657,7 +1657,7 @@ module Crystal
           when NamedTupleInstanceType
             NumberLiteral.new(type.entries.size)
           else
-            raise "undefined method 'size' for TypeNode of type #{type} (must be a tuple or named tuple type)"
+            raise UndefinedMethodError.new(method, "TypeNode of type #{type}", self, notes: ["Must be a tuple or named tuple type."])
           end
         end
       when "keys"
@@ -1666,7 +1666,7 @@ module Crystal
           if type.is_a?(NamedTupleInstanceType)
             ArrayLiteral.map(type.entries) { |entry| MacroId.new(entry.name) }
           else
-            raise "undefined method 'keys' for TypeNode of type #{type} (must be a named tuple type)"
+            raise UndefinedMethodError.new(method, "TypeNode of type #{type}", self, notes: ["Must be a named tuple type."])
           end
         end
       when "[]"
@@ -1700,7 +1700,7 @@ module Crystal
               return NilLiteral.new
             end
           else
-            raise "undefined method '[]' for TypeNode of type #{type} (must be a tuple or named tuple type)"
+            raise UndefinedMethodError.new(method, "TypeNode of type #{type}", self, notes: ["Must be a tuple or named tuple type."])
           end
         end
       when "class"

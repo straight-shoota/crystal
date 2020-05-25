@@ -279,7 +279,7 @@ class Crystal::Call
       end
     end
 
-    raise UndefinedMethodError.new(def_name, target, could_be_local_variable: could_be_local_variable, location: error_location, notes: notes)
+    raise UndefinedMethodError.new(def_name, target, could_be_local_variable: could_be_local_variable, notes: notes).at(self)
   end
 
   private def raise_matches_not_found_named_args(owner, def_name, defs, real_args_size, arg_types, named_args_types, inner_exception)
@@ -420,7 +420,7 @@ class Crystal::Call
 
   def raise_abstract_method_must_be_implemented(a_def, owner)
     if owner.abstract?
-      raise "undefined method '#{def_full_name(a_def.owner, a_def)}'"
+      raise UndefinedMethodError.new(def_full_name(a_def.owner, a_def), owner.to_s, self)
     else
       raise "abstract `def #{def_full_name(a_def.owner, a_def)}` must be implemented by #{owner}"
     end
