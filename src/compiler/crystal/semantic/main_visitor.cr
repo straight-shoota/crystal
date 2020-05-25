@@ -1242,13 +1242,13 @@ module Crystal
 
       # A proc pointer like `->foo` where `foo` is a macro is invalid
       if expand_macro(call)
-        node.raise(
-          String.build do |io|
-            io << "undefined method '" << node.name << "'"
-            (io << " for " << obj.type) if obj
-          end,
-          notes: ["'#{node.name}' exists as a macro, but macros can't be used in proc pointers"]
-        )
+        error_location = node.location
+        if error_location
+          error_location = ErrorLocation.new(error_location)
+        end
+        raise UndefinedMethodError.new(node.name, obj.try(&.type.to_s), location: error_location, notes: [
+          "'#{node.name}' exists as a macro, but macros can't be used in proc pointers.",
+        ])
       end
 
       # Check if it's ->LibFoo.foo, so we deduce the type from that method
@@ -2512,12 +2512,11 @@ module Crystal
       end
 
       unsafe_call = Conversions.to_unsafe(node, Var.new("value").at(node), self, actual_type, expected_type)
-      if unsafe_call
-        node.extra = unsafe_call
-        return
+      unless unsafe_call
+        node.raise "field '#{field_name}' of #{scope.type_desc} #{scope} has type #{expected_type}, not #{actual_type}"
       end
 
-      node.raise "field '#{field_name}' of #{scope.type_desc} #{scope} has type #{expected_type}, not #{actual_type}"
+      node.extra = unsafe_call
     end
 
     def convert_struct_or_union_numeric_argument(node, unaliased_type, expected_type, actual_type)
