@@ -68,11 +68,24 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
     node.expanded = expanded
     node.bind_to(expanded)
     false
-  rescue ex : Crystal::Error
-    unless ex.is_a?(Crystal::CodeError)
-      ex = Crystal::CodeError.new(cause: ex)
+  rescue ex : CrystalPath::NotFoundError
+    message = "can't find file '#{ex.filename}'"
+    notes = [] of String
+
+    if ex.filename.starts_with? '.'
+      if relative_to
+        message += " relative to '#{relative_to}'"
+      end
+    else
+      notes << <<-NOTE
+          If you're trying to require a shard:
+          - Did you remember to run `shards install`?
+          - Did you make sure you're running the compiler in the same directory as your shard.yml?
+          NOTE
     end
 
+    raise CodeError.new(message, node, notes: notes)
+  rescue ex : Crystal::CodeError
     ex.frames << Crystal::ErrorFrame.require(node, node.string)
     ::raise ex
   rescue ex
