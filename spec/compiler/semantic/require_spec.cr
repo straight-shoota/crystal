@@ -5,33 +5,39 @@ describe "Semantic: require" do
     it "require" do
       error = assert_error %(require "file_that_doesnt_exist"),
         "can't find file 'file_that_doesnt_exist'",
+        location: Crystal::ErrorLocation.new("", 1, 1, 0),
         inject_primitives: false
 
-      error.message.not_nil!.should contain "If you're trying to require a shard:"
+      error.notes.size.should eq 1
+      error.notes.first.should start_with "If you're trying to require a shard:"
     end
 
     it "relative require" do
       error = assert_error %(require "./file_that_doesnt_exist"),
         "can't find file './file_that_doesnt_exist'",
+        location: Crystal::ErrorLocation.new("", 1, 1, 0),
         inject_primitives: false
 
-      error.message.not_nil!.should_not contain "If you're trying to require a shard:"
+      error.notes.should be_empty
     end
 
-    it "wildcard" do
+    it "wildecard" do
       error = assert_error %(require "file_that_doesnt_exist/*"),
         "can't find file 'file_that_doesnt_exist/*'",
+        location: Crystal::ErrorLocation.new("", 1, 1, 0),
         inject_primitives: false
 
-      error.message.not_nil!.should contain "If you're trying to require a shard:"
+      error.notes.size.should eq 1
+      error.notes.first.should start_with "If you're trying to require a shard:"
     end
 
-    it "relative wildcard" do
+    it "relative wildecard" do
       error = assert_error %(require "./file_that_doesnt_exist/*"),
         "can't find file './file_that_doesnt_exist/*'",
+        location: Crystal::ErrorLocation.new("", 1, 1, 0),
         inject_primitives: false
 
-      error.message.not_nil!.should_not contain "If you're trying to require a shard:"
+      error.notes.should be_empty
     end
   end
 end

@@ -72,8 +72,7 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
     message = "can't find file '#{ex.filename}'"
     notes = [] of String
 
-    # FIXME: as(String) should not be necessary
-    if ex.filename.as(String).starts_with? '.'
+    if ex.filename.starts_with? '.'
       if relative_to
         message += " relative to '#{relative_to}'"
       end
@@ -85,12 +84,8 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
           NOTE
     end
 
-    node.raise "#{message}\n\n#{notes.join("\n")}"
-  rescue ex : Crystal::Error
-    unless ex.is_a?(Crystal::CodeError)
-      ex = Crystal::CodeError.new(cause: ex)
-    end
-
+    raise CodeError.new(message, node, notes: notes)
+  rescue ex : Crystal::CodeError
     ex.frames << Crystal::ErrorFrame.require(node, node.string)
     ::raise ex
   rescue ex
