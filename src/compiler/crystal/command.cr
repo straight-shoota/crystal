@@ -121,11 +121,12 @@ class Crystal::Command
         error "unknown command: #{command}"
       end
     end
-  rescue ex : Crystal::CodeError
+  rescue error : Crystal::CodeError
     if @config.try(&.output_format) == "json"
-      STDERR.puts ex.to_json
+      ErrorFormatter.load_sources(error)
+      error.to_json(STDOUT)
     else
-      STDERR.puts ex
+      ErrorFormatter.run(STDERR, error, ::Path.new(Dir.current), colorize: @color)
     end
     exit 1
   rescue ex : Crystal::Error
