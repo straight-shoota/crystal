@@ -193,19 +193,13 @@ module Crystal
 
   class MethodTraceError < SemanticError
     getter owner
-    getter nil_reason
-    getter? show
 
-    def initialize(@owner : Type?, @trace : Array(ASTNode), @nil_reason : NilReason?, @show : Bool, notes : Array(String) = [] of String)
-      super(nil, nil, notes)
+    def initialize(@owner : Type?, @trace : Array(ASTNode))
+      super(nil, nil)
     end
 
     def has_trace?
       @trace.any?(&.location)
-    end
-
-    def has_message?
-      @nil_reason || has_trace? && @show
     end
   end
 

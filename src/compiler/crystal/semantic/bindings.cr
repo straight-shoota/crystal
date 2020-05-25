@@ -262,7 +262,7 @@ module Crystal
       if nil_reason
         NilableError.new(nil_reason, nil)
       else
-        MethodTraceError.new(owner, owner_trace, nil_reason, program.show_error_trace?)
+        MethodTraceError.new(owner, owner_trace)
       end
     end
   end
