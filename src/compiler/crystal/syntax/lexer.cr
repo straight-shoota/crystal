@@ -1,5 +1,5 @@
 require "./token"
-require "../exception"
+require "../error"
 require "string_pool"
 
 module Crystal
@@ -3075,23 +3075,23 @@ module Crystal
     end
 
     def unknown_token
-      raise "unknown token: #{current_char.inspect}", @line_number, @column_number
+      raise "unknown token: #{current_char.inspect}"
     end
 
     def set_token_raw_from_start(start)
       @token.raw = string_range(start) if @wants_raw
     end
 
-    def raise(message, line_number = @line_number, column_number = @column_number, filename = @filename)
-      ::raise Crystal::SyntaxException.new(message, line_number, column_number, filename)
+    def raise(message, line_number = @line_number, column_number = @column_number, size : Int32 = 0)
+      raise message, Location.new(@filename, line_number, column_number), size
     end
 
-    def raise(message, token : Token, size = nil)
-      ::raise Crystal::SyntaxException.new(message, token.line_number, token.column_number, token.filename, size)
+    def raise(message, token : Token, size = 0)
+      raise(message, token.location, size: size)
     end
 
-    def raise(message, location : Location)
-      raise message, location.line_number, location.column_number, location.filename
+    def raise(message, location : Location, size = 0)
+      ::raise Crystal::SyntaxError.new(message, location, size: size)
     end
   end
 end

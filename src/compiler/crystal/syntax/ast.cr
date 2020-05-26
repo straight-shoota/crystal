@@ -1283,6 +1283,10 @@ module Crystal
       new names, true
     end
 
+    def name_size
+      names.sum(&.size) + (names.size + (global? ? 0 : -1)) * 2
+    end
+
     # Returns true if this path has a single component
     # with the given name
     def single?(name)

@@ -5,7 +5,7 @@ module Crystal::Conversions
 
     begin
       convert_call.accept visitor
-    rescue ex : Crystal::Exception
+    rescue ex : Crystal::Error
       if ex.message.try(&.includes?("undefined method '#{convert_call_name}'"))
         return nil
       end
@@ -37,7 +37,7 @@ module Crystal::Conversions
     unsafe_call = Call.new(target, "to_unsafe").at(target)
     begin
       unsafe_call.accept visitor
-    rescue ex : TypeException
+    rescue ex : SemanticError
       yield ex
     end
     unsafe_call

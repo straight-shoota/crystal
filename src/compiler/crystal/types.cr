@@ -906,7 +906,7 @@ module Crystal
         return add_hook :method_added, a_macro, args_size: 1
       when "method_missing"
         if a_macro.args.size != 1
-          raise TypeException.new "macro 'method_missing' expects 1 argument (call)"
+          raise SemanticError.new "macro 'method_missing' expects 1 argument (call)"
         end
       else
         # normal macro
@@ -929,11 +929,11 @@ module Crystal
       if a_macro.args.size != args_size
         case args_size
         when 0
-          raise TypeException.new "macro '#{kind}' must not have arguments"
+          raise SemanticError.new "macro '#{kind}' must not have arguments"
         when 1
-          raise TypeException.new "macro '#{kind}' must have a argument"
+          raise SemanticError.new "macro '#{kind}' must have a argument"
         else
-          raise TypeException.new "macro '#{kind}' must have #{args_size} arguments"
+          raise SemanticError.new "macro '#{kind}' must have #{args_size} arguments"
         end
       end
 
@@ -947,9 +947,9 @@ module Crystal
 
     def include(mod)
       if mod == self
-        raise TypeException.new "cyclic include detected"
+        raise SemanticError.new "cyclic include detected"
       elsif mod.ancestors.includes?(self)
-        raise TypeException.new "cyclic include detected"
+        raise SemanticError.new "cyclic include detected"
       else
         unless parents.includes?(mod)
           parents.insert 0, mod
@@ -1538,7 +1538,7 @@ module Crystal
           # Consider the case of @x : *T
           instance_var_type = ivar_type.splatted_type.replace_type_parameters(instance)
           unless instance_var_type.is_a?(TupleInstanceType)
-            raise TypeException.new "expected splatted type to be a tuple type, not #{instance_var_type}"
+            raise SemanticError.new "expected splatted type to be a tuple type, not #{instance_var_type}"
           end
         else
           instance_var_type = ivar_type.replace_type_parameters(instance)
@@ -2170,12 +2170,12 @@ module Crystal
 
       unless n.is_a?(Var) && n.type.is_a?(TypeParameter)
         unless n.is_a?(NumberLiteral)
-          raise TypeException.new "can't instantiate StaticArray(T, N) with N = #{n.type} (N must be an integer)"
+          raise SemanticError.new "can't instantiate StaticArray(T, N) with N = #{n.type} (N must be an integer)"
         end
 
         value = n.value.to_i
         if value < 0
-          raise TypeException.new "can't instantiate StaticArray(T, N) with N = #{value} (N must be positive)"
+          raise SemanticError.new "can't instantiate StaticArray(T, N) with N = #{value} (N must be positive)"
         end
       end
 
@@ -3024,14 +3024,14 @@ module Crystal
           if replacement.is_a?(Var)
             new_union_types << replacement.type
           else
-            raise TypeException.new "expected type, not #{replacement.class_desc}"
+            raise SemanticError.new "expected type, not #{replacement.class_desc}"
           end
         when TypeSplat
           type_var = type.splatted_type.replace_type_parameters(instance)
           if type_var.is_a?(TupleInstanceType)
             new_union_types.concat(type_var.tuple_types)
           else
-            raise TypeException.new "expected tuple type, not #{type_var}"
+            raise SemanticError.new "expected tuple type, not #{type_var}"
           end
         else
           new_union_types << type.replace_type_parameters(instance)

@@ -48,7 +48,7 @@ module Crystal
 
     def set_type_from(type, from)
       set_type type
-    rescue ex : FrozenTypeException
+    rescue ex : FrozenTypeError
       # See if we can find where the mismatched type came from
       if from && !ex.inner && (freeze_type = @freeze_type) && type.is_a?(UnionType) && type.includes_type?(freeze_type) && type.union_types.size == 2
         other_type = type.union_types.find { |type| type != freeze_type }
@@ -70,21 +70,21 @@ module Crystal
       if !freeze_type.includes_type?(invalid_type.program.nil) && invalid_type.includes_type?(invalid_type.program.nil)
         # This means that an instance variable become nil
         if self.is_a?(MetaTypeVar) && (nil_reason = self.nil_reason)
-          inner = MethodTraceException.new(nil, [] of ASTNode, nil_reason, freeze_type.program.show_error_trace?)
+          inner = MethodTraceError.new(nil, [] of ASTNode, nil_reason, freeze_type.program.show_error_trace?)
         end
       end
 
       case self
       when MetaTypeVar
         if self.global?
-          from.raise "global variable '#{self.name}' must be #{freeze_type}, not #{invalid_type}", inner, Crystal::FrozenTypeException
+          raise FrozenTypeError.new("global variable '#{self.name}' must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
         else
-          from.raise "#{self.kind} variable '#{self.name}' of #{self.owner} must be #{freeze_type}, not #{invalid_type}", inner, Crystal::FrozenTypeException
+          raise FrozenTypeError.new("#{self.kind} variable '#{self.name}' of #{self.owner} must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
         end
       when Def
-        (self.return_type || self).raise "method must return #{freeze_type} but it is returning #{invalid_type}", inner, Crystal::FrozenTypeException
+        raise FrozenTypeError.new("method must return #{freeze_type} but it is returning #{invalid_type}", (self.return_type || self).error_location, inner)
       else
-        from.raise "type must be #{freeze_type}, not #{invalid_type}", inner, Crystal::FrozenTypeException
+        raise FrozenTypeError.new("type must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
       end
     end
 
@@ -258,7 +258,7 @@ module Crystal
         end
       end
 
-      MethodTraceException.new(owner, owner_trace, nil_reason, program.show_error_trace?)
+      MethodTraceError.new(owner, owner_trace, nil_reason, program.show_error_trace?)
     end
   end
 
@@ -569,7 +569,7 @@ module Crystal
 
         begin
           generic_type = instance_type.as(GenericType).instantiate(type_vars_types)
-        rescue ex : Crystal::Exception
+        rescue ex : Crystal::Error
           raise ex.message, ex
         end
       end

@@ -68,7 +68,7 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
     node.expanded = expanded
     node.bind_to(expanded)
     false
-  rescue ex : Crystal::Exception
+  rescue ex : Crystal::Error
     node.raise "while requiring \"#{node.string}\"", ex
   rescue ex
     raise ::Exception.new("while requiring \"#{node.string}\"", ex)
@@ -405,7 +405,7 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
     generated_nodes = expand_macro(the_macro, node, mode: mode, visibility: :public) do
       begin
         @program.expand_macro node, (@scope || current_type), @path_lookup, free_vars, @untyped_def
-      rescue ex : SkipMacroException
+      rescue ex : SkipMacroError
         skip_macro_exception = ex
         {ex.expanded_before_skip, ex.macro_expansion_pragmas}
       end
@@ -421,9 +421,9 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
 
   def eval_macro(node)
     yield
-  rescue ex : MacroRaiseException
-    node.raise ex.message, exception_type: MacroRaiseException
-  rescue ex : Crystal::Exception
+  rescue ex : MacroRaiseError
+    raise MacroRaiseError.new(ex.message, node)
+  rescue ex : Crystal::Error
     node.raise "expanding macro", ex
   end
 

@@ -10,7 +10,7 @@ module Crystal::Doc::Highlighter
     String.build do |io|
       begin
         highlight_normal_state lexer, io
-      rescue Crystal::SyntaxException
+      rescue Crystal::SyntaxError
       end
     end
   end

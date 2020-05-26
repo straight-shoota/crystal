@@ -210,7 +210,7 @@ module Crystal
     end
 
     def interpret_skip_file(node)
-      raise SkipMacroException.new(@str.to_s, macro_expansion_pragmas)
+      raise SkipMacroError.new(@str.to_s, macro_expansion_pragmas)
     end
 
     def interpret_system(node)
@@ -390,7 +390,7 @@ module Crystal
       when "!"
         BoolLiteral.new(!truthy?)
       else
-        raise "undefined macro method '#{class_desc}##{method}'", exception_type: Crystal::UndefinedMacroMethodError
+        raise UndefinedMacroMethodError.new("undefined macro method '#{class_desc}##{method}'", self)
       end
     end
 
@@ -1533,7 +1533,8 @@ module Crystal
         value
       end
     rescue UndefinedMacroMethodError
-      raise "undefined macro method '#{class_desc}##{method}'", exception_type: Crystal::UndefinedMacroMethodError
+      # FIXME: Do we need a new instance here?
+      raise UndefinedMacroMethodError.new("undefined macro method '#{class_desc}##{method}'", self)
     end
 
     def interpret_compare(other : MacroId | StringLiteral)
@@ -1563,7 +1564,8 @@ module Crystal
         value
       end
     rescue UndefinedMacroMethodError
-      raise "undefined macro method '#{class_desc}##{method}'", exception_type: Crystal::UndefinedMacroMethodError
+      # FIXME: Do we need a new instance here?
+      raise UndefinedMacroMethodError.new("undefined macro method '#{class_desc}##{method}'", self)
     end
   end
 
@@ -2524,7 +2526,7 @@ private def macro_raise(node, args, interpreter)
   end
   msg = msg.join " "
 
-  node.raise msg, exception_type: Crystal::MacroRaiseException
+  raise Crystal::MacroRaiseError.new(msg, node)
 end
 
 private def empty_no_return_array

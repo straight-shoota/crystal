@@ -121,17 +121,15 @@ class Crystal::Command
         error "unknown command: #{command}"
       end
     end
-  rescue ex : Crystal::LocationlessException
-    error ex.message
-  rescue ex : Crystal::Exception
-    ex.color = @color
-    ex.error_trace = @error_trace
+  rescue ex : Crystal::CodeError
     if @config.try(&.output_format) == "json"
       STDERR.puts ex.to_json
     else
       STDERR.puts ex
     end
     exit 1
+  rescue ex : Crystal::Error
+    error ex.message
   rescue ex : OptionParser::Exception
     error ex.message
   rescue ex

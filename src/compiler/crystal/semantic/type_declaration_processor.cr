@@ -171,7 +171,7 @@ struct Crystal::TypeDeclarationProcessor
     remove_error owner, name
 
     if owner.extern? && !type.allowed_in_lib?
-      raise TypeException.new("only primitive types, pointers, structs, unions, enums and tuples are allowed in extern struct declarations, not #{type}", location.not_nil!)
+      raise SemanticError.new("only primitive types, pointers, structs, unions, enums and tuples are allowed in extern struct declarations, not #{type}", location)
     end
 
     if owner.is_a?(NonGenericModuleType) || owner.is_a?(NonGenericClassType)
@@ -224,7 +224,7 @@ struct Crystal::TypeDeclarationProcessor
   end
 
   private def raise_cant_declare_instance_var(owner, location)
-    raise TypeException.new("can't declare instance variables in #{owner}", location)
+    raise SemanticError.new("can't declare instance variables in #{owner}", location)
   end
 
   private def process_instance_vars_declarations
@@ -255,7 +255,7 @@ struct Crystal::TypeDeclarationProcessor
     return if owner.is_a?(GenericInstanceType)
 
     if owner.metaclass?
-      raise TypeException.new("can't declare instance variables in #{owner}", type_decl.location)
+      raise SemanticError.new("can't declare instance variables in #{owner}", type_decl.location)
     end
 
     # Check if a superclass already defined this variable
@@ -264,7 +264,7 @@ struct Crystal::TypeDeclarationProcessor
     if supervar && supervar.owner != owner
       # Redeclaring a variable with the same type is OK
       unless supervar.type.same?(type_decl.type)
-        raise TypeException.new("instance variable '#{name}' of #{supervar.owner}, with #{owner} < #{supervar.owner}, is already declared as #{supervar.type} (trying to re-declare as #{type_decl.type})", type_decl.location)
+        raise SemanticError.new("instance variable '#{name}' of #{supervar.owner}, with #{owner} < #{supervar.owner}, is already declared as #{supervar.type} (trying to re-declare as #{type_decl.type})", type_decl.location)
       end
     else
       declare_meta_type_var(owner.instance_vars, owner, name, type_decl, instance_var: true, check_nilable: !owner.module?)
@@ -421,7 +421,7 @@ struct Crystal::TypeDeclarationProcessor
   end
 
   private def raise_nil_instance_var(owner, name, location)
-    raise TypeException.new("instance variable #{name} of #{owner} was inferred to be Nil, but Nil alone provides no information", location)
+    raise SemanticError.new("instance variable #{name} of #{owner} was inferred to be Nil, but Nil alone provides no information", location)
   end
 
   private def compute_non_nilable_instance_vars
@@ -670,7 +670,7 @@ struct Crystal::TypeDeclarationProcessor
             end
 
             if owner_class_var.type != ancestor_class_var.type
-              raise TypeException.new("class variable '#{name}' of #{owner} is already defined as #{ancestor_class_var.type} in #{ancestor}", info.location)
+              raise SemanticError.new("class variable '#{name}' of #{owner} is already defined as #{ancestor_class_var.type} in #{ancestor}", info.location)
             end
           end
 
@@ -685,7 +685,7 @@ struct Crystal::TypeDeclarationProcessor
   end
 
   private def raise_not_initialized_in_all_initialize(location : Location, name, owner)
-    raise TypeException.new "instance variable '#{name}' of #{owner} was not initialized directly in all of the 'initialize' methods, rendering it nilable. Indirect initialization is not supported.", location
+    raise SemanticError.new "instance variable '#{name}' of #{owner} was not initialized directly in all of the 'initialize' methods, rendering it nilable. Indirect initialization is not supported.", location
   end
 
   private def raise_doesnt_explicitly_initializes(info, name, ivar)

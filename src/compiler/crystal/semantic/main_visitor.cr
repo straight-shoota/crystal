@@ -792,7 +792,7 @@ module Crystal
 
       begin
         meta_var.bind_to value
-      rescue ex : FrozenTypeException
+      rescue ex : FrozenTypeError
         target.raise ex.message
       end
 
@@ -866,7 +866,7 @@ module Crystal
 
       begin
         var.bind_to value
-      rescue ex : FrozenTypeException
+      rescue ex : FrozenTypeError
         target.raise ex.message
       end
 
@@ -1268,7 +1268,7 @@ module Crystal
 
       begin
         call.recalculate
-      rescue ex : Crystal::Exception
+      rescue ex : Crystal::Error
         node.raise "error instantiating #{node}", ex
       end
 
@@ -1898,7 +1898,7 @@ module Crystal
 
       begin
         body.accept visitor
-      rescue ex : Crystal::Exception
+      rescue ex : Crystal::Error
         node.raise ex.message, ex
       end
 

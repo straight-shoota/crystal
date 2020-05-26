@@ -9,8 +9,16 @@ module Crystal
   end
 
   class ASTNode
-    def raise(message, inner = nil, exception_type = Crystal::TypeException)
-      ::raise exception_type.for_node(self, message, inner)
+    def raise(message : String?, inner : Error? = nil)
+      ::raise SemanticError.new(message, self, inner)
+    end
+
+    def error_location
+      name_location || self.location
+    end
+
+    def error_size
+      name_size
     end
 
     def warning(message, inner = nil, exception_type = Crystal::TypeException)
