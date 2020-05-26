@@ -83,11 +83,7 @@ class Crystal::RecursiveStructChecker
         it possible to always compute a size for them.
         MSG
       location = target.locations.try &.first?
-      if location
-        raise TypeException.new(msg, location)
-      else
-        raise TypeException.new(msg)
-      end
+      raise SemanticError.new(msg, location)
     end
 
     return if checked.includes?(type)

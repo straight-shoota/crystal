@@ -313,7 +313,7 @@ class Crystal::TopLevelVisitor < Crystal::SemanticVisitor
     target = current_type.metaclass.as(ModuleType)
     begin
       target.add_macro node
-    rescue ex : Crystal::Exception
+    rescue ex : Crystal::Error
       node.raise ex.message
     end
 
@@ -730,7 +730,7 @@ class Crystal::TopLevelVisitor < Crystal::SemanticVisitor
     node.expressions.each_with_index do |child, i|
       begin
         child.accept self
-      rescue SkipMacroException
+      rescue SkipMacroError
         node.expressions.delete_at(i..-1)
         break
       end
@@ -990,7 +990,7 @@ class Crystal::TopLevelVisitor < Crystal::SemanticVisitor
     begin
       current_type.as(ModuleType).include type
       run_hooks hook_type(type), current_type, kind, node
-    rescue ex : TypeException
+    rescue ex : SemanticError
       node.raise "at '#{kind}' hook", ex
     end
   end

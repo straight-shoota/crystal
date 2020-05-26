@@ -140,8 +140,8 @@ class Crystal::Command
     rescue ex : InvalidByteSequenceError
       error "file '#{filename}' is not a valid Crystal source file: #{ex.message}"
       @status_code = 1
-    rescue ex : Crystal::SyntaxException
-      error "syntax error in '#{filename}:#{ex.line_number}:#{ex.column_number}': #{ex.message}"
+    rescue ex : Crystal::SyntaxError
+      error "syntax error in '#{ex.location}': #{ex.message}"
       @status_code = 1
     rescue ex
       if @show_backtrace

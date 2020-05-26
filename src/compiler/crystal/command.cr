@@ -126,17 +126,19 @@ class Crystal::Command
     report_warnings
 
     error ex.message
-  rescue ex : Crystal::Exception
+  rescue ex : Crystal::CodeError
     report_warnings
 
-    ex.color = @color
-    ex.error_trace = @error_trace
     if @config.try(&.output_format) == "json"
       STDERR.puts ex.to_json
     else
       STDERR.puts ex
     end
     exit 1
+  rescue ex : Crystal::Error
+    report_warnings
+
+    error ex.message
   rescue ex : OptionParser::Exception
     error ex.message
   rescue ex

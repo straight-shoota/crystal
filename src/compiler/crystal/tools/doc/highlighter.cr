@@ -9,7 +9,7 @@ module Crystal::Doc::Highlighter
 
     begin
       String.build { |io| highlight_normal_state lexer, io }
-    rescue
+    rescue Crystal::SyntaxError
       code
     end
   end
