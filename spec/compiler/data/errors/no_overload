@@ -1,0 +1,4 @@
+def foo(arg : String); end
+def foo(arg : Bool); end
+
+foo(arg: 1)

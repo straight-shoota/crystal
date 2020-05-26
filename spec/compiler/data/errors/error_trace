@@ -1,0 +1,11 @@
+def foo(foo)
+  bar(foo)
+end
+
+def bar(bar)
+  baz(bar)
+end
+
+def baz(baz : String); end
+
+foo(1)
