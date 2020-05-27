@@ -59,35 +59,39 @@ module Crystal
         ex.inner = trace
       end
 
-      if from && !location
-        from.raise ex.message, ex.inner
-      else
-        ::raise ex
-      end
+      raise ex
     end
 
     def raise_frozen_type(freeze_type, invalid_type, from)
-      if !freeze_type.includes_type?(invalid_type.program.nil) && invalid_type.includes_type?(invalid_type.program.nil)
-        # This means that an instance variable become nil
-        if self.is_a?(MetaTypeVar) && (nil_reason = self.nil_reason)
-          inner = MethodTraceError.new(nil, [] of ASTNode, nil_reason, freeze_type.program.show_error_trace?)
-        end
-      end
-
+      error_node = from
       case self
       when MetaTypeVar
         if self.global?
-          raise FrozenTypeError.new("global variable '#{self.name}' must be #{freeze_type}, not #{invalid_type}", from.error_location)
+          message = "global variable '#{self.name}' must be #{freeze_type}, not #{invalid_type}"
         else
-          raise FrozenTypeError.new("#{self.kind} variable '#{self.name}' of #{self.owner} must be #{freeze_type}, not #{invalid_type}", from.error_location)
+          message = "#{self.kind} variable '#{self.name}' of #{self.owner} must be #{freeze_type}, not #{invalid_type}"
         end
       when Def
-        raise FrozenTypeError.new("method #{self.short_reference} must return #{freeze_type} but it is returning #{invalid_type}", (self.return_type || self).error_location, inner)
+        message = "method #{self.short_reference} must return #{freeze_type} but it is returning #{invalid_type}"
+        error_node = self.return_type || self
       when NamedType
-        raise FrozenTypeError.new("type #{self.full_name} must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
+        message = "type #{self.full_name} must be #{freeze_type}, not #{invalid_type}"
+        error_node = from
       else
-        raise FrozenTypeError.new("type must be #{freeze_type}, not #{invalid_type}", from.error_location)
+        message = "type must be #{freeze_type}, not #{invalid_type}"
       end
+
+      frozen_type_error = FrozenTypeError.new(message, error_node)
+
+      if !freeze_type.includes_type?(invalid_type.program.nil) && invalid_type.includes_type?(invalid_type.program.nil)
+        # This means that an instance variable become nil
+        if self.is_a?(MetaTypeVar) && (nil_reason = self.nil_reason)
+          nilable_error = NilableError.new(nil_reason, cause: frozen_type_error)
+          raise nilable_error
+        end
+      end
+
+      raise frozen_type_error
     end
 
     def type=(type)
@@ -271,7 +275,11 @@ module Crystal
         end
       end
 
-      MethodTraceError.new(owner, owner_trace, nil_reason, program.show_error_trace?)
+      if nil_reason
+        NilableError.new(nil_reason, nil)
+      else
+        MethodTraceError.new(owner, owner_trace, nil_reason, program.show_error_trace?)
+      end
     end
   end
 

@@ -216,6 +216,10 @@ class Crystal::Call
     check_macro_wrong_number_of_arguments(def_name)
 
     owner_trace = obj.try &.find_owner_trace(owner.program, owner)
+    if owner_trace.is_a?(NilableError)
+      raise owner_trace
+    end
+
     similar_name = owner.lookup_similar_def_name(def_name, self.args.size, block)
 
     notes = [] of String
@@ -272,16 +276,6 @@ class Crystal::Call
         else
           notes << "#{ivar.name} was never assigned a value."
         end
-      end
-    end
-
-    # FIXME: Convert owner_trace to frames
-    if owner_trace
-      # needs raise owner_trace in
-      # nilable_instance_var_spec.cr:99
-      # {"message":"'self' was used before initializing instance variable '@foo', rendering it nilable","class":"Crystal::NilableError"}
-      if owner_trace.is_a?(NilableError)
-        raise owner_trace
       end
     end
 

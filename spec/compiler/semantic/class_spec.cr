@@ -786,7 +786,7 @@ describe "Semantic: class" do
   end
 
   it "correctly types #680 (2)" do
-    assert_error %(
+    error = assert_error <<-CR,
       class Foo
         def initialize(@method : Int32)
         end
@@ -803,8 +803,10 @@ describe "Semantic: class" do
       end
 
       Bar.new.method
-      ),
-      "instance variable '@method' of Foo must be Int32, not Nil"
+      CR
+      "Instance variable '@method' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+
+    error.cause.not_nil!.message.should eq "instance variable '@method' of Foo must be Int32, not Nil"
   end
 
   it "can invoke method on abstract type without subclasses nor instances" do
