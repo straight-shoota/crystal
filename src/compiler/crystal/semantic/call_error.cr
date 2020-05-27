@@ -29,7 +29,7 @@ class Crystal::Path
 
     similar_name = type.lookup_similar_path(self)
     if similar_name
-      self.raise("undefined constant #{self}\nDid you mean '#{similar_name}'?")
+      self.raise("undefined constant #{self}", notes: ["Did you mean '#{similar_name}'?"])
     else
       self.raise("undefined constant #{self}")
     end
@@ -97,10 +97,16 @@ class Crystal::Call
 
     real_args_size = arg_types.size
 
+    notes = [] of String
+
     # If it's on an initialize method and there's a similar method name, it's probably a typo
     if (def_name == "initialize" || def_name == "new") && (similar_def = owner.instance_type.lookup_similar_def("initialize", self.args.size, block))
-      inner_msg = colorize("do you maybe have a typo in this '#{similar_def.name}' method?").yellow.bold.to_s
-      inner_exception = SemanticError.new(inner_msg, similar_def.error_location)
+      notes << "do you maybe have a typo in this '#{similar_def.name}' method?"
+    end
+
+    notes << String.build do |str|
+      str << "Overloads are:"
+      append_matches(defs, arg_types, str)
     end
 
     defs_matching_args_size = defs.select do |a_def|
@@ -168,38 +174,33 @@ class Crystal::Call
           end
         end
 
-        msg << '\n'
-
         defs.each do |a_def|
           arg_names << a_def.args.map(&.name)
         end
       end
+    end
 
-      msg << "Overloads are:"
-      append_matches(defs, arg_types, msg)
-
-      if matches
-        cover = matches.cover
-        if cover.is_a?(Cover)
-          missing = cover.missing
-          uniq_arg_names = arg_names.uniq!
-          uniq_arg_names = uniq_arg_names.size == 1 ? uniq_arg_names.first : nil
-          unless missing.empty?
-            msg << "\nCouldn't find overloads for these types:"
+    if matches
+      cover = matches.cover
+      if cover.is_a?(Cover)
+        missing = cover.missing
+        uniq_arg_names = arg_names.uniq!
+        uniq_arg_names = uniq_arg_names.size == 1 ? uniq_arg_names.first : nil
+        unless missing.empty?
+          notes << String.build do |msg|
+            msg << "Couldn't find overloads for these types:"
             missing.each do |missing_types|
               if uniq_arg_names
-                signature_names = missing_types.map_with_index do |missing_type, i|
+                missing_types = missing_types.map_with_index do |missing_type, i|
                   if i >= arg_types.size && (named_arg = named_args_types.try &.[i - arg_types.size]?)
                     "#{named_arg.name} : #{missing_type}"
                   else
                     "#{uniq_arg_names[i]? || "_"} : #{missing_type}"
                   end
                 end
-                signature_args = signature_names.join ", "
-              else
-                signature_args = missing_types.join ", "
               end
-              msg << "\n - #{full_name(owner, def_name)}(#{signature_args}"
+              msg << "\n - #{full_name(owner, def_name)}("
+              missing_types.join(msg, ", ")
               msg << ", &block" if block
               msg << ')'
             end
@@ -208,7 +209,7 @@ class Crystal::Call
       end
     end
 
-    raise message, owner_trace
+    raise message, owner_trace, notes: notes
   end
 
   private def raise_undefined_method(owner, def_name, obj)
@@ -591,19 +592,20 @@ class Crystal::Call
           str << "no argument named '"
           str << named_arg.name
           str << '\''
-          if similar_name
-            str << '\n'
-            str << "Did you mean '#{similar_name}'?"
-            str << '\n'
-          end
+        end
 
-          defs = owner.lookup_defs(a_def.name)
+        notes = [] of String
+        if similar_name
+          notes << "Did you mean '#{similar_name}'?"
+        end
 
-          str << '\n'
+        defs = owner.lookup_defs(a_def.name)
+
+        notes << String.build do |str|
           str << "Matches are:"
           append_matches defs, arg_types, str, matched_def: a_def, argument_name: named_arg.name
         end
-        raise msg
+        raise msg, notes: notes
       end
     end
   end

@@ -479,8 +479,12 @@ describe "Semantic: macro" do
       foo
       hello
       CR
+      "undefined method 'hello' for top-level",
       inject_primitives: false
-    error.to_s.should_not contain("did you mean")
+      location: Crystal::Location.new("", 6, 1, 5),
+      notes: [
+        "If you declared 'hello' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it.",
+      ]
   end
 
   it "finds macro in included generic module" do

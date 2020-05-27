@@ -633,9 +633,9 @@ describe "Semantic: generic class" do
 
       Foo(String).foo(35.7)
       CR
-      inject_primitives: false
-
-    error.to_s.lines.count(" - Foo(T).foo(x : Int32)").should eq(1)
+      nil,
+      inject_primitives: false,
+      notes: ["Overloads are:\n - Foo(T).foo(x : Int32)"]
   end
 
   # Given:

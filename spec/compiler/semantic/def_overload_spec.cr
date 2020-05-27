@@ -729,7 +729,8 @@ describe "Semantic: def overload" do
 
       foo 'a'
       ),
-      "foo(x : Int32, *bar)"
+      nil,
+      notes: ["Overloads are:\n - foo(x : Int32, *bar)"]
   end
 
   it "says `no overload matches` instead of `can't instantiate abstract class` on wrong argument in new method" do
@@ -787,7 +788,9 @@ describe "Semantic: def overload" do
 
       Bar.new.foo("hello")
       ),
-      <<-MSG
+      nil,
+      notes: [<<-MSG]
+      Overloads are:
        - Bar#foo(x : Int32)
        - Foo#foo(x : Int32)
       MSG
@@ -845,7 +848,8 @@ describe "Semantic: def overload" do
 
       Moo::String.foo("Hello, World!", true)
       ),
-      " - Moo::String.foo(a : Moo::String, b : Bool)"
+      "no overload matches 'Moo::String.foo' with types String, Bool",
+      notes: ["Overloads are:\n - Moo::String.foo(a : Moo::String, b : Bool)"]
   end
 
   it "overloads on metaclass (#2916)" do

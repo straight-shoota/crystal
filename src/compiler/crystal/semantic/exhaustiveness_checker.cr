@@ -52,9 +52,7 @@ struct Crystal::ExhaustivenessChecker
     return if targets.empty?
 
     if targets.all?(&.is_a?(TypeTarget)) && all_patterns_are_types
-      node.raise <<-MSG
-        case is not exhaustive.
-
+      node.raise "case is not exhaustive", notes: [<<-MSG]
         Missing types:
          - #{targets.map(&.type).join("\n - ")}
         MSG
@@ -64,16 +62,12 @@ struct Crystal::ExhaustivenessChecker
 
     case single_target
     when BoolTarget
-      node.raise <<-MSG
-        case is not exhaustive.
-
+      node.raise "case is not exhaustive", notes: [<<-MSG]
         Missing cases:
          - #{single_target.missing_cases.join("\n - ")}
         MSG
     when EnumTarget
-      node.raise <<-MSG
-      case is not exhaustive for enum #{single_target.type}.
-
+      node.raise "case is not exhaustive for enum #{single_target.type}", notes: [<<-MSG]
       Missing members:
        - #{single_target.members.map(&.name).join("\n - ")}
       MSG
@@ -81,18 +75,16 @@ struct Crystal::ExhaustivenessChecker
       # No specific error messages for non-single types
     end
 
-    msg = <<-MSG
-      case is not exhaustive.
-
+    notes = [<<-MSG]
       Missing cases:
        - #{targets.flat_map(&.missing_cases).join("\n - ")}
       MSG
 
     if flags_enum
-      msg += "\n\n" + flags_enum_message(flags_enum)
+      notes << flags_enum_message(flags_enum)
     end
 
-    node.raise msg
+    node.raise "case is not exhaustive", notes: notes
   end
 
   private def check_tuple_exp(node, cond)
@@ -150,18 +142,16 @@ struct Crystal::ExhaustivenessChecker
       .map { |cases| "{#{cases}}" }
       .join("\n - ")
 
-    msg = <<-MSG
-      case is not exhaustive.
-
+    notes = [<<-MSG]
       Missing cases:
        - #{missing_cases}
       MSG
 
     if flags_enum
-      msg += "\n\n" + flags_enum_message(flags_enum)
+      notes << flags_enum_message(flags_enum)
     end
 
-    node.raise msg
+    node.raise "case is not exhaustive", notes: notes
   end
 
   private def flags_enum_message(flags_enum)
