@@ -160,7 +160,8 @@ class Crystal::Call
               if Conversions.to_unsafe_lookup_failed?(ex)
                 self_arg.raise "argument ##{i + 1} of '#{full_name(obj_type)}' is not a primitive type and no #{self_arg_type}#to_unsafe method found"
               else
-                self_arg.raise ex.message, ex
+                ex.frames << ErrorFrame.new(:other, self_arg)
+                raise ex
               end
             end
             implicit_call_type = implicit_call.type?
@@ -210,7 +211,8 @@ class Crystal::Call
           self_arg.raise "argument #{arg_name} of '#{full_name(obj_type)}' must be #{expected_type}, not #{actual_type}"
         end
       else
-        self_arg.raise ex.message, ex
+        ex.frames << ErrorFrame.new(:other, self_arg)
+        raise ex
       end
     end
 

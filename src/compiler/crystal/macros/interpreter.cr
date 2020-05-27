@@ -369,10 +369,11 @@ module Crystal
           @last = receiver.interpret(node.name, args, named_args, node.block, self)
         rescue ex : MacroRaiseError
           raise ex
-        rescue ex : Crystal::Error
-          node.raise ex.message, inner: ex
+        rescue ex : Crystal::CodeError
+          ex.frames << ErrorFrame.new(:other, node, "call")
+          raise ex
         rescue ex
-          node.raise ex.message
+          raise CodeError.new(cause: ex).at(node)
         end
       else
         # no receiver: special calls

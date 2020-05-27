@@ -196,8 +196,9 @@ class Crystal::Type
 
         begin
           return instance_type.instantiate_named_args(entries)
-        rescue ex : Crystal::Error
-          node.raise "instantiating #{node}", inner: ex if @raise
+        rescue ex : Crystal::CodeError
+          ex.frames << Crystal::ErrorFrame.type(node, node.to_s)
+          ::raise ex if @raise
         end
       when GenericType
         if instance_type.splat_index
@@ -259,8 +260,9 @@ class Crystal::Type
             begin
               num = interpreter.interpret(type.value)
               type_vars << NumberLiteral.new(num)
-            rescue ex : Crystal::Error
-              type_var.raise "expanding constant value for a number value", inner: ex
+            rescue ex : Crystal::CodeError
+              ex.frames << ErrorFrame.new(:other, type_var, "expanding constant value for a number value")
+              raise ex
             end
             next
           when ASTNode
@@ -295,8 +297,9 @@ class Crystal::Type
         else
           instance_type.as(GenericType).instantiate(type_vars)
         end
-      rescue ex : Crystal::Error
-        node.raise "instantiating #{node}", inner: ex if @raise
+      rescue ex : Crystal::CodeError
+        ex.frames << Crystal::ErrorFrame.type(node, node.to_s)
+        ::raise ex if @raise
       end
     end
 
@@ -381,8 +384,9 @@ class Crystal::Type
       expressions = node.expressions.clone
       begin
         expressions.each &.accept visitor
-      rescue ex : Crystal::Error
-        node.raise "typing typeof", inner: ex
+      rescue ex : Crystal::CodeError
+        ex.frames << ErrorFrame.new(:other, node, "typing typeof")
+        raise ex
       end
       program.type_merge expressions
     end

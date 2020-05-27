@@ -77,14 +77,14 @@ module Crystal
       case self
       when MetaTypeVar
         if self.global?
-          raise FrozenTypeError.new("global variable '#{self.name}' must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
+          raise FrozenTypeError.new("global variable '#{self.name}' must be #{freeze_type}, not #{invalid_type}", from.error_location)
         else
-          raise FrozenTypeError.new("#{self.kind} variable '#{self.name}' of #{self.owner} must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
+          raise FrozenTypeError.new("#{self.kind} variable '#{self.name}' of #{self.owner} must be #{freeze_type}, not #{invalid_type}", from.error_location)
         end
       when Def
-        raise FrozenTypeError.new("method must return #{freeze_type} but it is returning #{invalid_type}", (self.return_type || self).error_location, inner)
+        raise FrozenTypeError.new("method must return #{freeze_type} but it is returning #{invalid_type}", (self.return_type || self).error_location)
       else
-        raise FrozenTypeError.new("type must be #{freeze_type}, not #{invalid_type}", from.error_location, inner)
+        raise FrozenTypeError.new("type must be #{freeze_type}, not #{invalid_type}", from.error_location)
       end
     end
 
@@ -569,8 +569,9 @@ module Crystal
 
         begin
           generic_type = instance_type.as(GenericType).instantiate(type_vars_types)
-        rescue ex : Crystal::Error
-          raise ex.message, ex
+        rescue ex : Crystal::CodeError
+          ex.frames << Crystal::ErrorFrame.new("generic", self)
+          raise ex
         end
       end
 

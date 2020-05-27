@@ -1003,7 +1003,8 @@ class Crystal::TopLevelVisitor < Crystal::SemanticVisitor
       current_type.as(ModuleType).include type
       run_hooks hook_type(type), current_type, kind, node
     rescue ex : SemanticError
-      node.raise "at '#{kind}' hook", ex
+      ex.frames << ErrorFrame.new(:other, node, "at '#{kind}' hook")
+      raise ex
     end
   end
 
