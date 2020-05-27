@@ -28,9 +28,7 @@ module Crystal
 
       if location
         message = String.build do |io|
-          exception = SyntaxException.new message, location.line_number, location.column_number, location.filename
-          exception.warning = true
-          exception.append_to_s(io, nil)
+          io << "warning in line " << location.line_number << "\nWarning: "
         end
       end
 

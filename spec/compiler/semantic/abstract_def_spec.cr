@@ -407,7 +407,7 @@ describe "Semantic: abstract def" do
         end
       end
       CR
-      "this method overrides Foo#foo() which has an explicit return type of Int32.\n\nPlease add an explicit return type (Int32 or a subtype of it) to this method as well."
+      "warning in line 7\nWarning: this method overrides Foo#foo() which has an explicit return type of Int32.\nPlease add an explicit return type (Int32 or a subtype of it) to this method as well."
   end
 
   it "errors if different return type" do
@@ -425,7 +425,7 @@ describe "Semantic: abstract def" do
         end
       end
       CR
-      "this method must return Int32, which is the return type of the overridden method Foo#foo(), or a subtype of it, not Bar::Int32"
+      "warning in line 10\nWarning: this method must return Int32, which is the return type of the overridden method Foo#foo(), or a subtype of it, not Bar::Int32"
   end
 
   it "can return a more specific type" do
@@ -553,7 +553,7 @@ describe "Semantic: abstract def" do
           end
         end
       CR
-      "this method overrides Foo(T)#foo() which has an explicit return type of T.\n\nPlease add an explicit return type (Int32 or a subtype of it) to this method as well."
+      "warning in line 7\nWarning: this method overrides Foo(T)#foo() which has an explicit return type of T.\nPlease add an explicit return type (Int32 or a subtype of it) to this method as well."
   end
 
   it "errors if can't find parent return type" do
@@ -567,7 +567,7 @@ describe "Semantic: abstract def" do
           end
         end
       CR
-      "can't resolve return type Unknown"
+      "warning in line 3\nWarning: can't resolve return type Unknown"
   end
 
   it "errors if can't find child return type" do
@@ -581,7 +581,7 @@ describe "Semantic: abstract def" do
           end
         end
       CR
-      "can't resolve return type Unknown"
+      "warning in line 7\nWarning: can't resolve return type Unknown"
   end
 
   it "doesn't crash when abstract method is implemented by supertype (#8031)" do
