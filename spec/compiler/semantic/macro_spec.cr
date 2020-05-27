@@ -419,7 +419,7 @@ describe "Semantic: macro" do
       end
       CR
 
-    ex.location.should eq Crystal::Location.new("", 5, 1, 3)
+    ex.location.should eq Crystal::ErrorLocation.new("", 6, 5, 1)
   end
 
   it "transforms with {{yield}} and call" do
@@ -480,7 +480,7 @@ describe "Semantic: macro" do
       hello
       CR
       "undefined method 'hello' for top-level",
-      location: Crystal::Location.new("", 6, 1, 5),
+      location: Crystal::ErrorLocation.new("", 6, 1, 5),
       notes: [
         "If you declared 'hello' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it.",
       ]
@@ -686,27 +686,31 @@ describe "Semantic: macro" do
   end
 
   it "show macro trace in errors (1)" do
-    ex = assert_error <<-CR, inject_primitives: false
+    ex = assert_error <<-CR,
       macro foo
         Bar
       end
 
       foo
       CR
+      "undefined constant Bar",
+      inject_primitives: false
 
-    ex.message.should eq "expanding macro"
-    ex.location.should eq Crystal::Location.new("", 5, 1, 3)
+    ex.frames.should eq [Crystal::ErrorFrame.new(:macro, Crystal::ErrorLocation.new("", 5, 1, 3), "foo")]
+    # ex.location.not_nil!.filename.as(Crystal::VirtualFile).macro.location.should eq Crystal::ErrorLocation.new("", 1, 1, 0)
   end
 
   it "show macro trace in errors (2)" do
-    ex = assert_error <<-CR, inject_primitives: false
+    ex = assert_error <<-CR,
       {% begin %}
         Bar
       {% end %}
       CR
+      "undefined constant Bar",
+      inject_primitives: false
 
-    ex.message.should eq "expanding macro"
-    ex.location.should eq Crystal::Location.new("", 1, 1, 11)
+    ex.frames.should eq [Crystal::ErrorFrame.new(:macro, Crystal::ErrorLocation.new("", 1, 1, 0), "{% if true %}\n  Bar\n{% end %}")]
+    # ex.location.not_nil!.filename.as(Crystal::VirtualFile).macro.location.should eq Crystal::ErrorLocation.new("", 1, 1, 11)
   end
 
   it "errors if using macro that is defined later" do
@@ -1460,6 +1464,6 @@ describe "Semantic: macro" do
       CR
 
     method = result.program.types["Foo"].lookup_first_def("bar", false).not_nil!
-    method.location.not_nil!.original_location.should eq Crystal::Location.new("", 9, 3, 0)
+    method.location.not_nil!.original_location.should eq Crystal::Location.new("", 9, 3)
   end
 end

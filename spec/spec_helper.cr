@@ -112,7 +112,7 @@ def assert_error(str, message = nil, location = nil, notes = nil, *, inject_prim
   end
 
   case location
-  when Crystal::Location
+  when Crystal::ErrorLocation
     location = location.copy_with(filename: "")
     error.location.should eq(location), file: file, line: line
   when String

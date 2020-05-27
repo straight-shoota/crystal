@@ -494,6 +494,6 @@ describe "Semantic: def" do
       CODE
       "undefined method",
       inject_primitives: false,
-      location: Crystal::Location.new("", 2, 3, 6)
+      location: Crystal::ErrorLocation.new("", 2, 3, 6)
   end
 end
