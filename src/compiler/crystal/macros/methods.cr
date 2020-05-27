@@ -3,6 +3,15 @@ require "./macros"
 require "semantic_version"
 
 module Crystal
+  class SkipMacroError < Error
+    getter expanded_before_skip : String
+    getter macro_expansion_pragmas : Hash(Int32, Array(Lexer::LocPragma))?
+
+    def initialize(@expanded_before_skip, @macro_expansion_pragmas)
+      super
+    end
+  end
+
   class MacroInterpreter
     private def find_source_file(filename)
       # Support absolute paths

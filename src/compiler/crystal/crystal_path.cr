@@ -1,9 +1,9 @@
 require "./config"
-require "./exception"
+require "./error"
 
 module Crystal
   struct CrystalPath
-    class Error < LocationlessException
+    class Error < Crystal::Error
     end
 
     private DEFAULT_LIB_PATH = "lib"
