@@ -112,8 +112,8 @@ describe "Semantic: did you mean" do
       )
     begin
       semantic nodes
-      fail "TypeException wasn't raised"
-    rescue ex : Crystal::TypeException
+      fail "SemanticError wasn't raised"
+    rescue ex : Crystal::SemanticError
       ex.to_s.includes?("Did you mean").should be_false
     end
   end

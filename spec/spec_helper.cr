@@ -104,12 +104,28 @@ def assert_after_cleanup(before, after)
   result.node.to_s.strip.should eq(after.strip)
 end
 
-def assert_error(str, message, inject_primitives = true)
+def assert_error(str, message = nil, location = nil, notes = nil, *, inject_primitives = true, file = __FILE__, line = __LINE__) : CodeError
   str = inject_primitives(str) if inject_primitives
   nodes = parse str
-  expect_raises TypeException, message do
+  error = expect_raises CodeError, message do
     semantic nodes
   end
+
+  case location
+  when Crystal::Location
+    location = location.copy_with(filename: "")
+    error.location.should eq(location), file: file, line: line
+  when String
+    error.location.inspect.should eq(location), file: file, line: line
+  end
+
+  if notes
+    error.notes.should eq(notes), file: file, line: line
+  end
+
+  error
+end
+
 end
 
 def assert_no_errors(*args)
@@ -316,5 +332,5 @@ def test_c(c_code, crystal_code)
 end
 
 private def inject_primitives(code)
-  %(require "primitives"\n) + code
+  %(require "primitives";) + code
 end

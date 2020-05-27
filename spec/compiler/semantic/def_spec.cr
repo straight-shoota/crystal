@@ -488,14 +488,12 @@ describe "Semantic: def" do
   end
 
   it "points error at name (#6937)" do
-    ex = assert_error <<-CODE,
+    assert_error <<-CODE,
       1.
         foobar
       CODE
       "undefined method",
-      inject_primitives: false
-    ex.line_number.should eq(2)
-    ex.column_number.should eq(3)
-    ex.size.should eq(6)
+      inject_primitives: false,
+      location: Crystal::Location.new("", 2, 3, 6)
   end
 end

@@ -210,13 +210,13 @@ describe "Code gen: warnings" do
       output_filename = File.join(path, "main")
 
       Dir.cd(path) do
-        File.write main_filename, %(
+        File.write main_filename, <<-CR
           require "./lib/foo"
 
           bar
           foo
-        )
-        File.write File.join(path, "lib", "foo.cr"), %(
+          CR
+        File.write File.join(path, "lib", "foo.cr"), <<-CR
           @[Deprecated("Do not use me")]
           def foo
           end
@@ -224,7 +224,7 @@ describe "Code gen: warnings" do
           def bar
             foo
           end
-        )
+          CR
 
         compiler = create_spec_compiler
         compiler.warnings = Warnings::All
@@ -238,29 +238,29 @@ describe "Code gen: warnings" do
   end
 
   it "errors if invalid argument type" do
-    assert_error %(
+    assert_error <<-CR,
       @[Deprecated(42)]
       def foo
       end
-      ),
-      "Error: first argument must be a String"
+      CR
+      "first argument must be a String"
   end
 
   it "errors if too many arguments" do
-    assert_error %(
+    assert_error <<-CR,
       @[Deprecated("Do not use me", "extra arg")]
       def foo
       end
-      ),
-      "Error: wrong number of deprecated annotation arguments (given 2, expected 1)"
+      CR
+      "wrong number of deprecated annotation arguments (given 2, expected 1)"
   end
 
   it "errors if missing link arguments" do
-    assert_error %(
+    assert_error <<-CR,
       @[Deprecated(invalid: "Do not use me")]
       def foo
       end
-      ),
-      "Error: too many named arguments (given 1, expected maximum 0)"
+      CR
+      "too many named arguments (given 1, expected maximum 0)"
   end
 end
