@@ -133,21 +133,21 @@ def assert_syntax_error(str, message = nil, line = nil, column = nil, metafile =
   it "says syntax error on #{str.inspect}", metafile, metaline, metaendline do
     begin
       parse str
-      fail "Expected SyntaxException to be raised", metafile, metaline
-    rescue ex : SyntaxException
+      fail "Expected SyntaxError to be raised", metafile, metaline
+    rescue ex : SyntaxError
       if message
         unless ex.message.not_nil!.includes?(message.not_nil!)
           fail "Expected message to include #{message.inspect} but got #{ex.message.inspect}", metafile, metaline
         end
       end
       if line
-        unless ex.line_number == line
-          fail "Expected line number to be #{line} but got #{ex.line_number}", metafile, metaline
+        unless ex.location.try(&.line_number) == line
+          fail "Expected line number to be #{line} but got #{ex.location.try(&.line_number)}", metafile, metaline
         end
       end
       if column
-        unless ex.column_number == column
-          fail "Expected column number to be #{column} but got #{ex.column_number}", metafile, metaline
+        unless ex.location.try(&.column_number) == column
+          fail "Expected column number to be #{column} but got #{ex.location.try(&.column_number)}", metafile, metaline
         end
       end
     end

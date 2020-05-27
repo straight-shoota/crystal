@@ -421,7 +421,7 @@ module Crystal
       end
 
       it "executes camelcase with invalid lower arg type" do
-        expect_raises(Crystal::TypeException, "named argument 'lower' to StringLiteral#camelcase must be a bool, not NumberLiteral") do
+        expect_raises(Crystal::SemanticError, "named argument 'lower' to StringLiteral#camelcase must be a bool, not NumberLiteral") do
           assert_macro "", %({{"foo_bar".camelcase(lower: 99)}}), [] of ASTNode, ""
         end
       end
@@ -975,7 +975,7 @@ module Crystal
       end
 
       it "executes [] with invalid key type" do
-        expect_raises(Crystal::TypeException, "argument to [] must be a symbol or string, not BoolLiteral") do
+        expect_raises(Crystal::SemanticError, "argument to [] must be a symbol or string, not BoolLiteral") do
           assert_macro "", %({{{a: 1}[true]}}), [] of ASTNode, ""
         end
       end
@@ -1462,7 +1462,7 @@ module Crystal
 
           describe "with an invalid type argument" do
             it "should raise the proper exception" do
-              expect_raises(Crystal::TypeException, "named argument 'generic_args' to TypeNode#name must be a bool, not NumberLiteral") do
+              expect_raises(Crystal::SemanticError, "named argument 'generic_args' to TypeNode#name must be a bool, not NumberLiteral") do
                 assert_macro("x", "{{x.name(generic_args: 99)}}", "String") do |program|
                   [TypeNode.new(program.string)] of ASTNode
                 end
@@ -2424,11 +2424,11 @@ module Crystal
       it "executes resolve" do
         assert_macro "x", %({{x.resolve}}), [Generic.new("Array".path, ["String".path] of ASTNode)] of ASTNode, %(Array(String))
 
-        expect_raises(Crystal::TypeException, "undefined constant Foo") do
+        expect_raises(Crystal::SemanticError, "undefined constant Foo") do
           assert_macro "x", %({{x.resolve}}), [Generic.new("Foo".path, ["String".path] of ASTNode)] of ASTNode, %(Foo(String))
         end
 
-        expect_raises(Crystal::TypeException, "undefined constant Foo") do
+        expect_raises(Crystal::SemanticError, "undefined constant Foo") do
           assert_macro "x", %({{x.resolve}}), [Generic.new("Array".path, ["Foo".path] of ASTNode)] of ASTNode, %(Array(foo))
         end
       end
@@ -2495,7 +2495,7 @@ module Crystal
       it "executes resolve" do
         assert_macro "x", %({{x.resolve}}), [Path.new("String")] of ASTNode, %(String)
 
-        expect_raises(Crystal::TypeException, "undefined constant Foo") do
+        expect_raises(Crystal::SemanticError, "undefined constant Foo") do
           assert_macro "x", %({{x.resolve}}), [Path.new("Foo")] of ASTNode, %(Foo)
         end
       end
@@ -2540,7 +2540,7 @@ module Crystal
       end
 
       it "executes [] with other ASTNode, but raises an error" do
-        expect_raises(Crystal::TypeException, "argument to [] must be a number, symbol or string, not BoolLiteral") do
+        expect_raises(Crystal::SemanticError, "argument to [] must be a number, symbol or string, not BoolLiteral") do
           assert_macro "x, y", %({{x[y]}}), [
             Annotation.new(Path.new("Foo"), [] of ASTNode),
             true.bool,

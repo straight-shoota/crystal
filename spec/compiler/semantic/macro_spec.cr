@@ -409,7 +409,7 @@ describe "Semantic: macro" do
   end
 
   it "gives precise location info when doing yield inside macro" do
-    assert_error %(
+    ex = assert_error <<-CR
       macro foo
         {{yield}}
       end
@@ -417,8 +417,9 @@ describe "Semantic: macro" do
       foo do
         1 + 'a'
       end
-      ),
-      "in line 7"
+      CR
+
+    ex.location.should eq Crystal::Location.new("", 5, 1, 3)
   end
 
   it "transforms with {{yield}} and call" do
@@ -592,7 +593,7 @@ describe "Semantic: macro" do
         req
       end
     )
-    expect_raises SyntaxException, "can't require inside type declarations" do
+    expect_raises SyntaxError, "can't require inside type declarations" do
       semantic parse str
     end
   end
@@ -682,29 +683,27 @@ describe "Semantic: macro" do
   end
 
   it "show macro trace in errors (1)" do
-    ex = assert_error %(
+    ex = assert_error <<-CR, inject_primitives: false
       macro foo
         Bar
       end
 
       foo
-    ),
-      "Error: expanding macro",
-      inject_primitives: false
+      CR
 
-    ex.to_s.should contain "error in line 6"
+    ex.message.should eq "expanding macro"
+    ex.location.should eq Crystal::Location.new("", 5, 1, 3)
   end
 
   it "show macro trace in errors (2)" do
-    ex = assert_error %(
+    ex = assert_error <<-CR, inject_primitives: false
       {% begin %}
         Bar
       {% end %}
-    ),
-      "Error: expanding macro",
-      inject_primitives: false
+      CR
 
-    ex.to_s.should contain "error in line 2"
+    ex.message.should eq "expanding macro"
+    ex.location.should eq Crystal::Location.new("", 1, 1, 11)
   end
 
   it "errors if using macro that is defined later" do
@@ -1436,7 +1435,7 @@ describe "Semantic: macro" do
   end
 
   it "doesn't crash on syntax error inside macro (regression, #8038)" do
-    expect_raises(Crystal::SyntaxException, "unterminated array literal") do
+    expect_raises(Crystal::SyntaxError, "unterminated array literal") do
       semantic(%(
         {% begin %}[{% end %}
         ))
@@ -1458,7 +1457,7 @@ describe "Semantic: macro" do
       CR
 
     method = result.program.types["Foo"].lookup_first_def("bar", false).not_nil!
-    method.location.not_nil!.expanded_location.not_nil!.line_number.should eq(9)
+    method.location.not_nil!.original_location.should eq Crystal::Location.new("", 9, 3, 0)
   end
 
   it "executes OpAssign (#9356)" do

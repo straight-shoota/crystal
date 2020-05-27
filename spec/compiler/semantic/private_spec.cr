@@ -2,7 +2,7 @@ require "../../spec_helper"
 
 describe "Semantic: private" do
   it "doesn't find private def in another file" do
-    expect_raises Crystal::TypeException, "undefined local variable or method 'foo'" do
+    expect_raises Crystal::SemanticError, "undefined local variable or method 'foo'" do
       compiler = Compiler.new
       sources = [
         Compiler::Source.new("foo.cr", %(
@@ -21,7 +21,7 @@ describe "Semantic: private" do
   end
 
   it "doesn't find private def defined in macro in another file (#7681)" do
-    expect_raises Crystal::TypeException, "undefined local variable or method 'foo'" do
+    expect_raises Crystal::SemanticError, "undefined local variable or method 'foo'" do
       compiler = Compiler.new
       sources = [
         Compiler::Source.new("foo.cr", %(
@@ -92,7 +92,7 @@ describe "Semantic: private" do
   end
 
   it "doesn't find private macro in another file" do
-    expect_raises Crystal::TypeException, "undefined local variable or method 'foo'" do
+    expect_raises Crystal::SemanticError, "undefined local variable or method 'foo'" do
       compiler = Compiler.new
       sources = [
         Compiler::Source.new("foo.cr", %(
@@ -205,7 +205,7 @@ describe "Semantic: private" do
   end
 
   it "doesn't find private class in another file" do
-    expect_raises Crystal::TypeException, "undefined constant Foo" do
+    expect_raises Crystal::SemanticError, "undefined constant Foo" do
       compiler = Compiler.new
       sources = [
         Compiler::Source.new("foo.cr", %(
@@ -223,7 +223,7 @@ describe "Semantic: private" do
   end
 
   it "doesn't find private alias in another file" do
-    expect_raises Crystal::TypeException, "undefined constant Foo" do
+    expect_raises Crystal::SemanticError, "undefined constant Foo" do
       compiler = Compiler.new
       sources = [
         Compiler::Source.new("foo.cr", %(
@@ -436,7 +436,7 @@ describe "Semantic: private" do
   end
 
   it "doesn't find private constant in another file (#7850)" do
-    expect_raises Crystal::TypeException, "undefined constant Foo" do
+    expect_raises Crystal::SemanticError, "undefined constant Foo" do
       compiler = Compiler.new
       sources = [
         Compiler::Source.new("foo.cr", %(private Foo = 1)),

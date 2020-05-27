@@ -104,10 +104,26 @@ def assert_expand_third(from : String, to, *, file = __FILE__, line = __LINE__)
   assert_expand node, to, file: file, line: line
 end
 
-def assert_error(str, message = nil, *, inject_primitives = true, file = __FILE__, line = __LINE__)
-  expect_raises TypeException, message, file, line do
+def assert_error(str, message = nil, location = nil, notes = nil, *, inject_primitives = true, file = __FILE__, line = __LINE__) : CodeError
+  error = expect_raises CodeError, message, file, line do
     semantic str, inject_primitives: inject_primitives
   end
+
+  case location
+  when Crystal::Location
+    location = location.copy_with(filename: "")
+    error.location.should eq(location), file: file, line: line
+  when String
+    error.location.inspect.should eq(location), file: file, line: line
+  end
+
+  if notes
+    error.notes.should eq(notes), file: file, line: line
+  end
+
+  error
+end
+
 end
 
 def assert_no_errors(*args)
