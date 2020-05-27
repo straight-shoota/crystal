@@ -87,7 +87,12 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
 
     node.raise "#{message}\n\n#{notes.join("\n")}"
   rescue ex : Crystal::Error
-    node.raise "while requiring \"#{node.string}\"", ex
+    unless ex.is_a?(Crystal::CodeError)
+      ex = Crystal::CodeError.new(cause: ex)
+    end
+
+    ex.frames << Crystal::ErrorFrame.require(node, node.string)
+    ::raise ex
   rescue ex
     raise ::Exception.new("while requiring \"#{node.string}\"", ex)
   end
@@ -439,8 +444,9 @@ abstract class Crystal::SemanticVisitor < Crystal::Visitor
     yield
   rescue ex : MacroRaiseError
     raise MacroRaiseError.new(ex.message, node)
-  rescue ex : Crystal::Error
-    node.raise "expanding macro", ex
+  rescue ex : Crystal::CodeError
+    ex.frames << ErrorFrame.macro(node, node.to_s)
+    raise ex
   end
 
   def process_annotations(annotations)

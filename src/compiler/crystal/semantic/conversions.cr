@@ -23,7 +23,8 @@ module Crystal::Conversions
   def self.to_unsafe(node, target, visitor, actual_type, expected_type)
     unsafe_call = try_to_unsafe(target, visitor) do |ex|
       unless to_unsafe_lookup_failed?(ex)
-        node.raise ex.message, ex
+        ex.frames << ErrorFrame.new(:other, node)
+        raise ex
       end
       return nil
     end

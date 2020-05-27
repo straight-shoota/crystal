@@ -1296,8 +1296,9 @@ module Crystal
 
       begin
         call.recalculate
-      rescue ex : Crystal::Error
-        node.raise "error instantiating #{node}", ex
+      rescue ex : Crystal::CodeError
+        ex.frames << Crystal::ErrorFrame.instantiating(node, node.to_s)
+        raise ex
       end
 
       node.call = call
@@ -1916,11 +1917,7 @@ module Crystal
       visitor.untyped_def = external
       visitor.scope = @program
 
-      begin
-        body.accept visitor
-      rescue ex : Crystal::Error
-        node.raise ex.message, ex
-      end
+      body.accept visitor
 
       inferred_return_type = @program.type_merge([body.type?, external.type?])
 

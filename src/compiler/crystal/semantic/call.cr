@@ -992,19 +992,19 @@ class Crystal::Call
   def bubbling_exception
     begin
       yield
-    rescue ex : Crystal::Error
+    rescue ex : Crystal::CodeError
       if obj = @obj
-        if name == "initialize"
+        unless name == "initialize"
           # Avoid putting 'initialize' in the error trace
           # because it's most likely that this is happening
           # inside a generated 'new' method
-          ::raise ex
-        else
-          raise "instantiating '#{obj.type}##{name}(#{args.map(&.type).join ", "})'", ex
+
+          ex.frames << Crystal::ErrorFrame.def(self, "#{obj.type}##{name}(#{args.map(&.type).join ", "})")
         end
       else
-        raise "instantiating '#{name}(#{args.map(&.type).join ", "})'", ex
+        ex.frames << Crystal::ErrorFrame.def(self, "#{name}(#{args.map(&.type).join ", "})")
       end
+      ::raise ex
     end
   end
 

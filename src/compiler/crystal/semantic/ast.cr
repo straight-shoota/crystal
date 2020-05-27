@@ -9,8 +9,8 @@ module Crystal
   end
 
   class ASTNode
-    def raise(message : String?, inner : Error? = nil, notes = [] of String)
-      ::raise SemanticError.new(message, self, inner, notes: notes)
+    def raise(message : String?, notes = [] of String)
+      ::raise SemanticError.new(message, self, notes: notes)
     end
 
     def error_location
