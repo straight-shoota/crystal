@@ -186,8 +186,8 @@ module Crystal
 
     getter nil_reason
 
-    def initialize(message, location, @cause, @nil_reason : NilReason::ReasonType)
-      super(message, location)
+    def initialize(message, location, cause, @nil_reason : NilReason::ReasonType)
+      super(message, location, cause: cause)
     end
   end
 

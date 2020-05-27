@@ -126,6 +126,10 @@ def assert_error(str, message = nil, location = nil, notes = nil, *, inject_prim
   error
 end
 
+def assert_nil_reason_error(code, expected_reason : Crystal::NilReason::ReasonType, *, file = __FILE__, line = __LINE__)
+  error = assert_error(code)
+  error = error.should be_a(Crystal::NilableError), file: file, line: line
+  nil_reason = error.nil_reason.should eq(expected_reason), file: file, line: line
 end
 
 def assert_no_errors(*args)

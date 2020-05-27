@@ -62,7 +62,7 @@ describe "Semantic: nilable instance var" do
   end
 
   it "says instance var was used before initialized" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           @foo
@@ -75,12 +75,11 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo + 1
-      ),
-      "Instance variable '@foo' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "says instance var was used before initialized (2)" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           foo
@@ -93,12 +92,11 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo + 1
-      ),
-      "Instance variable '@foo' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "says self was used before instance var was initialized" do
-    assert_error %(
+    assert_nil_reason_error %(
       def baz(x)
       end
 
@@ -114,12 +112,11 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo + 1
-      ),
-      "'self' was used before initializing instance variable '@foo', rendering it nilable"
+      ), :used_self_before_initialized
   end
 
   it "says self was used before instance var was initialized (2)" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Baz
         def self.baz(x)
         end
@@ -137,12 +134,11 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo + 1
-      ),
-      "'self' was used before initializing instance variable '@foo', rendering it nilable"
+      ), :used_self_before_initialized
   end
 
   it "says self was used before instance var was initialized (3)" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           a = self
@@ -155,8 +151,7 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo + 1
-      ),
-      "'self' was used before initializing instance variable '@foo', rendering it nilable"
+      ), :used_self_before_initialized
   end
 
   it "finds type that doesn't initialize instance var (#1222)" do
@@ -207,7 +202,7 @@ describe "Semantic: nilable instance var" do
   end
 
   it "marks instance var as nilable if assigned inside captured block (#1696)" do
-    assert_error %(
+    assert_nil_reason_error %(
       def capture(&block)
         block
       end
@@ -223,12 +218,11 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo
-      ),
-      "Instance variable '@foo' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "marks instance var as nilable if assigned inside proc literal" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           ->{ @foo = 1 }
@@ -240,7 +234,6 @@ describe "Semantic: nilable instance var" do
       end
 
       Foo.new.foo
-      ),
-      "Instance variable '@foo' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 end

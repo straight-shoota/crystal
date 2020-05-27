@@ -670,12 +670,18 @@ module Crystal
   end
 
   class NilReason
+    enum ReasonType
+      USED_BEFORE_INITIALIZED
+      USED_SELF_BEFORE_INITIALIZED
+      INITIALIZED_IN_RESCUE
+    end
+
     getter name : String
-    getter reason : Symbol
+    getter reason : ReasonType
     getter nodes : Array(ASTNode)?
     getter scope : Type?
 
-    def initialize(@name, @reason, @nodes = nil, @scope = nil)
+    def initialize(@name, @reason : ReasonType, @nodes = nil, @scope = nil)
     end
   end
 

@@ -131,7 +131,7 @@ describe "Semantic: initialize" do
   end
 
   it "types instance var as nilable if assigned in block" do
-    assert_error %(
+    assert_nil_reason_error %(
       def bar
         yield if 1 == 2
       end
@@ -150,11 +150,10 @@ describe "Semantic: initialize" do
 
       foo = Foo.new
       foo.x
-      ),
-      "Instance variable '@x' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
-  it "types instance var as not-nilable if assigned in block but previosly assigned" do
+  it "types instance var as not-nilable if assigned in block but previously assigned" do
     assert_type(%(
       def bar
         yield if 1 == 2
@@ -179,7 +178,7 @@ describe "Semantic: initialize" do
   end
 
   it "types instance var as nilable if used before assignment" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           x = @x
@@ -193,8 +192,7 @@ describe "Semantic: initialize" do
 
       foo = Foo.new
       foo.x
-      ),
-      "Instance variable '@x' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "types instance var as non-nilable if calls super and super defines it" do
@@ -271,7 +269,7 @@ describe "Semantic: initialize" do
   end
 
   it "types instance var as nilable if used after method call that reads var" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           foo
@@ -289,12 +287,11 @@ describe "Semantic: initialize" do
 
       foo = Foo.new
       foo.x
-      ),
-      "Instance variable '@x' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "types instance var as nilable if used after method call that reads var (2)" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Bar
         def bar
         end
@@ -317,8 +314,7 @@ describe "Semantic: initialize" do
 
       foo = Foo.new
       foo.x
-      ),
-      "Instance variable '@x' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "doesn't type instance var as nilable if used after global method call" do
@@ -386,7 +382,7 @@ describe "Semantic: initialize" do
   end
 
   it "types instance var as nilable if used after method call that reads var through other calls" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           foo
@@ -416,8 +412,7 @@ describe "Semantic: initialize" do
 
       foo = Foo.new
       foo.x
-      ),
-      "Instance variable '@x' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "doesn't type instance var as nilable if used after method call that assigns var" do
@@ -492,7 +487,7 @@ describe "Semantic: initialize" do
   end
 
   it "types instance var as nilable if used in first of two method calls" do
-    assert_error %(
+    assert_nil_reason_error %(
       class Foo
         def initialize
           foo
@@ -510,8 +505,7 @@ describe "Semantic: initialize" do
 
       foo = Foo.new
       foo.x
-      ),
-      "Instance variable '@x' was used before it was initialized in one of the 'initialize' methods, rendering it nilable"
+      ), :used_before_initialized
   end
 
   it "doesn't type instance var as nilable if assigned before method call" do
@@ -538,7 +532,7 @@ describe "Semantic: initialize" do
   end
 
   it "marks instance variable as nilable in initialize if using self in method" do
-    assert_error "
+    assert_nil_reason_error "
       class Foo
         def initialize
           do_something
@@ -560,8 +554,7 @@ describe "Semantic: initialize" do
       end
 
       Foo.new.foo
-      ",
-      "'self' was used before initializing instance variable '@foo', rendering it nilable"
+      ", :used_self_before_initialized
   end
 
   it "marks instance variable as nilable in initialize if using self" do
