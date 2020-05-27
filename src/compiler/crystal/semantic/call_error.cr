@@ -116,7 +116,7 @@ class Crystal::Call
 
     # Don't say "wrong number of arguments" when there are named args in this call
     if defs_matching_args_size.empty? && !named_args_types
-      raise_matches_not_found_named_args(owner, def_name, defs, real_args_size, arg_types, named_args_types, inner_exception)
+      raise_matches_not_found_named_args(owner, def_name, defs, real_args_size, arg_types, named_args_types)
     end
 
     if defs_matching_args_size.size > 0
@@ -218,6 +218,7 @@ class Crystal::Call
     owner_trace = obj.try &.find_owner_trace(owner.program, owner)
     similar_name = owner.lookup_similar_def_name(def_name, self.args.size, block)
 
+    notes = [] of String
     error_msg = String.build do |msg|
       if obj
         could_be_local_variable = false
@@ -255,12 +256,11 @@ class Crystal::Call
       end
 
       if similar_name
-        msg << '\n'
         if similar_name == def_name
           # This check is for the case `a if a = 1`
-          msg << "If you declared '#{def_name}' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it)"
+          notes << "If you declared '#{def_name}' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it)"
         else
-          msg << "Did you mean '#{similar_name}'?"
+          notes << "Did you mean '#{similar_name}'?"
         end
       end
 
@@ -272,9 +272,9 @@ class Crystal::Call
         if deps && deps.size == 1 && deps.first.same?(program.nil_var)
           similar_name = scope.lookup_similar_instance_var_name(ivar.name)
           if similar_name
-            msg << colorize(" (#{ivar.name} was never assigned a value, did you mean #{similar_name}?)").yellow.bold
+            notes << colorize(" (#{ivar.name} was never assigned a value, did you mean #{similar_name}?)").yellow.bold.to_s
           else
-            msg << colorize(" (#{ivar.name} was never assigned a value)").yellow.bold
+            notes << colorize(" (#{ivar.name} was never assigned a value)").yellow.bold.to_s
           end
         end
       end
@@ -298,7 +298,7 @@ class Crystal::Call
     end
     all_arguments_sizes.uniq!.sort!
 
-    raise(String.build do |str|
+    message = String.build do |str|
       unless check_single_def_error_message(defs, named_args_types, str)
         str << "wrong number of arguments for '"
         str << full_name(owner, def_name)
@@ -316,11 +316,16 @@ class Crystal::Call
         end
 
         str << '+' if min_splat != Int32::MAX
-        str << ")\n"
+        str << ")"
       end
+    end
+
+    note = String.build do |str|
       str << "Overloads are:"
       append_matches(defs, arg_types, str)
-    end, inner: inner_exception)
+    end
+
+    raise message, inner: inner_exception, notes: [note]
   end
 
   def convert_to_logical_operator(def_name)
