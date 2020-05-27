@@ -46,22 +46,6 @@ module Crystal
       @type = type
     end
 
-    def set_type_from(type, from)
-      set_type type
-    rescue ex : FrozenTypeError
-      # See if we can find where the mismatched type came from
-      if from && !ex.inner && (freeze_type = @freeze_type) && type.is_a?(UnionType) && type.includes_type?(freeze_type) && type.union_types.size == 2
-        other_type = type.union_types.find { |type| type != freeze_type }
-        trace = from.find_owner_trace(freeze_type.program, other_type)
-        ex.inner = trace
-      elsif from && !ex.inner && (freeze_type = @freeze_type)
-        trace = from.find_owner_trace(freeze_type.program, type)
-        ex.inner = trace
-      end
-
-      raise ex
-    end
-
     def raise_frozen_type(freeze_type, invalid_type, from)
       error_node = from
       case self
@@ -146,7 +130,7 @@ module Crystal
       return if @type.same? new_type
       return unless new_type
 
-      set_type_from(new_type, from)
+      set_type(new_type)
       @dirty = true
       propagate
     end
@@ -208,7 +192,7 @@ module Crystal
       return if @type.same? new_type
 
       if new_type
-        set_type_from(new_type, from)
+        set_type(new_type)
       else
         return unless @type
 
@@ -578,7 +562,7 @@ module Crystal
                   numeric_value = visitor.interpret_enum_value(value)
                   numeric_type = node_type.program.int?(numeric_value) || raise "BUG: expected integer type, not #{numeric_value.class}"
                   type_var = NumberLiteral.new(numeric_value.to_s, numeric_type.kind)
-                  type_var.set_type_from(numeric_type, from)
+                  type_var.set_type(numeric_type)
                 else
                   node.raise "can't use constant #{node} (value = #{value}) as generic type argument, it must be a numeric constant"
                 end

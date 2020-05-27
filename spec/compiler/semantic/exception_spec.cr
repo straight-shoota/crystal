@@ -331,7 +331,7 @@ describe "Semantic: exception" do
       foo = Foo.new
       foo.bar
       ),
-      "instance variable '@bar' of Foo must be Int32, not Nil"
+      "Instance variable '@bar' is initialized inside a begin-rescue, so it can potentially be left uninitialized if an exception is raised and rescued"
   end
 
   it "doesn't type instance variable as nilable if assigned inside an exception handler after being assigned" do
@@ -419,7 +419,7 @@ describe "Semantic: exception" do
 
       Foo.new
       ),
-      "instance variable '@x' of Foo must be Int32, not Nil"
+      "Instance variable '@x' is initialized inside a begin-rescue, so it can potentially be left uninitialized if an exception is raised and rescued"
   end
 
   it "assigns var inside ensure (1) (#3919)" do
