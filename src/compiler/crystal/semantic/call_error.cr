@@ -92,77 +92,7 @@ class Crystal::Call
     end
 
     if defs.empty?
-      check_macro_wrong_number_of_arguments(def_name)
-
-      owner_trace = obj.try &.find_owner_trace(owner.program, owner)
-      similar_name = owner.lookup_similar_def_name(def_name, self.args.size, block)
-
-      notes = [] of String
-      error_msg = String.build do |msg|
-        if obj
-          could_be_local_variable = false
-        elsif logical_op = convert_to_logical_operator(def_name)
-          similar_name = logical_op
-          could_be_local_variable = false
-        elsif args.size > 0 || has_parentheses?
-          could_be_local_variable = false
-        else
-          # This check is for the case `a if a = 1`
-          similar_name = parent_visitor.lookup_similar_var_name(def_name) unless similar_name
-          if similar_name == def_name
-            could_be_local_variable = false
-          else
-            could_be_local_variable = true
-          end
-        end
-
-        if could_be_local_variable
-          msg << "undefined local variable or method '#{def_name}'"
-        else
-          msg << "undefined method '#{def_name}'"
-        end
-
-        owner_name = owner.is_a?(Program) ? "top-level" : owner.to_s
-
-        if with_scope && !obj && with_scope != owner
-          msg << " for #{with_scope} (with ... yield) and #{owner_name} (current scope)"
-        else
-          msg << " for #{owner_name}"
-        end
-
-        if def_name == "allocate" && owner.is_a?(MetaclassType) && owner.instance_type.module?
-          msg << colorize(" (modules cannot be instantiated)").yellow.bold
-        end
-
-        if obj && obj.type != owner
-          msg << colorize(" (compile-time type is #{obj.type})").yellow.bold
-        end
-
-        if similar_name
-          if similar_name == def_name
-            # This check is for the case `a if a = 1`
-            notes << "If you declared '#{def_name}' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it)"
-          else
-            notes << "Did you mean '#{similar_name}'?"
-          end
-        end
-
-        # Check if it's an instance variable that was never assigned a value
-        if obj.is_a?(InstanceVar)
-          scope = self.scope
-          ivar = scope.lookup_instance_var(obj.name)
-          deps = ivar.dependencies?
-          if deps && deps.size == 1 && deps.first.same?(program.nil_var)
-            similar_name = scope.lookup_similar_instance_var_name(ivar.name)
-            if similar_name
-              notes << colorize(" (#{ivar.name} was never assigned a value, did you mean #{similar_name}?)").yellow.bold.to_s
-            else
-              notes << colorize(" (#{ivar.name} was never assigned a value)").yellow.bold.to_s
-            end
-          end
-        end
-      end
-      raise error_msg, owner_trace, notes: notes
+      raise_undefined_method(owner, def_name, obj)
     end
 
     real_args_size = arg_types.size
@@ -186,49 +116,7 @@ class Crystal::Call
 
     # Don't say "wrong number of arguments" when there are named args in this call
     if defs_matching_args_size.empty? && !named_args_types
-      all_arguments_sizes = [] of Int32
-      min_splat = Int32::MAX
-      defs.each do |a_def|
-        min_size, max_size = a_def.min_max_args_sizes
-        if max_size == Int32::MAX
-          min_splat = Math.min(min_size, min_splat)
-          all_arguments_sizes.push min_splat
-        else
-          min_size.upto(max_size) do |size|
-            all_arguments_sizes.push size
-          end
-        end
-      end
-      all_arguments_sizes.uniq!.sort!
-
-      message = String.build do |str|
-        unless check_single_def_error_message(defs, named_args_types, str)
-          str << "wrong number of arguments for '"
-          str << full_name(owner, def_name)
-          str << "' (given "
-          str << real_args_size
-          str << ", expected "
-
-          # If we have 2, 3, 4, show it as 2..4
-          if all_arguments_sizes.size > 1 && all_arguments_sizes.last - all_arguments_sizes.first == all_arguments_sizes.size - 1
-            str << all_arguments_sizes.first
-            str << ".."
-            str << all_arguments_sizes.last
-          else
-            all_arguments_sizes.join str, ", "
-          end
-
-          str << '+' if min_splat != Int32::MAX
-          str << ")"
-        end
-      end
-
-      note = String.build do |str|
-        str << "Overloads are:"
-        append_matches(defs, arg_types, str)
-      end
-
-      raise message, inner: inner_exception, notes: [note]
+      raise_matches_not_found_named_args(owner, def_name, defs, real_args_size, named_args_types, notes)
     end
 
     if defs_matching_args_size.size > 0
@@ -285,7 +173,7 @@ class Crystal::Call
         end
 
         defs.each do |a_def|
-          arg_names.try &.push a_def.args.map(&.name)
+          arg_names << a_def.args.map(&.name)
         end
       end
     end
@@ -320,6 +208,126 @@ class Crystal::Call
     end
 
     raise message, owner_trace, notes: notes
+  end
+
+  def raise_undefined_method(owner, def_name, obj)
+    check_macro_wrong_number_of_arguments(def_name)
+
+    owner_trace = obj.try &.find_owner_trace(owner.program, owner)
+    similar_name = owner.lookup_similar_def_name(def_name, self.args.size, block)
+
+    notes = [] of String
+    error_msg = String.build do |msg|
+      if obj
+        could_be_local_variable = false
+      elsif logical_op = convert_to_logical_operator(def_name)
+        similar_name = logical_op
+        could_be_local_variable = false
+      elsif args.size > 0 || has_parentheses?
+        could_be_local_variable = false
+      else
+        # This check is for the case `a if a = 1`
+        similar_name = parent_visitor.lookup_similar_var_name(def_name) unless similar_name
+        if similar_name == def_name
+          could_be_local_variable = false
+        else
+          could_be_local_variable = true
+        end
+      end
+
+      if could_be_local_variable
+        msg << "undefined local variable or method '#{def_name}'"
+      else
+        msg << "undefined method '#{def_name}'"
+      end
+
+      owner_name = owner.is_a?(Program) ? "top-level" : owner.to_s
+
+      if with_scope && !obj && with_scope != owner
+        msg << " for #{with_scope} (with ... yield) and #{owner_name} (current scope)"
+      else
+        msg << " for #{owner_name}"
+      end
+
+      if def_name == "allocate" && owner.is_a?(MetaclassType) && owner.instance_type.module?
+        msg << colorize(" (modules cannot be instantiated)").yellow.bold
+      end
+
+      if obj && obj.type != owner
+        msg << colorize(" (compile-time type is #{obj.type})").yellow.bold
+      end
+
+      if similar_name
+        if similar_name == def_name
+          # This check is for the case `a if a = 1`
+          notes << "If you declared '#{def_name}' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it)"
+        else
+          notes << "Did you mean '#{similar_name}'?"
+        end
+      end
+
+      # Check if it's an instance variable that was never assigned a value
+      if obj.is_a?(InstanceVar)
+        scope = self.scope
+        ivar = scope.lookup_instance_var(obj.name)
+        deps = ivar.dependencies?
+        if deps && deps.size == 1 && deps.first.same?(program.nil_var)
+          similar_name = scope.lookup_similar_instance_var_name(ivar.name)
+          if similar_name
+            notes << colorize(" (#{ivar.name} was never assigned a value, did you mean #{similar_name}?)").yellow.bold.to_s
+          else
+            notes << colorize(" (#{ivar.name} was never assigned a value)").yellow.bold.to_s
+          end
+        end
+      end
+    end
+    raise error_msg, owner_trace, notes: notes
+  end
+
+  def raise_matches_not_found_named_args(owner, def_name, defs, real_args_size, named_args_types, notes)
+    all_arguments_sizes = [] of Int32
+    min_splat = Int32::MAX
+    defs.each do |a_def|
+      min_size, max_size = a_def.min_max_args_sizes
+      if max_size == Int32::MAX
+        min_splat = Math.min(min_size, min_splat)
+        all_arguments_sizes.push min_splat
+      else
+        min_size.upto(max_size) do |size|
+          all_arguments_sizes.push size
+        end
+      end
+    end
+    all_arguments_sizes.uniq!.sort!
+
+    message = String.build do |str|
+      unless check_single_def_error_message(defs, named_args_types, str)
+        str << "wrong number of arguments for '"
+        str << full_name(owner, def_name)
+        str << "' (given "
+        str << real_args_size
+        str << ", expected "
+
+        # If we have 2, 3, 4, show it as 2..4
+        if all_arguments_sizes.size > 1 && all_arguments_sizes.last - all_arguments_sizes.first == all_arguments_sizes.size - 1
+          str << all_arguments_sizes.first
+          str << ".."
+          str << all_arguments_sizes.last
+        else
+          all_arguments_sizes.join str, ", "
+        end
+
+        str << '+' if min_splat != Int32::MAX
+        str << ")"
+      end
+    end
+
+    note = String.build do |str|
+      str << "Overloads are:"
+      append_matches(defs, arg_types, str)
+    end
+
+    raise message, inner: inner_exception, notes: [note]
   end
 
   def convert_to_logical_operator(def_name)
