@@ -1090,7 +1090,7 @@ describe "Code gen: macro" do
   end
 
   it "errors if dynamic constant assignment after macro expansion" do
-    assert_error %(
+    error = assert_error %(
       macro foo
         X = 123
       end
@@ -1100,8 +1100,9 @@ describe "Code gen: macro" do
       end
 
       bar
-      ),
-      "dynamic constant assignment. Constants can only be declared at the top level or inside other types."
+      )
+    error.should be_a(Crystal::SyntaxError)
+    error.message.should eq "dynamic constant assignment. Constants can only be declared at the top level or inside other types."
   end
 
   it "finds macro from virtual type" do

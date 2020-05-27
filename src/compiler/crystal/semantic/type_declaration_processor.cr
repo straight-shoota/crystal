@@ -689,9 +689,7 @@ struct Crystal::TypeDeclarationProcessor
   end
 
   private def raise_doesnt_explicitly_initializes(info, name, ivar)
-    info.def.raise <<-MSG
-      this 'initialize' doesn't explicitly initialize instance variable '#{name}' of #{ivar.owner}, rendering it nilable
-
+    notes = [<<-MSG]
       The instance variable '#{name}' is initialized in other 'initialize' methods,
       and by not initializing it here it's not clear if the variable is supposed
       to be nilable or if this is a mistake.
@@ -704,6 +702,7 @@ struct Crystal::TypeDeclarationProcessor
 
         #{name} : (#{ivar.type})?
       MSG
+    raise SemanticError.new("this 'initialize' doesn't explicitly initialize instance variable '#{name}' of #{ivar.owner}, rendering it nilable", info.def, notes: notes)
   end
 
   private def sort_types_by_depth(types)

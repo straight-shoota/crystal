@@ -471,19 +471,19 @@ describe "Semantic: macro" do
   end
 
   it "can't define new variables (#466)" do
-    nodes = parse(%(
+    error = assert_error <<-CR,
       macro foo
         hello = 1
       end
 
       foo
       hello
-      ))
-    begin
-      semantic nodes
-    rescue ex : SemanticError
-      ex.to_s.should_not match(/did you mean/)
-    end
+      CR
+      "undefined method 'hello' for top-level",
+      location: Crystal::Location.new("", 6, 1, 5),
+      notes: [
+        "If you declared 'hello' in a suffix if, declare it in a regular if for this to work. If the variable was declared in a macro it's not visible outside it.",
+      ]
   end
 
   it "finds macro in included generic module" do

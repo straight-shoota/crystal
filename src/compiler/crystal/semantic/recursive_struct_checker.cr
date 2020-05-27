@@ -62,28 +62,21 @@ class Crystal::RecursiveStructChecker
 
   def check_recursive(target, type, checked, path)
     if target == type
-      if target.is_a?(AliasType)
-        alias_message = " (recursive aliases are structs)"
+      message = String.build do |io|
+        io << "recursive struct " << target << " detected"
+        if target.is_a?(AliasType)
+          io << " (recursive aliases are structs)"
+        end
+        io.puts ":"
+        io << "  "
+        path_to_s(io, path)
       end
 
-      msg = <<-MSG
-        recursive struct #{target} detected#{alias_message}
-
-          #{path_to_s(path)}
-
-        The struct #{target} has, either directly or indirectly,
-        an instance variable whose type is, eventually, this same
-        struct. This makes it impossible to represent the struct
-        in memory, because the size of this instance variable depends
-        on the size of this struct, which depends on the size of
-        this instance variable, causing an infinite cycle.
-
-        You should probably be using classes here, as classes
-        instance variables are always behind a pointer, which makes
-        it possible to always compute a size for them.
-        MSG
+      notes = [
+        "The struct #{target} has, either directly or indirectly, an instance variable whose type is, eventually, this same struct. This makes it impossible to represent the struct in memory, because the size of this instance variable depends on the size of this struct, which depends on the size of this instance variable, causing an infinite cycle. You should probably be using classes here, as classes instance variables are always behind a pointer, which makes it possible to always compute a size for them.",
+      ]
       location = target.locations.try &.first?
-      raise SemanticError.new(msg, location)
+      raise SemanticError.new(message, location, notes: notes)
     end
 
     return if checked.includes?(type)
@@ -161,13 +154,13 @@ class Crystal::RecursiveStructChecker
     checked.delete type
   end
 
-  def path_to_s(path)
-    path.join(" -> ") do |var_or_type|
+  def path_to_s(io, path)
+    path.join(io, " -> ") do |var_or_type|
       case var_or_type
       when Var
-        "`#{var_or_type.name} : #{var_or_type.type.devirtualize}`"
+        io << "`#{var_or_type.name} : #{var_or_type.type.devirtualize}`"
       else
-        "`#{var_or_type.devirtualize}`"
+        io << "`#{var_or_type.devirtualize}`"
       end
     end
   end

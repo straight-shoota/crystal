@@ -1242,11 +1242,13 @@ module Crystal
 
       # A proc pointer like `->foo` where `foo` is a macro is invalid
       if expand_macro(call)
-        node.raise(String.build do |io|
-          io << "undefined method '#{node.name}'"
-          (io << " for " << obj.type) if obj
-          io << "\n\n'" << node.name << "' exists as a macro, but macros can't be used in proc pointers"
-        end)
+        node.raise(
+          String.build do |io|
+            io << "undefined method '" << node.name << "'"
+            (io << " for " << obj.type) if obj
+          end,
+          notes: ["'#{node.name}' exists as a macro, but macros can't be used in proc pointers"]
+        )
       end
 
       # Check if it's ->LibFoo.foo, so we deduce the type from that method
