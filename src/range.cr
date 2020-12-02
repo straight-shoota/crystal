@@ -381,7 +381,7 @@ struct Range(B, E)
       if b.nil? || e.nil?
         raise ArgumentError.new("Can't calculate size of an open range")
       end
-      super
+      count { true }
     end
   end
 

@@ -93,9 +93,9 @@ describe "Enumerable" do
     it { Set{1, nil, 2, nil, 3}.compact_map { |x| x.try &.+(1) }.should eq([2, 3, 4]) }
   end
 
-  describe "size without block" do
-    it "returns the number of elements in the Enumerable" do
-      SpecEnumerable.new.size.should eq 3
+  it "#size raises" do
+    expect_raises(NotImplementedError, "Enumerable#size is not implemented") do
+      SpecEnumerable.new.size
     end
   end
 
