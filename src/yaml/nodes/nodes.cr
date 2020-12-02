@@ -85,6 +85,10 @@ module YAML::Nodes
       @nodes << node
     end
 
+    def size
+      nodes.size
+    end
+
     def each
       @nodes.each do |node|
         yield node
@@ -109,6 +113,10 @@ module YAML::Nodes
     # Appends two nodes into this mapping.
     def []=(key, value)
       @nodes << key << value
+    end
+
+    def size
+      nodes.size
     end
 
     # Appends a single node into this mapping.

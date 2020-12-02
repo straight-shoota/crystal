@@ -1285,9 +1285,7 @@ module Enumerable(T)
   # NOTE: The default implemention raises `NotImplementedError` because there's
   # no way to determine the size of a possible ininite enumerable. Including
   # types should override this method when a size can be determined.
-  def size
-    raise NotImplementedError.new("Enumerable#size")
-  end
+  abstract def size
 
   # Returns `true` if `self` is empty, `false` otherwise.
   #

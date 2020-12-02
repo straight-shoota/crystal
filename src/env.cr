@@ -113,6 +113,10 @@ module ENV
     keys.each { |k| delete k }
   end
 
+  def self.size
+    count { true }
+  end
+
   # Writes the contents of the environment to *io*.
   def self.inspect(io)
     io << '{'

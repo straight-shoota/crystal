@@ -55,6 +55,10 @@ struct HTTP::Headers
     @hash = Hash(Key, String | Array(String)).new
   end
 
+  def size
+    @hash.size
+  end
+
   def []=(key, value : String)
     check_invalid_header_content(value)
 

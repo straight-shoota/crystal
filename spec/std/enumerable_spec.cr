@@ -8,12 +8,20 @@ private class SpecEnumerable
     yield 2
     yield 3
   end
+
+  def size
+    raise NotImplementedError.new("SpecEnumerable#size")
+  end
 end
 
 private class SpecEmptyEnumerable
   include Enumerable(Int32)
 
   def each(&block : T -> _)
+  end
+
+  def size
+    raise NotImplementedError.new("SpecEnumerable#size")
   end
 end
 
@@ -94,7 +102,7 @@ describe "Enumerable" do
   end
 
   it "#size raises" do
-    expect_raises(NotImplementedError, "Enumerable#size is not implemented") do
+    expect_raises(NotImplementedError, "SpecEnumerable#size") do
       SpecEnumerable.new.size
     end
   end

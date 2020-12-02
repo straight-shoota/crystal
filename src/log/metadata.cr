@@ -80,6 +80,11 @@ class Log::Metadata
     @size == 0 && (parent.nil? || parent.empty?)
   end
 
+  # FIXME: should this add parent size? #empty? includes parent size, #each? does not iterate them
+  def size
+    @size
+  end
+
   # Removes the reference to *parent*. Flattening the entries from it into *self*.
   # *self* was originally allocated with enough entries to perform this action.
   #

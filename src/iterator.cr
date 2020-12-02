@@ -162,6 +162,10 @@ module Iterator(T)
     Chain(typeof(self), typeof(other), T, U).new(self, other)
   end
 
+  def size
+    raise NotImplementedError.new("Iterator#size")
+  end
+
   private class Chain(I1, I2, T1, T2)
     include Iterator(T1 | T2)
 

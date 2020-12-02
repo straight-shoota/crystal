@@ -146,6 +146,10 @@ module HTTP
       self.raw_params == other.raw_params
     end
 
+    def size
+      @raw_params.size
+    end
+
     # Returns first value for specified param name.
     #
     # ```

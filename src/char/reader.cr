@@ -73,6 +73,10 @@ struct Char
       decode_previous_char
     end
 
+    def size
+      @string.size
+    end
+
     # Returns `true` if there is a character left to read.
     # The terminating byte `'\0'` is considered a valid character
     # by this method.

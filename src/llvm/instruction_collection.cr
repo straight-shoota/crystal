@@ -16,4 +16,8 @@ struct LLVM::InstructionCollection
       inst = LibLLVM.get_next_instruction(inst)
     end
   end
+
+  def size
+    raise NotImplementedError.new("LLVM::InstructionCollection#size")
+  end
 end

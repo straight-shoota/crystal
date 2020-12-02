@@ -25,6 +25,11 @@ class Dir
     new path
   end
 
+  # Re-opens the directory to count its entries.
+  def size
+    self.class.new(path).count { true }
+  end
+
   # Opens a directory and yields it, closing it at the end of the block.
   # Returns the value of the block.
   def self.open(path : Path | String, & : self ->)

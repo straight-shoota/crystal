@@ -29,6 +29,10 @@ struct LLVM::BasicBlockCollection
     end
   end
 
+  def size
+    raise NotImplementedError.new("LLVM::BasicBlockCollection#size")
+  end
+
   def []?(name : String)
     find(&.name.==(name))
   end

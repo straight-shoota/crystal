@@ -19,7 +19,7 @@ private class HashWrapper(K, V)
 
   @hash = {} of K => V
 
-  delegate each, to: @hash
+  delegate each, size, to: @hash
 end
 
 private class HashSubclass(K, V) < Hash(K, V)
