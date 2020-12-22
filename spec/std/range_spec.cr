@@ -26,6 +26,25 @@ struct RangeSpecIntWrapper
   def +(other : RangeSpecIntWrapper)
     RangeSpecIntWrapper.new(value + other.value)
   end
+
+  def +(other : Int32)
+    self + RangeSpecIntWrapper.new(other)
+  end
+end
+
+struct RangeSpecIntWrapperOnlySucc
+  getter value : Int32
+
+  def initialize(@value)
+  end
+
+  def succ
+    self.class.new(@value + 1)
+  end
+
+  def <(other : self)
+    @value < other.@value
+  end
 end
 
 private def range_endless_each
@@ -388,7 +407,7 @@ describe "Range" do
     it "does with inclusive range" do
       a = 1..5
       elems = [] of Int32
-      iter = a.step(2) do |x|
+      a.step(2) do |x|
         elems << x
       end
       elems.should eq([1, 3, 5])
@@ -397,7 +416,7 @@ describe "Range" do
     it "does with exclusive range" do
       a = 1...5
       elems = [] of Int32
-      iter = a.step(2) do |x|
+      a.step(2) do |x|
         elems << x
       end
       elems.should eq([1, 3])
@@ -406,7 +425,7 @@ describe "Range" do
     it "does with endless range" do
       a = (1...nil)
       elems = [] of Int32
-      iter = a.step(2) do |x|
+      a.step(2) do |x|
         elems << x
         break if elems.size == 5
       end
@@ -418,6 +437,44 @@ describe "Range" do
       expect_raises(ArgumentError, "Can't step beginless range") do
         a.step(2) { }
       end
+    end
+
+    describe "non-discrete types" do
+      it "float" do
+        range = 1.0..5.0
+        elems = [] of Float64
+        range.step(1.5) do |x|
+          elems << x
+        end
+        elems.should eq([1.0, 2.5, 4.0])
+      end
+
+      it "time" do
+        range = Time.utc(2020, 12, 1)..Time.utc(2020, 12, 24)
+        elems = [] of Time
+        range.step(1.day) do |x|
+          elems << x
+        end
+        elems.should eq((1..24).map{ |d| Time.utc(2020, 12, d) }.to_a)
+      end
+    end
+
+    it "type without #+ method" do
+      range = RangeSpecIntWrapperOnlySucc.new(1)..RangeSpecIntWrapperOnlySucc.new(5)
+      elems = [] of RangeSpecIntWrapperOnlySucc
+      range.step(2) do |x|
+        elems << x
+      end
+      elems.should eq([RangeSpecIntWrapperOnlySucc.new(1), RangeSpecIntWrapperOnlySucc.new(3), RangeSpecIntWrapperOnlySucc.new(5)])
+    end
+
+    it "string" do
+      a = "aaa".."aae"
+      elems = [] of String
+      a.step(2) do |x|
+        elems << x
+      end
+      elems.should eq(["aaa", "aac", "aae"])
     end
   end
 
@@ -476,6 +533,44 @@ describe "Range" do
       expect_raises(ArgumentError, "Can't step beginless range") do
         a.step(2)
       end
+    end
+
+    describe "non-discrete types" do
+      it "float" do
+        range = 1.0..5.0
+        iter = range.step(1.5)
+        iter.next.should eq 1.0
+        iter.next.should eq 2.5
+        iter.next.should eq 4.0
+        iter.next.should be_a(Iterator::Stop)
+      end
+
+      it "time" do
+        range = Time.utc(2020, 12, 1)..Time.utc(2020, 12, 24)
+        iter = range.step(1.day)
+        24.times do |d|
+          iter.next.should eq Time.utc(2020, 12, d + 1)
+        end
+        iter.next.should be_a(Iterator::Stop)
+      end
+    end
+
+    it "type without #+ method" do
+      range = RangeSpecIntWrapperOnlySucc.new(1)..RangeSpecIntWrapperOnlySucc.new(5)
+      iter = range.step(2)
+      iter.next.should eq(RangeSpecIntWrapperOnlySucc.new(1))
+      iter.next.should eq(RangeSpecIntWrapperOnlySucc.new(3))
+      iter.next.should eq(RangeSpecIntWrapperOnlySucc.new(5))
+      iter.next.should be_a(Iterator::Stop)
+    end
+
+    it "string" do
+      a = "aaa".."aae"
+      iter = a.step(2)
+      iter.next.should eq("aaa")
+      iter.next.should eq("aac")
+      iter.next.should eq("aae")
+      iter.next.should be_a(Iterator::Stop)
     end
   end
 

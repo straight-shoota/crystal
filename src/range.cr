@@ -235,7 +235,14 @@ struct Range(B, E)
     end_value = @end
     while end_value.nil? || current < end_value
       yield current
-      by.times { current = current.succ }
+
+      if current.responds_to?(:+) && !current.is_a?(String)
+        current += by
+      elsif by.responds_to?(:succ)
+        by.times { current = current.succ }
+      else
+        raise "Can't step range"
+      end
     end
     yield current if !@exclusive && current == @end
     self
@@ -456,7 +463,13 @@ struct Range(B, E)
 
       if end_value.nil? || @current < end_value
         value = @current
-        @step.times { @current = @current.succ }
+        if value.responds_to?(:+) && !value.is_a?(String)
+          @current = value + @step
+        elsif (step = @step).responds_to?(:times)
+          step.times { @current = @current.succ }
+        else
+          raise "Can't step range"
+        end
         value
       else
         @reached_end = true
