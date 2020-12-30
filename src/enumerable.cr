@@ -1276,17 +1276,6 @@ module Enumerable(T)
     self.select { |elem| pattern === elem }
   end
 
-  # Returns the number of elements in the collection.
-  #
-  # ```
-  # [1, 2, 3, 4].size # => 4
-  # ```
-  #
-  # NOTE: The default implemention raises `NotImplementedError` because there's
-  # no way to determine the size of a possible ininite enumerable. Including
-  # types should override this method when a size can be determined.
-  abstract def size
-
   # Returns `true` if `self` is empty, `false` otherwise.
   #
   # ```
