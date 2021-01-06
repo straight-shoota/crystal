@@ -520,13 +520,7 @@ struct Int
   end
 
   def upto(to, &block : self ->) : Nil
-    return unless self <= to
-    x = self
-    while true
-      yield x
-      return if x == to
-      x += 1
-    end
+    step(to: to, by: 1) { |x| yield x }
   end
 
   def upto(to)
@@ -534,13 +528,7 @@ struct Int
   end
 
   def downto(to, &block : self ->) : Nil
-    return unless self >= to
-    x = self
-    while true
-      yield x
-      return if x == to
-      x -= 1
-    end
+    step(to: to, by: -1) { |x| yield x }
   end
 
   def downto(to)
@@ -548,13 +536,7 @@ struct Int
   end
 
   def to(to, &block : self ->) : Nil
-    if self < to
-      upto(to) { |i| yield i }
-    elsif self > to
-      downto(to) { |i| yield i }
-    else
-      yield self
-    end
+    step(to: to) { |x| yield x }
   end
 
   def to(to)
