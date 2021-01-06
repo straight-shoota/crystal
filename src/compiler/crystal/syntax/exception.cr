@@ -1,6 +1,7 @@
 require "../exception"
 
 module Crystal
+  # This class is only used for formatting warnings in warnings.cr.
   class SyntaxException < CodeError
     include ErrorFormat
 

@@ -592,7 +592,7 @@ describe "Semantic: macro" do
         req
       end
     )
-    expect_raises SyntaxException, "can't require inside type declarations" do
+    expect_raises SyntaxError, "can't require inside type declarations" do
       semantic parse str
     end
   end
@@ -1436,7 +1436,7 @@ describe "Semantic: macro" do
   end
 
   it "doesn't crash on syntax error inside macro (regression, #8038)" do
-    expect_raises(Crystal::SyntaxException, "unterminated array literal") do
+    expect_raises(Crystal::SyntaxError, "unterminated array literal") do
       semantic(%(
         {% begin %}[{% end %}
         ))

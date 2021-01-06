@@ -1593,10 +1593,10 @@ describe Crystal::Formatter do
       {% end %}
     CODE
 
-    ex = expect_raises(Crystal::SyntaxException) do
+    ex = expect_raises(Crystal::SyntaxError) do
       Crystal.format(source)
     end
-    ex.line_number.should eq(5)
+    ex.location.try(&.line_number).should eq(5)
   end
 
   # #8197

@@ -2081,13 +2081,16 @@ module Crystal
         # Format the value and append 2 more spaces of indentation
         begin
           formatter, value = subformat(value)
-        rescue ex : Crystal::SyntaxException
-          raise Crystal::SyntaxException.new(
+        rescue ex : Crystal::SyntaxError
+          raise Crystal::SyntaxError.new(
             ex.message,
-            ex.line_number + macro_node_line,
-            ex.column_number,
-            ex.filename,
-            ex.size)
+            ErrorLocation.new(
+              ex.location.filename,
+              ex.location.line_number + macro_node_line,
+              ex.location.column_number,
+              ex.location.size
+            )
+          )
         end
 
         # The formatted contents might have heredocs for which we must preserve
@@ -4916,7 +4919,7 @@ module Crystal
             end
           end
           lines[doc_comment.start_line..doc_comment.end_line] = formatted_lines
-        rescue Crystal::SyntaxException
+        rescue Crystal::SyntaxError
           # For now we don't care if doc comments have syntax errors,
           # they shouldn't prevent formatting the real code
         end
