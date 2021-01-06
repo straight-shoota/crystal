@@ -530,7 +530,7 @@ struct Int
   end
 
   def upto(to)
-    UptoIterator(typeof(self), typeof(to)).new(self, to)
+    step(to: to, by: 1)
   end
 
   def downto(to, &block : self ->) : Nil
@@ -544,7 +544,7 @@ struct Int
   end
 
   def downto(to)
-    DowntoIterator(typeof(self), typeof(to)).new(self, to)
+    step(to: to, by: -1)
   end
 
   def to(to, &block : self ->) : Nil
@@ -558,7 +558,7 @@ struct Int
   end
 
   def to(to)
-    self <= to ? upto(to) : downto(to)
+    step(to: to)
   end
 
   def modulo(other)
@@ -741,50 +741,6 @@ struct Int
       else
         stop
       end
-    end
-  end
-
-  private class UptoIterator(T, N)
-    include Iterator(T)
-
-    @from : T
-    @to : N
-    @current : T
-    @done : Bool
-
-    def initialize(@from : T, @to : N)
-      @current = @from
-      @done = !(@from <= @to)
-    end
-
-    def next
-      return stop if @done
-      value = @current
-      @done = @current == @to
-      @current += 1 unless @done
-      value
-    end
-  end
-
-  private class DowntoIterator(T, N)
-    include Iterator(T)
-
-    @from : T
-    @to : N
-    @current : T
-    @done : Bool
-
-    def initialize(@from : T, @to : N)
-      @current = @from
-      @done = !(@from >= @to)
-    end
-
-    def next
-      return stop if @done
-      value = @current
-      @done = @current == @to
-      @current -= 1 unless @done
-      value
     end
   end
 end
