@@ -4,6 +4,7 @@ module Crystal
   end
 
   class LocationError < Error
+    ALL_ERRORS = Set(String | Nil).new
     getter location : ErrorLocation
 
     def self.new(message, location : Location, size = nil)
@@ -12,6 +13,8 @@ module Crystal
 
     def initialize(message, @location : ErrorLocation)
       super(message)
+
+      ALL_ERRORS << message if message
     end
 
     def to_json(json : JSON::Builder)
@@ -28,7 +31,21 @@ module Crystal
 
       self
     end
+
+    def inspect(io : IO)
+      io << "#<Crystal::Error("
+      @message.inspect(io)
+      io << ", location="
+      @location.inspect(io)
+      io << ")>"
+    end
   end
 end
 
 require "./error/*"
+
+# Spec.after_suite do
+#   Crystal::LocationError::ALL_ERRORS.each do |e|
+#     puts e.inspect
+#   end
+# end

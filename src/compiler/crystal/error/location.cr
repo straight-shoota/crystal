@@ -1,55 +1,52 @@
 require "compiler/crystal/syntax/location"
 
 module Crystal
-  record ErrorLocation,
-    location : Location,
-    size : Int32 = 0,
-    source : String? = nil do
+  struct ErrorLocation
+    getter size : Int32
+    property source : String?
 
     UNKNOWN = ErrorLocation.new(nil, 0, 0, 0)
 
-    def self.new(filename, line_number, column_number, size, source = nil)
+    def self.new(filename, line_number, column_number, size = 0, source = nil)
       new(Location.new(filename, line_number, column_number), size, source)
     end
 
-    def self.new(location : Location, size = 0)
-      if (virtual_file = location.filename).is_a?(VirtualFile)
-        source = virtual_file.source.lines[location.line_number - 1]?
-      end
-
-      new(location, size, source)
+    def initialize(@location : Location, @size : Int32 = 0, @source : String? = nil)
     end
 
     def source=(@source : String?)
     end
 
     def virtual?
-      location.filename.is_a?(VirtualFile)
+      @location.filename.is_a?(VirtualFile)
     end
 
     def unknown?
-      location.filename.nil?
+      @location.filename.nil?
     end
 
-    delegate filename, line_number, column_number, to: @location
+    delegate filename, original_filename, line_number, column_number, to: @location
 
     def_equals_and_hash @location, @size
 
     def inspect(io : IO) : Nil
       io << "ErrorLocation("
-      case filename = location.filename
-      in VirtualFile
-        io << "macro "
-      in String
-        io << filename
-      in Nil
-        io << "<unknown>"
-      end
-      @name.inspect_unquoted(io)
-      io << ':' << @location.line_number << ':' << @location.column_number
+      @location.to_s(io)
 
       unless @size.zero?
         io << '+' << @size
+      end
+
+      if filename = @location.filename.as?(VirtualFile)
+        io << ", virtual: "
+        filename.inspect(io)
+      end
+
+      io << ", source: "
+      if source = @source
+        source.inspect(io)
+      else
+        io << "nil"
       end
 
       io << ')'

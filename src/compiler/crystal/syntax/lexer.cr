@@ -1738,7 +1738,7 @@ module Crystal
         scan_number(start)
       else
         if next_char.ascii_number?
-          raise "octal constants should be prefixed with 0o"
+          raise "octal constants must be prefixed with 0o"
         else
           finish_scan_prefixed_number 0_u64, false, start
         end

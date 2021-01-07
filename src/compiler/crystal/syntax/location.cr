@@ -54,7 +54,14 @@ class Crystal::Location
   end
 
   def inspect(io : IO) : Nil
+    io << "#<Crystal::Location("
     to_s(io)
+
+    if filename = self.filename.as?(VirtualFile)
+      io << ", virtual: "
+      filename.inspect(io)
+    end
+    io << ")>"
   end
 
   def to_s(io : IO) : Nil

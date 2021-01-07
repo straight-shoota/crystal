@@ -2,22 +2,14 @@ require "colorize"
 require "./loader"
 
 class Crystal::ErrorFormatter
-  def self.run(io, error, base_dir, colorize = nil)
-    formatter = new(io)
-    formatter.base_dir = base_dir
-    if colorize.is_a?(Bool)
-      formatter.colorize = colorize
-    end
-    load_sources(error)
-    formatter.format(error)
-  end
-
   property base_dir : ::Path = ::Path.new(Dir.current)
   @colorize : Colorize::Object(Nil)
 
-  def initialize(@io : IO)
-    @colorize = Colorize::Object.new(nil)
-    self.colorize = @io.tty?
+  def self.new(io : IO, colorize : Bool = io.tty?)
+    new io, Colorize::Object.new(nil).toggle(colorize)
+  end
+
+  def initialize(@io : IO, @colorize : Colorize::Object)
   end
 
   def colorize=(flag : Bool)
@@ -42,16 +34,57 @@ class Crystal::ErrorFormatter
   end
 
   def print_location(error)
+    error.location
+  end
+
+  def print_location(location : ErrorLocation)
+    print_location(location, location.filename)
+  end
+
+  def print_location(location : ErrorLocation, virtual_file : VirtualFile)
+    io << "There was a problem expanding macro "
+    virtual_file.macro.name.inspect(io)
+
+    io.puts
+    io.puts
+
+    # show_where_macro_expanded = !(@error_trace && self.responds_to?(:error_trace=))
+    # if show_where_macro_expanded
+    #   append_where_macro_expanded(io, virtual_file)
+    #   io << '\n'
+    # end
+
+    io << "Called macro defined in "
+    if macro_location = virtual_file.macro.location
+      print_location_name(macro_location)
+    else
+      io << "<unknown>"
+    end
+    io.puts
+    print_source(location)
+
+    io.puts
+    io.puts
+
+    io << "Which expanded to:"
+    io.puts
+
+    dup_location = location.dup
+    dup_location.source = virtual_file.source
+    print_source(dup_location)
+  end
+
+  def print_location(location : ErrorLocation, string : String)
     colorize(fore: :dark_gray) do
-      print_location_name(error.location)
+      print_location_name(location)
     end
     @io.puts
 
-    if filename = error.location.filename.as?(VirtualFile)
+    if filename = location.filename.as?(VirtualFile)
       print_macro_source_location(filename)
     end
 
-    print_source(error.location)
+    print_source(location)
   end
 
   def print_location_name(location)
@@ -69,14 +102,14 @@ class Crystal::ErrorFormatter
   end
 
   def print_macro_source_location(virtual_file)
-    location = virtual_file.macro.location
+    location = virtual_file.macro.location || ErrorLocation::UNKNOWN
     @io << "defined in "
     colorize(fore: :dark_gray) do
       print_location_name(location)
     end
     @io.puts
 
-    if (filename = location.try(&.filename)).is_a?(VirtualFile)
+    if filename = location.filename.as?(VirtualFile)
       print_macro_source_location(filename)
     end
   end

@@ -20,7 +20,17 @@ class Crystal::VirtualFile
   end
 
   def inspect(io : IO) : Nil
-    to_s(io)
+    io << "#<VirtualFile("
+    @macro.name.inspect(io)
+    io << ", source: "
+    @source.inspect(io)
+
+    if location = expanded_location
+      io << ", expanded_location: "
+      location.inspect(io)
+    end
+
+    io << ")>"
   end
 
   def pretty_print(pp)

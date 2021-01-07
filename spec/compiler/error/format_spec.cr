@@ -89,4 +89,44 @@ describe "error format" do
       end
     end
   end
+
+  describe "virtual file nesting" do
+    it do
+      location = Crystal::ErrorLocation.new(
+        Crystal::VirtualFile.new(
+          Crystal::Macro.new("foo"),
+          source: "  asdasdasdasd++\n",
+          expanded_location: Crystal::Location.new(
+            Crystal::VirtualFile.new(
+              Crystal::Macro.new("bar"),
+              source: " foo; ",
+              expanded_location: Crystal::Location.new("test.cr", 8, 1)
+            ),
+            1, 2
+          )
+        ),
+        1, 16,
+        source: "macro foo"
+      )
+
+      String.build do |io|
+        Crystal::ErrorFormatter.new(io).print_location(location)
+      end.chomp.should eq <<-OUT
+        There was a problem expanding macro 'foo'
+
+        Code in macro 'bar'
+
+        1 | foo;
+            ^
+        Called macro defined in test.cr:1:1
+
+        1 | macro foo
+
+        Which expanded to:
+
+        > 1 | asdasdasdasd++
+                            ^
+      OUT
+    end
+  end
 end

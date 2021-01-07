@@ -309,9 +309,9 @@ describe "Lexer" do
   assert_syntax_error "0o200_i8", "128 doesn't fit in an Int8"
   assert_syntax_error "0b10000000_i8", "128 doesn't fit in an Int8"
 
-  assert_syntax_error "0123", "octal constants should be prefixed with 0o"
-  assert_syntax_error "00", "octal constants should be prefixed with 0o"
-  assert_syntax_error "01_i64", "octal constants should be prefixed with 0o"
+  assert_syntax_error "0123", "octal constants must be prefixed with 0o"
+  assert_syntax_error "00", "octal constants must be prefixed with 0o"
+  assert_syntax_error "01_i64", "octal constants must be prefixed with 0o"
 
   assert_syntax_error "4f33", "invalid float suffix"
   assert_syntax_error "4f65", "invalid float suffix"

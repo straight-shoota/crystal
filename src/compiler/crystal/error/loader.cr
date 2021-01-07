@@ -4,14 +4,20 @@ class Crystal::ErrorFormatter
   end
 
   def self.load_source(error : LocationError, file_cache)
-    if error.location.source.nil? && (filename = error.location.filename.as?(String))
+    if error.location.source.nil? && (filename = error.location.original_filename)
+      puts filename
       lines = file_cache.fetch(filename) do
         file_cache[filename] = read_file(filename) || break
       end
+      puts "found lines"
 
       return unless lines
 
+      p! filename, lines[error.location.line_number - 1]?
       error.location.source = lines[error.location.line_number - 1]?
+    else
+      puts "not found for #{error}"
+      p! error, error.location.source
     end
   end
 

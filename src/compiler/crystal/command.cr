@@ -128,7 +128,11 @@ class Crystal::Command
     if @config.try(&.output_format) == "json"
       ex.to_json(STDERR)
     else
-      ErrorFormatter.run(STDERR, ex, ::Path.new(Dir.current), colorize: @color)
+      ErrorFormatter.load_sources(ex)
+      p! ex
+
+      formatter = ErrorFormatter.new(STDERR, colorize: @color)
+      formatter.format(ex)
     end
     exit 1
   rescue ex : Crystal::CodeError
