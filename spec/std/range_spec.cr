@@ -15,6 +15,10 @@ struct RangeSpecIntWrapper
     RangeSpecIntWrapper.new(@value + 1)
   end
 
+  def pred
+    RangeSpecIntWrapper.new(@value - 1)
+  end
+
   def <=>(other)
     value <=> other.value
   end
@@ -45,6 +49,7 @@ describe "Range" do
     Range.new(1, 10).should eq(1..10)
     Range.new(1, 10, false).should eq(1..10)
     Range.new(1, 10, true).should eq(1...10)
+    Range.new(10, 1).should eq(10..1)
   end
 
   it "gets basic properties" do
@@ -59,40 +64,94 @@ describe "Range" do
     r.excludes_end?.should be_true
   end
 
-  it "includes?" do
+  it "direction" do
+    (0..1).direction.should eq 1
+    (0...1).direction.should eq 1
+    (1..0).direction.should eq -1
+    (1...0).direction.should eq -1
+    (0..0).direction.should eq 0
+    (0...0).direction.should eq 0
+    (0..).direction.should eq 1
+    (0...).direction.should eq 1
+    (..).direction.should eq 1
+    (...).direction.should eq 1
+    (..0).direction.should eq 1
+    (...0).direction.should eq 1
+  end
+
+  it "#includes?" do
     (1..5).includes?(1).should be_true
+    (1..5).includes?(2).should be_true
     (1..5).includes?(5).should be_true
 
     (1...5).includes?(1).should be_true
+    (1...5).includes?(2).should be_true
     (1...5).includes?(5).should be_false
+
+    (1..).includes?(1).should be_true
+    (1..).includes?(5).should be_true
+
+    (1...).includes?(1).should be_true
+    (1...).includes?(5).should be_true
+
+    (..5).includes?(1).should be_true
+    (..5).includes?(5).should be_true
+
+    (...5).includes?(1).should be_true
+    (...5).includes?(5).should be_false
+
+    (5..1).includes?(1).should be_true
+    (5..1).includes?(5).should be_true
+
+    (5...1).includes?(1).should be_false
+    (5...1).includes?(5).should be_true
   end
 
-  it "does to_s" do
+  it "#to_s" do
     (1...5).to_s.should eq("1...5")
     (1..5).to_s.should eq("1..5")
+    (5..1).to_s.should eq("5..1")
     (1..nil).to_s.should eq("1..")
     (nil..3).to_s.should eq("..3")
     (nil..nil).to_s.should eq("..")
   end
 
-  it "does inspect" do
+  it "#inspect" do
     (1...5).inspect.should eq("1...5")
   end
 
-  it "is empty with .. and begin > end" do
-    (1..0).to_a.empty?.should be_true
+  it "#empty?" do
+    (1..2).empty?.should be_false
+    (1...2).empty?.should be_false
+    (2..1).empty?.should be_false
+    (2...1).empty?.should be_false
+
+    (1..).empty?.should be_false
+    (1...).empty?.should be_false
+    (..1).empty?.should be_false
+    (...1).empty?.should be_false
+    (..).empty?.should be_false
+    (...).empty?.should be_false
+
+    (1..1).empty?.should be_false
+    (1...1).empty?.should be_true
   end
 
-  it "is empty with ... and begin > end" do
-    (1...0).to_a.empty?.should be_true
-  end
+  describe "#to_a" do
+    it "begin < end" do
+      (1..2).to_a.should eq [1, 2]
+      (1...2).to_a.should eq [1]
+    end
 
-  it "is not empty with .. and begin == end" do
-    (1..1).to_a.should eq([1])
-  end
+    it "begin > end" do
+      (2..1).to_a.should eq [2, 1]
+      (2...1).to_a.should eq [2]
+    end
 
-  it "is not empty with ... and begin.succ == end" do
-    (1...2).to_a.should eq([1])
+    it "begin == end" do
+      (1..1).to_a.should eq([1])
+      (1...1).to_a.should eq([] of Int32)
+    end
   end
 
   describe "sum" do
@@ -204,13 +263,6 @@ describe "Range" do
       arr.should eq(['a', 'b'])
     end
 
-    it "is empty with empty inclusive range" do
-      range = 0..-1
-      any = false
-      range.each { any = true }
-      any.should eq(false)
-    end
-
     it "endless" do
       range = (3..nil)
       ary = [] of Int32
@@ -314,11 +366,11 @@ describe "Range" do
     end
 
     it "is empty with .. and begin > end" do
-      (1..0).each.to_a.empty?.should be_true
+      (1..0).each.to_a.should eq [1, 0]
     end
 
     it "is empty with ... and begin > end" do
-      (1...0).each.to_a.empty?.should be_true
+      (1...0).each.to_a.should eq [1]
     end
 
     it "is not empty with .. and begin == end" do

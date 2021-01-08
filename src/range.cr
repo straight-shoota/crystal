@@ -122,11 +122,25 @@ struct Range(B, E)
       end
     {% else %}
       end_value = @end
-      while end_value.nil? || current < end_value
-        {{ "yield current".id }}
-        current = current.succ
+      if end_value.nil?
+        while true
+          {{ "yield current".id }}
+          current = current.succ
+        end
+      else
+        if current < end_value
+          while current < end_value
+            {{ "yield current".id }}
+            current = current.succ
+          end
+        else
+          while current > end_value
+            {{ "yield current".id }}
+            current = current.pred
+          end
+        end
+        {{ "yield current".id }} if !@exclusive && (current <=> end_value).zero?
       end
-      {{ "yield current".id }} if !@exclusive && current == end_value
     {% end %}
   end
 
@@ -145,6 +159,10 @@ struct Range(B, E)
     end
 
     ItemIterator.new(self)
+  end
+
+  def empty?
+    @begin == @end && !@begin.nil? && @exclusive
   end
 
   # Iterates over the elements of this range in reverse order,
@@ -254,6 +272,16 @@ struct Range(B, E)
     StepIterator(self, B, typeof(by)).new(self, by)
   end
 
+  def direction
+    if @begin == @end && !@end.nil?
+      0
+    elsif (from = @begin) && (to = @end)
+      (to <=> from).sign
+    else
+      1
+    end
+  end
+
   # Returns `true` if this range excludes the *end* element.
   #
   # ```
@@ -278,12 +306,15 @@ struct Range(B, E)
     begin_value = @begin
     end_value = @end
 
+    direction = self.direction
+
     # begin passes
-    (begin_value.nil? || value >= begin_value) &&
+    ((begin_value.nil? || (value <=> begin_value).sign != -direction) &&
       # end passes
       (end_value.nil? ||
-        (@exclusive ? value < end_value : value <= end_value))
+        (value <=> end_value).sign.in?(@exclusive ? {-direction} : {-direction, 0})))
   end
+
 
   # Same as `includes?`.
   def covers?(value)
@@ -400,9 +431,13 @@ struct Range(B, E)
 
       end_value = @range.end
 
-      if end_value.nil? || @current < end_value
+      if end_value.nil? || @current != end_value
         value = @current
-        @current = @current.succ
+        if @range.direction == -1
+          @current = @current.pred
+        else
+          @current = @current.succ
+        end
         value
       else
         @reached_end = true
