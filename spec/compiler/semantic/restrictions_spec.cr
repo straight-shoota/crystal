@@ -792,4 +792,18 @@ describe "Restrictions" do
       foo x
       )) { int32 }
   end
+
+  it "partial override for method with default parameters" do
+    assert_type <<-CR, inject_primitives: false { int32 }
+      def bar(x = 1)
+        x
+      end
+
+      def bar
+        'c'
+      end
+
+      bar(1)
+      CR
+  end
 end

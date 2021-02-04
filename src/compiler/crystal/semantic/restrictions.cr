@@ -191,6 +191,11 @@ module Crystal
         return false
       end
 
+      # If other has default values
+      if max_size < other.max_size
+        return false
+      end
+
       true
     end
 
