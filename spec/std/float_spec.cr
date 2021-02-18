@@ -265,6 +265,20 @@ describe "Float" do
     (-0.0/0.0).finite?.should be_false
   end
 
+  {% if compare_versions(Crystal::VERSION, "0.36.1") > 0 %}
+    it "converts nan" do
+      Float32::NAN.to_f64.nan?.should be_true
+      Float32::NAN.to_f32.nan?.should be_true
+      expect_raises(OverflowError) { Float32::NAN.to_i }
+
+      Float64::NAN.to_f64.nan?.should be_true
+      Float64::NAN.to_f32.nan?.should be_true
+      expect_raises(OverflowError) { Float64::NAN.to_i }
+    end
+  {% else %}
+    pending "converts nan"
+  {% end %}
+
   it "does unary -" do
     f = -(1.5)
     f.should eq(-1.5)

@@ -263,13 +263,20 @@ class Crystal::CodeGenVisitor
     if arg_type.kind == :f32 && target_type.kind == :u128
       # since Float32::MAX < UInt128::MAX
       # the range checking is replaced by a positive check only
-      builder.fcmp(LLVM::RealPredicate::OLT, arg, llvm_type(arg_type).const_float(0))
+      or(
+        builder.fcmp(LLVM::RealPredicate::OLT, arg, llvm_type(arg_type).const_float(0)),
+        builder.fcmp(LLVM::RealPredicate::ONE, arg, arg)
+      )
     else
       min_value, max_value = target_type.range
-      # arg < min_value || arg > max_value
+      # checks for arg being outside of range or nan
+      # arg < min_value || arg > max_value || arg != arg
       or(
-        builder.fcmp(LLVM::RealPredicate::OLT, arg, int_to_float(target_type, arg_type, int(min_value, target_type))),
-        builder.fcmp(LLVM::RealPredicate::OGT, arg, int_to_float(target_type, arg_type, int(max_value, target_type)))
+        or(
+          builder.fcmp(LLVM::RealPredicate::OLT, arg, int_to_float(target_type, arg_type, int(min_value, target_type))),
+          builder.fcmp(LLVM::RealPredicate::OGT, arg, int_to_float(target_type, arg_type, int(max_value, target_type)))
+        ),
+        builder.fcmp(LLVM::RealPredicate::ONE, arg, arg)
       )
     end
   end
