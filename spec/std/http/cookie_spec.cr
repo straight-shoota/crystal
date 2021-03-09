@@ -33,6 +33,13 @@ module HTTP
         end
         # more extensive specs on #value=
       end
+
+      it "raises on invalid domain" do
+        expect_raises IO::Error, "Invalid cookie domain" do
+          HTTP::Cookie.new("x", "y", domain: "wrong;bad.abc")
+        end
+        # more extensive specs on #domain=
+      end
     end
 
     describe "#name=" do
@@ -81,15 +88,33 @@ module HTTP
           cookie.value = "foo,bar"
         end
       end
+
+      describe "#domain=" do
+        cookie = HTTP::Cookie.new("x", "")
+        it "raises on invalid value" do
+          expect_raises IO::Error, "Invalid cookie domain" do
+            cookie.domain = "wrong;bad.abc"
+          end
+          expect_raises IO::Error, "Invalid cookie domain" do
+            cookie.domain = "bad-.abc"
+          end
+          expect_raises IO::Error, "Invalid cookie domain" do
+            cookie.domain = "::1"
+          end
+        end
+      end
     end
 
     describe "#to_set_cookie_header" do
       it { HTTP::Cookie.new("x", "v$1").to_set_cookie_header.should eq "x=v$1; path=/" }
 
+      it { HTTP::Cookie.new("x", "four", path = "/restricted/").to_set_cookie_header.should eq "x=four; path=/restricted/" }
       it { HTTP::Cookie.new("x", "seven", domain: "127.0.0.1").to_set_cookie_header.should eq "x=seven; domain=127.0.0.1; path=/" }
 
       it { HTTP::Cookie.new("x", "expiring", expires: Time.unix(1257894000)).to_set_cookie_header.should eq "x=expiring; path=/; expires=Tue, 10 Nov 2009 23:00:00 GMT" }
       it { HTTP::Cookie.new("x", "expiring-1601", expires: Time.utc(1601, 1, 1, 1, 1, 1, nanosecond: 1)).to_set_cookie_header.should eq "x=expiring-1601; path=/; expires=Mon, 01 Jan 1601 01:01:01 GMT" }
+      # According to IETF 6265 Section 5.1.1.5, the year cannot be less than 1601
+      pending { HTTP::Cookie.new("x", "invalid-expiry", expires: Time.utc(1600, 1, 1, 1, 1, 1, nanosecond: 1)).to_set_cookie_header.should eq "x=invalid-expiry; path=/" }
 
       it "samesite" do
         HTTP::Cookie.new("x", "samesite-default", samesite: nil).to_set_cookie_header.should eq "x=samesite-default; path=/"
@@ -99,6 +124,10 @@ module HTTP
       end
 
       it { HTTP::Cookie.new("empty-value", "").to_set_cookie_header.should eq "empty-value=; path=/" }
+
+      it "sanitizes domain" do
+        HTTP::Cookie.new("x", "y", domain: ".example.com").to_set_cookie_header.should eq "x=y; domain=example.com; path=/"
+      end
     end
   end
 

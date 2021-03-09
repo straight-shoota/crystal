@@ -1,4 +1,5 @@
 require "./common"
+require "socket/address"
 
 module HTTP
   # Represents a cookie with all its attributes. Provides convenient access and modification of them.
@@ -19,7 +20,7 @@ module HTTP
     getter value : String
     property path : String
     property expires : Time?
-    property domain : String?
+    getter domain : String?
     property secure : Bool
     property http_only : Bool
     property samesite : SameSite?
@@ -31,13 +32,14 @@ module HTTP
     #
     # Raises `IO::Error` if *name* or *value* are invalid as per [RFC 6265 §4.1.1](https://tools.ietf.org/html/rfc6265#section-4.1.1).
     def initialize(name : String, value : String, @path : String = "/",
-                   @expires : Time? = nil, @domain : String? = nil,
+                   @expires : Time? = nil, domain : String? = nil,
                    @secure : Bool = false, @http_only : Bool = false,
                    @samesite : SameSite? = nil, @extension : String? = nil)
       validate_name(name)
       @name = name
       validate_value(value)
       @value = value
+      self.domain = domain
     end
 
     # Sets the name of this cookie.
@@ -78,6 +80,58 @@ module HTTP
       end
     end
 
+    # Sets the domain of this cookie.
+    #
+    # Raises `IO::Error` if the value is invalid as per [RFC 6265 §4.1.1](https://tools.ietf.org/html/rfc6265#section-4.1.1).
+    def domain=(domain : String?)
+      validate_domain(domain) if domain
+      @domain = domain
+    end
+
+    # validCookieDomain reports whether v is a valid cookie domain-value.
+    private def validate_domain(domain)
+      unless cookie_domain_name?(domain) || Socket::IPAddress.ipv4_address?(domain)
+        raise IO::Error.new("Invalid cookie domain")
+      end
+    end
+
+    # isCookieDomainName reports whether s is a valid domain name or a valid
+    # domain name with a leading dot '.'.  It is almost a direct copy of
+    # package net's isDomainName.
+    def cookie_domain_name?(string)
+      return false unless 0 <= string.size <= 255 && string.single_byte_optimizable?
+
+      last = '.'
+      found_letter = false
+      partlen = 0
+      first = true
+      string.each_byte do |byte|
+        next if first && byte === '.'
+        first = false
+
+        case char = byte.unsafe_chr
+        when .ascii_letter?
+          found_letter = true
+          partlen += 1
+        when .ascii_number?
+          partlen += 1
+        when '-'
+          return false if last == '.'
+          partlen += 1
+        when '.'
+          return false if last.in?('.', '-')
+          return false unless 0 < partlen < 64
+          partlen = 0
+        else
+          return false
+        end
+        last = char
+      end
+      return false if last == '-' || partlen > 63
+
+      found_letter
+    end
+
     def to_set_cookie_header
       path = @path
       expires = @expires
@@ -85,7 +139,7 @@ module HTTP
       samesite = @samesite
       String.build do |header|
         to_cookie_header(header)
-        header << "; domain=#{domain}" if domain
+        header << "; domain=#{domain.lchop('.')}" if domain
         header << "; path=#{path}" if path
         header << "; expires=#{HTTP.format_time(expires)}" if expires
         header << "; Secure" if @secure
