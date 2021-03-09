@@ -1,0 +1,19 @@
+name: BSD
+
+on: [push, pull_request]
+
+jobs:
+  test_freebsd:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Test in FreeBSD
+      id: test
+      uses: vmactions/freebsd-vm@v0.1.2
+      with:
+        usesh: true
+        prepare: pkg install -y crystal shards
+        run: |
+          bin/ci prepare_system
+          bin/ci prepare_build
+          bin/ci build
