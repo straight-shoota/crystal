@@ -16,8 +16,6 @@ jobs:
         envs: "TRAVIS_OS_NAME"
         usesh: true
         mem: 8192
-        prepare: pkg install -y crystal shards
+        prepare: pkg install -y crystal shards gmake
         run: |
-          bin/ci prepare_system
-          bin/ci prepare_build
-          bin/ci build
+          gmake std_spec clean threads=1 junit_output=.junit/std_spec.xml
