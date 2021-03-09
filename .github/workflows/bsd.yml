@@ -16,6 +16,6 @@ jobs:
         envs: "TRAVIS_OS_NAME"
         usesh: true
         mem: 8192
-        prepare: pkg install -y crystal shards gmake
+        prepare: pkg install -y crystal shards gmake llvm10 pkgconf libyaml libxml2 openssl gmp
         run: |
           gmake std_spec clean threads=1 junit_output=.junit/std_spec.xml
