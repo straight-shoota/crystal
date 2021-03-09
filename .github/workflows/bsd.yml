@@ -5,12 +5,15 @@ on: [push, pull_request]
 jobs:
   test_freebsd:
     runs-on: macos-latest
+    env:
+      TRAVIS_OS_NAME: freebsd
     steps:
     - uses: actions/checkout@v2
     - name: Test in FreeBSD
       id: test
       uses: vmactions/freebsd-vm@v0.1.2
       with:
+        envs: "TRAVIS_OS_NAME"
         usesh: true
         mem: 8192
         prepare: pkg install -y crystal shards
