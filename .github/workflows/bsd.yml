@@ -18,4 +18,4 @@ jobs:
         mem: 8192
         prepare: pkg install -y crystal shards gmake llvm10 pkgconf libyaml libxml2 openssl gmp
         run: |
-          gmake std_spec clean threads=1 junit_output=.junit/std_spec.xml
+          LLVM_CONFIG=llvm-config10 gmake std_spec clean threads=1 junit_output=.junit/std_spec.xml
