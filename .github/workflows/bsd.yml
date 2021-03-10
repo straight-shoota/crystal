@@ -2,6 +2,9 @@ name: BSD
 
 on: [push, pull_request]
 
+env:
+  SPEC_SPLIT_DOTS: 160
+
 jobs:
   test_freebsd:
     runs-on: macos-latest
@@ -13,7 +16,7 @@ jobs:
       id: test
       uses: vmactions/freebsd-vm@v0.1.2
       with:
-        envs: "TRAVIS_OS_NAME"
+        envs: "TRAVIS_OS_NAME SPEC_SPLIT_DOTS"
         usesh: true
         mem: 8192
         prepare: pkg install -y crystal shards gmake llvm10 pkgconf libyaml libxml2 openssl gmp
