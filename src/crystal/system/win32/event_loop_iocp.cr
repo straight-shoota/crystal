@@ -16,7 +16,7 @@ module Crystal::EventLoop
 
       dequeue next_event
 
-      Crystal::Scheduler.enqueue next_event.fiber
+      next_event.activate
     else
       Crystal::System.print_error "Warning: No runnables in scheduler. Exiting program.\n"
       ::exit
@@ -42,6 +42,11 @@ module Crystal::EventLoop
     Crystal::Event.new(fiber)
   end
 
+  # Create a new resume event for a fiber.
+  def self.create_timeout_event(fiber : Fiber) : Crystal::Event
+    Crystal::Event.new(fiber, timeout_event: true)
+  end
+
   # Creates a write event for a file descriptor.
   def self.create_fd_write_event(io : IO::Evented, edge_triggered : Bool = false) : Crystal::Event
     Crystal::Event.new(Fiber.current)
@@ -54,20 +59,32 @@ module Crystal::EventLoop
 end
 
 struct Crystal::Event
-  getter fiber
   getter wake_at
 
-  def initialize(@fiber : Fiber)
+  def initialize(@fiber : Fiber, @timeout_event = false)
     @wake_at = Time.monotonic
   end
 
   # Frees the event
   def free : Nil
+    delete
+  end
+
+  def delete
     Crystal::EventLoop.dequeue(self)
   end
 
   def add(time_span : Time::Span) : Nil
     @wake_at = Time.monotonic + time_span
     Crystal::EventLoop.enqueue(self)
+  end
+
+  def activate
+    if @timeout_event && (select_action = @fiber.timeout_select_action)
+      @fiber.timeout_select_action = nil
+      select_action.time_expired(@fiber)
+    else
+      Crystal::Scheduler.enqueue @fiber
+    end
   end
 end

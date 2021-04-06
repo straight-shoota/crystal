@@ -13,7 +13,7 @@ require "./std/benchmark_spec.cr"
 require "./std/bit_array_spec.cr"
 require "./std/bool_spec.cr"
 require "./std/box_spec.cr"
-# require "./std/channel_spec.cr" (failed codegen)
+require "./std/channel_spec.cr"
 require "./std/char/reader_spec.cr"
 require "./std/char_spec.cr"
 require "./std/class_spec.cr"
