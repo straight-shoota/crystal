@@ -1,6 +1,8 @@
-{% skip_file if flag?(:win32) %}
-
+{% if flag?(:win32) %}
+  require "./call_stack/stackwalk"
+{% else %}
   require "./call_stack/libunwind"
+{% end %}
 
 # Returns the current execution stack as an array containing strings
 # usually in the form file:line:column or file:line:column in 'method'.

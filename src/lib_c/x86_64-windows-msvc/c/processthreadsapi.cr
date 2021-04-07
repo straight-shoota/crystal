@@ -34,6 +34,7 @@ lib LibC
   fun GetCurrentThreadStackLimits(lowLimit : ULONG_PTR*, highLimit : ULONG_PTR*) : Void
   fun GetCurrentProcess : HANDLE
   fun GetCurrentProcessId : DWORD
+  fun GetCurrentThread : HANDLE
   fun OpenProcess(dwDesiredAccess : DWORD, bInheritHandle : BOOL, dwProcessId : DWORD) : HANDLE
   fun GetExitCodeProcess(hProcess : HANDLE, lpExitCode : DWORD*) : BOOL
   fun CreateProcessW(lpApplicationName : LPWSTR, lpCommandLine : LPWSTR,

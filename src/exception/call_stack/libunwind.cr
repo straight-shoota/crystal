@@ -133,52 +133,52 @@ struct Exception::CallStack
     show_full_info = ENV["CRYSTAL_CALLSTACK_FULL_INFO"]? == "1"
 
     {% if flag?(:win32) %}
-    [] of String
+      [] of String
     {% else %}
-    @callstack.compact_map do |ip|
-      pc = CallStack.decode_address(ip)
+      @callstack.compact_map do |ip|
+        pc = CallStack.decode_address(ip)
 
-      file, line, column = CallStack.decode_line_number(pc)
+        file, line, column = CallStack.decode_line_number(pc)
 
-      if file && file != "??"
-        next if @@skip.includes?(file)
+        if file && file != "??"
+          next if @@skip.includes?(file)
 
-        # Turn to relative to the current dir, if possible
-        file = file.lchop(CURRENT_DIR)
+          # Turn to relative to the current dir, if possible
+          file = file.lchop(CURRENT_DIR)
 
-        file_line_column = "#{file}:#{line}:#{column}"
-      end
-
-      if name = CallStack.decode_function_name(pc)
-        function = name
-      elsif frame = CallStack.decode_frame(ip)
-        _, sname = frame
-        function = String.new(sname)
-
-        # Crystal methods (their mangled name) start with `*`, so
-        # we remove that to have less clutter in the output.
-        function = function.lchop('*')
-      else
-        function = "???"
-      end
-
-      if file_line_column
-        if show_full_info && (frame = CallStack.decode_frame(ip))
-          _, sname = frame
-          line = "#{file_line_column} in '#{String.new(sname)}'"
-        else
-          line = "#{file_line_column} in '#{function}'"
+          file_line_column = "#{file}:#{line}:#{column}"
         end
-      else
-        line = function
-      end
 
-      if show_full_info
-        line = "#{line} at 0x#{ip.address.to_s(16)}"
-      end
+        if name = CallStack.decode_function_name(pc)
+          function = name
+        elsif frame = CallStack.decode_frame(ip)
+          _, sname = frame
+          function = String.new(sname)
 
-      line
-    end
+          # Crystal methods (their mangled name) start with `*`, so
+          # we remove that to have less clutter in the output.
+          function = function.lchop('*')
+        else
+          function = "???"
+        end
+
+        if file_line_column
+          if show_full_info && (frame = CallStack.decode_frame(ip))
+            _, sname = frame
+            line = "#{file_line_column} in '#{String.new(sname)}'"
+          else
+            line = "#{file_line_column} in '#{function}'"
+          end
+        else
+          line = function
+        end
+
+        if show_full_info
+          line = "#{line} at 0x#{ip.address.to_s(16)}"
+        end
+
+        line
+      end
     {% end %}
   end
 
