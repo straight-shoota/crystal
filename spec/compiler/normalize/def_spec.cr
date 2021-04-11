@@ -232,24 +232,32 @@ module Crystal
       other_def.to_s.should eq("def foo:abstract(abstract __arg0)\n  options = {}\n  @abstract = __arg0\nend")
     end
 
-    describe "gives correct body location with" do
-      {"default arg"                  => "def testing(foo = 5)",
-       "default arg with restriction" => "def testing(foo : Int = 5)",
-       "splat arg"                    => "def testing(*foo : Array)",
-       "block instance var arg"       => "def testing(&@foo : ->)",
-      }.each do |(suf, definition)|
-        describe suf + "," do
-          {"with body" => "zzz = 7\n", "without body" => ""}.each do |(suf, body)|
-            it suf do
-              a_def = parse("#{definition}\n#{body}end").as(Def)
-              actual = a_def.expand_default_arguments(Program.new, 1)
-
-              actual.location.should eq Location.new("", line_number: 1, column_number: 1)
-              actual.body.location.should eq Location.new("", line_number: 2, column_number: 1)
-            end
-          end
-        end
+    describe "gives correct body location with 2" do
+      context "with body" do
+        it_sets_def_location "default arg", "def testing(foo = 5)\nzz = z\nend"
+        it_sets_def_location "default arg with restriction", "def testing(foo : Int = 5)\nzz = z\nend"
+        it_sets_def_location "splat arg", "def testing(*foo : Array)\nzz = z\nend"
+        it_sets_def_location "block instance var arg", "def testing(&@foo : ->)\nzz = z\nend"
+      end
+      context "without body" do
+        it_sets_def_location "default arg", "def testing(foo = 5)\nend"
+        it_sets_def_location "default arg with restriction", "def testing(foo : Int = 5)\nend"
+        it_sets_def_location "splat arg", "def testing(*foo : Array)\nend"
+        it_sets_def_location "block instance var arg", "def testing(&@foo : ->)\nend"
       end
     end
+  end
+end
+
+private def it_sets_def_location(description, source,
+                                 def_location = Location.new("", line_number: 1, column_number: 1),
+                                 body_location = Location.new("", line_number: 2, column_number: 1),
+                                 file = __FILE__, line = __LINE__)
+  it description, file: file, line: line do
+    a_def = parse(source).as(Def)
+    actual = a_def.expand_default_arguments(Program.new, 1)
+
+    actual.location.should eq def_location
+    actual.body.location.should eq body_location
   end
 end
