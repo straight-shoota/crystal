@@ -26,24 +26,36 @@ module SystemError
   end
 
   module ClassMethods
-    # Builds an instance of the exception from a `Errno`
+    # Builds an instance of the exception from an *os_error* value.
     #
-    # By default it takes the current `errno` value. The `message` is appended
-    # with the system message corresponding to the `errno`.
-    # Additional keyword arguments can be passed and they will be forwarded
-    # to the exception initializer
-    def from_errno(message : String? = nil, errno : Errno = Errno.value, **opts)
+    # The system message corresponding to the OS error value amends the *message*.
+    # Additional keyword arguments are forwarded to the exception initializer.
+    def from_os_error(message : String?, os_error = Errno | WinError | Nil, **opts)
       message = self.build_message(message, **opts)
       message =
         if message
-          "#{message}: #{errno.message}"
+          "#{message}: #{os_error.message}"
         else
-          errno.message
+          os_error.message
         end
 
-      self.new_from_errno(message, errno, **opts).tap do |e|
-        e.os_error = errno
+      self.new_from_os_error(message, os_error, **opts).tap do |e|
+        e.os_error = os_error
       end
+    end
+
+    # Builds an instance of the exception from a `Errno`.
+    #
+    # By default it takes the current `errno` value (see `Errno.value`).
+    # The system message corresponding to the OS error value amends the *message*.
+    # Additional keyword arguments are forwarded to the exception initializer.
+    def from_errno(message : String, **opts)
+      from_os_error(message, Errno.value, **opts)
+    end
+
+    @[Deprecated("Use `.from_os_error` instead")]
+    def from_errno(message : String? = nil, errno : Errno = nil, **opts)
+      from_os_error(message, errno, **opts)
     end
 
     # Prepare the message that goes before the system error description
@@ -59,38 +71,23 @@ module SystemError
     # This is a factory method and by default it creates an instance
     # of the current class. It can be overridden to generate different
     # classes based on the `errno` or keyword arguments.
-    protected def new_from_errno(message : String, errno : Errno, **opts)
+    protected def new_from_os_error(message : String, os_error, **opts)
       self.new(message, **opts)
     end
 
+    # Builds an instance of the exception from a `WinError`
+    #
+    # By default it takes the current `WinError` value (see `WinError.value`).
+    # The system message corresponding to the OS error value amends the *message*.
+    # Additional keyword arguments are forwarded to the exception initializer.
+    def from_winerror(message : String?, **opts)
+      from_os_error(message, WinError.value, **opts)
+    end
+
     {% if flag?(:win32) %}
-      # Builds an instance of the exception from a `WinError`
-      #
-      # By default it takes the current `WinError` value. The `message` is appended
-      # with the system message corresponding to the `WinError`.
-      # Additional keyword arguments can be passed and they will be forwarded
-      # to the exception initializer
+      @[Deprecated("Use `.from_os_error` instead")]
       def from_winerror(message : String? = nil, winerror : WinError = WinError.value, **opts)
-        message = self.build_message(message, **opts)
-        message =
-          if message
-            "#{message}: #{winerror.message}"
-          else
-            winerror.message
-          end
-
-        self.new_from_winerror(message, winerror, **opts).tap do |e|
-          e.os_error = winerror
-        end
-      end
-
-      # Create an instance of the exception that wraps a system error
-      #
-      # This is a factory method and by default it creates an instance
-      # of the current class. It can be overridden to generate different
-      # classes based on the `winerror` or keyword arguments.
-      protected def new_from_winerror(message : String, winerror : WinError, **opts)
-        new_from_errno(message, winerror.to_errno, **opts)
+        from_os_error(message, winerror, **opts)
       end
     {% end %}
   end
