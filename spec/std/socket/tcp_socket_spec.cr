@@ -36,7 +36,7 @@ describe TCPSocket do
         error = expect_raises(Socket::Addrinfo::Error) do
           TCPSocket.new(address, -12)
         end
-        error.error_code.should eq({% if flag?(:linux) %}LibC::EAI_SERVICE{% else %}LibC::EAI_NONAME{% end %})
+        error.os_error.should eq(Errno.new({% if flag?(:linux) %}LibC::EAI_SERVICE{% else %}LibC::EAI_NONAME{% end %}))
       end
 
       it "raises when port is zero" do

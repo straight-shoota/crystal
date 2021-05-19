@@ -83,12 +83,12 @@ class Socket
     class Error < Socket::Error
       @[Deprecated("Use `#os_error` instead")]
       def error_code : Int32
-        os_error.value.to_i32!
+        os_error.not_nil!.value.to_i32!
       end
 
       @[Deprecated("Use `.from_os_error` instead")]
       def self.new(error_code : Int32, message, domain)
-        from_os_error(message, error_code, domain: domain)
+        from_os_error(message, Errno.new(error_code), domain: domain)
       end
 
       @[Deprecated("Use `.from_os_error` instead")]
@@ -96,12 +96,25 @@ class Socket
         new error_code, nil, domain: domain
       end
 
-      def self.build_message(message, *, domain)
+      protected def self.new_from_os_error(message : String, os_error, *, domain, type, service, protocol, **opts)
+        new(message, **opts)
+      end
+
+      def self.build_message(message, *, domain, **opts)
         "Hostname lookup for #{domain} failed"
       end
 
-      def self.os_error_string(os_error : Errno)
-        String.new(LibC.gai_strerror(os_error))
+      def self.os_error_string(os_error : Errno, *, type, service, protocol, **opts)
+        case os_error.value
+        when LibC::EAI_NONAME
+          "No address found"
+        when LibC::EAI_SOCKTYPE
+          "The requested socket type #{type} protocol #{protocol} is not supported"
+        when LibC::EAI_SERVICE
+          "The requested service #{service} is not available for the requested socket type #{type}"
+        else
+          String.new(LibC.gai_strerror(os_error.value))
+        end
       end
     end
 
@@ -131,17 +144,9 @@ class Socket
         end
       {% end %}
 
-      case ret = LibC.getaddrinfo(domain, service.to_s, pointerof(hints), out ptr)
-      when 0
-        # success
-      when LibC::EAI_NONAME
-        raise Error.new(ret, "No address found", domain)
-      when LibC::EAI_SOCKTYPE
-        raise Error.new(ret, "The requested socket type #{type} protocol #{protocol} is not supported", domain)
-      when LibC::EAI_SERVICE
-        raise Error.new(ret, "The requested service #{service} is not available for the requested socket type #{type}", domain)
-      else
-        raise Error.new(ret, domain)
+      ret = LibC.getaddrinfo(domain, service.to_s, pointerof(hints), out ptr)
+      unless ret.zero?
+        raise Error.from_os_error(nil, Errno.new(ret), domain: domain, type: type, protocol: protocol, service: service)
       end
 
       begin

@@ -39,7 +39,7 @@ describe TCPServer do
         error = expect_raises(Socket::Addrinfo::Error) do
           TCPServer.new(address, -12)
         end
-        error.error_code.should eq({% if flag?(:linux) %}LibC::EAI_SERVICE{% else %}LibC::EAI_NONAME{% end %})
+        error.os_error.should eq(Errno.new({% if flag?(:linux) %}LibC::EAI_SERVICE{% else %}LibC::EAI_NONAME{% end %}))
       end
 
       describe "reuse_port" do
