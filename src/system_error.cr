@@ -30,7 +30,7 @@ module SystemError
     #
     # The system message corresponding to the OS error value amends the *message*.
     # Additional keyword arguments are forwarded to the exception initializer.
-    def from_os_error(message : String?, os_error = Errno | WinError | Nil, **opts)
+    def from_os_error(message : String?, os_error : Errno | WinError | Nil, **opts)
       message = self.build_message(message, **opts)
       message =
         if message
