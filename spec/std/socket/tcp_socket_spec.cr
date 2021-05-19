@@ -8,7 +8,9 @@ describe TCPSocket, tags: "network" do
         port = unused_local_port
 
         TCPServer.open(address, port) do |server|
+          sock = server.accept
           TCPSocket.open(address, port) do |client|
+
             client.local_address.address.should eq address
 
             sock = server.accept

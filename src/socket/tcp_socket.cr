@@ -28,6 +28,7 @@ class TCPSocket < IPSocket
     Addrinfo.tcp(host, port, timeout: dns_timeout) do |addrinfo|
       super(addrinfo.family, addrinfo.type, addrinfo.protocol, blocking)
       connect(addrinfo, timeout: connect_timeout) do |error|
+        ::puts "closing, #{error}"
         close
         error
       end
