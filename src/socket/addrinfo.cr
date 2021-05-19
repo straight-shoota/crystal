@@ -81,24 +81,27 @@ class Socket
     end
 
     class Error < Socket::Error
-      getter error_code : Int32
-
-      def self.new(error_code, domain)
-        new error_code, error_string(error_code), domain
+      @[Deprecated("Use `#os_error` instead")]
+      def error_code : Int32
+        os_error.value.to_i32!
       end
 
-      def initialize(@error_code, message, domain)
-        super("Hostname lookup for #{domain} failed: #{message}")
+      @[Deprecated("Use `.from_os_error` instead")]
+      def self.new(error_code : Int32, message, domain)
+        from_os_error(message, error_code, domain: domain)
       end
 
-      def self.error_string(error_code)
-        {% if flag?(:win32) %}
-          # gai_strerror is defined as a macro in WS2tcpip.h, we can just use
-          # WinError for this
-          return WinError.new(error_code.to_u32).message
-        {% else %}
-          String.new(LibC.gai_strerror(error_code))
-        {% end %}
+      @[Deprecated("Use `.from_os_error` instead")]
+      def self.new(error_code : Int32, domain)
+        new error_code, nil, domain: domain
+      end
+
+      def self.build_message(message, *, domain)
+        "Hostname lookup for #{domain} failed"
+      end
+
+      def self.os_error_string(os_error : Errno)
+        String.new(LibC.gai_strerror(os_error))
       end
     end
 
