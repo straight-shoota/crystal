@@ -5,8 +5,8 @@ class File::Error < IO::Error
   getter file : String
   getter other : String?
 
-  private def self.new_from_errno(message, errno, **opts)
-    case errno
+  private def self.new_from_os_error(message, os_error, **opts)
+    case os_error
     when Errno::ENOENT
       File::NotFoundError.new(message, **opts)
     when Errno::EEXIST
@@ -14,7 +14,7 @@ class File::Error < IO::Error
     when Errno::EACCES
       File::AccessDeniedError.new(message, **opts)
     else
-      super message, errno, **opts
+      super message, os_error, **opts
     end
   end
 
