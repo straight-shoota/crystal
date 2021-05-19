@@ -34,9 +34,9 @@ module SystemError
       message = self.build_message(message, **opts)
       message =
         if message
-          "#{message}: #{os_error_string(os_error)}"
+          "#{message}: #{os_error_string(os_error, **opts)}"
         else
-          os_error_string(os_error)
+          os_error_string(os_error, **opts)
         end
 
       self.new_from_os_error(message, os_error, **opts).tap do |e|
@@ -44,7 +44,7 @@ module SystemError
       end
     end
 
-    protected def os_error_string(os_error : Errno | WinError | Nil)
+    protected def os_error_string(os_error : Errno | WinError | Nil, **opts)
       os_error.try &.message
     end
 
