@@ -113,7 +113,11 @@ class Socket
         when LibC::EAI_SERVICE
           "The requested service #{service} is not available for the requested socket type #{type}"
         else
-          String.new(LibC.gai_strerror(os_error.value))
+          {% if flag?(:win32) %}
+            ""
+          {% else %}
+            String.new(LibC.gai_strerror(os_error.value))
+          {% end %}
         end
       end
     end
