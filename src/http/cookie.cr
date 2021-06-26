@@ -121,7 +121,7 @@ module HTTP
     end
 
     # :nodoc:
-    module Parser
+    struct Parser
       module Regex
         CookieName     = /[^()<>@,;:\\"\/\[\]?={} \t\x00-\x1f\x7f]+/
         CookieOctet    = /[!#-+\--:<-\[\]-~]/
@@ -155,24 +155,108 @@ module HTTP
       CookieString    = /(?:^|; )#{Regex::CookiePair}/
       SetCookieString = /^#{Regex::CookiePair}(?:;\s*#{Regex::CookieAV})*$/
 
-      def parse_cookies(header)
+      def self.parse_cookies_old(header)
         header.scan(CookieString).each do |pair|
           value = pair["value"]
           if value.starts_with?('"')
             # Unwrap quoted cookie value
             value = value.byte_slice(1, value.bytesize - 2)
           end
-          yield Cookie.new(pair["name"], value, skip_validation: true)
+          yield Cookie.new(pair["name"], value)
         end
       end
 
-      def parse_cookies(header) : Array(Cookie)
+      def self.parse_cookies_old(header) : Array(Cookie)
+        cookies = [] of Cookie
+        parse_cookies_old(header) { |cookie| cookies << cookie }
+        cookies
+      end
+
+      def self.parse_cookies(header) : Array(Cookie)
         cookies = [] of Cookie
         parse_cookies(header) { |cookie| cookies << cookie }
         cookies
       end
 
-      def parse_set_cookie(header) : Cookie?
+      def self.parse_cookies(header)
+        new(header).parse_cookies do |cookie|
+          yield cookie
+        end
+      end
+
+      @header : Bytes
+      def initialize(header)
+        @header = header.to_slice
+      end
+
+      def parse_cookies
+        while true
+          cookie = parse_cookie
+          if cookie
+            if @header.size == 0
+              yield cookie
+              break
+            elsif consume "; "
+              yield cookie
+            else
+              break
+            end
+          else
+            while true
+              if consume "; "
+                next
+              elsif @header.size > 2
+                @header += 1
+              else
+                break
+              end
+            end
+            break
+          end
+        end
+      end
+
+      private def parse_cookie
+        name = consume_while { |byte| Parser.token?(byte) }
+        return nil unless name
+        return nil unless consume '='
+
+        quoted = consume '"'
+
+        value = consume_while { |byte| Parser.octet?(byte) }
+
+        if quoted
+          return nil unless consume '"'
+        end
+
+        Cookie.new(name, value || "", skip_validation: true)
+      end
+
+      private def consume(char_or_string)
+        return false unless @header.size >= char_or_string.bytesize
+        pos = 0
+        char_or_string.each_byte do |byte|
+          return false unless @header.unsafe_fetch(pos) == byte
+          pos += 1
+        end
+        @header += pos
+        true
+      end
+
+      private def consume_while
+        size = 0
+        @header.each do |byte|
+          break unless yield byte
+          size += 1
+        end
+        return nil if size.zero?
+
+        string = String.new(@header[0, size])
+        @header += size
+        string
+      end
+
+      def self.parse_set_cookie_old(header) : Cookie?
         match = header.match(SetCookieString)
         return unless match
 
@@ -194,12 +278,37 @@ module HTTP
         )
       end
 
-      private def parse_time(string)
+      def self.parse_set_cookie(header) : Cookie?
+        new(header).parse_set_cookie
+      end
+
+      def parse_set_cookie
+        cookie = parse_cookie
+
+        return cookie unless consume ';'
+
+        while consume ' '
+        end
+
+        while @header.size > 1
+          token = consume_while { |byte| Parser.token?(byte) }
+
+          case token
+          when .compare("expires", case_insensitive: true)
+          when .compare("max-age", case_insensitive: true)
+          when .compare("domain", case_insensitive: true)
+          when .compare("path", case_insensitive: true)
+          when .compare("secure", case_insensitive: true)
+            cookie.secure = true
+          when .compare("samesite", case_insensitive: true)
+          when .compare("httponly", case_insensitive: true)
+        end
+      end
+
+      private def self.parse_time(string)
         return unless string
         HTTP.parse_time(string)
       end
-
-      extend self
 
       # valid characters for cookie-name per https://tools.ietf.org/html/rfc6265#section-4.1.1
       # and https://tools.ietf.org/html/rfc2616#section-2.2
