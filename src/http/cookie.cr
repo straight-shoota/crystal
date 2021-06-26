@@ -40,6 +40,16 @@ module HTTP
       @value = value
     end
 
+    protected def initialize(@name : String, @value : String, *, skip_validation : Bool)
+      @secure = false
+      @http_only = false
+
+      unless skip_validation
+        validate_name(name)
+        validate_value(value)
+      end
+    end
+
     # Sets the name of this cookie.
     #
     # Raises `IO::Error` if the value is invalid as per [RFC 6265 §4.1.1](https://tools.ietf.org/html/rfc6265#section-4.1.1).
@@ -157,7 +167,7 @@ module HTTP
             # Unwrap quoted cookie value
             value = value.byte_slice(1, value.bytesize - 2)
           end
-          yield Cookie.new(pair["name"], value)
+          yield Cookie.new(pair["name"], value, skip_validation: true)
         end
       end
 
