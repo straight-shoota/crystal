@@ -1,72 +1,40 @@
 require "spec"
 require "http/cookie"
 
-private def parse_first_cookie(header)
-  cookies = HTTP::Cookie::Parser.parse_cookies(header)
-  cookies.size.should eq(1)
-  cookies.first
-end
-
 private def parse_set_cookie(header)
   cookie = HTTP::Cookie::Parser.parse_set_cookie(header)
   cookie.should_not be_nil
 end
 
+private def it_parses_cookies(header, expected, *, string = header, file = __FILE__, line = __LINE__)
+  if expected.is_a?(HTTP::Cookie)
+    expected = [expected]
+  end
+  it "parses #{header.inspect}", file: file, line: line do
+    actual = HTTP::Cookie::Parser.parse_cookies(header)
+    actual.should eq(expected)
+    actual.join("; ", &.to_set_cookie_header).should eq(string)
+  end
+end
+
 describe HTTP::Cookie::Parser do
   describe ".parse_cookies" do
-    it "parses key=value" do
-      cookie = parse_first_cookie("key=value")
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.to_set_cookie_header.should eq("key=value")
-    end
+    it_parses_cookies "key=value", HTTP::Cookie.new("key", "value")
+    it_parses_cookies "key=", HTTP::Cookie.new("key", "")
+    it_parses_cookies "key=key=value", HTTP::Cookie.new("key", "key=value")
+    it_parses_cookies "key=key%3Dvalue", HTTP::Cookie.new("key", "key%3Dvalue")
+    it_parses_cookies "key%3Dvalue=value", HTTP::Cookie.new("key%3Dvalue", "value")
+    it_parses_cookies %(key="value"), HTTP::Cookie.new("key", "value"), string: "key=value"
+    it_parses_cookies "foo=bar; foobar=baz", [HTTP::Cookie.new("foo", "bar"), HTTP::Cookie.new("foobar", "baz")]
+  end
 
+  describe ".parse_set_cookie" do
     it "parse_set_cookie with space" do
       cookie = parse_set_cookie("key=value; path=/test")
       parse_set_cookie("key=value;path=/test").should eq cookie
       parse_set_cookie("key=value;  \t\npath=/test").should eq cookie
     end
 
-    it "parses key=" do
-      cookie = parse_first_cookie("key=")
-      cookie.name.should eq("key")
-      cookie.value.should eq("")
-      cookie.to_set_cookie_header.should eq("key=")
-    end
-
-    it "parses key=key=value" do
-      cookie = parse_first_cookie("key=key=value")
-      cookie.name.should eq("key")
-      cookie.value.should eq("key=value")
-      cookie.to_set_cookie_header.should eq("key=key=value")
-    end
-
-    it "parses key=key%3Dvalue" do
-      cookie = parse_first_cookie("key=key%3Dvalue")
-      cookie.name.should eq("key")
-      cookie.value.should eq("key%3Dvalue")
-      cookie.to_set_cookie_header.should eq("key=key%3Dvalue")
-    end
-
-    it "parses special character in name" do
-      cookie = parse_first_cookie("key%3Dvalue=value")
-      cookie.name.should eq("key%3Dvalue")
-      cookie.value.should eq("value")
-      cookie.to_set_cookie_header.should eq("key%3Dvalue=value")
-    end
-
-    it "parses multiple cookies" do
-      cookies = HTTP::Cookie::Parser.parse_cookies("foo=bar; foobar=baz")
-      cookies.size.should eq(2)
-      first, second = cookies
-      first.name.should eq("foo")
-      second.name.should eq("foobar")
-      first.value.should eq("bar")
-      second.value.should eq("baz")
-    end
-  end
-
-  describe ".parse_set_cookie" do
     it "parses path" do
       cookie = parse_set_cookie("key=value; path=/test")
       cookie.name.should eq("key")
