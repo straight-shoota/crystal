@@ -13,7 +13,7 @@ private def parse_set_cookie(header)
 end
 
 describe HTTP::Cookie::Parser do
-  describe "parse_cookies" do
+  describe ".parse_cookies" do
     it "parses key=value" do
       cookie = parse_first_cookie("key=value")
       cookie.name.should eq("key")
@@ -66,7 +66,7 @@ describe HTTP::Cookie::Parser do
     end
   end
 
-  describe "parse_set_cookie" do
+  describe ".parse_set_cookie" do
     it "parses path" do
       cookie = parse_set_cookie("key=value; path=/test")
       cookie.name.should eq("key")
@@ -131,45 +131,47 @@ describe HTTP::Cookie::Parser do
       cookie.to_set_cookie_header.should eq("key=value; domain=www.example.com")
     end
 
-    it "parses expires iis" do
-      cookie = parse_set_cookie("key=value; expires=Sun, 06-Nov-1994 08:49:37 GMT")
-      time = Time.utc(1994, 11, 6, 8, 49, 37)
+    describe "expires" do
+      it "parses expires iis" do
+        cookie = parse_set_cookie("key=value; expires=Sun, 06-Nov-1994 08:49:37 GMT")
+        time = Time.utc(1994, 11, 6, 8, 49, 37)
 
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.expires.should eq(time)
-    end
+        cookie.name.should eq("key")
+        cookie.value.should eq("value")
+        cookie.expires.should eq(time)
+      end
 
-    it "parses expires rfc1123" do
-      cookie = parse_set_cookie("key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT")
-      time = Time.utc(1994, 11, 6, 8, 49, 37)
+      it "parses expires rfc1123" do
+        cookie = parse_set_cookie("key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT")
+        time = Time.utc(1994, 11, 6, 8, 49, 37)
 
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.expires.should eq(time)
-    end
+        cookie.name.should eq("key")
+        cookie.value.should eq("value")
+        cookie.expires.should eq(time)
+      end
 
-    it "parses expires rfc1036" do
-      cookie = parse_set_cookie("key=value; expires=Sunday, 06-Nov-94 08:49:37 GMT")
-      time = Time.utc(1994, 11, 6, 8, 49, 37)
+      it "parses expires rfc1036" do
+        cookie = parse_set_cookie("key=value; expires=Sunday, 06-Nov-94 08:49:37 GMT")
+        time = Time.utc(1994, 11, 6, 8, 49, 37)
 
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.expires.should eq(time)
-    end
+        cookie.name.should eq("key")
+        cookie.value.should eq("value")
+        cookie.expires.should eq(time)
+      end
 
-    it "parses expires ansi c" do
-      cookie = parse_set_cookie("key=value; expires=Sun Nov  6 08:49:37 1994")
-      time = Time.utc(1994, 11, 6, 8, 49, 37)
+      it "parses expires ansi c" do
+        cookie = parse_set_cookie("key=value; expires=Sun Nov  6 08:49:37 1994")
+        time = Time.utc(1994, 11, 6, 8, 49, 37)
 
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.expires.should eq(time)
-    end
+        cookie.name.should eq("key")
+        cookie.value.should eq("value")
+        cookie.expires.should eq(time)
+      end
 
-    it "parses expires ansi c, variant with zone" do
-      cookie = parse_set_cookie("bla=; expires=Thu, 01 Jan 1970 00:00:00 -0000")
-      cookie.expires.should eq(Time.utc(1970, 1, 1, 0, 0, 0))
+      it "parses expires ansi c, variant with zone" do
+        cookie = parse_set_cookie("bla=; expires=Thu, 01 Jan 1970 00:00:00 -0000")
+        cookie.expires.should eq(Time.utc(1970, 1, 1, 0, 0, 0))
+      end
     end
 
     it "parses full" do
@@ -190,20 +192,22 @@ describe HTTP::Cookie::Parser do
       parse_set_cookie("a=1; domain=127.0.0.1; HttpOnly").domain.should eq "127.0.0.1"
     end
 
-    it "parse max-age as seconds from current time" do
-      cookie = parse_set_cookie("a=1; max-age=10")
-      delta = cookie.expires.not_nil! - Time.utc
-      delta.should be_close(10.seconds, 1.second)
+    describe "max-age" do
+      it "parse max-age as seconds from current time" do
+        cookie = parse_set_cookie("a=1; max-age=10")
+        delta = cookie.expires.not_nil! - Time.utc
+        delta.should be_close(10.seconds, 1.second)
 
-      cookie = parse_set_cookie("a=1; max-age=0")
-      delta = Time.utc - cookie.expires.not_nil!
-      delta.should be_close(0.seconds, 1.second)
-    end
+        cookie = parse_set_cookie("a=1; max-age=0")
+        delta = Time.utc - cookie.expires.not_nil!
+        delta.should be_close(0.seconds, 1.second)
+      end
 
-    it "parses large max-age (#8744)" do
-      cookie = parse_set_cookie("a=1; max-age=3153600000")
-      delta = cookie.expires.not_nil! - Time.utc
-      delta.should be_close(3153600000.seconds, 1.second)
+      it "parses large max-age (#8744)" do
+        cookie = parse_set_cookie("a=1; max-age=3153600000")
+        delta = cookie.expires.not_nil! - Time.utc
+        delta.should be_close(3153600000.seconds, 1.second)
+      end
     end
   end
 end
