@@ -17,6 +17,14 @@ private def it_parses_cookies(header, expected, *, string = header, file = __FIL
   end
 end
 
+private def it_parses_set_cookie(header, expected, *, string = header, file = __FILE__, line = __LINE__)
+  it "parses #{header.inspect}", file: file, line: line do
+    actual = HTTP::Cookie::Parser.parse_set_cookie(header)
+    actual.should eq(expected)
+    actual.try(&.to_set_cookie_header).should eq(string)
+  end
+end
+
 describe HTTP::Cookie::Parser do
   describe ".parse_cookies" do
     it_parses_cookies "key=value", HTTP::Cookie.new("key", "value")
@@ -35,130 +43,41 @@ describe HTTP::Cookie::Parser do
       parse_set_cookie("key=value;  \t\npath=/test").should eq cookie
     end
 
-    it "parses path" do
-      cookie = parse_set_cookie("key=value; path=/test")
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.path.should eq("/test")
-      cookie.to_set_cookie_header.should eq("key=value; path=/test")
-    end
+    it_parses_set_cookie "key=value; path=/test", HTTP::Cookie.new("key", "value", path: "/test")
 
-    it "parses Secure" do
-      cookie = parse_set_cookie("key=value; Secure")
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.secure.should be_true
-      cookie.to_set_cookie_header.should eq("key=value; Secure")
-    end
+    it_parses_set_cookie "key=value; Secure", HTTP::Cookie.new("key", "value", secure: true)
 
-    it "parses HttpOnly" do
-      cookie = parse_set_cookie("key=value; HttpOnly")
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.http_only.should be_true
-      cookie.to_set_cookie_header.should eq("key=value; HttpOnly")
-    end
+    it_parses_set_cookie "key=value; HttpOnly", HTTP::Cookie.new("key", "value", http_only: true)
 
     describe "SameSite" do
-      context "Lax" do
-        it "parses samesite" do
-          cookie = parse_set_cookie("key=value; SameSite=Lax")
-          cookie.name.should eq "key"
-          cookie.value.should eq "value"
-          cookie.samesite.should eq HTTP::Cookie::SameSite::Lax
-          cookie.to_set_cookie_header.should eq "key=value; SameSite=Lax"
-        end
-      end
-
-      context "Strict" do
-        it "parses samesite" do
-          cookie = parse_set_cookie("key=value; SameSite=Strict")
-          cookie.name.should eq "key"
-          cookie.value.should eq "value"
-          cookie.samesite.should eq HTTP::Cookie::SameSite::Strict
-          cookie.to_set_cookie_header.should eq "key=value; SameSite=Strict"
-        end
-      end
-
-      context "Invalid" do
-        it "parses samesite" do
-          cookie = parse_set_cookie("key=value; SameSite=Foo")
-          cookie.name.should eq "key"
-          cookie.value.should eq "value"
-          cookie.samesite.should be_nil
-          cookie.to_set_cookie_header.should eq "key=value"
-        end
-      end
+      it_parses_set_cookie "key=value; SameSite=Lax", HTTP::Cookie.new("key", "value", samesite: :lax)
+      it_parses_set_cookie "key=value; SameSite=Strict", HTTP::Cookie.new("key", "value", samesite: :strict)
+      it_parses_set_cookie "key=value; SameSite=None", HTTP::Cookie.new("key", "value", samesite: :none)
+      it_parses_set_cookie "key=value; SameSite=Foo", HTTP::Cookie.new("key", "value", samesite: nil), string: "key=value"
     end
 
-    it "parses domain" do
-      cookie = parse_set_cookie("key=value; domain=www.example.com")
-      cookie.name.should eq("key")
-      cookie.value.should eq("value")
-      cookie.domain.should eq("www.example.com")
-      cookie.to_set_cookie_header.should eq("key=value; domain=www.example.com")
-    end
+    it_parses_set_cookie "key=value; domain=www.example.com", HTTP::Cookie.new("key", "value", domain: "www.example.com")
 
     describe "expires" do
-      it "parses expires iis" do
-        cookie = parse_set_cookie("key=value; expires=Sun, 06-Nov-1994 08:49:37 GMT")
-        time = Time.utc(1994, 11, 6, 8, 49, 37)
-
-        cookie.name.should eq("key")
-        cookie.value.should eq("value")
-        cookie.expires.should eq(time)
-      end
-
-      it "parses expires rfc1123" do
-        cookie = parse_set_cookie("key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT")
-        time = Time.utc(1994, 11, 6, 8, 49, 37)
-
-        cookie.name.should eq("key")
-        cookie.value.should eq("value")
-        cookie.expires.should eq(time)
-      end
-
-      it "parses expires rfc1036" do
-        cookie = parse_set_cookie("key=value; expires=Sunday, 06-Nov-94 08:49:37 GMT")
-        time = Time.utc(1994, 11, 6, 8, 49, 37)
-
-        cookie.name.should eq("key")
-        cookie.value.should eq("value")
-        cookie.expires.should eq(time)
-      end
-
-      it "parses expires ansi c" do
-        cookie = parse_set_cookie("key=value; expires=Sun Nov  6 08:49:37 1994")
-        time = Time.utc(1994, 11, 6, 8, 49, 37)
-
-        cookie.name.should eq("key")
-        cookie.value.should eq("value")
-        cookie.expires.should eq(time)
-      end
-
-      it "parses expires ansi c, variant with zone" do
-        cookie = parse_set_cookie("bla=; expires=Thu, 01 Jan 1970 00:00:00 -0000")
-        cookie.expires.should eq(Time.utc(1970, 1, 1, 0, 0, 0))
-      end
+      it_parses_set_cookie "key=value; expires=Sun, 06-Nov-1994 08:49:37 GMT", HTTP::Cookie.new("key", "value", expires: Time.utc(1994, 11, 6, 8, 49, 37)), string: "key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT"
+      it_parses_set_cookie "key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT", HTTP::Cookie.new("key", "value", expires: Time.utc(1994, 11, 6, 8, 49, 37))
+      it_parses_set_cookie "key=value; expires=Sunday, 06-Nov-94 08:49:37 GMT", HTTP::Cookie.new("key", "value", expires: Time.utc(1994, 11, 6, 8, 49, 37)), string: "key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT"
+      it_parses_set_cookie "key=value; expires=Sun Nov  6 08:49:37 1994", HTTP::Cookie.new("key", "value", expires: Time.utc(1994, 11, 6, 8, 49, 37)), string: "key=value; expires=Sun, 06 Nov 1994 08:49:37 GMT"
+      it_parses_set_cookie "key=value; expires=Thu, 01 Jan 1970 00:00:00 -0000", HTTP::Cookie.new("key", "value", expires: Time.utc(1970, 1, 1, 0, 0, 0)), string: "key=value; expires=Thu, 01 Jan 1970 00:00:00 GMT"
     end
 
-    it "parses full" do
-      cookie = parse_set_cookie("key=value; path=/test; domain=www.example.com; HttpOnly; Secure; expires=Sun, 06 Nov 1994 08:49:37 GMT; SameSite=Strict")
-      time = Time.utc(1994, 11, 6, 8, 49, 37)
+    it_parses_set_cookie "key=value; path=/test; domain=www.example.com; HttpOnly; Secure; expires=Sun, 06 Nov 1994 08:49:37 GMT; SameSite=Strict",
+      HTTP::Cookie.new("key", "value",
+        path: "/test",
+        domain: "www.example.com",
+        http_only: true,
+        secure: true,
+        expires: Time.utc(1994, 11, 6, 8, 49, 37),
+        samesite: HTTP::Cookie::SameSite::Strict,
+      ),
+      string: "key=value; domain=www.example.com; path=/test; expires=Sun, 06 Nov 1994 08:49:37 GMT; Secure; HttpOnly; SameSite=Strict"
 
-      cookie.name.should eq "key"
-      cookie.value.should eq "value"
-      cookie.path.should eq "/test"
-      cookie.domain.should eq "www.example.com"
-      cookie.http_only.should be_true
-      cookie.secure.should be_true
-      cookie.expires.should eq time
-      cookie.samesite.should eq HTTP::Cookie::SameSite::Strict
-    end
-
-    it "parse domain as IP" do
-      parse_set_cookie("a=1; domain=127.0.0.1; HttpOnly").domain.should eq "127.0.0.1"
-    end
+    it_parses_set_cookie "key=value; domain=127.0.0.1", HTTP::Cookie.new("key", "value", domain: "127.0.0.1")
 
     describe "max-age" do
       it "parse max-age as seconds from current time" do
