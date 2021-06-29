@@ -18,13 +18,10 @@ record TestCase,
   sent : Array(CookieValue) do
     include JSON::Serializable
     @[JSON::Field(key: "sent-raw")]
-    property sent_raw
+    property sent_raw : String = ""
 
     def to_s(io : IO)
-      io.puts "  # #{test}"
-      received.each_with_index do |r, i|
-        io.puts "  it_parses_set_cookie #{r.inspect}, #{sent[i]? || "nil"}"
-      end
+      io.puts "  it_receives_cookies #{test.inspect}, #{received}, [#{sent.join(", ", &.to_s)}] of HTTP::Cookie?, #{sent_raw.inspect}"
     end
   end
 

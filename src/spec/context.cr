@@ -6,6 +6,19 @@ module Spec
     # All the children, which can be `describe`/`context` or `it`
     getter children = [] of ExampleGroup | Example
 
+    def total_size
+      size = 0
+      children.each do |child|
+        case child
+        in ExampleGroup
+          size += child.total_size
+        in Example
+          size += 1
+        end
+      end
+      size
+    end
+
     def randomize(randomizer)
       children.each do |child|
         child.randomize(randomizer) if child.is_a?(ExampleGroup)
@@ -169,6 +182,7 @@ module Spec
     end
 
     def print_results(elapsed_time, aborted = false)
+      p! @total_its
       pendings = @results[:pending]
       unless pendings.empty?
         puts
@@ -276,7 +290,10 @@ module Spec
       end
     end
 
+    @total_its =0
+
     def it(description, file, line, end_line, focus, tags, &block)
+      @total_its += 1
       add_example(description, file, line, end_line, focus, tags, block)
     end
 

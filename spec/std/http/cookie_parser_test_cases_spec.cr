@@ -1,728 +1,471 @@
 require "spec"
-require "http/cookie"
+require "http"
 
-private def it_parses_set_cookie(header, expected, *, string = header, file = __FILE__, line = __LINE__)
-  it "parses #{header.inspect}", file: file, line: line do
-    actual = HTTP::Cookie::Parser.parse_set_cookie(header)
-    actual.should eq(expected)
-    actual.try(&.to_set_cookie_header).should eq(string)
+def it_receives_cookies(name, received, sent, sent_raw, *, file = __FILE__, line = __LINE__)
+  it name, file: file, line: line do
+    headers = HTTP::Headers.new
+    headers.add "Set-Cookie", received
+
+    cookies = HTTP::Cookies.from_server_headers(headers)
+    cookies.size.should eq sent.size
+    cookies.zip(sent) do |actual, expected|
+      if expected
+        actual = actual.should be_a(HTTP::Cookie)
+        actual.name.should eq expected[0]
+        actual.value.should eq expected[1]
+      else
+        actual.should be_nil
+      end
+    end
+    headers.clear
+    cookies.add_request_headers(headers)
+    headers.fetch("Cookie", "").should eq sent_raw
   end
 end
 
-describe "" do
-  # 0001
-  it_parses_set_cookie "foo=bar", HTTP::Cookie.new("foo", "bar")
+describe "foo" do
+  it_receives_cookies "0001", ["foo=bar"], [{"foo", "bar"}], "foo=bar"
 
-  # 0002
-  it_parses_set_cookie "foo=bar; Expires=Fri, 07 Aug 2019 08:04:19 GMT", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0002", ["foo=bar; Expires=Fri, 07 Aug 2019 08:04:19 GMT"], [{"foo", "bar"}], "foo=bar"
 
-  # 0003
-  it_parses_set_cookie "foo=bar; Expires=Fri, 07 Aug 2007 08:04:19 GMT", HTTP::Cookie.new("foo2", "bar2")
-  it_parses_set_cookie "foo2=bar2; Expires=Fri, 07 Aug 2017 08:04:19 GMT", nil
+  it_receives_cookies "0003", ["foo=bar; Expires=Fri, 07 Aug 2007 08:04:19 GMT", "foo2=bar2; Expires=Fri, 07 Aug 2017 08:04:19 GMT"], [{"foo2", "bar2"}], "foo2=bar2"
 
-  # 0004
-  it_parses_set_cookie "foo", nil
+  it_receives_cookies "0004", ["foo"], [] of Nil, ""
 
-  # 0005
-  it_parses_set_cookie "foo=bar; max-age=10000;", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0005", ["foo=bar; max-age=10000;"], [{"foo", "bar"}], "foo=bar"
 
-  # 0006
-  it_parses_set_cookie "foo=bar; max-age=0;", nil
+  it_receives_cookies "0006", ["foo=bar; max-age=0;"], [] of Nil, ""
 
-  # 0007
-  it_parses_set_cookie "foo=bar; version=1;", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0007", ["foo=bar; version=1;"], [{"foo", "bar"}], "foo=bar"
 
-  # 0008
-  it_parses_set_cookie "foo=bar; version=1000;", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0008", ["foo=bar; version=1000;"], [{"foo", "bar"}], "foo=bar"
 
-  # 0009
-  it_parses_set_cookie "foo=bar; customvalue=1000;", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0009", ["foo=bar; customvalue=1000;"], [{"foo", "bar"}], "foo=bar"
 
-  # 0010
-  it_parses_set_cookie "foo=bar; secure;", nil
+  it_receives_cookies "0010", ["foo=bar; secure;"], [] of Nil, ""
 
-  # 0011
-  it_parses_set_cookie "foo=bar; customvalue=\"1000 or more\";", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0011", ["foo=bar; customvalue=\"1000 or more\";"], [{"foo", "bar"}], "foo=bar"
 
-  # 0012
-  it_parses_set_cookie "foo=bar; customvalue=\"no trailing semicolon\"", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "0012", ["foo=bar; customvalue=\"no trailing semicolon\""], [{"foo", "bar"}], "foo=bar"
 
-  # 0013
-  it_parses_set_cookie "foo=bar", HTTP::Cookie.new("foo", "qux")
-  it_parses_set_cookie "foo=qux", nil
+  it_receives_cookies "0013", ["foo=bar", "foo=qux"], [{"foo", "qux"}], "foo=qux"
 
-  # 0014
-  it_parses_set_cookie "foo1=bar", HTTP::Cookie.new("foo1", "bar")
-  it_parses_set_cookie "foo2=qux", HTTP::Cookie.new("foo2", "qux")
+  it_receives_cookies "0014", ["foo1=bar", "foo2=qux"], [{"foo1", "bar"}, {"foo2", "qux"}], "foo1=bar; foo2=qux"
 
-  # 0015
-  it_parses_set_cookie "a=b", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "z=y", HTTP::Cookie.new("z", "y")
+  it_receives_cookies "0015", ["a=b", "z=y"], [{"a", "b"}, {"z", "y"}], "a=b; z=y"
 
-  # 0016
-  it_parses_set_cookie "z=y", HTTP::Cookie.new("z", "y")
-  it_parses_set_cookie "a=b", HTTP::Cookie.new("a", "b")
+  it_receives_cookies "0016", ["z=y", "a=b"], [{"z", "y"}, {"a", "b"}], "z=y; a=b"
 
-  # 0017
-  it_parses_set_cookie "z=y, a=b", HTTP::Cookie.new("z", "y, a=b")
+  # it_receives_cookies "0017", ["z=y, a=b"], [{"z", "y, a=b", skip_validation: true}], "z=y, a=b"
 
-  # 0018
-  it_parses_set_cookie "z=y; foo=bar, a=b", HTTP::Cookie.new("z", "y")
+  it_receives_cookies "0018", ["z=y; foo=bar, a=b"], [{"z", "y"}], "z=y"
 
-  # 0019
-  it_parses_set_cookie "foo=b;max-age=3600, c=d;path=/", HTTP::Cookie.new("foo", "b")
+  it_receives_cookies "0019", ["foo=b;max-age=3600, c=d;path=/"], [{"foo", "b"}], "foo=b"
 
-  # 0020
-  it_parses_set_cookie "a=b", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "=", HTTP::Cookie.new("c", "d")
-  it_parses_set_cookie "c=d", nil
+  it_receives_cookies "0020", ["a=b", "=", "c=d"], [{"a", "b"}, {"c", "d"}], "a=b; c=d"
 
-  # 0021
-  it_parses_set_cookie "a=b", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "=x", HTTP::Cookie.new("c", "d")
-  it_parses_set_cookie "c=d", nil
+  it_receives_cookies "0021", ["a=b", "=x", "c=d"], [{"a", "b"}, {"c", "d"}], "a=b; c=d"
 
-  # 0022
-  it_parses_set_cookie "a=b", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "x=", HTTP::Cookie.new("x", "")
-  it_parses_set_cookie "c=d", HTTP::Cookie.new("c", "d")
+  it_receives_cookies "0022", ["a=b", "x=", "c=d"], [{"a", "b"}, {"x", ""}, {"c", "d"}], "a=b; x=; c=d"
 
-  # 0023
-  it_parses_set_cookie "foo", nil
-  it_parses_set_cookie "", nil
+  it_receives_cookies "0023", ["foo", ""], [] of Nil, ""
 
-  # 0024
-  it_parses_set_cookie "foo", nil
-  it_parses_set_cookie "=", nil
+  it_receives_cookies "0024", ["foo", "="], [] of Nil, ""
 
-  # 0025
-  it_parses_set_cookie "foo", nil
-  it_parses_set_cookie "; bar", nil
+  it_receives_cookies "0025", ["foo", "; bar"], [] of Nil, ""
 
-  # 0026
-  it_parses_set_cookie "foo", nil
-  it_parses_set_cookie "   ", nil
+  it_receives_cookies "0026", ["foo", "   "], [] of Nil, ""
 
-  # 0027
-  it_parses_set_cookie "foo", nil
-  it_parses_set_cookie "bar", nil
+  it_receives_cookies "0027", ["foo", "bar"], [] of Nil, ""
 
-  # 0028
-  it_parses_set_cookie "foo", nil
-  it_parses_set_cookie "\t", nil
+  it_receives_cookies "0028", ["foo", "\t"], [] of Nil, ""
 
-  # ATTRIBUTE0001
-  it_parses_set_cookie "foo=bar; Secure", nil
+  it_receives_cookies "ATTRIBUTE0001", ["foo=bar; Secure"], [] of Nil, ""
 
-  # ATTRIBUTE0002
-  it_parses_set_cookie "foo=bar; seCURe", nil
+  it_receives_cookies "ATTRIBUTE0002", ["foo=bar; seCURe"], [] of Nil, ""
 
-  # ATTRIBUTE0003
-  it_parses_set_cookie "foo=bar; \"Secure\"", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0003", ["foo=bar; \"Secure\""], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0004
-  it_parses_set_cookie "foo=bar; Secure=", nil
+  it_receives_cookies "ATTRIBUTE0004", ["foo=bar; Secure="], [] of Nil, ""
 
-  # ATTRIBUTE0005
-  it_parses_set_cookie "foo=bar; Secure=aaaa", nil
+  it_receives_cookies "ATTRIBUTE0005", ["foo=bar; Secure=aaaa"], [] of Nil, ""
 
-  # ATTRIBUTE0006
-  it_parses_set_cookie "foo=bar; Secure qux", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0006", ["foo=bar; Secure qux"], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0007
-  it_parses_set_cookie "foo=bar; Secure =aaaaa", nil
+  it_receives_cookies "ATTRIBUTE0007", ["foo=bar; Secure =aaaaa"], [] of Nil, ""
 
-  # ATTRIBUTE0008
-  it_parses_set_cookie "foo=bar; Secure= aaaaa", nil
+  it_receives_cookies "ATTRIBUTE0008", ["foo=bar; Secure= aaaaa"], [] of Nil, ""
 
-  # ATTRIBUTE0009
-  it_parses_set_cookie "foo=bar; Secure; qux", nil
+  it_receives_cookies "ATTRIBUTE0009", ["foo=bar; Secure; qux"], [] of Nil, ""
 
-  # ATTRIBUTE0010
-  it_parses_set_cookie "foo=bar; Secure;qux", nil
+  it_receives_cookies "ATTRIBUTE0010", ["foo=bar; Secure;qux"], [] of Nil, ""
 
-  # ATTRIBUTE0011
-  it_parses_set_cookie "foo=bar; Secure    ; qux", nil
+  it_receives_cookies "ATTRIBUTE0011", ["foo=bar; Secure    ; qux"], [] of Nil, ""
 
-  # ATTRIBUTE0012
-  it_parses_set_cookie "foo=bar;                Secure", nil
+  it_receives_cookies "ATTRIBUTE0012", ["foo=bar;                Secure"], [] of Nil, ""
 
-  # ATTRIBUTE0013
-  it_parses_set_cookie "foo=bar;       Secure     ;", nil
+  it_receives_cookies "ATTRIBUTE0013", ["foo=bar;       Secure     ;"], [] of Nil, ""
 
-  # ATTRIBUTE0014
-  it_parses_set_cookie "foo=bar; Path", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0014", ["foo=bar; Path"], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0015
-  it_parses_set_cookie "foo=bar; Path=", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0015", ["foo=bar; Path="], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0016
-  it_parses_set_cookie "foo=bar; Path=/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0016", ["foo=bar; Path=/"], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0017
-  it_parses_set_cookie "foo=bar; Path=/qux", nil
+  it_receives_cookies "ATTRIBUTE0017", ["foo=bar; Path=/qux"], [] of Nil, ""
 
-  # ATTRIBUTE0018
-  it_parses_set_cookie "foo=bar; Path    =/qux", nil
+  it_receives_cookies "ATTRIBUTE0018", ["foo=bar; Path    =/qux"], [] of Nil, ""
 
-  # ATTRIBUTE0019
-  it_parses_set_cookie "foo=bar; Path=    /qux", nil
+  it_receives_cookies "ATTRIBUTE0019", ["foo=bar; Path=    /qux"], [] of Nil, ""
 
-  # ATTRIBUTE0020
-  it_parses_set_cookie "foo=bar; Path=/qux      ; taz", nil
+  it_receives_cookies "ATTRIBUTE0020", ["foo=bar; Path=/qux      ; taz"], [] of Nil, ""
 
-  # ATTRIBUTE0021
-  it_parses_set_cookie "foo=bar; Path=/qux; Path=/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0021", ["foo=bar; Path=/qux; Path=/"], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0022
-  it_parses_set_cookie "foo=bar; Path=/; Path=/qux", nil
+  it_receives_cookies "ATTRIBUTE0022", ["foo=bar; Path=/; Path=/qux"], [] of Nil, ""
 
-  # ATTRIBUTE0023
-  it_parses_set_cookie "foo=bar; Path=/qux; Path=/cookie-parser-result", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "ATTRIBUTE0023", ["foo=bar; Path=/qux; Path=/cookie-parser-result"], [{"foo", "bar"}], "foo=bar"
 
-  # ATTRIBUTE0024
-  it_parses_set_cookie "foo=bar; Path=/cookie-parser-result; Path=/qux", nil
+  it_receives_cookies "ATTRIBUTE0024", ["foo=bar; Path=/cookie-parser-result; Path=/qux"], [] of Nil, ""
 
-  # ATTRIBUTE0025
-  it_parses_set_cookie "foo=bar; qux; Secure", nil
+  it_receives_cookies "ATTRIBUTE0025", ["foo=bar; qux; Secure"], [] of Nil, ""
 
-  # ATTRIBUTE0026
-  it_parses_set_cookie "foo=bar; qux=\"aaa;bbb\"; Secure", nil
+  it_receives_cookies "ATTRIBUTE0026", ["foo=bar; qux=\"aaa;bbb\"; Secure"], [] of Nil, ""
 
-  # CHARSET0001
-  it_parses_set_cookie "foo=春节回家路·春运完全手册", HTTP::Cookie.new("foo", "春节回家路·春运完全手册")
+  it_receives_cookies "CHARSET0001", ["foo=春节回家路·春运完全手册"], [{"foo", "春节回家路·春运完全手册"}], "foo=春节回家路·春运完全手册"
 
-  # CHARSET0002
-  it_parses_set_cookie "春节回=家路·春运完全手册", HTTP::Cookie.new("春节回", "家路·春运完全手册")
+  it_receives_cookies "CHARSET0002", ["春节回=家路·春运完全手册"], [{"春节回", "家路·春运完全手册"}], "春节回=家路·春运完全手册"
 
-  # CHARSET0003
-  it_parses_set_cookie "春节回=家路·春运; 完全手册", HTTP::Cookie.new("春节回", "家路·春运")
+  it_receives_cookies "CHARSET0003", ["春节回=家路·春运; 完全手册"], [{"春节回", "家路·春运"}], "春节回=家路·春运"
 
-  # CHARSET0004
-  it_parses_set_cookie "foo=\"春节回家路·春运完全手册\"", HTTP::Cookie.new("foo", "\"春节回家路·春运完全手册\"")
+  it_receives_cookies "CHARSET0004", ["foo=\"春节回家路·春运完全手册\""], [{"foo", "\"春节回家路·春运完全手册\""}], "foo=\"春节回家路·春运完全手册\""
 
-  # CHROMIUM0001
-  it_parses_set_cookie "a=b", HTTP::Cookie.new("a", "b")
+  it_receives_cookies "CHROMIUM0001", ["a=b"], [{"a", "b"}], "a=b"
 
-  # CHROMIUM0002
-  it_parses_set_cookie "aBc=\"zzz \"   ;", HTTP::Cookie.new("aBc", "\"zzz \"")
+  it_receives_cookies "CHROMIUM0002", ["aBc=\"zzz \"   ;"], [{"aBc", "\"zzz \""}], "aBc=\"zzz \""
 
-  # CHROMIUM0003
-  it_parses_set_cookie "aBc=\"zzz \" ;", HTTP::Cookie.new("aBc", "\"zzz \"")
+  it_receives_cookies "CHROMIUM0003", ["aBc=\"zzz \" ;"], [{"aBc", "\"zzz \""}], "aBc=\"zzz \""
 
-  # CHROMIUM0004
-  it_parses_set_cookie "aBc=\"zz;pp\" ; ;", HTTP::Cookie.new("aBc", "\"zz")
+  it_receives_cookies "CHROMIUM0004", ["aBc=\"zz;pp\" ; ;"], [{"aBc", "\"zz"}], "aBc=\"zz"
 
-  # CHROMIUM0005
-  it_parses_set_cookie "aBc=\"zz ;", HTTP::Cookie.new("aBc", "\"zz")
+  it_receives_cookies "CHROMIUM0005", ["aBc=\"zz ;"], [{"aBc", "\"zz"}], "aBc=\"zz"
 
-  # CHROMIUM0006
-  it_parses_set_cookie "aBc=\"zzz \"   \"ppp\"  ;", HTTP::Cookie.new("aBc", "\"zzz \"   \"ppp\"")
+  it_receives_cookies "CHROMIUM0006", ["aBc=\"zzz \"   \"ppp\"  ;"], [{"aBc", "\"zzz \"   \"ppp\""}], "aBc=\"zzz \"   \"ppp\""
 
-  # CHROMIUM0007
-  it_parses_set_cookie "aBc=\"zzz \"   \"ppp\" ;", HTTP::Cookie.new("aBc", "\"zzz \"   \"ppp\"")
+  it_receives_cookies "CHROMIUM0007", ["aBc=\"zzz \"   \"ppp\" ;"], [{"aBc", "\"zzz \"   \"ppp\""}], "aBc=\"zzz \"   \"ppp\""
 
-  # CHROMIUM0008
-  it_parses_set_cookie "aBc=A\"B ;", HTTP::Cookie.new("aBc", "A\"B")
+  it_receives_cookies "CHROMIUM0008", ["aBc=A\"B ;"], [{"aBc", "A\"B"}], "aBc=A\"B"
 
-  # CHROMIUM0009
-  it_parses_set_cookie "BLAHHH; path=/;", nil
+  it_receives_cookies "CHROMIUM0009", ["BLAHHH; path=/;"], [] of Nil, ""
 
-  # CHROMIUM0010
-  it_parses_set_cookie "\"BLA\\\"HHH\"; path=/;", nil
+  it_receives_cookies "CHROMIUM0010", ["\"BLA\\\"HHH\"; path=/;"], [] of Nil, ""
 
-  # CHROMIUM0011
-  it_parses_set_cookie "a=\"B", HTTP::Cookie.new("a", "\"B")
+  it_receives_cookies "CHROMIUM0011", ["a=\"B"], [{"a", "\"B"}], "a=\"B"
 
-  # CHROMIUM0012
-  it_parses_set_cookie "=ABC", nil
+  it_receives_cookies "CHROMIUM0012", ["=ABC"], [] of Nil, ""
 
-  # CHROMIUM0013
-  it_parses_set_cookie "ABC=;  path = /", HTTP::Cookie.new("ABC", "")
+  it_receives_cookies "CHROMIUM0013", ["ABC=;  path = /"], [{"ABC", ""}], "ABC="
 
-  # CHROMIUM0014
-  it_parses_set_cookie "  A  = BC  ;foo;;;   bar", HTTP::Cookie.new("A", "BC")
+  it_receives_cookies "CHROMIUM0014", ["  A  = BC  ;foo;;;   bar"], [{"A", "BC"}], "A=BC"
 
-  # CHROMIUM0015
-  it_parses_set_cookie "  A=== BC  ;foo;;;   bar", HTTP::Cookie.new("A", "== BC")
+  it_receives_cookies "CHROMIUM0015", ["  A=== BC  ;foo;;;   bar"], [{"A", "== BC"}], "A=== BC"
 
-  # CHROMIUM0016
-  it_parses_set_cookie "foo=\"zohNumRKgI0oxyhSsV3Z7D\"  ; expires=Sun, 18-Apr-2027 21:06:29 GMT ; path=/  ;  ", HTTP::Cookie.new("foo", "\"zohNumRKgI0oxyhSsV3Z7D\"")
+  it_receives_cookies "CHROMIUM0016", ["foo=\"zohNumRKgI0oxyhSsV3Z7D\"  ; expires=Sun, 18-Apr-2027 21:06:29 GMT ; path=/  ;  "], [{"foo", "\"zohNumRKgI0oxyhSsV3Z7D\""}], "foo=\"zohNumRKgI0oxyhSsV3Z7D\""
 
-  # CHROMIUM0017
-  it_parses_set_cookie "foo=zohNumRKgI0oxyhSsV3Z7D  ; expires=Sun, 18-Apr-2027 21:06:29 GMT ; path=/  ;  ", HTTP::Cookie.new("foo", "zohNumRKgI0oxyhSsV3Z7D")
+  it_receives_cookies "CHROMIUM0017", ["foo=zohNumRKgI0oxyhSsV3Z7D  ; expires=Sun, 18-Apr-2027 21:06:29 GMT ; path=/  ;  "], [{"foo", "zohNumRKgI0oxyhSsV3Z7D"}], "foo=zohNumRKgI0oxyhSsV3Z7D"
 
-  # CHROMIUM0018
-  it_parses_set_cookie "    ", nil
+  it_receives_cookies "CHROMIUM0018", ["    "], [] of Nil, ""
 
-  # CHROMIUM0019
-  it_parses_set_cookie "a=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", HTTP::Cookie.new("a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+  it_receives_cookies "CHROMIUM0019", ["a=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"], [{"a", "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}], "a=aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 
-  # CHROMIUM0021
-  it_parses_set_cookie "", nil
+  it_receives_cookies "CHROMIUM0021", [""], [] of Nil, ""
 
-  # COMMA0001
-  it_parses_set_cookie "foo=bar, baz=qux", HTTP::Cookie.new("foo", "bar, baz=qux")
+  it_receives_cookies "COMMA0001", ["foo=bar, baz=qux"], [{"foo", "bar, baz=qux"}], "foo=bar, baz=qux"
 
-  # COMMA0002
-  it_parses_set_cookie "foo=\"bar, baz=qux\"", HTTP::Cookie.new("foo", "\"bar, baz=qux\"")
+  it_receives_cookies "COMMA0002", ["foo=\"bar, baz=qux\""], [{"foo", "\"bar, baz=qux\""}], "foo=\"bar, baz=qux\""
 
-  # COMMA0003
-  it_parses_set_cookie "foo=bar; b,az=qux", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "COMMA0003", ["foo=bar; b,az=qux"], [{"foo", "bar"}], "foo=bar"
 
-  # COMMA0004
-  it_parses_set_cookie "foo=bar; baz=q,ux", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "COMMA0004", ["foo=bar; baz=q,ux"], [{"foo", "bar"}], "foo=bar"
 
-  # COMMA0005
-  it_parses_set_cookie "foo=bar; Max-Age=50,399", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "COMMA0005", ["foo=bar; Max-Age=50,399"], [{"foo", "bar"}], "foo=bar"
 
-  # COMMA0006
-  it_parses_set_cookie "foo=bar; Expires=Fri, 07 Aug 2019 08:04:19 GMT", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "COMMA0006", ["foo=bar; Expires=Fri, 07 Aug 2019 08:04:19 GMT"], [{"foo", "bar"}], "foo=bar"
 
-  # COMMA0007
-  it_parses_set_cookie "foo=bar; Expires=Fri 07 Aug 2019 08:04:19 GMT, baz=qux", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "COMMA0007", ["foo=bar; Expires=Fri 07 Aug 2019 08:04:19 GMT, baz=qux"], [{"foo", "bar"}], "foo=bar"
 
-  # DISABLED_CHROMIUM0020
-  it_parses_set_cookie "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", nil
+  it_receives_cookies "DISABLED_CHROMIUM0020", ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"], [] of Nil, ""
 
-  # DISABLED_CHROMIUM0022
-  it_parses_set_cookie "AAA=BB\u0000ZYX", HTTP::Cookie.new("AAA", "BB")
+  it_receives_cookies "DISABLED_CHROMIUM0022", ["AAA=BB\u0000ZYX"], [{"AAA", "BB"}], "AAA=BB"
 
-  # DISABLED_CHROMIUM0023
-  it_parses_set_cookie "AAA=BB\rZYX", HTTP::Cookie.new("AAA", "BB")
+  it_receives_cookies "DISABLED_CHROMIUM0023", ["AAA=BB\rZYX"], [{"AAA", "BB"}], "AAA=BB"
 
-  # DISABLED_PATH0029
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/bar", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DISABLED_PATH0029", ["foo=bar; path=/cookie-parser-result/foo/bar"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0001
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0001", ["foo=bar; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0002
-  it_parses_set_cookie "foo=bar; domain=home.example.org", nil
+  it_receives_cookies "DOMAIN0002", ["foo=bar; domain=home.example.org"], [] of Nil, ""
 
-  # DOMAIN0003
-  it_parses_set_cookie "foo=bar; domain=.home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0003", ["foo=bar; domain=.home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0004
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0004", ["foo=bar; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0005
-  it_parses_set_cookie "foo=bar; domain=.home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0005", ["foo=bar; domain=.home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0006
-  it_parses_set_cookie "foo=bar; domain=.home.example.org", nil
+  it_receives_cookies "DOMAIN0006", ["foo=bar; domain=.home.example.org"], [] of Nil, ""
 
-  # DOMAIN0007
-  it_parses_set_cookie "foo=bar; domain=sibling.example.org", nil
+  it_receives_cookies "DOMAIN0007", ["foo=bar; domain=sibling.example.org"], [] of Nil, ""
 
-  # DOMAIN0008
-  it_parses_set_cookie "foo=bar; domain=.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0008", ["foo=bar; domain=.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0009
-  it_parses_set_cookie "foo=bar; domain=example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0009", ["foo=bar; domain=example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0010
-  it_parses_set_cookie "foo=bar; domain=..home.example.org", nil
+  it_receives_cookies "DOMAIN0010", ["foo=bar; domain=..home.example.org"], [] of Nil, ""
 
-  # DOMAIN0011
-  it_parses_set_cookie "foo=bar; domain=home..example.org", nil
+  it_receives_cookies "DOMAIN0011", ["foo=bar; domain=home..example.org"], [] of Nil, ""
 
-  # DOMAIN0012
-  it_parses_set_cookie "foo=bar; domain=  .home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0012", ["foo=bar; domain=  .home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0013
-  it_parses_set_cookie "foo=bar; domain=  .  home.example.org", nil
+  it_receives_cookies "DOMAIN0013", ["foo=bar; domain=  .  home.example.org"], [] of Nil, ""
 
-  # DOMAIN0014
-  it_parses_set_cookie "foo=bar; domain=home.example.org.", nil
+  it_receives_cookies "DOMAIN0014", ["foo=bar; domain=home.example.org."], [] of Nil, ""
 
-  # DOMAIN0015
-  it_parses_set_cookie "foo=bar; domain=home.example.org..", nil
+  it_receives_cookies "DOMAIN0015", ["foo=bar; domain=home.example.org.."], [] of Nil, ""
 
-  # DOMAIN0016
-  it_parses_set_cookie "foo=bar; domain=home.example.org .", nil
+  it_receives_cookies "DOMAIN0016", ["foo=bar; domain=home.example.org ."], [] of Nil, ""
 
-  # DOMAIN0017
-  it_parses_set_cookie "foo=bar; domain=.org", nil
+  it_receives_cookies "DOMAIN0017", ["foo=bar; domain=.org"], [] of Nil, ""
 
-  # DOMAIN0018
-  it_parses_set_cookie "foo=bar; domain=.org.", nil
+  it_receives_cookies "DOMAIN0018", ["foo=bar; domain=.org."], [] of Nil, ""
 
-  # DOMAIN0019
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
-  it_parses_set_cookie "foo2=bar2; domain=.home.example.org", HTTP::Cookie.new("foo2", "bar2")
+  it_receives_cookies "DOMAIN0019", ["foo=bar; domain=home.example.org", "foo2=bar2; domain=.home.example.org"], [{"foo", "bar"}, {"foo2", "bar2"}], "foo=bar; foo2=bar2"
 
-  # DOMAIN0020
-  it_parses_set_cookie "foo2=bar2; domain=.home.example.org", HTTP::Cookie.new("foo2", "bar2")
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0020", ["foo2=bar2; domain=.home.example.org", "foo=bar; domain=home.example.org"], [{"foo2", "bar2"}, {"foo", "bar"}], "foo2=bar2; foo=bar"
 
-  # DOMAIN0021
-  it_parses_set_cookie "foo=bar; domain=\"home.example.org\"", nil
+  it_receives_cookies "DOMAIN0021", ["foo=bar; domain=\"home.example.org\""], [] of Nil, ""
 
-  # DOMAIN0022
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
-  it_parses_set_cookie "foo2=bar2; domain=.example.org", HTTP::Cookie.new("foo2", "bar2")
+  it_receives_cookies "DOMAIN0022", ["foo=bar; domain=home.example.org", "foo2=bar2; domain=.example.org"], [{"foo", "bar"}, {"foo2", "bar2"}], "foo=bar; foo2=bar2"
 
-  # DOMAIN0023
-  it_parses_set_cookie "foo2=bar2; domain=.example.org", HTTP::Cookie.new("foo2", "bar2")
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0023", ["foo2=bar2; domain=.example.org", "foo=bar; domain=home.example.org"], [{"foo2", "bar2"}, {"foo", "bar"}], "foo2=bar2; foo=bar"
 
-  # DOMAIN0024
-  it_parses_set_cookie "foo=bar; domain=.example.org; domain=home.example.org", nil
+  it_receives_cookies "DOMAIN0024", ["foo=bar; domain=.example.org; domain=home.example.org"], [] of Nil, ""
 
-  # DOMAIN0025
-  it_parses_set_cookie "foo=bar; domain=home.example.org; domain=.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0025", ["foo=bar; domain=home.example.org; domain=.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0026
-  it_parses_set_cookie "foo=bar; domain=home.eXaMpLe.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0026", ["foo=bar; domain=home.eXaMpLe.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0027
-  it_parses_set_cookie "foo=bar; domain=home.example.org:8888", nil
+  it_receives_cookies "DOMAIN0027", ["foo=bar; domain=home.example.org:8888"], [] of Nil, ""
 
-  # DOMAIN0028
-  it_parses_set_cookie "foo=bar; domain=subdomain.home.example.org", nil
+  it_receives_cookies "DOMAIN0028", ["foo=bar; domain=subdomain.home.example.org"], [] of Nil, ""
 
-  # DOMAIN0029
-  it_parses_set_cookie "foo=bar", nil
+  it_receives_cookies "DOMAIN0029", ["foo=bar"], [] of Nil, ""
 
-  # DOMAIN0031
-  it_parses_set_cookie "foo=bar; domain=home.example.org; domain=.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0031", ["foo=bar; domain=home.example.org; domain=.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0033
-  it_parses_set_cookie "foo=bar; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0033", ["foo=bar; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0034
-  it_parses_set_cookie "foo=bar; domain=home.example.org; domain=home.example.com", nil
+  it_receives_cookies "DOMAIN0034", ["foo=bar; domain=home.example.org; domain=home.example.com"], [] of Nil, ""
 
-  # DOMAIN0035
-  it_parses_set_cookie "foo=bar; domain=home.example.com; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0035", ["foo=bar; domain=home.example.com; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0036
-  it_parses_set_cookie "foo=bar; domain=home.example.org; domain=home.example.com; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0036", ["foo=bar; domain=home.example.org; domain=home.example.com; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0037
-  it_parses_set_cookie "foo=bar; domain=home.example.com; domain=home.example.org; domain=home.example.com", nil
+  it_receives_cookies "DOMAIN0037", ["foo=bar; domain=home.example.com; domain=home.example.org; domain=home.example.com"], [] of Nil, ""
 
-  # DOMAIN0038
-  it_parses_set_cookie "foo=bar; domain=home.example.org; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0038", ["foo=bar; domain=home.example.org; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0039
-  it_parses_set_cookie "foo=bar; domain=home.example.org; domain=example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0039", ["foo=bar; domain=home.example.org; domain=example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0040
-  it_parses_set_cookie "foo=bar; domain=example.org; domain=home.example.org", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "DOMAIN0040", ["foo=bar; domain=example.org; domain=home.example.org"], [{"foo", "bar"}], "foo=bar"
 
-  # DOMAIN0041
-  it_parses_set_cookie "foo=bar; domain=.sibling.example.org", nil
+  it_receives_cookies "DOMAIN0041", ["foo=bar; domain=.sibling.example.org"], [] of Nil, ""
 
-  # DOMAIN0042
-  it_parses_set_cookie "foo=bar; domain=.sibling.home.example.org", nil
+  it_receives_cookies "DOMAIN0042", ["foo=bar; domain=.sibling.home.example.org"], [] of Nil, ""
 
-  # MOZILLA0001
-  it_parses_set_cookie "foo=bar; max-age=-1", nil
+  it_receives_cookies "MOZILLA0001", ["foo=bar; max-age=-1"], [] of Nil, ""
 
-  # MOZILLA0002
-  it_parses_set_cookie "foo=bar; max-age=0", nil
+  it_receives_cookies "MOZILLA0002", ["foo=bar; max-age=0"], [] of Nil, ""
 
-  # MOZILLA0003
-  it_parses_set_cookie "foo=bar; expires=Thu, 10 Apr 1980 16:33:12 GMT", nil
+  it_receives_cookies "MOZILLA0003", ["foo=bar; expires=Thu, 10 Apr 1980 16:33:12 GMT"], [] of Nil, ""
 
-  # MOZILLA0004
-  it_parses_set_cookie "foo=bar; max-age=60", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "MOZILLA0004", ["foo=bar; max-age=60"], [{"foo", "bar"}], "foo=bar"
 
-  # MOZILLA0005
-  it_parses_set_cookie "foo=bar; max-age=-20", nil
+  it_receives_cookies "MOZILLA0005", ["foo=bar; max-age=-20"], [] of Nil, ""
 
-  # MOZILLA0006
-  it_parses_set_cookie "foo=bar; max-age=60", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "MOZILLA0006", ["foo=bar; max-age=60"], [{"foo", "bar"}], "foo=bar"
 
-  # MOZILLA0007
-  it_parses_set_cookie "foo=bar; expires=Thu, 10 Apr 1980 16:33:12 GMT", nil
+  it_receives_cookies "MOZILLA0007", ["foo=bar; expires=Thu, 10 Apr 1980 16:33:12 GMT"], [] of Nil, ""
 
-  # MOZILLA0008
-  it_parses_set_cookie "foo=bar; max-age=60", HTTP::Cookie.new("foo", "bar")
-  it_parses_set_cookie "foo1=bar; max-age=60", HTTP::Cookie.new("foo1", "bar")
+  it_receives_cookies "MOZILLA0008", ["foo=bar; max-age=60", "foo1=bar; max-age=60"], [{"foo", "bar"}, {"foo1", "bar"}], "foo=bar; foo1=bar"
 
-  # MOZILLA0009
-  it_parses_set_cookie "foo=bar; max-age=60", HTTP::Cookie.new("foo1", "bar")
-  it_parses_set_cookie "foo1=bar; max-age=60", nil
-  it_parses_set_cookie "foo=differentvalue; max-age=0", nil
+  it_receives_cookies "MOZILLA0009", ["foo=bar; max-age=60", "foo1=bar; max-age=60", "foo=differentvalue; max-age=0"], [{"foo1", "bar"}], "foo1=bar"
 
-  # MOZILLA0010
-  it_parses_set_cookie "foo=bar; max-age=60", HTTP::Cookie.new("foo1", "bar")
-  it_parses_set_cookie "foo1=bar; max-age=60", nil
-  it_parses_set_cookie "foo=differentvalue; max-age=0", nil
-  it_parses_set_cookie "foo2=evendifferentvalue; max-age=0", nil
+  it_receives_cookies "MOZILLA0010", ["foo=bar; max-age=60", "foo1=bar; max-age=60", "foo=differentvalue; max-age=0", "foo2=evendifferentvalue; max-age=0"], [{"foo1", "bar"}], "foo1=bar"
 
-  # MOZILLA0011
-  it_parses_set_cookie "test=parser; domain=.parser.test; ;; ;=; ,,, ===,abc,=; abracadabra! max-age=20;=;;", nil
+  it_receives_cookies "MOZILLA0011", ["test=parser; domain=.parser.test; ;; ;=; ,,, ===,abc,=; abracadabra! max-age=20;=;;"], [] of Nil, ""
 
-  # MOZILLA0012
-  it_parses_set_cookie "test=\"fubar! = foo;bar\\\";\" parser; max-age=6", HTTP::Cookie.new("test", "\"fubar! = foo")
-  it_parses_set_cookie "five; max-age=2.63,", nil
+  it_receives_cookies "MOZILLA0012", ["test=\"fubar! = foo;bar\\\";\" parser; max-age=6", "five; max-age=2.63,"], [{"test", "\"fubar! = foo"}], "test=\"fubar! = foo"
 
-  # MOZILLA0013
-  it_parses_set_cookie "test=kill; max-age=0", nil
-  it_parses_set_cookie "five; max-age=0", nil
+  it_receives_cookies "MOZILLA0013", ["test=kill; max-age=0", "five; max-age=0"], [] of Nil, ""
 
-  # MOZILLA0014
-  it_parses_set_cookie "six", nil
+  it_receives_cookies "MOZILLA0014", ["six"], [] of Nil, ""
 
-  # MOZILLA0015
-  it_parses_set_cookie "six", nil
-  it_parses_set_cookie "seven", nil
+  it_receives_cookies "MOZILLA0015", ["six", "seven"], [] of Nil, ""
 
-  # MOZILLA0016
-  it_parses_set_cookie "six", nil
-  it_parses_set_cookie "seven", nil
-  it_parses_set_cookie " =eight", nil
+  it_receives_cookies "MOZILLA0016", ["six", "seven", " =eight"], [] of Nil, ""
 
-  # MOZILLA0017
-  it_parses_set_cookie "six", HTTP::Cookie.new("test", "six")
-  it_parses_set_cookie "seven", nil
-  it_parses_set_cookie " =eight", nil
-  it_parses_set_cookie "test=six", nil
+  it_receives_cookies "MOZILLA0017", ["six", "seven", " =eight", "test=six"], [{"test", "six"}], "test=six"
 
-  # NAME0001
-  it_parses_set_cookie "a=bar", HTTP::Cookie.new("a", "bar")
+  it_receives_cookies "NAME0001", ["a=bar"], [{"a", "bar"}], "a=bar"
 
-  # NAME0002
-  it_parses_set_cookie "1=bar", HTTP::Cookie.new("1", "bar")
+  it_receives_cookies "NAME0002", ["1=bar"], [{"1", "bar"}], "1=bar"
 
-  # NAME0003
-  it_parses_set_cookie "$=bar", HTTP::Cookie.new("$", "bar")
+  it_receives_cookies "NAME0003", ["$=bar"], [{"$", "bar"}], "$=bar"
 
-  # NAME0004
-  it_parses_set_cookie "!a=bar", HTTP::Cookie.new("!a", "bar")
+  it_receives_cookies "NAME0004", ["!a=bar"], [{"!a", "bar"}], "!a=bar"
 
-  # NAME0005
-  it_parses_set_cookie "@a=bar", HTTP::Cookie.new("@a", "bar")
+  it_receives_cookies "NAME0005", ["@a=bar"], [{"@a", "bar"}], "@a=bar"
 
-  # NAME0006
-  it_parses_set_cookie "#a=bar", HTTP::Cookie.new("#a", "bar")
+  it_receives_cookies "NAME0006", ["#a=bar"], [{"#a", "bar"}], "#a=bar"
 
-  # NAME0007
-  it_parses_set_cookie "$a=bar", HTTP::Cookie.new("$a", "bar")
+  it_receives_cookies "NAME0007", ["$a=bar"], [{"$a", "bar"}], "$a=bar"
 
-  # NAME0008
-  it_parses_set_cookie "%a=bar", HTTP::Cookie.new("%a", "bar")
+  it_receives_cookies "NAME0008", ["%a=bar"], [{"%a", "bar"}], "%a=bar"
 
-  # NAME0009
-  it_parses_set_cookie "^a=bar", HTTP::Cookie.new("^a", "bar")
+  it_receives_cookies "NAME0009", ["^a=bar"], [{"^a", "bar"}], "^a=bar"
 
-  # NAME0010
-  it_parses_set_cookie "&a=bar", HTTP::Cookie.new("&a", "bar")
+  it_receives_cookies "NAME0010", ["&a=bar"], [{"&a", "bar"}], "&a=bar"
 
-  # NAME0011
-  it_parses_set_cookie "*a=bar", HTTP::Cookie.new("*a", "bar")
+  it_receives_cookies "NAME0011", ["*a=bar"], [{"*a", "bar"}], "*a=bar"
 
-  # NAME0012
-  it_parses_set_cookie "(a=bar", HTTP::Cookie.new("(a", "bar")
+  it_receives_cookies "NAME0012", ["(a=bar"], [{"(a", "bar"}], "(a=bar"
 
-  # NAME0013
-  it_parses_set_cookie ")a=bar", HTTP::Cookie.new(")a", "bar")
+  it_receives_cookies "NAME0013", [")a=bar"], [{")a", "bar"}], ")a=bar"
 
-  # NAME0014
-  it_parses_set_cookie "-a=bar", HTTP::Cookie.new("-a", "bar")
+  it_receives_cookies "NAME0014", ["-a=bar"], [{"-a", "bar"}], "-a=bar"
 
-  # NAME0015
-  it_parses_set_cookie "_a=bar", HTTP::Cookie.new("_a", "bar")
+  it_receives_cookies "NAME0015", ["_a=bar"], [{"_a", "bar"}], "_a=bar"
 
-  # NAME0016
-  it_parses_set_cookie "+=bar", HTTP::Cookie.new("+", "bar")
+  it_receives_cookies "NAME0016", ["+=bar"], [{"+", "bar"}], "+=bar"
 
-  # NAME0017
-  it_parses_set_cookie "=a=bar", nil
+  it_receives_cookies "NAME0017", ["=a=bar"], [] of Nil, ""
 
-  # NAME0018
-  it_parses_set_cookie "a =bar", HTTP::Cookie.new("a", "bar")
+  it_receives_cookies "NAME0018", ["a =bar"], [{"a", "bar"}], "a=bar"
 
-  # NAME0019
-  it_parses_set_cookie "\"a=bar", HTTP::Cookie.new("\"a", "bar")
+  it_receives_cookies "NAME0019", ["\"a=bar"], [{"\"a", "bar"}], "\"a=bar"
 
-  # NAME0020
-  it_parses_set_cookie "\"a=b\"=bar", HTTP::Cookie.new("\"a", "b\"=bar")
+  it_receives_cookies "NAME0020", ["\"a=b\"=bar"], [{"\"a", "b\"=bar"}], "\"a=b\"=bar"
 
-  # NAME0021
-  it_parses_set_cookie "\"a=b\"=bar", HTTP::Cookie.new("\"a", "qux")
-  it_parses_set_cookie "\"a=qux", nil
+  it_receives_cookies "NAME0021", ["\"a=b\"=bar", "\"a=qux"], [{"\"a", "qux"}], "\"a=qux"
 
-  # NAME0022
-  it_parses_set_cookie "   foo=bar", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "NAME0022", ["   foo=bar"], [{"foo", "bar"}], "foo=bar"
 
-  # NAME0023
-  it_parses_set_cookie "foo;bar=baz", nil
+  it_receives_cookies "NAME0023", ["foo;bar=baz"], [] of Nil, ""
 
-  # NAME0024
-  it_parses_set_cookie "$Version=1; foo=bar", HTTP::Cookie.new("$Version", "1")
+  it_receives_cookies "NAME0024", ["$Version=1; foo=bar"], [{"$Version", "1"}], "$Version=1"
 
-  # NAME0025
-  it_parses_set_cookie "===a=bar", nil
+  it_receives_cookies "NAME0025", ["===a=bar"], [] of Nil, ""
 
-  # NAME0026
-  it_parses_set_cookie "foo=bar    ", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "NAME0026", ["foo=bar    "], [{"foo", "bar"}], "foo=bar"
 
-  # NAME0027
-  it_parses_set_cookie "foo=bar    ;", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "NAME0027", ["foo=bar    ;"], [{"foo", "bar"}], "foo=bar"
 
-  # NAME0028
-  it_parses_set_cookie "=a", nil
+  it_receives_cookies "NAME0028", ["=a"], [] of Nil, ""
 
-  # NAME0029
-  it_parses_set_cookie "=", nil
+  it_receives_cookies "NAME0029", ["="], [] of Nil, ""
 
-  # NAME0030
-  it_parses_set_cookie "foo bar=baz", HTTP::Cookie.new("foo bar", "baz")
+  it_receives_cookies "NAME0030", ["foo bar=baz"], [{"foo bar", "baz"}], "foo bar=baz"
 
-  # NAME0031
-  it_parses_set_cookie "\"foo;bar\"=baz", nil
+  it_receives_cookies "NAME0031", ["\"foo;bar\"=baz"], [] of Nil, ""
 
-  # NAME0032
-  it_parses_set_cookie "\"foo\\\"bar;baz\"=qux", nil
+  it_receives_cookies "NAME0032", ["\"foo\\\"bar;baz\"=qux"], [] of Nil, ""
 
-  # NAME0033
-  it_parses_set_cookie "=foo=bar", nil
-  it_parses_set_cookie "aaa", nil
+  it_receives_cookies "NAME0033", ["=foo=bar", "aaa"], [] of Nil, ""
 
-  # OPTIONAL_DOMAIN0030
-  it_parses_set_cookie "foo=bar; domain=", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "OPTIONAL_DOMAIN0030", ["foo=bar; domain="], [{"foo", "bar"}], "foo=bar"
 
-  # OPTIONAL_DOMAIN0041
-  it_parses_set_cookie "foo=bar; domain=example.org; domain=", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "OPTIONAL_DOMAIN0041", ["foo=bar; domain=example.org; domain="], [{"foo", "bar"}], "foo=bar"
 
-  # OPTIONAL_DOMAIN0042
-  it_parses_set_cookie "foo=bar; domain=foo.example.org; domain=", nil
+  it_receives_cookies "OPTIONAL_DOMAIN0042", ["foo=bar; domain=foo.example.org; domain="], [] of Nil, ""
 
-  # OPTIONAL_DOMAIN0043
-  it_parses_set_cookie "foo=bar; domain=foo.example.org; domain=", nil
+  it_receives_cookies "OPTIONAL_DOMAIN0043", ["foo=bar; domain=foo.example.org; domain="], [] of Nil, ""
 
-  # ORDERING0001
-  it_parses_set_cookie "key=val0;", HTTP::Cookie.new("key", "val5")
-  it_parses_set_cookie "key=val1; path=/cookie-parser-result", HTTP::Cookie.new("key", "val1")
-  it_parses_set_cookie "key=val2; path=/", HTTP::Cookie.new("key", "val2")
-  it_parses_set_cookie "key=val3; path=/bar", HTTP::Cookie.new("key", "val4")
-  it_parses_set_cookie "key=val4; domain=.example.org", nil
-  it_parses_set_cookie "key=val5; domain=.example.org; path=/cookie-parser-result/foo", nil
+  it_receives_cookies "ORDERING0001", ["key=val0;", "key=val1; path=/cookie-parser-result", "key=val2; path=/", "key=val3; path=/bar", "key=val4; domain=.example.org", "key=val5; domain=.example.org; path=/cookie-parser-result/foo"], [{"key", "val5"}, {"key", "val1"}, {"key", "val2"}, {"key", "val4"}], "key=val5; key=val1; key=val2; key=val4"
 
-  # PATH0001
-  it_parses_set_cookie "a=b; path=/", HTTP::Cookie.new("x", "y")
-  it_parses_set_cookie "x=y; path=/cookie-parser-result", HTTP::Cookie.new("a", "b")
+  it_receives_cookies "PATH0001", ["a=b; path=/", "x=y; path=/cookie-parser-result"], [{"x", "y"}, {"a", "b"}], "x=y; a=b"
 
-  # PATH0002
-  it_parses_set_cookie "a=b; path=/cookie-parser-result", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "x=y; path=/", HTTP::Cookie.new("x", "y")
+  it_receives_cookies "PATH0002", ["a=b; path=/cookie-parser-result", "x=y; path=/"], [{"a", "b"}, {"x", "y"}], "a=b; x=y"
 
-  # PATH0003
-  it_parses_set_cookie "x=y; path=/", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "a=b; path=/cookie-parser-result", HTTP::Cookie.new("x", "y")
+  it_receives_cookies "PATH0003", ["x=y; path=/", "a=b; path=/cookie-parser-result"], [{"a", "b"}, {"x", "y"}], "a=b; x=y"
 
-  # PATH0004
-  it_parses_set_cookie "x=y; path=/cookie-parser-result", HTTP::Cookie.new("x", "y")
-  it_parses_set_cookie "a=b; path=/", HTTP::Cookie.new("a", "b")
+  it_receives_cookies "PATH0004", ["x=y; path=/cookie-parser-result", "a=b; path=/"], [{"x", "y"}, {"a", "b"}], "x=y; a=b"
 
-  # PATH0005
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo", nil
+  it_receives_cookies "PATH0005", ["foo=bar; path=/cookie-parser-result/foo"], [] of Nil, ""
 
-  # PATH0006
-  it_parses_set_cookie "foo=bar", HTTP::Cookie.new("foo", "bar")
-  it_parses_set_cookie "foo=qux; path=/cookie-parser-result/foo", nil
+  it_receives_cookies "PATH0006", ["foo=bar", "foo=qux; path=/cookie-parser-result/foo"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0007
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0007", ["foo=bar; path=/cookie-parser-result/foo"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0008
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo", nil
+  it_receives_cookies "PATH0008", ["foo=bar; path=/cookie-parser-result/foo"], [] of Nil, ""
 
-  # PATH0009
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux", nil
+  it_receives_cookies "PATH0009", ["foo=bar; path=/cookie-parser-result/foo/qux"], [] of Nil, ""
 
-  # PATH0010
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0010", ["foo=bar; path=/cookie-parser-result/foo/qux"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0011
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux", nil
+  it_receives_cookies "PATH0011", ["foo=bar; path=/cookie-parser-result/foo/qux"], [] of Nil, ""
 
-  # PATH0012
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux", nil
+  it_receives_cookies "PATH0012", ["foo=bar; path=/cookie-parser-result/foo/qux"], [] of Nil, ""
 
-  # PATH0013
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux/", nil
+  it_receives_cookies "PATH0013", ["foo=bar; path=/cookie-parser-result/foo/qux/"], [] of Nil, ""
 
-  # PATH0014
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux/", nil
+  it_receives_cookies "PATH0014", ["foo=bar; path=/cookie-parser-result/foo/qux/"], [] of Nil, ""
 
-  # PATH0015
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0015", ["foo=bar; path=/cookie-parser-result/foo/qux/"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0016
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0016", ["foo=bar; path=/cookie-parser-result/foo/"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0017
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0017", ["foo=bar; path=/cookie-parser-result/foo/"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0018
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/", nil
+  it_receives_cookies "PATH0018", ["foo=bar; path=/cookie-parser-result/foo/"], [] of Nil, ""
 
-  # PATH0019
-  it_parses_set_cookie "foo=bar; path", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0019", ["foo=bar; path"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0020
-  it_parses_set_cookie "foo=bar; path=", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0020", ["foo=bar; path="], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0021
-  it_parses_set_cookie "foo=bar; path=/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0021", ["foo=bar; path=/"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0022
-  it_parses_set_cookie "foo=bar; path= /", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0022", ["foo=bar; path= /"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0023
-  it_parses_set_cookie "foo=bar; Path=/cookie-PARSER-result", nil
+  it_receives_cookies "PATH0023", ["foo=bar; Path=/cookie-PARSER-result"], [] of Nil, ""
 
-  # PATH0024
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux?", nil
+  it_receives_cookies "PATH0024", ["foo=bar; path=/cookie-parser-result/foo/qux?"], [] of Nil, ""
 
-  # PATH0025
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux#", nil
+  it_receives_cookies "PATH0025", ["foo=bar; path=/cookie-parser-result/foo/qux#"], [] of Nil, ""
 
-  # PATH0026
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/foo/qux;", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0026", ["foo=bar; path=/cookie-parser-result/foo/qux;"], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0027
-  it_parses_set_cookie "foo=bar; path=\"/cookie-parser-result/foo/qux;\"", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0027", ["foo=bar; path=\"/cookie-parser-result/foo/qux;\""], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0028
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result/f%6Fo/bar", nil
+  it_receives_cookies "PATH0028", ["foo=bar; path=/cookie-parser-result/f%6Fo/bar"], [] of Nil, ""
 
-  # PATH0029
-  it_parses_set_cookie "a=b; \tpath\t=\t/cookie-parser-result\t", HTTP::Cookie.new("a", "b")
-  it_parses_set_cookie "x=y; \tpath\t=\t/book\t", nil
+  it_receives_cookies "PATH0029", ["a=b; \tpath\t=\t/cookie-parser-result\t", "x=y; \tpath\t=\t/book\t"], [{"a", "b"}], "a=b"
 
-  # PATH0030
-  it_parses_set_cookie "foo=bar; path=/dog; path=", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0030", ["foo=bar; path=/dog; path="], [{"foo", "bar"}], "foo=bar"
 
-  # PATH0031
-  it_parses_set_cookie "foo=bar; path=; path=/dog", nil
+  it_receives_cookies "PATH0031", ["foo=bar; path=; path=/dog"], [] of Nil, ""
 
-  # PATH0032
-  it_parses_set_cookie "foo=bar; path=/cookie-parser-result", HTTP::Cookie.new("foo", "qux")
-  it_parses_set_cookie "foo=qux; path=/cookie-parser-result/", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "PATH0032", ["foo=bar; path=/cookie-parser-result", "foo=qux; path=/cookie-parser-result/"], [{"foo", "qux"}, {"foo", "bar"}], "foo=qux; foo=bar"
 
-  # VALUE0001
-  it_parses_set_cookie "foo=  bar", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "VALUE0001", ["foo=  bar"], [{"foo", "bar"}], "foo=bar"
 
-  # VALUE0002
-  it_parses_set_cookie "foo=\"bar\"", HTTP::Cookie.new("foo", "\"bar\"")
+  it_receives_cookies "VALUE0002", ["foo=\"bar\""], [{"foo", "\"bar\""}], "foo=\"bar\""
 
-  # VALUE0003
-  it_parses_set_cookie "foo=\"  bar \"", HTTP::Cookie.new("foo", "\"  bar \"")
+  it_receives_cookies "VALUE0003", ["foo=\"  bar \""], [{"foo", "\"  bar \""}], "foo=\"  bar \""
 
-  # VALUE0004
-  it_parses_set_cookie "foo=\"bar;baz\"", HTTP::Cookie.new("foo", "\"bar")
+  it_receives_cookies "VALUE0004", ["foo=\"bar;baz\""], [{"foo", "\"bar"}], "foo=\"bar"
 
-  # VALUE0005
-  it_parses_set_cookie "foo=\"bar=baz\"", HTTP::Cookie.new("foo", "\"bar=baz\"")
+  it_receives_cookies "VALUE0005", ["foo=\"bar=baz\""], [{"foo", "\"bar=baz\""}], "foo=\"bar=baz\""
 
-  # VALUE0006
-  it_parses_set_cookie "\tfoo\t=\tbar\t \t;\tttt", HTTP::Cookie.new("foo", "bar")
+  it_receives_cookies "VALUE0006", ["\tfoo\t=\tbar\t \t;\tttt"], [{"foo", "bar"}], "foo=bar"
 
 end

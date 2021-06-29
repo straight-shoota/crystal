@@ -195,6 +195,7 @@ module Spec
     @@start_time = Time.monotonic
 
     at_exit do
+      p! root_context.total_size
       log_setup
       maybe_randomize
       run_filters
