@@ -455,6 +455,18 @@ describe Time do
       location = Time::Location.fixed(2 * 3600)
       Time.local(2021, 7, 1, location: location).shift(months: 1).should eq Time.local(2021, 8, 1, location: location)
     end
+
+    it "several ways to get from one to other date" do
+      location = Time::Location.fixed(12345)
+
+      t0 = Time.local(2011, 11, 18, 7, 56, 35, location: location)
+      t1 = Time.local(2016, 3, 19, 7, 56, 35, location: location)
+
+      t0.shift(years: 4, months: 4, days: 1).should eq t1
+      t0.shift(years: 3, months: 16, days: 1).should eq t1
+      t0.shift(years: 3, months: 15, days: 30).should eq t1
+      t0.shift(years: 5, months: -6, days: -18 - 30 - 12).should eq t1
+    end
   end
 
   it "#time_of_day" do
