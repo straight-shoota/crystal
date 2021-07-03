@@ -1,176 +1,241 @@
 require "./spec_helper"
 require "file_utils"
 
+private def test_with_string_and_path(*paths, &)
+  yield *paths
+  yield *paths.map { |path| Path[path] }
+end
+
 describe "FileUtils" do
-  describe "cd" do
+  describe ".cd" do
     it "should work" do
       cwd = Dir.current
-      FileUtils.cd("..")
-      Dir.current.should_not eq(cwd)
-      FileUtils.cd(cwd)
-      Dir.current.should eq(cwd)
+      test_with_string_and_path(cwd) do |arg|
+        FileUtils.cd("..")
+        Dir.current.should_not eq(cwd)
+        FileUtils.cd(arg)
+        Dir.current.should eq(cwd)
+      end
     end
 
     it "raises" do
-      expect_raises(File::NotFoundError, "Error while changing directory: '/nope'") do
-        FileUtils.cd("/nope")
+      test_with_string_and_path "/nope" do |arg|
+        expect_raises(File::NotFoundError, "Error while changing directory: '/nope'") do
+          FileUtils.cd(arg)
+        end
       end
     end
 
     it "accepts a block" do
       cwd = Dir.current
+      test_with_string_and_path("..") do |arg|
+        FileUtils.cd(arg) do
+          Dir.current.should_not eq(cwd)
+        end
 
-      FileUtils.cd("..") do
-        Dir.current.should_not eq(cwd)
+        Dir.current.should eq(cwd)
       end
-
-      Dir.current.should eq(cwd)
     end
   end
 
-  describe "pwd" do
+  describe ".pwd" do
     it "returns the current working directory" do
       FileUtils.pwd.should eq(Dir.current)
     end
   end
 
-  describe "cmp" do
+  describe ".cmp" do
     it "compares two equal files" do
-      FileUtils.cmp(
-        datapath("test_file.txt"),
-        datapath("test_file.txt")
-      ).should be_true
+      test_with_string_and_path(datapath("test_file.txt")) do |arg|
+        FileUtils.cmp(arg, arg).should be_true
+      end
     end
 
     it "compares two different files" do
-      FileUtils.cmp(
-        datapath("test_file.txt"),
-        datapath("test_file.ini")
-      ).should be_false
+      test_with_string_and_path(datapath("test_file.txt"), datapath("test_file.ini")) do |*args|
+        FileUtils.cmp(*args).should be_false
+      end
     end
   end
 
-  describe "touch" do
+  describe ".touch" do
     it "creates file if it doesn't exist" do
       with_tempfile("touch.txt") do |path|
-        File.exists?(path).should be_false
-        FileUtils.touch(path)
-        File.exists?(path).should be_true
+        test_with_string_and_path(path) do |arg|
+          File.exists?(path).should be_false
+          FileUtils.touch(arg)
+          File.exists?(path).should be_true
+
+          FileUtils.rm_rf path
+        end
       end
     end
 
     it "creates multiple files if they don't exists" do
       with_tempfile("touch1", "touch2", "touch3") do |path1, path2, path3|
-        paths = [path1, path2, path3]
-        paths.each { |path| File.exists?(path).should be_false }
-        FileUtils.touch(paths)
-        paths.each { |path| File.exists?(path).should be_true }
+        paths = {path1, path2, path3}
+        test_with_string_and_path(*paths) do |*args|
+          paths.each { |path| File.exists?(path).should be_false }
+          FileUtils.touch(args.to_a)
+          paths.each { |path| File.exists?(path).should be_true }
+
+          FileUtils.rm_rf paths
+        end
       end
     end
   end
 
-  describe "cp" do
+  describe ".cp" do
     it "copies a file" do
       src_path = datapath("test_file.txt")
       with_tempfile("cp.txt") do |out_path|
-        FileUtils.cp(src_path, out_path)
-        File.exists?(out_path).should be_true
-        FileUtils.cmp(src_path, out_path).should be_true
+        test_with_string_and_path(src_path, out_path) do |*args|
+          File.exists?(out_path).should be_false
+          FileUtils.cp(*args)
+          File.exists?(out_path).should be_true
+          FileUtils.cmp(src_path, out_path).should be_true
+
+          FileUtils.rm_rf(out_path)
+        end
       end
     end
 
     pending_win32 "copies permissions" do
       with_tempfile("cp-permissions-src.txt", "cp-permissions-out.txt") do |src_path, out_path|
-        File.write(src_path, "foo")
-        File.chmod(src_path, 0o700)
+        test_with_string_and_path(src_path, out_path) do |*args|
+          File.write(src_path, "foo")
+          File.chmod(src_path, 0o700)
 
-        FileUtils.cp(src_path, out_path)
+          FileUtils.cp(*args)
 
-        File.info(out_path).permissions.should eq(File::Permissions.new(0o700))
-        FileUtils.cmp(src_path, out_path).should be_true
+          File.info(out_path).permissions.should eq(File::Permissions.new(0o700))
+          FileUtils.cmp(src_path, out_path).should be_true
+
+          FileUtils.rm_rf(out_path)
+        end
       end
     end
 
     it "raises an error if the directory doesn't exist" do
       expect_raises(ArgumentError, "No such directory : not_existing_dir") do
-        FileUtils.cp({datapath("test_file.txt")}, "not_existing_dir")
+        test_with_string_and_path(datapath("test_file.txt"), "not_existing_dir") do |src_path, dest_path|
+          FileUtils.cp({src_path}, dest_path)
+        end
       end
     end
 
     it "copies multiple files" do
-      src_name1 = "test_file.txt"
-      src_name2 = "test_file.ini"
+      name1 = "test_file.txt"
+      name2 = "test_file.ini"
       src_path = datapath
+      src_name1 = File.join(src_path, name1)
+      src_name2 = File.join(src_path, name2)
       with_tempfile("cp-multiple") do |out_path|
-        Dir.mkdir_p(out_path)
-        FileUtils.cp({File.join(src_path, src_name1), File.join(src_path, src_name2)}, out_path)
-        File.exists?(File.join(out_path, src_name1)).should be_true
-        File.exists?(File.join(out_path, src_name2)).should be_true
-        FileUtils.cmp(File.join(src_path, src_name1), File.join(out_path, src_name1)).should be_true
-        FileUtils.cmp(File.join(src_path, src_name2), File.join(out_path, src_name2)).should be_true
+        out_name1 = File.join(out_path, name1)
+        out_name2 = File.join(out_path, name2)
+        test_with_string_and_path(src_name1, src_name2, out_path) do |arg1, arg2, dest_arg|
+          Dir.mkdir_p(out_path)
+
+          File.exists?(out_name1).should be_false
+          File.exists?(out_name2).should be_false
+
+          FileUtils.cp({arg1, arg2}, dest_arg)
+
+          File.exists?(out_name1).should be_true
+          File.exists?(out_name2).should be_true
+          FileUtils.cmp(src_name1, out_name1).should be_true
+          FileUtils.cmp(src_name2, out_name2).should be_true
+
+          FileUtils.rm_rf(out_path)
+        end
       end
     end
   end
 
-  describe "cp_r" do
+  describe ".cp_r" do
     it "copies a directory recursively" do
       with_tempfile("cp_r-test", "cp_r-test-copied") do |src_path, dest_path|
-        Dir.mkdir_p(src_path)
-        File.write(File.join(src_path, "a"), "")
-        Dir.mkdir(File.join(src_path, "b"))
-        File.write(File.join(src_path, "b/c"), "")
+        test_with_string_and_path(src_path, dest_path) do |*args|
+          File.exists?(File.join(dest_path, "a")).should be_false
+          File.exists?(File.join(dest_path, "b/c")).should be_false
+          Dir.mkdir_p(src_path)
+          File.write(File.join(src_path, "a"), "")
+          Dir.mkdir(File.join(src_path, "b"))
+          File.write(File.join(src_path, "b/c"), "")
 
-        FileUtils.cp_r(src_path, dest_path)
-        File.exists?(File.join(dest_path, "a")).should be_true
-        File.exists?(File.join(dest_path, "b/c")).should be_true
+          FileUtils.cp_r(*args)
+          File.exists?(File.join(dest_path, "a")).should be_true
+          File.exists?(File.join(dest_path, "b/c")).should be_true
+
+          FileUtils.rm_rf(src_path)
+          FileUtils.rm_rf(dest_path)
+        end
       end
     end
 
     it "copies a directory recursively if destination exists and is empty" do
       with_tempfile("cp_r-test", "cp_r-test-copied") do |src_path, dest_path|
-        Dir.mkdir_p(dest_path)
+        test_with_string_and_path(src_path, dest_path) do |*args|
+          Dir.mkdir_p(dest_path)
 
-        Dir.mkdir_p(src_path)
-        File.write(File.join(src_path, "a"), "")
-        Dir.mkdir(File.join(src_path, "b"))
-        File.write(File.join(src_path, "b/c"), "")
+          Dir.mkdir_p(src_path)
+          File.exists?(File.join(dest_path, "cp_r-test", "a")).should be_false
+          File.exists?(File.join(dest_path, "cp_r-test", "b/c")).should be_false
+          File.write(File.join(src_path, "a"), "")
+          Dir.mkdir(File.join(src_path, "b"))
+          File.write(File.join(src_path, "b/c"), "")
 
-        FileUtils.cp_r(src_path, dest_path)
-        File.exists?(File.join(dest_path, "cp_r-test", "a")).should be_true
-        File.exists?(File.join(dest_path, "cp_r-test", "b/c")).should be_true
+          FileUtils.cp_r(*args)
+          File.exists?(File.join(dest_path, "cp_r-test", "a")).should be_true
+          File.exists?(File.join(dest_path, "cp_r-test", "b/c")).should be_true
+
+          FileUtils.rm_rf(src_path)
+          FileUtils.rm_rf(dest_path)
+        end
       end
     end
 
     it "copies a directory recursively if destination exists leaving existing files" do
       with_tempfile("cp_r-test", "cp_r-test-copied") do |src_path, dest_path|
-        Dir.mkdir_p(dest_path)
-        File.write(File.join(dest_path, "d"), "")
-        Dir.mkdir(File.join(dest_path, "cp_r-test"))
-        Dir.mkdir(File.join(dest_path, "cp_r-test", "b"))
+        test_with_string_and_path(src_path, dest_path) do |*args|
+          Dir.mkdir_p(dest_path)
+          File.write(File.join(dest_path, "d"), "")
+          Dir.mkdir(File.join(dest_path, "cp_r-test"))
+          Dir.mkdir(File.join(dest_path, "cp_r-test", "b"))
 
-        Dir.mkdir_p(src_path)
-        File.write(File.join(src_path, "a"), "")
-        Dir.mkdir(File.join(src_path, "b"))
-        File.write(File.join(src_path, "b/c"), "")
+          File.exists?(File.join(dest_path, "cp_r-test", "a")).should be_false
+          File.exists?(File.join(dest_path, "cp_r-test", "b/c")).should be_false
+          File.exists?(File.join(dest_path, "d")).should be_true
 
-        FileUtils.cp_r(src_path, dest_path)
-        File.exists?(File.join(dest_path, "cp_r-test", "a")).should be_true
-        File.exists?(File.join(dest_path, "cp_r-test", "b/c")).should be_true
-        File.exists?(File.join(dest_path, "d")).should be_true
+          Dir.mkdir_p(src_path)
+          File.write(File.join(src_path, "a"), "")
+          Dir.mkdir(File.join(src_path, "b"))
+          File.write(File.join(src_path, "b/c"), "")
+
+          FileUtils.cp_r(*args)
+          File.exists?(File.join(dest_path, "cp_r-test", "a")).should be_true
+          File.exists?(File.join(dest_path, "cp_r-test", "b/c")).should be_true
+          File.exists?(File.join(dest_path, "d")).should be_true
+
+          FileUtils.rm_rf(src_path)
+          FileUtils.rm_rf(dest_path)
+        end
       end
     end
   end
 
-  describe "rm_r" do
+  describe ".rm_r" do
     it "deletes a directory recursively" do
       with_tempfile("rm_r") do |path|
-        Dir.mkdir(path)
-        File.write(File.join(path, "a"), "")
-        Dir.mkdir(File.join(path, "b"))
-        File.write(File.join(path, "b/c"), "")
+        test_with_string_and_path(path) do |arg|
+          Dir.mkdir(path)
+          File.write(File.join(path, "a"), "")
+          Dir.mkdir(File.join(path, "b"))
+          File.write(File.join(path, "b/c"), "")
 
-        FileUtils.rm_r(path)
-        Dir.exists?(path).should be_false
+          FileUtils.rm_r(arg)
+          Dir.exists?(path).should be_false
+        end
       end
     end
 
@@ -179,76 +244,98 @@ describe "FileUtils" do
         link_path = File.join(removed_path, "link")
         file_path = File.join(linked_path, "file")
 
-        Dir.mkdir(removed_path)
-        Dir.mkdir(linked_path)
-        File.symlink(linked_path, link_path)
-        File.write(file_path, "")
+        test_with_string_and_path(removed_path) do |arg|
+          Dir.mkdir(removed_path)
+          Dir.mkdir(linked_path)
+          File.symlink(linked_path, link_path)
+          File.write(file_path, "")
 
-        FileUtils.rm_r(removed_path)
-        Dir.exists?(removed_path).should be_false
-        Dir.exists?(linked_path).should be_true
-        File.exists?(file_path).should be_true
+          Dir.exists?(removed_path).should be_true
+          Dir.exists?(linked_path).should be_true
+          File.exists?(file_path).should be_true
+
+          FileUtils.rm_r(arg)
+          Dir.exists?(removed_path).should be_false
+          Dir.exists?(linked_path).should be_true
+          File.exists?(file_path).should be_true
+
+          FileUtils.rm_rf(linked_path)
+        end
       end
     end
   end
 
-  describe "rm_rf" do
+  describe ".rm_rf" do
     it "delete recursively a directory" do
       with_tempfile("rm_rf") do |path|
-        FileUtils.mkdir(path)
-        File.write(File.join(path, "a"), "")
-        FileUtils.mkdir(File.join(path, "b"))
-        FileUtils.rm_rf(path).should be_nil
-        Dir.exists?(path).should be_false
+        test_with_string_and_path(path) do |arg|
+          FileUtils.mkdir(path)
+          File.write(File.join(path, "a"), "")
+          FileUtils.mkdir(File.join(path, "b"))
+          FileUtils.rm_rf(arg).should be_nil
+          Dir.exists?(path).should be_false
+        end
       end
     end
 
     it "delete recursively multiple directory" do
       with_tempfile("rm_rf-multi1", "rm_rf-multi2") do |path1, path2|
+        test_with_string_and_path(path1, path2) do |*args|
         FileUtils.mkdir(path1)
         FileUtils.mkdir(path2)
         File.write(File.join(path1, "a"), "")
         File.write(File.join(path2, "a"), "")
         FileUtils.mkdir(File.join(path1, "b"))
         FileUtils.mkdir(File.join(path2, "b"))
-        FileUtils.rm_rf([path1, path2]).should be_nil
+        FileUtils.rm_rf(args.to_a).should be_nil
         Dir.exists?(path1).should be_false
         Dir.exists?(path2).should be_false
+        end
       end
     end
 
     it "doesn't return error on non existing file" do
       with_tempfile("rm_rf-nonexistent") do |path|
-        FileUtils.rm_rf(path).should be_nil
+        test_with_string_and_path(path) do |arg|
+        FileUtils.rm_rf(arg).should be_nil
+        end
       end
     end
 
     it "doesn't return error on non existing files" do
       with_tempfile("rm_rf-nonexistent") do |path1|
         path2 = File.join(path1, "a")
-        FileUtils.mkdir(path1)
-        FileUtils.rm_rf([path1, path2]).should be_nil
+        test_with_string_and_path(path1, path2) do |*args|
+          FileUtils.mkdir(path1)
+          FileUtils.rm_rf(args.to_a).should be_nil
+        end
       end
     end
   end
 
-  describe "mv" do
+  describe ".mv" do
     it "moves a file from one place to another" do
       with_tempfile("mv1", "mv2") do |path1, path2|
-        FileUtils.mkdir([path1, path2])
-        path1 = File.join(path1, "a")
-        path2 = File.join(path2, "b")
-        File.write(path1, "")
-        FileUtils.mv(path1, path2).should be_nil
-        File.exists?(path1).should be_false
-        File.exists?(path2).should be_true
+        a = File.join(path1, "a")
+        b = File.join(path2, "b")
+        test_with_string_and_path(a, b) do |*args|
+          FileUtils.mkdir([path1, path2])
+          File.write(a, "")
+          FileUtils.mv(*args).should be_nil
+          File.exists?(a).should be_false
+          File.exists?(b).should be_true
+          FileUtils.rm_rf(path1)
+          FileUtils.rm_rf(path2)
+        end
       end
     end
 
     it "raises an error if non correct arguments" do
       with_tempfile("mv-nonexistent") do |path|
-        expect_raises(File::NotFoundError, "Error renaming file: '#{File.join(path, "a").inspect_unquoted}' -> '#{File.join(path, "b").inspect_unquoted}'") do
-          FileUtils.mv(File.join(path, "a"), File.join(path, "b"))
+        test_with_string_and_path(File.join(path, "a"), File.join(path, "b")) do |*args|
+          expect_raises(File::NotFoundError, "Error renaming file: '#{File.join(path, "a").inspect_unquoted}' -> '#{File.join(path, "b").inspect_unquoted}'") do
+            FileUtils.mv(*args)
+          end
         end
       end
     end
@@ -421,7 +508,7 @@ describe "FileUtils" do
     end
   end
 
-  describe "ln" do
+  describe ".ln" do
     it "creates a hardlink" do
       with_tempfile("ln_src", "ln_dst") do |path1, path2|
         FileUtils.touch(path1)
@@ -479,7 +566,7 @@ describe "FileUtils" do
     end
   end
 
-  describe "ln_s" do
+  describe ".ln_s" do
     it "creates a symlink" do
       with_tempfile("ln_s_src", "ln_s_dst") do |path1, path2|
         FileUtils.touch(path1)
@@ -540,7 +627,7 @@ describe "FileUtils" do
     end
   end
 
-  describe "ln_sf" do
+  describe ".ln_sf" do
     it "overwrites a destination file" do
       with_tempfile("ln_sf_src", "ln_sf_dst_exists") do |path1, path2|
         FileUtils.touch([path1, path2])
