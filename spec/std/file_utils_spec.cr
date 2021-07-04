@@ -281,15 +281,15 @@ describe "FileUtils" do
     it "delete recursively multiple directory" do
       with_tempfile("rm_rf-multi1", "rm_rf-multi2") do |path1, path2|
         test_with_string_and_path(path1, path2) do |*args|
-        FileUtils.mkdir(path1)
-        FileUtils.mkdir(path2)
-        File.write(File.join(path1, "a"), "")
-        File.write(File.join(path2, "a"), "")
-        FileUtils.mkdir(File.join(path1, "b"))
-        FileUtils.mkdir(File.join(path2, "b"))
-        FileUtils.rm_rf(args.to_a).should be_nil
-        Dir.exists?(path1).should be_false
-        Dir.exists?(path2).should be_false
+          FileUtils.mkdir(path1)
+          FileUtils.mkdir(path2)
+          File.write(File.join(path1, "a"), "")
+          File.write(File.join(path2, "a"), "")
+          FileUtils.mkdir(File.join(path1, "b"))
+          FileUtils.mkdir(File.join(path2, "b"))
+          FileUtils.rm_rf(args.to_a).should be_nil
+          Dir.exists?(path1).should be_false
+          Dir.exists?(path2).should be_false
         end
       end
     end
@@ -297,7 +297,7 @@ describe "FileUtils" do
     it "doesn't return error on non existing file" do
       with_tempfile("rm_rf-nonexistent") do |path|
         test_with_string_and_path(path) do |arg|
-        FileUtils.rm_rf(arg).should be_nil
+          FileUtils.rm_rf(arg).should be_nil
         end
       end
     end
@@ -342,23 +342,28 @@ describe "FileUtils" do
 
     it "moves multiple files to one place" do
       with_tempfile("mv-multi1", "mv-multi2", "mv-multi3") do |path1, path2, path3|
-        FileUtils.mkdir([path1, path2, path3])
-        path1 = File.join(path1, "a")
-        path2 = File.join(path2, "b")
-        File.write(path1, "")
-        File.write(path2, "")
-        FileUtils.mv([path1, path2], path3).should be_nil
-        File.exists?(path1).should be_false
-        File.exists?(path2).should be_false
-        File.exists?(File.join(path3, "a")).should be_true
-        File.exists?(File.join(path3, "b")).should be_true
+        source1 = File.join(path1, "a")
+        source2 = File.join(path2, "b")
+        test_with_string_and_path(source1, source2, path3) do |arg1, arg2, arg3|
+          FileUtils.mkdir([path1, path2, path3])
+          File.write(source1, "")
+          File.write(source2, "")
+          FileUtils.mv([arg1, arg2], arg3).should be_nil
+          File.exists?(source1).should be_false
+          File.exists?(source2).should be_false
+          File.exists?(File.join(path3, "a")).should be_true
+          File.exists?(File.join(path3, "b")).should be_true
+          FileUtils.rm_rf([path1, path2, path3])
+        end
       end
     end
 
     it "raises an error if dest is non correct" do
       expect_raises ArgumentError do
         with_tempfile("mv-nonexistent") do |path|
-          FileUtils.mv([File.join(path, "a"), File.join(path, "b")], File.join(path, "c"))
+          test_with_string_and_path(File.join(path, "a"), File.join(path, "b"), File.join(path, "c")) do |arg1, arg2, arg3|
+            FileUtils.mv([arg1, arg2], arg3)
+          end
         end
       end
     end
@@ -369,141 +374,177 @@ describe "FileUtils" do
         path2 = File.join(source_path, "b")
         path3 = File.join(source_path, "c", "sub")
 
-        FileUtils.mkdir_p([path1, path2, target_path])
-        path1 = File.join(path1, "a")
-        path2 = File.join(path2, "b")
-        File.write(path1, "")
-        File.write(path2, "")
-        FileUtils.mv([path1, path2, path3], target_path).should be_nil
-        File.exists?(path1).should be_false
-        File.exists?(path2).should be_false
-        File.exists?(File.join(target_path, "a")).should be_true
-        File.exists?(File.join(target_path, "b")).should be_true
+        test_with_string_and_path(path1, path2, path3, target_path) do |arg1, arg2, arg3, arg4|
+          FileUtils.mkdir_p([path1, path2, target_path])
+          path1 = File.join(path1, "a")
+          path2 = File.join(path2, "b")
+          File.write(path1, "")
+          File.write(path2, "")
+          FileUtils.mv([arg1, arg2, arg3], arg4).should be_nil
+          File.exists?(path1).should be_false
+          File.exists?(path2).should be_false
+          File.exists?(File.join(target_path, "a")).should be_true
+          File.exists?(File.join(target_path, "b")).should be_true
+          FileUtils.rm_rf([path1, path2, target_path])
+        end
       end
     end
   end
 
   it "tests mkdir and rmdir with a new path" do
     with_tempfile("mkdir-new") do |path|
-      FileUtils.mkdir(path, 0o700).should be_nil
-      Dir.exists?(path).should be_true
-      FileUtils.rmdir(path).should be_nil
-      Dir.exists?(path).should be_false
+      test_with_string_and_path(path) do |arg|
+        FileUtils.mkdir(arg, 0o700).should be_nil
+        Dir.exists?(path).should be_true
+        FileUtils.rmdir(arg).should be_nil
+        Dir.exists?(path).should be_false
+      end
     end
   end
 
   it "tests mkdir and rmdir with multiple new paths" do
     with_tempfile("mkdir-new1", "mkdir-new2") do |path1, path2|
-      FileUtils.mkdir([path1, path2], 0o700).should be_nil
-      Dir.exists?(path1).should be_true
-      Dir.exists?(path2).should be_true
-      FileUtils.rmdir([path1, path2]).should be_nil
-      Dir.exists?(path1).should be_false
-      Dir.exists?(path2).should be_false
+      test_with_string_and_path(path1, path2) do |*args|
+        FileUtils.mkdir(args.to_a, 0o700).should be_nil
+        Dir.exists?(path1).should be_true
+        Dir.exists?(path2).should be_true
+        FileUtils.rmdir(args.to_a).should be_nil
+        Dir.exists?(path1).should be_false
+        Dir.exists?(path2).should be_false
+        FileUtils.rm_rf([path1, path2])
+      end
     end
   end
 
   it "tests mkdir with an existing path" do
-    expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath.inspect_unquoted}'") do
-      Dir.mkdir(datapath, 0o700)
+    test_with_string_and_path(datapath) do |arg|
+      expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath.inspect_unquoted}'") do
+        Dir.mkdir(arg, 0o700)
+      end
     end
   end
 
   it "tests mkdir with multiples existing paths" do
-    expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath.inspect_unquoted}'") do
-      FileUtils.mkdir([datapath, datapath], 0o700)
+    test_with_string_and_path(datapath) do |arg|
+      expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath.inspect_unquoted}'") do
+        FileUtils.mkdir([arg, arg], 0o700)
+      end
     end
 
     with_tempfile("mkdir-nonexistent") do |path|
-      expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath.inspect_unquoted}'") do
-        FileUtils.mkdir([path, datapath], 0o700)
+      test_with_string_and_path(path, datapath) do |*args|
+        expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath.inspect_unquoted}'") do
+          FileUtils.mkdir(args.to_a, 0o700)
+        end
+        FileUtils.rm_rf(path)
       end
     end
   end
 
   it "tests mkdir_p with multiples new path" do
     with_tempfile("mkdir_p-multi1", "mkdir_p-multi2") do |path1, path2|
-      FileUtils.mkdir_p([path1, path2]).should be_nil
-      Dir.exists?(path1).should be_true
-      Dir.exists?(path2).should be_true
       path3 = File.join({path1, "a", "b", "c"})
       path4 = File.join({path2, "a", "b", "c"})
-      FileUtils.mkdir_p([path3, path4]).should be_nil
-      Dir.exists?(path3).should be_true
-      Dir.exists?(path4).should be_true
+      test_with_string_and_path(path3, path4) do |*args|
+        FileUtils.mkdir_p([path1, path2]).should be_nil
+        Dir.exists?(path1).should be_true
+        Dir.exists?(path2).should be_true
+        FileUtils.mkdir_p(args.to_a).should be_nil
+        Dir.exists?(path3).should be_true
+        Dir.exists?(path4).should be_true
+        FileUtils.rm_rf([path1, path2])
+      end
     end
   end
 
   it "tests mkdir_p with multiple existing path" do
     FileUtils.mkdir_p([datapath, datapath]).should be_nil
     with_tempfile("mkdir_p-existing") do |path|
-      expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath("test_file.txt").inspect_unquoted}'") do
-        FileUtils.mkdir_p([datapath("test_file.txt"), path])
+      test_with_string_and_path(datapath("test_file.txt"), path) do |*args|
+        expect_raises(File::AlreadyExistsError, "Unable to create directory: '#{datapath("test_file.txt").inspect_unquoted}'") do
+          FileUtils.mkdir_p(args.to_a)
+        end
       end
     end
   end
 
   it "tests rmdir with an non existing path" do
     with_tempfile("rmdir-nonexistent") do |path|
-      expect_raises(File::NotFoundError, "Unable to remove directory: '#{path.inspect_unquoted}'") do
-        FileUtils.rmdir(path)
+      test_with_string_and_path(path) do |arg|
+        expect_raises(File::NotFoundError, "Unable to remove directory: '#{path.inspect_unquoted}'") do
+          FileUtils.rmdir(arg)
+        end
       end
     end
   end
 
   it "tests rmdir with multiple non existing path" do
     with_tempfile("rmdir-nonexistent") do |path|
-      expect_raises(File::NotFoundError, "Unable to remove directory: '#{path.inspect_unquoted}1'") do
-        FileUtils.rmdir(["#{path}1", "#{path}2"])
+      test_with_string_and_path("#{path}1", "#{path}2") do |*args|
+        expect_raises(File::NotFoundError, "Unable to remove directory: '#{path.inspect_unquoted}1'") do
+          FileUtils.rmdir(args.to_a)
+        end
       end
     end
   end
 
   it "tests rmdir with a path that cannot be removed" do
-    expect_raises(File::Error, "Unable to remove directory: '#{datapath.inspect_unquoted}'") do
-      FileUtils.rmdir(datapath)
+    test_with_string_and_path(datapath) do |arg|
+      expect_raises(File::Error, "Unable to remove directory: '#{datapath.inspect_unquoted}'") do
+        FileUtils.rmdir(arg)
+      end
     end
   end
 
   it "tests rmdir with multiple path that cannot be removed" do
-    expect_raises(File::Error, "Unable to remove directory: '#{datapath.inspect_unquoted}'") do
-      FileUtils.rmdir([datapath, datapath])
+    test_with_string_and_path(datapath) do |arg|
+      expect_raises(File::Error, "Unable to remove directory: '#{datapath.inspect_unquoted}'") do
+        FileUtils.rmdir([arg, arg])
+      end
     end
   end
 
   it "tests rm with an existing path" do
     with_tempfile("rm") do |path|
-      File.write(path, "")
-      FileUtils.rm(path).should be_nil
-      File.exists?(path).should be_false
+      test_with_string_and_path(path) do |arg|
+        File.write(path, "")
+        FileUtils.rm(arg).should be_nil
+        File.exists?(path).should be_false
+      end
     end
   end
 
   it "tests rm with non existing path" do
     with_tempfile("rm-nonexistent") do |path|
-      expect_raises(File::NotFoundError, "Error deleting file: '#{path.inspect_unquoted}'") do
-        FileUtils.rm(path)
+      test_with_string_and_path(path) do |arg|
+        expect_raises(File::NotFoundError, "Error deleting file: '#{path.inspect_unquoted}'") do
+          FileUtils.rm(arg)
+        end
       end
     end
   end
 
   it "tests rm with multiple existing paths" do
     with_tempfile("rm-multi1", "rm-multi2") do |path1, path2|
-      File.write(path1, "")
-      File.write(path2, "")
-      FileUtils.rm([path1, path2]).should be_nil
-      File.exists?(path1).should be_false
-      File.exists?(path2).should be_false
+      test_with_string_and_path(path1, path2) do |*args|
+        File.write(path1, "")
+        File.write(path2, "")
+        FileUtils.rm(args.to_a).should be_nil
+        File.exists?(path1).should be_false
+        File.exists?(path2).should be_false
+      end
     end
   end
 
   it "tests rm with some non existing paths" do
     with_tempfile("rm-nonexistent1", "rm-nonexistent2") do |path1, path2|
-      File.write(path1, "")
-      File.write(path2, "")
+      test_with_string_and_path(path1, path2) do |arg1, arg2|
+        File.write(path1, "")
+        File.write(path2, "")
 
-      expect_raises(File::NotFoundError, "Error deleting file: '#{path2.inspect_unquoted}'") do
-        FileUtils.rm([path1, path2, path2])
+        expect_raises(File::NotFoundError, "Error deleting file: '#{path2.inspect_unquoted}'") do
+          FileUtils.rm([arg1, arg2, arg2])
+        end
       end
     end
   end
@@ -511,10 +552,13 @@ describe "FileUtils" do
   describe ".ln" do
     it "creates a hardlink" do
       with_tempfile("ln_src", "ln_dst") do |path1, path2|
-        FileUtils.touch(path1)
-        FileUtils.ln(path1, path2)
-        File.exists?(path2).should be_true
-        File.symlink?(path2).should be_false
+        test_with_string_and_path(path1, path2) do |arg1, arg2|
+          FileUtils.touch(path1)
+          FileUtils.ln(arg1, arg2)
+          File.exists?(path2).should be_true
+          File.symlink?(path2).should be_false
+          FileUtils.rm_rf([path1, path2])
+        end
       end
     end
 
@@ -522,11 +566,14 @@ describe "FileUtils" do
       with_tempfile("ln_src", "ln_dst_dir") do |path1, path2|
         path2 += File::SEPARATOR
         path3 = File.join(path2, File.basename(path1))
-        FileUtils.touch(path1)
-        FileUtils.mkdir(path2)
-        FileUtils.ln(path1, path2)
-        File.exists?(path3).should be_true
-        File.symlink?(path3).should be_false
+        test_with_string_and_path(path1, path2) do |arg1, arg2|
+          FileUtils.touch(path1)
+          FileUtils.mkdir(path2)
+          FileUtils.ln(arg1, arg2)
+          File.exists?(path3).should be_true
+          File.symlink?(path3).should be_false
+          FileUtils.rm_rf([path1, path2])
+        end
       end
     end
 
@@ -534,23 +581,27 @@ describe "FileUtils" do
       with_tempfile("ln_src_1", "ln_src_2", "ln_src_3", "ln_dst_dir") do |path1, path2, path3, dir_path|
         paths = [path1, path2, path3]
         dir_path += File::SEPARATOR
+        test_with_string_and_path(path1, path2, path3, dir_path) do |arg1, arg2, arg3, arg4|
+          paths.each { |path| FileUtils.touch(path) }
+          FileUtils.mkdir(dir_path)
+          FileUtils.ln([arg1, arg2, arg3], arg4)
 
-        paths.each { |path| FileUtils.touch(path) }
-        FileUtils.mkdir(dir_path)
-        FileUtils.ln(paths, dir_path)
-
-        paths.each do |path|
-          link_path = File.join(dir_path, File.basename(path))
-          File.exists?(link_path).should be_true
-          File.symlink?(link_path).should be_false
+          paths.each do |path|
+            link_path = File.join(dir_path, File.basename(path))
+            File.exists?(link_path).should be_true
+            File.symlink?(link_path).should be_false
+          end
+          FileUtils.rm_rf(dir_path)
         end
       end
     end
 
     it "fails with a nonexistent source" do
       with_tempfile("ln_src_missing", "ln_dst_missing") do |path1, path2|
-        ex = expect_raises(File::NotFoundError, "Error creating link: '#{path1.inspect_unquoted}' -> '#{path2.inspect_unquoted}'") do
-          FileUtils.ln(path1, path2)
+        test_with_string_and_path(path1, path2) do |arg1, arg2|
+          expect_raises(File::NotFoundError, "Error creating link: '#{path1.inspect_unquoted}' -> '#{path2.inspect_unquoted}'") do
+            FileUtils.ln(arg1, arg2)
+          end
         end
       end
     end
@@ -559,8 +610,10 @@ describe "FileUtils" do
       with_tempfile("ln_src", "ln_dst_exists") do |path1, path2|
         FileUtils.touch([path1, path2])
 
-        expect_raises(File::AlreadyExistsError, "Error creating link: '#{path1.inspect_unquoted}' -> '#{path2.inspect_unquoted}'") do
-          FileUtils.ln(path1, path2)
+        test_with_string_and_path(path1, path2) do |arg1, arg2|
+          expect_raises(File::AlreadyExistsError, "Error creating link: '#{path1.inspect_unquoted}' -> '#{path2.inspect_unquoted}'") do
+            FileUtils.ln(arg1, arg2)
+          end
         end
       end
     end
