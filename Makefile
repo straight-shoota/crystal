@@ -33,7 +33,7 @@ SPEC_WARNINGS_OFF := --exclude-warnings spec/std --exclude-warnings spec/compile
 SPEC_FLAGS := $(if $(verbose),-v )$(if $(junit_output),--junit_output $(junit_output) )
 CRYSTAL_CONFIG_LIBRARY_PATH := $(shell bin/crystal env CRYSTAL_LIBRARY_PATH 2> /dev/null)
 CRYSTAL_CONFIG_BUILD_COMMIT := $(shell git rev-parse --short HEAD 2> /dev/null)
-CRYSTAL_CONFIG_PATH := "%{COMPILER_DIR}/../share/crystal/src"
+CRYSTAL_CONFIG_PATH := "$$ORIGIN/../share/crystal/src"
 SOURCE_DATE_EPOCH := $(shell (git show -s --format=%ct HEAD || stat -c "%Y" Makefile || stat -f "%m" Makefile) 2> /dev/null)
 EXPORTS := \
   CRYSTAL_CONFIG_LIBRARY_PATH="$(CRYSTAL_CONFIG_LIBRARY_PATH)" \

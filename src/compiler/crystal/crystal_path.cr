@@ -14,13 +14,15 @@ module Crystal
     private DEFAULT_LIB_PATH = "lib"
 
     def self.default_path
-      path = ENV["CRYSTAL_PATH"]?
-
-      unless path
-        path = Crystal::Config.path.presence || DEFAULT_LIB_PATH
-        unless path.split(Process::PATH_DELIMITER).includes?(DEFAULT_LIB_PATH)
-          path = {DEFAULT_LIB_PATH, Crystal::Config.path}.join(Process::PATH_DELIMITER)
+      if path = ENV["CRYSTAL_PATH"]?
+        path_array = path.split(Process::PATH_DELIMITER)
+      elsif path = Crystal::Config.path.presence
+        path_array = path.split(Process::PATH_DELIMITER)
+        unless path_array.includes?(DEFAULT_LIB_PATH)
+          path_array.unshift DEFAULT_LIB_PATH
         end
+      else
+        path_array = [DEFAULT_LIB_PATH]
       end
 
       # Expand `%{COMPILER_DIR}` in the CRYSTAL_PATH value to the directory
@@ -34,9 +36,18 @@ module Crystal
       # to produce a portable binary that resolves the standard library path
       # relative to the compiler location, independent of the absolute path.
       if executable_path = Process.executable_path
-        path %= {"COMPILER_DIR": File.dirname(executable_path)}
+        path_array.map! do |path|
+          expand_path(path, File.dirname(executable_path))
+        end
       end
 
+      path_array.join(Process::PATH_DELIMITER)
+    end
+
+    def self.expand_path(path, origin)
+      if path.starts_with?("$ORIGIN") && ::Path::SEPARATORS.includes?(path[7]?)
+        path = File.join(origin, path[8..])
+      end
       path
     end
 

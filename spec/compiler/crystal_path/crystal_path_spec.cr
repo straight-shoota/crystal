@@ -117,4 +117,10 @@ describe Crystal::CrystalPath do
       crystal_path.entries.should eq(%w(foo bar))
     end
   end
+
+  it ".expand_path" do
+    Crystal::CrystalPath.expand_path("$ORIGIN/../foo", "/usr/bin/").should eq "/usr/bin/../foo"
+    Crystal::CrystalPath.expand_path("./$ORIGIN/../foo", "/usr/bin/").should eq "./$ORIGIN/../foo"
+    Crystal::CrystalPath.expand_path("$ORIGINfoo", "/usr/bin/").should eq "$ORIGINfoo"
+  end
 end
