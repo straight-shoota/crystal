@@ -118,9 +118,18 @@ describe Crystal::CrystalPath do
     end
   end
 
-  it ".expand_path" do
-    Crystal::CrystalPath.expand_path("$ORIGIN/../foo", "/usr/bin/").should eq "/usr/bin/../foo"
-    Crystal::CrystalPath.expand_path("./$ORIGIN/../foo", "/usr/bin/").should eq "./$ORIGIN/../foo"
-    Crystal::CrystalPath.expand_path("$ORIGINfoo", "/usr/bin/").should eq "$ORIGINfoo"
+  it ".expand_paths" do
+    paths = ["$ORIGIN/../foo"]
+    Crystal::CrystalPath.expand_paths(paths, "/usr/bin/")
+    paths.should eq ["/usr/bin/../foo"]
+    paths = ["./$ORIGIN/../foo"]
+    Crystal::CrystalPath.expand_paths(paths, "/usr/bin/")
+    paths.should eq ["./$ORIGIN/../foo"]
+    paths = ["$ORIGINfoo"]
+    Crystal::CrystalPath.expand_paths(paths, "/usr/bin/")
+    paths.should eq ["$ORIGINfoo"]
+    paths = ["lib", "$ORIGIN/../foo"]
+    Crystal::CrystalPath.expand_paths(paths, "/usr/bin/")
+    paths.should eq ["lib", "/usr/bin/../foo"]
   end
 end

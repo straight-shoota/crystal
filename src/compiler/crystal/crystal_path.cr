@@ -25,30 +25,32 @@ module Crystal
         path_array = [DEFAULT_LIB_PATH]
       end
 
-      # Expand `%{COMPILER_DIR}` in the CRYSTAL_PATH value to the directory
-      # where the compiler binary is located (at runtime).
-      # For install locations like
-      #    `/path/prefix/bin/crystal`         for the compiler
-      #    `/path/prefix/share/crystal/src`   for the stdandard library
-      # the path `%{COMPILER_DIR}/../share/crystal/src` resolves to
-      # the standard library location.
-      # This generic path can be passed into the compiler via CRYSTAL_CONFIG_PATH
-      # to produce a portable binary that resolves the standard library path
-      # relative to the compiler location, independent of the absolute path.
       if executable_path = Process.executable_path
-        path_array.map! do |path|
-          expand_path(path, File.dirname(executable_path))
-        end
+        expand_paths(path_array, File.dirname(executable_path))
       end
 
       path_array.join(Process::PATH_DELIMITER)
     end
 
-    def self.expand_path(path, origin)
-      if path.starts_with?("$ORIGIN") && ::Path::SEPARATORS.includes?(path[7]?)
-        path = File.join(origin, path[8..])
+
+    # Expand `$ORIGIN` in the paths to the directory where the compiler binary
+    # is located (at runtime).
+    # For install locations like
+    #    `/path/prefix/bin/crystal`         for the compiler
+    #    `/path/prefix/share/crystal/src`   for the standard library
+    # the path `$ORIGIN/../share/crystal/src` resolves to
+    # the standard library location.
+    # This generic path can be passed into the compiler via CRYSTAL_CONFIG_PATH
+    # to produce a portable binary that resolves the standard library path
+    # relative to the compiler location, independent of the absolute path.
+    def self.expand_paths(paths, origin)
+      paths.map! do |path|
+        if path.starts_with?("$ORIGIN") && ::Path::SEPARATORS.includes?(path[7]?)
+          path = File.join(origin, path[8..])
+        else
+          path
+        end
       end
-      path
     end
 
     property entries : Array(String)
