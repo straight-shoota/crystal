@@ -82,7 +82,14 @@ module Crystal
 
   class CrystalLibraryPath
     def self.default_path : String
-      ENV.fetch("CRYSTAL_LIBRARY_PATH", Crystal::Config.library_path)
+      path = ENV.fetch("CRYSTAL_LIBRARY_PATH", Crystal::Config.library_path)
+      path_array = path.split(Process::PATH_DELIMITER)
+
+      if executable_path = Process.executable_path
+        CrystalPath.expand_paths(path_array, File.dirname(executable_path))
+      end
+
+      path_array.join(Process::PATH_DELIMITER)
     end
 
     class_getter paths : Array(String) do
