@@ -707,6 +707,54 @@ describe "Semantic: abstract def" do
       CR
   end
 
+  it "must implement block signature" do
+    assert_error(<<-CR, "abstract `def Moo#each(& : (Int32 -> _))` must be implemented by Foo")
+      module Moo
+        abstract def each(& : Int32 -> _)
+      end
+
+      class Foo
+        include Moo
+
+        def each(& : String -> _)
+          yield ""
+        end
+      end
+      CR
+  end
+
+  it "must implement block signature" do
+    assert_error(<<-CR, "abstract `def Moo#each(& : (Int32 | String -> _))` must be implemented by Foo")
+      module Moo
+        abstract def each(& : Int32 | String -> _)
+      end
+
+      class Foo
+        include Moo
+
+        def each(& : String -> _)
+          yield ""
+        end
+      end
+      CR
+  end
+
+  it "must implement block signature" do
+    assert_error(<<-CR, "abstract `def Moo#each(& : (-> _))` must be implemented by Foo")
+      module Moo
+        abstract def each(& : -> _)
+      end
+
+      class Foo
+        include Moo
+
+        def each(&)
+          yield ""
+        end
+      end
+      CR
+  end
+
   it "doesn't error if implementation have default value" do
     semantic %(
       abstract class Foo

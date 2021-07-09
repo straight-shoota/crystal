@@ -107,6 +107,7 @@ class Crystal::AbstractDefChecker
 
         if implements?(target_type, ancestor_type, a_def, def_free_vars, base, method, method_free_vars)
           check_return_type(target_type, ancestor_type, a_def, base, method)
+          check_block_parameter_restriction(target_type, ancestor_type, a_def, base, method)
           return true
         end
       end
@@ -306,6 +307,26 @@ class Crystal::AbstractDefChecker
     unless return_type.implements?(base_return_type)
       report_error(return_type_node, "this method must return #{base_return_type}, which is the return type of the overridden method #{Call.def_full_name(base_type, base_method)}, or a subtype of it, not #{return_type}")
       return
+    end
+  end
+
+
+  # Checks that the block parameter type restriction of `type#method` matches
+  # that of `base_type#base_method` when computing that information for `target_type`
+  # (`type` is an ancestor of `target_type`).
+  def check_block_parameter_restriction(target_type : Type, type : Type, method : Def, base_type : Type, base_method : Def)
+    method_arg = method.block_arg
+    base_arg = base_method.block_arg
+
+    return unless method_arg && base_arg
+
+    restriction = method_arg.restriction
+    base_restriction = base_arg.restriction
+
+    return unless base_restriction
+
+    if restriction != base_restriction
+      report_error(method_arg, "abstract `def #{Call.def_full_name(base_type, base_method)}` must be implemented by #{target_type}")
     end
   end
 
