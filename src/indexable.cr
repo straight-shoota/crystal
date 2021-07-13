@@ -183,7 +183,7 @@ module Indexable(T)
   # ```text
   # a -- b -- c --
   # ```
-  def each
+  def each(& : T ->) : Nil
     each_index do |i|
       yield unsafe_fetch(i)
     end

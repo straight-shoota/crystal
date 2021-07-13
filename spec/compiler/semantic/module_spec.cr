@@ -158,7 +158,7 @@ describe "Semantic: module" do
       struct Int32
         include Enumerable(Int32)
 
-        def each
+        def each(& : Int32 ->) : Nil
           yield self
           yield self + 2
         end

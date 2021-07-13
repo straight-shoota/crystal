@@ -21,7 +21,7 @@ struct LLVM::BasicBlockCollection
     block
   end
 
-  def each : Nil
+  def each(& : BasicBlock ->) : Nil
     bb = LibLLVM.get_first_basic_block(@function)
     while bb
       yield LLVM::BasicBlock.new bb

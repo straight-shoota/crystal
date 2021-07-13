@@ -20,7 +20,11 @@ private class HashWrapper(K, V)
 
   @hash = {} of K => V
 
-  delegate each, to: @hash
+  def each(&block : {K, V} ->) : Nil
+    @hash.each do |t|
+      yield t
+    end
+  end
 end
 
 describe "Hash" do

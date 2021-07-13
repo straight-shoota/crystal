@@ -227,7 +227,7 @@ struct HTTP::Headers
     result.hash(hasher)
   end
 
-  def each
+  def each(& : {String, Array(String)} ->) : Nil
     @hash.each do |key, value|
       yield({key.name, cast(value)})
     end

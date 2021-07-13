@@ -96,7 +96,7 @@ module YAML::Nodes
       @nodes << node
     end
 
-    def each
+    def each(& : Node ->) : Nil
       @nodes.each do |node|
         yield node
       end

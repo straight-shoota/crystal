@@ -465,7 +465,7 @@ describe "Block inference" do
       class Foo
         include Enumerable(Int32 | Float64)
 
-        def each
+        def each(& : (Int32 | Float64) -> ) : Nil
           yield 1
           yield 1.5
         end

@@ -8,7 +8,7 @@ struct LLVM::InstructionCollection
     first?.nil?
   end
 
-  def each : Nil
+  def each(& : LLVM::Value ->) : Nil
     inst = LibLLVM.get_first_instruction @basic_block
 
     while inst

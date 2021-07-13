@@ -150,7 +150,7 @@ module Crystal
       end
     end
 
-    def each
+    def each(& : Match ->) : Nil
       @success && @matches.try &.each do |match|
         yield match
       end

@@ -3,7 +3,7 @@ require "spec"
 private class SpecEnumerable
   include Enumerable(Int32)
 
-  def each
+  def each(&block : Int32 ->)
     yield 1
     yield 2
     yield 3
@@ -13,7 +13,7 @@ end
 private class SpecEmptyEnumerable
   include Enumerable(Int32)
 
-  def each(&block : T -> _)
+  def each(&block : T ->)
   end
 end
 

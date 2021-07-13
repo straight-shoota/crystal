@@ -49,7 +49,7 @@ class XML::Attributes
     value if res == 0
   end
 
-  def each : Nil
+  def each(& : Node ->) : Nil
     return unless @node.element?
 
     props = self.props

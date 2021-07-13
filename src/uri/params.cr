@@ -312,7 +312,7 @@ class URI
     # # item => keychain
     # # item => keynote
     # ```
-    def each
+    def each(& : {String, String} ->) : Nil
       raw_params.each do |name, values|
         values.each do |value|
           yield({name, value})
