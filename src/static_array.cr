@@ -116,7 +116,7 @@ struct StaticArray(T, N)
   end
 
   def <=>(other : StaticArray)
-    to_slice <=> other.to_slice
+    as_unsafe_slice <=> other.as_unsafe_slice
   end
 
   @[AlwaysInline]
@@ -142,19 +142,19 @@ struct StaticArray(T, N)
   # :inherit:
   def fill(value : T) : self
     # enable memset optimization
-    to_slice.fill(value)
+    as_unsafe_slice.fill(value)
     self
   end
 
   # :inherit:
   def fill(value : T, start : Int, count : Int) : self
-    to_slice.fill(value, start, count)
+    as_unsafe_slice.fill(value, start, count)
     self
   end
 
   # :inherit:
   def fill(value : T, range : Range) : self
-    to_slice.fill(value, range)
+    as_unsafe_slice.fill(value, range)
     self
   end
 
@@ -260,13 +260,13 @@ struct StaticArray(T, N)
 
   # :inherit:
   def sort! : self
-    to_slice.sort!
+    as_unsafe_slice.sort!
     self
   end
 
   # :inherit:
   def unstable_sort! : self
-    to_slice.unstable_sort!
+    as_unsafe_slice.unstable_sort!
     self
   end
 
@@ -276,7 +276,7 @@ struct StaticArray(T, N)
       {% raise "Expected block to return Int32 or Nil, not #{U}.\nThe block is supposed to be a custom comparison operation, compatible with `Comparable#<=>`.\nDid you mean to use `#sort_by!`?" %}
     {% end %}
 
-    to_slice.sort!(&block)
+    as_unsafe_slice.sort!(&block)
     self
   end
 
@@ -286,7 +286,7 @@ struct StaticArray(T, N)
       {% raise "Expected block to return Int32 or Nil, not #{U}.\nThe block is supposed to be a custom comparison operation, compatible with `Comparable#<=>`.\nDid you mean to use `#unstable_sort_by!`?" %}
     {% end %}
 
-    to_slice.unstable_sort!(&block)
+    as_unsafe_slice.unstable_sort!(&block)
     self
   end
 
@@ -353,7 +353,7 @@ struct StaticArray(T, N)
 
   # :inherit:
   def rotate!(n : Int = 1) : self
-    to_slice.rotate!(n)
+    as_unsafe_slice.rotate!(n)
     self
   end
 
@@ -419,7 +419,7 @@ struct StaticArray(T, N)
     # value and for big static arrays that seems to make
     # LLVM really slow.
     # TODO: investigate why, maybe report a bug to LLVM?
-    pp.list("StaticArray[", to_slice, "]")
+    pp.list("StaticArray[", as_unsafe_slice, "]")
   end
 
   # Returns a new `StaticArray` where each element is cloned from elements in `self`.
@@ -435,7 +435,7 @@ struct StaticArray(T, N)
     # Optimize for the case of looking for a byte in a byte slice
     if T.is_a?(UInt8.class) &&
        (object.is_a?(UInt8) || (object.is_a?(Int) && 0 <= object < 256))
-      return to_slice.fast_index(object, offset)
+      return as_unsafe_slice.fast_index(object, offset)
     end
 
     super
