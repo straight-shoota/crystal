@@ -52,7 +52,7 @@ class Socket < IO
       when Errno::EADDRINUSE
         Socket::BindError.new(message, **opts)
       else
-        super message, os_error, **opts
+        super message || "", os_error, **opts
       end
     end
   end
