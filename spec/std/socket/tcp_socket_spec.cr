@@ -156,7 +156,7 @@ describe TCPSocket, tags: "network" do
     end
   end
 
-  it "sends and receives messages" do
+  it "sends and receives messages", focus: !true do
     port = unused_local_port
 
     channel = Channel(Exception?).new
