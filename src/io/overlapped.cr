@@ -106,6 +106,7 @@ module IO::Overlapped
     result = LibC.WSAGetOverlappedResult(socket, pointerof(operation).as(LibC::OVERLAPPED*), out bytes, false, pointerof(flags))
     if result.zero?
       error = WinError.wsa_value
+      p! error
       yield error
 
       raise IO::Error.from_os_error("WSAGetOverlappedResult", error)
@@ -123,9 +124,11 @@ module IO::Overlapped
       timeout_event = Crystal::Event.new(Fiber.current, Time::Span::MAX)
     end
     Crystal::EventLoop.enqueue(timeout_event)
+    ::puts "enqueing #{Fiber.current}"
 
     Crystal::Scheduler.reschedule
 
+    ::puts "resuming #{Fiber.current}"
     Crystal::EventLoop.dequeue(timeout_event)
   end
 
@@ -142,12 +145,14 @@ module IO::Overlapped
       end
     end
 
+    p! method
     schedule_overlapped(timeout)
 
     get_overlapped_result(socket, operation) do |error|
       case error
       when .wsa_io_incomplete?
         raise TimeoutError.new("#{method} timed out")
+        #raise ::Socket::Error.from_os_error(method, error)
       when .wsaeconnreset?
         return 0_u32 unless connreset_is_error
       end
@@ -159,6 +164,9 @@ module IO::Overlapped
 
     yield pointerof(operation).as(LibC::OVERLAPPED*)
 
+    # unless schedule_overlapped(read_timeout)
+    #   return ::Socket::ConnectError.new(method)
+    # end
     schedule_overlapped(read_timeout || 1.seconds)
 
     get_overlapped_result(socket, operation) do |error|
