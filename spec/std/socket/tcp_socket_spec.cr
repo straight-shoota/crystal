@@ -155,4 +155,44 @@ describe TCPSocket, tags: "network" do
       end
     end
   end
+
+  it "sends and receives messages" do
+    port = unused_local_port
+
+    channel = Channel(Exception?).new
+    spawn do
+      TCPServer.open("::", port) do |server|
+        channel.send nil
+        sock = server.accept
+        sock.read_timeout = 3.second
+        sock.write_timeout = 3.second
+
+        sock.gets(4).should eq("ping")
+        puts "client sent"
+        sock << "pong"
+        puts "client received"
+        channel.send nil
+      end
+    rescue exc
+      puts exc
+      channel.send exc
+    end
+
+    if exc = channel.receive
+      raise exc
+    end
+
+    TCPSocket.open("localhost", port) do |client|
+      client.read_timeout = 3.second
+      client.write_timeout = 3.second
+      client << "ping"
+      puts "server sent"
+      client.gets(4).should eq("pong")
+      puts "server received"
+    end
+
+    if exc = channel.receive
+      raise exc
+    end
+  end
 end
