@@ -126,6 +126,14 @@ module Crystal
     def single_expression?
       nil
     end
+
+    def inspect(io : IO) : Nil
+      {% if @type.overrides?(ASTNode, :pretty_print) %}
+        io << pretty_inspect
+      {% else %}
+        self.class.name.to_s(io)
+      {% end %}
+    end
   end
 
   class Nop < ASTNode
@@ -199,6 +207,16 @@ module Crystal
     end
 
     def_equals_and_hash expressions
+
+    def pretty_print(pp) : Nil
+      pp.surround("Expressions{", "}") do
+        pp.group do
+          pp.nest do
+            expressions.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   # The nil literal.
@@ -211,6 +229,10 @@ module Crystal
     end
 
     def_equals_and_hash
+
+    def pretty_print(pp) : Nil
+      pp.text "NilLiteral"
+    end
   end
 
   # A bool literal.
@@ -228,6 +250,12 @@ module Crystal
     end
 
     def_equals_and_hash value
+
+    def pretty_print(pp) : Nil
+      pp.surround("BoolLiteral{", "}") do
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   # Any number literal.
@@ -286,6 +314,14 @@ module Crystal
       else              raise "Unsupported Number type for NumberLiteral: #{number.class}"
       end
     end
+
+    def pretty_print(pp) : Nil
+      pp.surround("NumberLiteral{", "}") do
+        @value.pretty_print(pp)
+        pp.comma
+        @kind.pretty_print(pp)
+      end
+    end
   end
 
   # A char literal.
@@ -303,6 +339,12 @@ module Crystal
     end
 
     def_equals_and_hash value
+
+    def pretty_print(pp) : Nil
+      pp.surround("CharLiteral{", "}") do
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   class StringLiteral < ASTNode
@@ -316,6 +358,12 @@ module Crystal
     end
 
     def_equals_and_hash value
+
+    def pretty_print(pp) : Nil
+      pp.surround("StringLiteral{", "}") do
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   class StringInterpolation < ASTNode
@@ -337,6 +385,16 @@ module Crystal
     end
 
     def_equals_and_hash expressions
+
+    def pretty_print(pp) : Nil
+      pp.surround("StringInterpolation{", "}") do
+        pp.group do
+          pp.nest do
+            @expressions.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   class SymbolLiteral < ASTNode
@@ -350,6 +408,12 @@ module Crystal
     end
 
     def_equals_and_hash value
+
+    def pretty_print(pp) : Nil
+      pp.surround("SymbolLiteral{", "}") do
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   # An array literal.
@@ -383,6 +447,30 @@ module Crystal
     end
 
     def_equals_and_hash @elements, @of, @name
+
+    def pretty_print(pp) : Nil
+      pp.surround("ArrayLiteral{", "}") do
+        pp.group do
+          pp.nest do
+            elements.pretty_print(pp)
+          end
+        end
+        if of = self.of
+          pp.comma
+          pp.group do
+            pp.text "of: "
+            of.pretty_print(pp)
+          end
+        end
+        if name = self.name
+          pp.comma
+          pp.group do
+            pp.text "name: "
+            name.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   class HashLiteral < ASTNode
@@ -411,7 +499,39 @@ module Crystal
 
     def_equals_and_hash @entries, @of, @name
 
-    record Entry, key : ASTNode, value : ASTNode
+    record Entry, key : ASTNode, value : ASTNode do
+      def pretty_print(pp) : Nil
+        pp.surround "HashLiteral::Entry{", "}" do
+          key.pretty_print pp
+          pp.comma
+          value.pretty_print pp
+        end
+      end
+    end
+
+    def pretty_print(pp) : Nil
+      pp.surround("HashLiteral{", "}") do
+        pp.group do
+          pp.nest do
+            entries.pretty_print(pp)
+          end
+        end
+        if of = self.of
+          pp.comma
+          pp.group do
+            pp.text "of: "
+            of.pretty_print(pp)
+          end
+        end
+        if name = self.name
+          pp.comma
+          pp.group do
+            pp.text "name: "
+            name.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   class NamedTupleLiteral < ASTNode
@@ -432,7 +552,23 @@ module Crystal
 
     def_equals_and_hash @entries
 
-    record Entry, key : String, value : ASTNode
+    record Entry, key : String, value : ASTNode do
+      def pretty_print(pp) : Nil
+        key.pretty_print pp
+        pp.text ": "
+        value.pretty_print pp
+      end
+    end
+
+    def pretty_print(pp) : Nil
+      pp.surround("NamedTupleLiteral{", "}") do
+        pp.group do
+          pp.nest do
+            entries.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   class RangeLiteral < ASTNode
@@ -453,6 +589,16 @@ module Crystal
     end
 
     def_equals_and_hash @from, @to, @exclusive
+
+    def pretty_print(pp) : Nil
+      pp.surround("RangeLiteral{", "}") do
+        @from.pretty_print(pp)
+        pp.comma
+        @to.pretty_print(pp)
+        pp.comma
+        @exclusive.pretty_print(pp)
+      end
+    end
   end
 
   class RegexLiteral < ASTNode
@@ -471,6 +617,20 @@ module Crystal
     end
 
     def_equals_and_hash @value, @options
+
+    def pretty_print(pp) : Nil
+      pp.surround("RegexLiteral{", "}") do
+        @value.pretty_print(pp)
+        unless @options.none?
+          pp.comma
+          pp.group do
+            pp.nest do
+              @options.pretty_print(pp)
+            end
+          end
+        end
+      end
+    end
   end
 
   class TupleLiteral < ASTNode
@@ -496,6 +656,16 @@ module Crystal
     end
 
     def_equals_and_hash elements
+
+    def pretty_print(pp) : Nil
+      pp.surround("TuplLiteral{", "}") do
+        pp.group do
+          pp.nest do
+            @elements.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   module SpecialVar
@@ -521,8 +691,13 @@ module Crystal
       Var.new(@name)
     end
 
-    def_equals name
-    def_hash name
+    def_equals_and_hash name
+
+    def pretty_print(pp) : Nil
+      pp.surround("Var{", "}") do
+        @name.pretty_print(pp)
+      end
+    end
   end
 
   # A code block.
@@ -553,6 +728,32 @@ module Crystal
     end
 
     def_equals_and_hash args, body, splat_index
+
+    def pretty_print(pp) : Nil
+      pp.surround("Block{", "}") do
+        pp.group do
+          pp.nest do
+            @args.pretty_print(pp)
+          end
+        end
+        if body = self.body
+          pp.comma
+          pp.group do
+            pp.text "body: "
+            pp.nest do
+              @args.pretty_print(pp)
+            end
+          end
+        end
+        if splat_index = self.splat_index
+          pp.comma
+          pp.group do
+            pp.text "splat_index: "
+            splat_index.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   # A method call.
@@ -639,6 +840,51 @@ module Crystal
     end
 
     def_equals_and_hash obj, name, args, block, block_arg, named_args, global?
+
+    def pretty_print(pp) : Nil
+      pp.surround("Call{", "}") do
+        pp.nest do
+          obj.pretty_print(pp)
+        end
+        pp.comma
+        name.pretty_print(pp)
+        unless args.empty?
+          pp.comma
+          args.pretty_print(pp)
+        end
+        if block = @block
+          pp.comma
+          pp.group do
+            pp.text "block: "
+            pp.nest do
+              block.pretty_print(pp)
+            end
+          end
+        end
+        if block_arg = @block_arg
+          pp.comma
+          pp.group do
+            pp.text "block_arg: "
+            pp.nest do
+              block_arg.pretty_print(pp)
+            end
+          end
+        end
+        if named_args = @named_args
+          pp.comma
+          pp.group do
+            pp.text "named_args: "
+            pp.nest do
+              named_args.pretty_print(pp)
+            end
+          end
+        end
+        if global?
+          pp.comma
+          pp.text "global: true"
+        end
+      end
+    end
   end
 
   class NamedArgument < ASTNode
@@ -657,6 +903,14 @@ module Crystal
     end
 
     def_equals_and_hash name, value
+
+    def pretty_print(pp) : Nil
+      pp.surround("NamedArgument{", "}") do
+        @name.pretty_print(pp)
+        pp.comma
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   # An if expression.
@@ -693,6 +947,27 @@ module Crystal
     end
 
     def_equals_and_hash @cond, @then, @else
+
+    def pretty_print(pp) : Nil
+      pp.surround("If{", "}") do
+        @cond.pretty_print(pp)
+        if a_then = @then
+          pp.comma
+          a_then.pretty_print(pp)
+        end
+        if a_else = @else
+          pp.comma
+          pp.group do
+            pp.text "a_else: "
+            a_else.pretty_print(pp)
+          end
+        end
+        if ternary?
+          pp.comma
+          pp.text "ternary: true"
+        end
+      end
+    end
   end
 
   class Unless < ASTNode
@@ -716,6 +991,23 @@ module Crystal
     end
 
     def_equals_and_hash @cond, @then, @else
+
+    def pretty_print(pp) : Nil
+      pp.surround("Unless{", "}") do
+        @cond.pretty_print(pp)
+        if a_then = @then
+          pp.comma
+          a_then.pretty_print(pp)
+        end
+        if a_else = @else
+          pp.comma
+          pp.group do
+            pp.text "a_else: "
+            a_else.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   # Assign expression.
@@ -748,6 +1040,14 @@ module Crystal
     end
 
     def_equals_and_hash @target, @value
+
+    def pretty_print(pp) : Nil
+      pp.surround("Assign{", "}") do
+        @target.pretty_print(pp)
+        pp.comma
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   # Operator assign expression.
@@ -780,6 +1080,16 @@ module Crystal
     end
 
     def_equals_and_hash @target, @op, @value
+
+    def pretty_print(pp) : Nil
+      pp.surround("OpAssign{", "}") do
+        @target.pretty_print(pp)
+        pp.comma
+        @op.pretty_print(pp)
+        pp.comma
+        @value.pretty_print(pp)
+      end
+    end
   end
 
   # Assign expression.
@@ -811,6 +1121,14 @@ module Crystal
     end
 
     def_hash @targets, @values
+
+    def pretty_print(pp) : Nil
+      pp.surround("MultiAssign{", "}") do
+        @targets.pretty_print(pp)
+        pp.comma
+        @values.pretty_print(pp)
+      end
+    end
   end
 
   # An instance variable.
@@ -829,6 +1147,12 @@ module Crystal
     end
 
     def_equals_and_hash name
+
+    def pretty_print(pp) : Nil
+      pp.surround("InstanceVar{", "}") do
+        @name.pretty_print(pp)
+      end
+    end
   end
 
   class ReadInstanceVar < ASTNode
@@ -847,6 +1171,14 @@ module Crystal
     end
 
     def_equals_and_hash @obj, @name
+
+    def pretty_print(pp) : Nil
+      pp.surround("ReadInstanceVar{", "}") do
+        @obj.pretty_print(pp)
+        pp.comma
+        @name.pretty_print(pp)
+      end
+    end
   end
 
   class ClassVar < ASTNode
@@ -860,6 +1192,12 @@ module Crystal
     end
 
     def_equals_and_hash name
+
+    def pretty_print(pp) : Nil
+      pp.surround("ClassVar{", "}") do
+        @name.pretty_print(pp)
+      end
+    end
   end
 
   # A global variable.
@@ -878,6 +1216,12 @@ module Crystal
     end
 
     def_equals_and_hash name
+
+    def pretty_print(pp) : Nil
+      pp.surround("Global{", "}") do
+        @name.pretty_print(pp)
+      end
+    end
   end
 
   abstract class BinaryOp < ASTNode
@@ -897,6 +1241,15 @@ module Crystal
     end
 
     def_equals_and_hash left, right
+
+    def pretty_print(pp) : Nil
+      _, _, name = self.class.name.rpartition("::")
+      pp.surround("#{name}{", "}") do
+        @left.pretty_print(pp)
+        pp.comma
+        @right.pretty_print(pp)
+      end
+    end
   end
 
   # Expressions and.
@@ -948,6 +1301,12 @@ module Crystal
     end
 
     def_equals_and_hash name, default_value, restriction, external_name
+
+    # def pretty_print(pp) : Nil
+    #   pp.surround("Arg{", "}") do
+    #     @name.pretty_print(pp)
+    #   end
+    # end
   end
 
   # The Proc notation in the type grammar:
@@ -1082,6 +1441,13 @@ module Crystal
     end
 
     def_equals_and_hash exp
+
+    def pretty_print(pp) : Nil
+      _, _, name = self.class.name.rpartition("::")
+      pp.surround("#{name}{", "}") do
+        @exp.pretty_print(pp)
+      end
+    end
   end
 
   # Used only for flags
@@ -1327,6 +1693,22 @@ module Crystal
     end
 
     def_equals_and_hash @names, @global
+
+    def pretty_print(pp) : Nil
+      pp.surround("Path{", "}") do
+        pp.group do
+          pp.nest do
+            names.pretty_print(pp)
+          end
+        end
+        if global?
+          pp.comma
+          pp.group do
+            pp.text "global: true"
+          end
+        end
+      end
+    end
   end
 
   # Class definition:
@@ -1982,6 +2364,14 @@ module Crystal
     end
 
     def_equals_and_hash @obj, @to
+
+    def pretty_print(pp) : Nil
+      pp.surround("Cast{", "}") do
+        @obj.pretty_print(pp)
+        pp.comma
+        @to.pretty_print(pp)
+      end
+    end
   end
 
   # obj.as?(to)
@@ -2006,6 +2396,14 @@ module Crystal
     end
 
     def_equals_and_hash @obj, @to
+
+    def pretty_print(pp) : Nil
+      pp.surround("NilableCast{", "}") do
+        @obj.pretty_print(pp)
+        pp.comma
+        @to.pretty_print(pp)
+      end
+    end
   end
 
   # typeof(exp, exp, ...)
