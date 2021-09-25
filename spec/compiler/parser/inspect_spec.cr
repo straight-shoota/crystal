@@ -49,11 +49,23 @@ describe "ASTNode#inspect" do
      }
     AST
   expect_inspect "foo(a.as(Int32))", %(Call{nil, "foo", [Cast{Call{nil, "a"}, Path{["Int32"]}}]})
-end
-  expect_inspect "(1 + 2).as(Int32)", "(1 + 2).as(Int32)"
-  expect_inspect "a.as?(Int32)"
-  expect_inspect "(1 + 2).as?(Int32)", "(1 + 2).as?(Int32)"
-  describe focus: true do
+  expect_inspect "(1 + 2).as(Int32)", <<-AST
+    Cast{
+     Expressions{
+      [Call{NumberLiteral{"1", :i32}, "+", [NumberLiteral{"2", :i32}]}]
+      },
+     Path{["Int32"]}
+     }
+    AST
+  expect_inspect "a.as?(Int32)", %(NilableCast{Call{nil, "a"}, Path{["Int32"]}})
+  expect_inspect "(1 + 2).as?(Int32)", <<-AST
+    NilableCast{
+     Expressions{
+      [Call{NumberLiteral{"1", :i32}, "+", [NumberLiteral{"2", :i32}]}]
+      },
+     Path{["Int32"]}
+     }
+    AST
   expect_inspect "@foo.bar", %(Call{InstanceVar{"@foo"}, "bar"})
   expect_inspect %(:foo), %(SymbolLiteral{"foo"})
   expect_inspect %(:"{"), %(SymbolLiteral{"{"})
@@ -64,32 +76,57 @@ end
   expect_inspect %(/\\s/), %(RegexLiteral{StringLiteral{"\\\\s"}})
   expect_inspect %(/\\?/), %(RegexLiteral{StringLiteral{"\\\\?"}})
   expect_inspect %(/\\(group\\)/), %(RegexLiteral{StringLiteral{"\\\\(group\\\\)"}})
-  pending { expect_inspect %(/\\//), %(RegexLiteral{StringLiteral{"\\/"}}) }
+  expect_inspect %(/\\//), %(RegexLiteral{StringLiteral{"/"}})
   expect_inspect %(/\#{1 / 2}/), %(RegexLiteral{\n StringInterpolation{\n  [Call{NumberLiteral{"1", :i32}, "/", [NumberLiteral{"2", :i32}]}]\n  }\n })
-  end
-  expect_inspect %<%r(/)>, %(/\\//)
-  expect_inspect %(/ /), %(/\\ /)
-  expect_inspect %(%r( )), %(/\\ /)
-  expect_inspect %(foo &.bar), %(foo(&.bar))
-  expect_inspect %(foo &.bar(1, 2, 3)), %(foo(&.bar(1, 2, 3)))
-  expect_inspect %(foo { |i| i.bar { i } }), "foo do |i|\n  i.bar do\n    i\n  end\nend"
-  expect_inspect %(foo do |k, v|\n  k.bar(1, 2, 3)\nend)
-  expect_inspect %(foo(3, &.*(2)))
-  expect_inspect %(return begin\n  1\n  2\nend)
-  expect_inspect %(macro foo\n  %bar = 1\nend)
-  expect_inspect %(macro foo\n  %bar = 1; end)
-  expect_inspect %(macro foo\n  %bar{1, x} = 1\nend)
-  expect_inspect %({% foo %})
-  expect_inspect %({{ foo }})
+  expect_inspect %<%r(/)>, %(RegexLiteral{StringLiteral{"/"}})
+  expect_inspect %(/ /), %(RegexLiteral{StringLiteral{" "}})
+  expect_inspect %(%r( )), %(RegexLiteral{StringLiteral{" "}})
+  expect_inspect %(foo &.bar), %(Call{nil, "foo", block: Block{[Var{"__arg0"}], body: [Var{"__arg0"}]}})
+  expect_inspect %(foo &.bar(1, 2, 3)), %(Call{nil, "foo", block: Block{[Var{"__arg0"}], body: [Var{"__arg0"}]}})
+  expect_inspect %(foo { |i| i.bar { i } }), %(Call{nil, "foo", block: Block{[Var{"i"}], body: [Var{"i"}]}})
+  expect_inspect %(foo do |k, v|\n  k.bar(1, 2, 3)\nend), %(Call{\n nil,\n "foo",\n block: Block{[Var{"k"}, Var{"v"}], body: [Var{"k"}, Var{"v"}]}\n })
+  expect_inspect %(foo(3, &.*(2))), %(Call{\n nil,\n "foo",\n [NumberLiteral{"3", :i32}],\n block: Block{[Var{"__arg0"}], body: [Var{"__arg0"}]}\n })
+  expect_inspect %(return begin\n  1\n  2\nend), %(Crystal::Return)
+end
+  expect_inspect %(macro foo\n  %bar = 1\nend), %()
+  expect_inspect %(macro foo\n  %bar = 1; end), %()
+  expect_inspect %(macro foo\n  %bar{1, x} = 1\nend), %()
+  expect_inspect %({% foo %}), %()
+  expect_inspect %({{ foo }}), %()
   expect_inspect %({% if foo %}\n  foo_then\n{% end %})
   expect_inspect %({% if foo %}\n  foo_then\n{% else %}\n  foo_else\n{% end %})
   expect_inspect %({% for foo in bar %}\n  {{ foo }}\n{% end %})
   expect_inspect %(macro foo\n  {% for foo in bar %}\n    {{ foo }}\n  {% end %}\nend)
-  expect_inspect %[1.as(Int32)]
-  expect_inspect %[(1 || 1.1).as(Int32)], %[(1 || 1.1).as(Int32)]
-  expect_inspect %[1 & 2 & (3 | 4)], %[(1 & 2) & (3 | 4)]
-  expect_inspect %[(1 & 2) & (3 | 4)]
-  expect_inspect "def foo(x : T = 1)\nend"
+describe focus: true do
+  expect_inspect %[1.as(Int32)], %(Cast{NumberLiteral{"1", :i32}, Path{["Int32"]}})
+  expect_inspect %[(1 || 1.1).as(Int32)], <<-AST
+    Cast{
+     Expressions{[Or{NumberLiteral{"1", :i32}, NumberLiteral{"1.1", :f64}}]},
+     Path{["Int32"]}
+     }
+    AST
+  expect_inspect %[1 & 2 & (3 | 4)], <<-AST
+    Call{
+     Call{NumberLiteral{"1", :i32}, "&", [NumberLiteral{"2", :i32}]},
+     "&",
+     [Expressions{
+       [Call{NumberLiteral{"3", :i32}, "|", [NumberLiteral{"4", :i32}]}]
+       }]
+     }
+    AST
+  expect_inspect %[(1 & 2) & (3 | 4)], <<-AST
+    Call{
+     Expressions{
+       [Call{NumberLiteral{"1", :i32}, "&", [NumberLiteral{"2", :i32}]}]
+       },
+     "&",
+     [Expressions{
+       [Call{NumberLiteral{"3", :i32}, "|", [NumberLiteral{"4", :i32}]}]
+       }]
+     }
+    AST
+  expect_inspect "def foo(x : T = 1)\nend", %(Def{"foo", [x : T = 1], })
+  end
   expect_inspect "def foo(x : X, y : Y) forall X, Y\nend"
   expect_inspect %(foo : A | (B -> C))
   expect_inspect %[%("\#{foo}")], %["\\"\#{foo}\\""]

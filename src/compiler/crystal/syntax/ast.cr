@@ -1394,6 +1394,36 @@ module Crystal
     end
 
     def_equals_and_hash @name, @args, @body, @receiver, @block_arg, @return_type, @macro_def, @yields, @abstract, @splat_index, @double_splat
+
+    private macro pp_property(pp, name)
+      %pp = pp
+      if %value = @{{ name.id }}
+        %pp.comma
+        %pp.group do
+          %pp.text "{{ name }}: "
+          %value.pretty_print(%pp)
+        end
+      end
+    end
+
+    def pretty_print(pp) : Nil
+      pp.surround("Def{", "}") do
+        @name.pretty_print(pp)
+        pp.comma
+        @args.pretty_print(pp)
+        pp.comma
+        @body.pretty_print(pp)
+
+        pp_property(pp, receiver)
+        pp_property(pp, block_arg)
+        pp_property(pp, return_type)
+        pp_property(pp, macro_def)
+        pp_property(pp, yields)
+        pp_property(pp, :abstract)
+        pp_property(pp, splat_index)
+        pp_property(pp, double_splat)
+      end
+    end
   end
 
   class Macro < ASTNode
@@ -1428,6 +1458,37 @@ module Crystal
     end
 
     def_equals_and_hash @name, @args, @body, @block_arg, @splat_index, @double_splat
+
+    def pretty_print(pp) : Nil
+      pp.surround("Macro{", "}") do
+        @name.pretty_print(pp)
+        pp.comma
+        @args.pretty_print(pp)
+        pp.comma
+        @body.pretty_print(pp)
+        if block_arg = @block_arg
+          pp.comma
+          pp.group do
+            pp.text "block_arg: "
+            block_arg.pretty_print(pp)
+          end
+        end
+        if splat_index = @splat_index
+          pp.comma
+          pp.group do
+            pp.text "splat_index: "
+            splat_index.pretty_print(pp)
+          end
+        end
+        if double_splat = @double_splat
+          pp.comma
+          pp.group do
+            pp.text "double_splat: "
+            double_splat.pretty_print(pp)
+          end
+        end
+      end
+    end
   end
 
   abstract class UnaryExpression < ASTNode
