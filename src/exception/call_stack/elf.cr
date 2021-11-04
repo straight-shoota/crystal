@@ -19,15 +19,15 @@ struct Exception::CallStack
     program = Process.executable_path
     return unless program && File.readable? program
     Crystal::ELF.open(program) do |elf|
-      dwarf = Crystal::DWARF::Data.new(elf)
+      names = [] of {LibC::SizeT, LibC::SizeT, String}
+      dwarf = Crystal::DWARF::Data.new(elf) do |dwarf|
+        parse_function_names_from_dwarf(dwarf.info, dwarf.strings, dwarf.line_strings) do |low_pc, high_pc, name|
+          names << {low_pc + base_address, high_pc + base_address, name}
+        end
+      end
 
       @@dwarf_line_numbers = dwarf.line_numbers
 
-      names = [] of {LibC::SizeT, LibC::SizeT, String}
-
-      parse_function_names_from_dwarf(dwarf.info, dwarf.strings, dwarf.line_strings) do |low_pc, high_pc, name|
-        names << {low_pc + base_address, high_pc + base_address, name}
-      end
       @@dwarf_function_names = names
     end
   end

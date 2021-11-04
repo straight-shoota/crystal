@@ -16,6 +16,15 @@ describe Crystal::DWARF::LineNumbers do
           info.dwarf64.should be_false
         end
       end
+      it "gcc" do
+        read_elf "line-gcc-dwarf4.elf" do |elf|
+          infos = [] of String
+          dwarf = Crystal::DWARF::Data.new(elf) do |dwarf|
+            infos << "#{dwarf.info.unit_type}"
+          end
+          p! infos
+        end
+      end
 
       it "clang" do
         read_elf "line-clang-dwarf4.elf" do |elf|
