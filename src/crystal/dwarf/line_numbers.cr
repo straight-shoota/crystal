@@ -112,11 +112,26 @@ module Crystal
       # The decoded line number information for an instruction.
       record Row,
         address : UInt64,
-        op_index : UInt32,
         path : String,
         line : Int32,
         column : Int32,
-        end_sequence : Bool
+        end_sequence : Bool = false,
+        op_index : UInt32 = 0 do
+          def inspect(io : IO)
+            io << "Crystal::DWARF::LineNumbers::Row(0x"
+            address.to_s(io, 16)
+            io << ", "
+            path.dump(io)
+            io << ", " << line << ", " << column
+            if op_index != 0 || end_sequence
+              io << ", true"
+              if op_index != 0
+                io << ", " << op_index
+              end
+            end
+            io << ")"
+          end
+        end
 
       # :nodoc:
       #
@@ -510,12 +525,12 @@ module Crystal
           path = sequence.file_names[registers.file].path
 
           row = Row.new(
-            registers.address + @base_address,
-            registers.op_index,
-            path,
-            registers.line.to_i,
-            registers.column.to_i,
-            registers.end_sequence
+            address: registers.address + @base_address,
+            op_index: registers.op_index,
+            path: path,
+            line: registers.line.to_i,
+            column: registers.column.to_i,
+            end_sequence: registers.end_sequence
           )
 
           if rows = @current_sequence_matrix
