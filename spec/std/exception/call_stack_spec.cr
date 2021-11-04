@@ -13,8 +13,8 @@ describe "Backtrace" do
     _, output, _ = compile_and_run_file(source_file)
 
     # resolved file line:column
-    output.should match(/^#{source_file}:3:10 in 'callee1'/m)
-    output.should match(/^#{source_file}:13:5 in 'callee3'/m)
+    output.should match(/^#{source_file}:3:10 in 'Kls#callee1:Nil'/m)
+    output.should match(/^#{source_file}:13:5 in 'callee3:Nil'/m)
 
     # skipped internal details
     output.should_not contain("src/callstack.cr")
