@@ -9,7 +9,7 @@ module Crystal
       property unit_type : UInt8
       property debug_abbrev_offset : UInt32 | UInt64
       property address_size : UInt8
-      property! abbreviations : Array(Abbrev)
+      property abbreviations = [] of Abbrev
 
       property dwarf64 : Bool
       @offset : Int64
@@ -51,7 +51,7 @@ module Crystal
       alias Value = Bool | Int32 | Int64 | Slice(UInt8) | String | UInt16 | UInt32 | UInt64 | UInt8
 
       def read_abbreviations(io)
-        @abbreviations = Abbrev.read(io, debug_abbrev_offset)
+        Abbrev.read(io, debug_abbrev_offset, @abbreviations)
       end
 
       def each

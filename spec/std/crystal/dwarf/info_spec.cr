@@ -12,7 +12,7 @@ describe Crystal::DWARF::LineNumbers do
           info.unit_type.should eq 0
           info.debug_abbrev_offset.should eq 0
           info.address_size.should eq 8
-          info.abbreviations?.should be_nil
+          info.abbreviations.should be_empty
           info.dwarf64.should be_false
         end
       end
@@ -35,7 +35,7 @@ describe Crystal::DWARF::LineNumbers do
           info.unit_type.should eq 0
           info.debug_abbrev_offset.should eq 0
           info.address_size.should eq 8
-          info.abbreviations?.should be_nil
+          info.abbreviations.should be_empty
           info.dwarf64.should be_false
         end
       end
@@ -65,7 +65,7 @@ describe Crystal::DWARF::LineNumbers do
           info.unit_type.should eq 1
           info.debug_abbrev_offset.should eq 0
           info.address_size.should eq 8
-          info.abbreviations?.should be_nil
+          info.abbreviations.should be_empty
           info.dwarf64.should be_false
         end
       end

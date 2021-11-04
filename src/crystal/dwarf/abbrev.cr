@@ -237,9 +237,7 @@ module Crystal
         @children
       end
 
-      def self.read(io : IO::FileDescriptor, offset)
-        abbreviations = [] of Abbrev
-
+      def self.read(io : IO::FileDescriptor, offset, abbreviations)
         io.seek(io.tell + offset)
         loop do
           code = DWARF.read_unsigned_leb128(io)
@@ -263,8 +261,6 @@ module Crystal
 
           abbreviations << abbrev
         end
-
-        abbreviations
       end
     end
   end
