@@ -2,6 +2,7 @@ require "./dwarf/abbrev"
 require "./dwarf/info"
 require "./dwarf/line_numbers"
 require "./dwarf/strings"
+require "./dwarf/data"
 
 module Crystal
   # :nodoc:
