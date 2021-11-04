@@ -187,6 +187,8 @@ module Crystal
 
       @offset : Int64
 
+      getter sequences = Array(Sequence).new
+
       def initialize(@io : IO::FileDescriptor, size, @base_address : LibC::SizeT = 0, @strings : Strings? = nil, @line_strings : Strings? = nil)
         @offset = @io.tell
         @matrix = Array(Array(Row)).new
@@ -280,6 +282,7 @@ module Crystal
             sequence.file_names = Array.new(count) { read_lnct(sequence, file_format) }
           end
 
+          sequences << sequence
           if @io.tell - @offset < sequence.offset + sequence.total_length
             read_statement_program(sequence)
           end
