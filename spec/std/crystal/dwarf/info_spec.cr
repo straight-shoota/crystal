@@ -68,15 +68,29 @@ describe Crystal::DWARF::LineNumbers do
 
       it "clang" do
         read_elf "line-clang-dwarf5.elf" do |elf|
-          dwarf = Crystal::DWARF::Data.new(elf)
-          info = dwarf.info.should_not be_nil
+          infos = [] of Crystal::DWARF::Info
+          dwarf = Crystal::DWARF::Data.new(elf) do |data|
+            infos << data.info
+          end
+          info = infos[0]
           info.version.should eq 5
           info.unit_length.should eq 105
           info.unit_type.should eq 1
           info.debug_abbrev_offset.should eq 0
           info.address_size.should eq 8
-          info.abbreviations.should be_empty
+          info.abbreviations.should_not be_empty
           info.dwarf64.should be_false
+
+          info = infos[1]
+          info.version.should eq 5
+          info.unit_length.should eq 43
+          info.unit_type.should eq 1
+          info.debug_abbrev_offset.should eq 115
+          info.address_size.should eq 8
+          info.abbreviations.should_not be_empty
+          info.dwarf64.should be_false
+
+          infos.size.should eq 2
         end
       end
     end
