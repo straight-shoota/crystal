@@ -93,6 +93,25 @@ describe Crystal::DWARF::LineNumbers do
           infos.size.should eq 2
         end
       end
+
+      it focus: true do
+        read_elf "line-clang-dwarf5.elf" do |elf|
+          infos = [] of Crystal::DWARF::Info
+          dwarf = Crystal::DWARF::Data.new(elf) do |data|
+            infos << data.info
+            data.info.each do |code, abbrev, attributes|
+              #p! code, abbrev, attributes
+              puts "code #{code}"
+              attributes.each do |attr|
+                if attr[1].strx1?
+                  value = data.strings.try &.decode(attr[2].as(Int::Unsigned))
+                end
+                puts "#{attr[0]} (#{attr[1]}): #{value}"
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

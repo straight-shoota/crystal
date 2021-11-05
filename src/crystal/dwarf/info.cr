@@ -149,6 +149,10 @@ module Crystal
         when FORM::Indirect
           form = FORM.new(DWARF.read_unsigned_leb128(@io))
           read_attribute_value(form, attr)
+        when FORM::Strx1
+          @io.read_bytes(UInt8)
+        when FORM::Addrx
+          DWARF.read_unsigned_leb128(@io)
         else
           raise "Unknown DW_FORM_#{form.to_s.underscore}"
         end
