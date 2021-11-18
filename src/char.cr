@@ -272,24 +272,40 @@ struct Char
 
   # Returns `true` if this char is an ASCII whitespace.
   #
-  # ```
-  # ' '.ascii_whitespace?  # => true
-  # '\t'.ascii_whitespace? # => true
-  # 'b'.ascii_whitespace?  # => false
-  # ```
-  def ascii_whitespace? : Bool
-    self == ' ' || 9 <= ord <= 13
-  end
-
-  # Returns `true` if this char is a whitespace according to unicode.
+  # The space character (`U+0020`) as well as the control characters `\t`, `\n`,
+  # `\v`, `\f`, `\r` (`U+0009` through `U+000D`) are considered whitespace in
+  # the *Basic Latin* block (ASCII).
   #
   # ```
-  # ' '.whitespace?  # => true
-  # '\t'.whitespace? # => true
-  # 'b'.whitespace?  # => false
+  # ' '.ascii_whitespace?      # => true
+  # '\t'.ascii_whitespace?     # => true
+  # 'b'.ascii_whitespace?      # => false
+  # '\u00A0'.ascii_whitespace? # => false
   # ```
+  #
+  # * `#whitespace?` returns `true` if this char is a whitespace character regardless
+  #    of which Unicode block it is defined in.
+  def ascii_whitespace? : Bool
+    self == ' ' || 0x09 <= ord <= 0x0D
+  end
+
+  # Returns `true` if this char is a whitespace character.
+  #
+  # All codepoints in the Unicode General Category group `Z` (Separator) are considered
+  # whitespace, as well as the ASCII control characters `\t`, `\n`, `\v`, `\f`, `\r`
+  # (`U+0009` through `U+000D`).
+  #
+  # ```
+  # ' '.whitespace?      # => true
+  # '\t'.whitespace?     # => true
+  # 'b'.whitespace?      # => false
+  # '\u00A0'.whitespace? # => true
+  # ```
+  #
+  # * `#ascii_whitespace` returns `true` if this char is a whitespace character
+  #   in the *Basic Latin* block (ASCII).
   def whitespace? : Bool
-    ascii? ? ascii_whitespace? : Unicode.whitespace?(self)
+    ascii? ? ascii_whitespace? : (ascii_whitespace? || Unicode.whitespace?(self))
   end
 
   # Returns `true` if this char is an ASCII hex digit ('0' to '9', 'a' to 'f', 'A' to 'F').

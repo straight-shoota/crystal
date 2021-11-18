@@ -89,11 +89,28 @@ describe "Char" do
     it { ' '.alphanumeric?.should be_false }
   end
 
-  describe "ascii_whitespace?" do
-    [' ', '\t', '\n', '\v', '\f', '\r'].each do |char|
-      it { char.ascii_whitespace?.should be_true }
-    end
-    it { 'A'.ascii_whitespace?.should be_false }
+  it "#ascii_whitespace?" do
+    ' '.ascii_whitespace?.should be_true
+    '\t'.ascii_whitespace?.should be_true
+    '\n'.ascii_whitespace?.should be_true
+    '\v'.ascii_whitespace?.should be_true
+    '\f'.ascii_whitespace?.should be_true
+    '\r'.ascii_whitespace?.should be_true
+    'a'.ascii_whitespace?.should be_false
+    '\a'.ascii_whitespace?.should be_false
+    '\u00A0'.ascii_whitespace?.should be_false
+  end
+
+  it "#whitespace?" do
+    ' '.whitespace?.should be_true
+    '\t'.whitespace?.should be_true
+    '\n'.whitespace?.should be_true
+    '\v'.whitespace?.should be_true
+    '\f'.whitespace?.should be_true
+    '\r'.whitespace?.should be_true
+    'a'.whitespace?.should be_false
+    '\a'.whitespace?.should be_false
+    '\u00A0'.whitespace?.should be_true
   end
 
   describe "hex?" do
