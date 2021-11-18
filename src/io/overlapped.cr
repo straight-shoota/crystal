@@ -74,7 +74,6 @@ module IO::Overlapped
     removed.times do |i|
       overlapped_entry = overlapped_entries[i]
       operation = overlapped_entry.lpOverlapped.as(OverlappedOperation*).value
-      p! operation
 
       yield operation.fiber
     end
@@ -92,6 +91,7 @@ module IO::Overlapped
     end
 
     def fiber
+      raise "Invalid fiber:\n#{overlapped.internal}" if @fiber.null?
       Box(Fiber).unbox(@fiber)
     end
   end
