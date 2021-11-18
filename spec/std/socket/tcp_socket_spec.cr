@@ -4,7 +4,7 @@ require "../../support/win32"
 describe TCPSocket, tags: "network" do
   describe "#connect" do
     each_ip_family do |family, address|
-      it "connects to server" do
+      pending_win32 "connects to server" do
         port = unused_local_port
 
         TCPServer.open(address, port) do |server|
@@ -53,7 +53,7 @@ describe TCPSocket, tags: "network" do
     end
 
     describe "address resolution" do
-      it "connects to localhost" do
+      pending_win32 "connects to localhost" do
         port = unused_local_port
 
         TCPServer.open("localhost", port) do |server|
@@ -78,7 +78,7 @@ describe TCPSocket, tags: "network" do
       end
     end
 
-    it "fails to connect IPv6 to IPv4 server" do
+    pending_win32 "fails to connect IPv6 to IPv4 server" do
       port = unused_local_port
 
       TCPServer.open("0.0.0.0", port) do |server|
@@ -131,7 +131,7 @@ describe TCPSocket, tags: "network" do
     end
   end
 
-  it "fails when connection is refused" do
+  pending_win32 "fails when connection is refused" do
     port = TCPServer.open("localhost", 0) do |server|
       server.local_address.port
     end
@@ -141,7 +141,7 @@ describe TCPSocket, tags: "network" do
     end
   end
 
-  it "sends and receives messages" do
+  pending_win32 "sends and receives messages" do
     port = unused_local_port
 
     TCPServer.open("::", port) do |server|
@@ -156,7 +156,7 @@ describe TCPSocket, tags: "network" do
     end
   end
 
-  it "sends and receives messages", focus: !true do
+  it "sends and receives messages" do
     port = unused_local_port
 
     channel = Channel(Exception?).new
