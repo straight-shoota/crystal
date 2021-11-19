@@ -1,0 +1,36 @@
+TERM:
+  description: Value `dumb` disables color output.
+
+CC:
+  description: Command for C compiler, used to link the final executable.
+
+CRYSTAL_PATH:
+  description: >
+    List of paths where the compiler should look for Crystal source code
+    with `require`. Usually includes `./lib` (for local dependencies) and
+    the path to the standard library.
+
+CRYSTAL_CACHE_DIR:
+  description: Cache path. Superseedes `XDG_CACHE_HOME`
+
+XDG_CACHE_HOME:
+  description: Cache path `${XDG_CACHE_HOME}/crystal`. Superseeded by `CRYSTAL_CACHE_DIR`
+
+HOME:
+  description: Cache path `${XDG_CACHE_HOME}/.cache/crystal` or `${XDG_CACHE_HOME}/.crystal`. Superseeded by `./crystal`
+
+DUMP:
+  description: >
+    Value `1` dumps all LLVM IR to STDOUT. Other values define a regular expression which
+    dumps all matching LLVM modules.
+
+CRYSTAL_DUMP_TYPE_ID:
+  description: Value `1` dumps type IDs of Crystal types to STDOUT.
+
+CRYSTAL_DEBUG_CODEGEN:
+  description: >
+    If defined, emits a debug message that shows the current llvm basic block name,
+    the location within the codegen that was used to emit this log.
+
+AFTER:
+  description: Value `1` dumps nodes after the cleanup transformer.

@@ -1,9 +1,0 @@
-flag                     ,component ,description                                                                                    ,available_since
-debug_raise              ,stdlib    ,"Debugging flag for `raise` logic. Prints the backtrace before raising."                       ,
-gc_none                  ,stdlib    ,"Disables garbage collection ([#5314](https://github.com/crystal-lang/crystal/pull/5314))."    ,
-preview_mt               ,stdlib    ,"Enables multithreading preview ([#7546](https://github.com/crystal-lang/crystal/pull/7546))." ,0.28.0
-skip_crystal_compiler_rt ,stdlib    ,"Exclude Crystal's native `compiler-rt` implementation."                                       ,
-i_know_what_im_doing     ,compiler  ,"Safety guard against involuntarily building the compiler."                                    ,
-without_openssl          ,compiler  ,"Build the compiler without OpenSSL support."                                                  ,
-without_zlib             ,compiler  ,"Build the compiler without Zlib support."                                                     ,
-without_playground       ,compiler  ,"Build the compiler without playground (`crystal play`)."                                      ,

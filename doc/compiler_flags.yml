@@ -1,0 +1,11 @@
+i_know_what_im_doing:
+  description: "Safety guard against involuntarily building the compiler."
+
+without_openssl:
+  description: "Build the compiler without OpenSSL support."
+
+without_zlib:
+  description: "Build the compiler without Zlib support."
+
+without_playground:
+  description: "Build the compiler without playground (`crystal play`)."

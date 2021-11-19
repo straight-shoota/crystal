@@ -1,0 +1,65 @@
+TERM:
+  component: Colorize
+  description: Value `dumb` disables `Colorize`.
+
+
+CRYSTAL_LOAD_DWARF:
+  component: Runtime
+  description: >
+    Defines dehaviour for loading debug info:
+
+    - CRYSTAL_LOAD_DWARF=0 will never use dwarf information (See Exception::CallStack.load_dwarf)
+    - CRYSTAL_LOAD_DWARF=1 will load dwarf on startup
+    - Other values will load dwarf on demand: when the backtrace of the first exception is generated
+
+CRYSTAL_CALLSTACK_FULL_INFO:
+  component: Runtime
+  description: Enables full stacktrace information.
+
+HOME:
+  component: Runtime
+  description: Defines the home directory of the current user. Used by `Path.home`.
+
+
+SPEC_VERBOSE:
+  component: Spec
+  description: Enables verbose spec output (like `--verbose`)
+
+SPEC_SPLIT:
+  component: Spec
+  description: Splits specs execution in multiple batches.
+
+SPEC_SPLIT_DOTS:
+  component: Spec
+  desciption: Defines the maximum line length for the dot formatter.
+
+CRYSTAL_WORKERS:
+  component: Runtime
+  description: >
+    Defines the number of worker threads to launch at startup. Program needs to
+    be compiled with `preview_mt` flag. Default value: `4`
+
+TMPDIR:
+  component: Runtime
+  description: >
+    Defines the directory for termporary files. Default: `/tmp`.
+
+
+LOG_LEVEL:
+  component: Log
+  description: >
+    Defines the default severity for the Log backend writing to STDOUT.
+    Depends on `Log.setup_from_env` being called, and the name and behaviour
+    can be customized.
+
+PATH:
+  component: Runtime
+  description: Used to lookup executables.
+
+ZONEINFO:
+  component: Runtime
+  description: Defines the location of the time zone data base.
+
+TZ:
+  component: Runtime
+  description: Defines the default timezone location name.

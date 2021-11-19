@@ -1,0 +1,12 @@
+debug_raise:
+  description: "Debugging flag for `raise` logic. Prints the backtrace before raising."
+
+gc_none:
+  description: "Disables garbage collection ([#5314](https://github.com/crystal-lang/crystal/pull/5314))."
+
+preview_mt:
+  description: "Enables multithreading preview ([#7546](https://github.com/crystal-lang/crystal/pull/7546))."
+  available_since: 0.28.0
+
+skip_crystal_compiler_rt:
+  description: "Exclude Crystal's native `compiler-rt` implementation."
