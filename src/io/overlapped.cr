@@ -106,7 +106,7 @@ module IO::Overlapped
     result = LibC.WSAGetOverlappedResult(socket, pointerof(operation).as(LibC::OVERLAPPED*), out bytes, false, pointerof(flags))
     if result.zero?
       error = WinError.wsa_value
-      p! error
+      #p! error
       yield error
 
       raise IO::Error.from_os_error("WSAGetOverlappedResult", error)
@@ -145,7 +145,7 @@ module IO::Overlapped
       end
     end
 
-    p! method
+    #p! method
     schedule_overlapped(timeout)
 
     get_overlapped_result(socket, operation) do |error|

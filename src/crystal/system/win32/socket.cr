@@ -345,7 +345,7 @@ module Crystal::System::Socket
       flags = 0_u32
       LibC.WSARecv(fd, pointerof(wsabuf), 1, out bytes_received, pointerof(flags), overlapped, nil)
     end
-    p! bytes_read
+    #p! bytes_read
     bytes_read.to_i32
   end
 
@@ -355,7 +355,7 @@ module Crystal::System::Socket
     bytes = overlapped_write(fd, "WSASend") do |overlapped|
       LibC.WSASend(fd, pointerof(wsabuf), 1, out bytes_sent, 0, overlapped, nil)
     end
-    p! bytes
+    #p! bytes
     bytes.to_i32
   end
 
