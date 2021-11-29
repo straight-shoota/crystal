@@ -152,12 +152,15 @@ class Crystal::Scheduler
 
   protected def reschedule : Nil
     loop do
+      p! @runnables
       if runnable = @lock.sync { @runnables.shift? }
+        p! runnable
         unless runnable == @current
           runnable.resume
         end
         break
       else
+        puts "run_once"
         Crystal::EventLoop.run_once
       end
     end
@@ -168,7 +171,9 @@ class Crystal::Scheduler
   end
 
   protected def sleep(time : Time::Span) : Nil
+    p! @runnables
     @current.resume_event.add(time)
+    p! @runnables
     reschedule
   end
 

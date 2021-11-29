@@ -37,15 +37,16 @@ module Crystal::EventLoop
     next_event = @@queue.min_by { |e| e.wake_at }
 
     if next_event
-      sleep_time = next_event.wake_at - Time.monotonic
-      #p! sleep_time, next_event
+      now = Time.monotonic
+      #p! next_event, next_event.wake_at > now
 
-      if sleep_time > Time::Span.zero
+      if next_event.wake_at > now
+        sleep_time = next_event.wake_at - now
         timed_out = IO::Overlapped.wait_queued_completions(sleep_time.total_milliseconds) do |fiber|
-          #p! fiber
+          p! fiber
           Crystal::Scheduler.enqueue fiber
         end
-        #p! timed_out, sleep_time
+        p! timed_out, sleep_time
 
         return unless timed_out
 
@@ -55,6 +56,7 @@ module Crystal::EventLoop
 
       fiber = next_event.fiber
 
+      p! next_event.timeout?, fiber.timeout_select_action
       if next_event.timeout? && (select_action = fiber.timeout_select_action)
         fiber.timeout_select_action = nil
         select_action.time_expired(fiber)
