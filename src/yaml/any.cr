@@ -93,7 +93,17 @@ struct YAML::Any
         raise "Expected int key for Array#[], not #{object.class}"
       end
     when Hash
-      object[index_or_key]
+      case index_or_key
+      when Any
+        key = index_or_key
+      when String
+        key = Any.new(index_or_key)
+      when Int
+        key = Any.new(index_or_key.to_i64)
+      else
+        raise "Expected YAML::Any | String | Int, not #{index_or_key.inspect}"
+      end
+      object[key]
     else
       raise "Expected Array or Hash, not #{object.class}"
     end
@@ -112,7 +122,17 @@ struct YAML::Any
         nil
       end
     when Hash
-      object[index_or_key]?
+      case index_or_key
+      when Any
+        key = index_or_key
+      when String
+        key = Any.new(index_or_key)
+      when Int
+        key = Any.new(index_or_key.to_i64)
+      else
+        return
+      end
+      object[key]?
     else
       raise "Expected Array or Hash, not #{object.class}"
     end
