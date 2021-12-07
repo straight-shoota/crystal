@@ -49,7 +49,7 @@ module IO::Overlapped
     end
   end
 
-  def self.wait_queued_completions(timeout)# = 3000)
+  def self.wait_queued_completions(timeout)
     overlapped_entries = uninitialized LibC::OVERLAPPED_ENTRY[1]
 
     if timeout > UInt64::MAX
@@ -83,15 +83,15 @@ module IO::Overlapped
 
   @[Extern]
   struct OverlappedOperation
-    getter overlapped : LibC::WSAOVERLAPPED
+    @overlapped : LibC::WSAOVERLAPPED
     @fiber : Void*
 
-    def initialize(@overlapped, fiber : Fiber)
+    def initialize(@overlapped : LibC::WSAOVERLAPPED, fiber : Fiber)
       @fiber = Box.box(fiber)
     end
 
     def fiber
-      raise "Invalid fiber:\n#{overlapped.internal}" if @fiber.null?
+      raise "Invalid fiber:\n#{@overlapped.internal}" if @fiber.null?
       Box(Fiber).unbox(@fiber)
     end
   end

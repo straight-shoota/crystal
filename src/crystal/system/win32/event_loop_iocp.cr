@@ -38,7 +38,6 @@ module Crystal::EventLoop
 
     if next_event
       now = Time.monotonic
-      #p! next_event, next_event.wake_at > now
 
       if next_event.wake_at > now
         sleep_time = next_event.wake_at - now
@@ -49,14 +48,12 @@ module Crystal::EventLoop
         p! timed_out, sleep_time
 
         return unless timed_out
-
       end
 
-      #p! dequeue next_event
+      dequeue next_event
 
       fiber = next_event.fiber
 
-      p! next_event.timeout?, fiber.timeout_select_action
       if next_event.timeout? && (select_action = fiber.timeout_select_action)
         fiber.timeout_select_action = nil
         select_action.time_expired(fiber)

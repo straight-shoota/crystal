@@ -191,7 +191,6 @@ describe "select" do
     x.should eq 2
   end
 
-  # this one -->
   pending_win32 "stress select with send/receive in multiple fibers" do
     fibers = 4
     msg_per_sender = 1000
