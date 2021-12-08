@@ -91,7 +91,7 @@ module IO::Overlapped
     end
 
     def fiber
-      raise "Invalid fiber:\n#{@overlapped.internal}" if @fiber.null?
+      raise "Invalid fiber:\n#{@overlapped} #{@overlapped.internal.to_s(16)}" if @fiber.null?
       Box(Fiber).unbox(@fiber)
     end
   end

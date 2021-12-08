@@ -29,7 +29,7 @@ describe TCPSocket, tags: "network" do
         end
       end
 
-      pending "raises when connection is refused" do
+      it "raises when connection is refused" do
         port = unused_local_port
 
         expect_raises(Socket::ConnectError, "Error connecting to '#{address}:#{port}'") do
