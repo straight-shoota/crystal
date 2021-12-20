@@ -15,11 +15,19 @@ class String
     # cache last_property to avoid re-calculation on the following iteration
     last_property = Grapheme::Property.from(last_char)
     last_boundary = 0
+    last_error = !reader.error.nil?
 
     while reader.has_next?
       char = reader.next_char
+
       property = Grapheme::Property.from(char)
-      boundary, state = Grapheme.break?(last_property, property, state)
+
+      if last_error || reader.error
+        boundary = true
+        state = Grapheme::Property::Start
+      else
+        boundary, state = Grapheme.break?(last_property, property, state)
+      end
 
       if boundary
         index = reader.pos
@@ -30,6 +38,7 @@ class String
 
       last_char = char
       last_property = property
+      last_error = !reader.error.nil?
     end
   end
 
@@ -39,6 +48,7 @@ class String
 
     @last_char : Char
     @last_property : Grapheme::Property
+    @last_error : Bool
 
     def initialize(str : String)
       @reader = Char::Reader.new(str)
@@ -47,6 +57,7 @@ class String
       # cache last_property to avoid re-calculation on the following iteration
       @last_property = Grapheme::Property.from(@last_char)
       @last_boundary = 0
+      @last_error = !@reader.error.nil?
     end
 
     def next
@@ -54,11 +65,18 @@ class String
 
       while char = @reader.next_char
         property = Grapheme::Property.from(char)
-        boundary, @state = Grapheme.break?(@last_property, property, @state)
+
+        if @last_error || @reader.error
+          boundary = true
+          @state = Grapheme::Property::Start
+        else
+          boundary, @state = Grapheme.break?(@last_property, property, @state)
+        end
 
         last_char = @last_char
         @last_char = char
         @last_property = property
+        @last_error = !@reader.error.nil?
 
         if boundary
           index = @reader.pos
@@ -118,7 +136,9 @@ class String
 
     # :nodoc:
     def self.new(string : String, range : Range(Int32, Int32), char : Char) : self
-      if char.bytesize == range.size
+      # Bytesize 1 serves as an error condition to identify when the replacement
+      # character U+FFFD was given as *char* as a replacement for an invalid UTF-8 character encoding.
+      if char.bytesize == range.size || range.size == 1
         new(char)
       else
         new(string.byte_slice(range.begin, range.end - range.begin))

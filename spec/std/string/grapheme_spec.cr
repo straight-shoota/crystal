@@ -5,6 +5,8 @@ describe String::Grapheme do
     String::Grapheme.new("foo", 0...1, 'f').@cluster.should eq 'f'
     String::Grapheme.new("foo", 0...2, 'o').@cluster.should eq "fo"
     String::Grapheme.new("foo", 1...3, 'o').@cluster.should eq "oo"
+    String::Grapheme.new("f\xFF\u200D", 1...2, '\uFFFD').@cluster.should eq '\uFFFD'
+    String::Grapheme.new("f\uFFFD\u200D", 1...7, '\uFFFD').@cluster.should eq "\uFFFD\u200D"
   end
 
   it "#to_s" do
@@ -94,5 +96,11 @@ describe String do
     it_iterates_graphemes "🙂🙂", ['\u{1F642}', '\u{1F642}']
     it_iterates_graphemes "🇩🇪", ["\u{1F1E9}\u{1F1EA}"]
     it_iterates_graphemes "🏳️‍🌈", ["\u{1F3F3}\uFE0F\u200D\u{1F308}"]
+    it_iterates_graphemes "\xFF", ['\uFFFD']
+    it_iterates_graphemes "\xE0\x9F", ['\uFFFD', '\uFFFD']
+    it_iterates_graphemes "*\xFF*", ['*', '\uFFFD', '*']
+    it_iterates_graphemes "*\xE0\x9F*", ['*', '\uFFFD', '\uFFFD', '*']
+    it_iterates_graphemes "*\xFF\u200D*", ['*', '\uFFFD', '\u200D', '*']
+    it_iterates_graphemes "*\xE0\x9F\u200D*", ['*', '\uFFFD', '\uFFFD', '\u200D', '*']
   end
 end
