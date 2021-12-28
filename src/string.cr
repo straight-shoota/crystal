@@ -1455,12 +1455,12 @@ class String
     case to_unsafe[bytesize - 1]
     when '\n'
       if bytesize > 1 && to_unsafe[bytesize - 2] === '\r'
-        unsafe_byte_slice_string(0, bytesize - 2)
+        String.new(to_slice[0, bytesize - 2])
       else
-        unsafe_byte_slice_string(0, bytesize - 1)
+        String.new(to_slice[0, bytesize - 1])
       end
     when '\r'
-      unsafe_byte_slice_string(0, bytesize - 1)
+      String.new(to_slice[0, bytesize - 1])
     else
       self
     end
@@ -1477,7 +1477,7 @@ class String
     if suffix == '\n'
       chomp
     elsif ends_with?(suffix)
-      unsafe_byte_slice_string(0, bytesize - suffix.bytesize)
+      String.new(to_slice[0, bytesize - suffix.bytesize])
     else
       self
     end
@@ -1494,7 +1494,7 @@ class String
     if suffix.bytesize == 1
       chomp(suffix.to_unsafe[0].unsafe_chr)
     elsif ends_with?(suffix)
-      unsafe_byte_slice_string(0, bytesize - suffix.bytesize)
+      String.new(to_slice[0, bytesize - suffix.bytesize])
     else
       self
     end
@@ -1533,10 +1533,10 @@ class String
     return if empty?
 
     if single_byte_optimizable?
-      unsafe_byte_slice_string(1, bytesize - 1)
+      String.new(to_slice[1, bytesize - 1])
     else
       reader = Char::Reader.new(self)
-      unsafe_byte_slice_string(reader.current_char_width, bytesize - reader.current_char_width)
+      String.new(to_slice[reader.current_char_width, bytesize - reader.current_char_width])
     end
   end
 
@@ -1550,7 +1550,7 @@ class String
   # ```
   def lchop?(prefix : Char | String) : String?
     if starts_with?(prefix)
-      unsafe_byte_slice_string(prefix.bytesize, bytesize - prefix.bytesize)
+      String.new(to_slice[prefix.bytesize, bytesize - prefix.bytesize])
     end
   end
 
@@ -1593,7 +1593,7 @@ class String
     return if empty?
 
     if to_unsafe[bytesize - 1] < 0x80 || single_byte_optimizable?
-      return unsafe_byte_slice_string(0, bytesize - 1)
+      return String.new(to_slice[0, bytesize - 1])
     end
 
     self[0, size - 1]
@@ -1609,7 +1609,7 @@ class String
   # ```
   def rchop?(suffix : Char | String) : String?
     if ends_with?(suffix)
-      unsafe_byte_slice_string(0, bytesize - suffix.bytesize)
+      String.new(to_slice[0, bytesize - suffix.bytesize])
     end
   end
 
@@ -2027,7 +2027,7 @@ class String
     if excess_right == 0 && excess_left == 0
       self
     else
-      unsafe_byte_slice_string(excess_left, bytesize - excess_right - excess_left)
+      String.new(to_slice[excess_left, bytesize - excess_right - excess_left])
     end
   end
 
@@ -2038,7 +2038,7 @@ class String
     when bytesize
       ""
     else
-      unsafe_byte_slice_string(0, bytesize - excess_right)
+      String.new(to_slice[0, bytesize - excess_right])
     end
   end
 
@@ -2049,7 +2049,7 @@ class String
     when bytesize
       ""
     else
-      unsafe_byte_slice_string(excess_left)
+      String.new(to_slice[excess_left..])
     end
   end
 
@@ -2121,7 +2121,7 @@ class String
       reader = Char::Reader.new(self)
       buffer << yield reader.current_char
       reader.next_char
-      buffer.write unsafe_byte_slice(reader.pos)
+      buffer.write to_slice[reader.pos..]
     end
   end
 
@@ -2146,7 +2146,7 @@ class String
           reader.next_char
         end
         reader.next_char
-        buffer.write unsafe_byte_slice(reader.pos)
+        buffer.write to_slice[reader.pos..]
       end
     else
       self
@@ -2251,9 +2251,9 @@ class String
     return self unless index
 
     String.build(bytesize) do |buffer|
-      buffer.write unsafe_byte_slice(0, index)
+      buffer.write to_slice[0, index]
       buffer << yield string
-      buffer.write unsafe_byte_slice(index + string.bytesize)
+      buffer.write to_slice[index + string.bytesize..]
     end
   end
 
@@ -2282,7 +2282,7 @@ class String
       if reader.has_next?
         buffer << reader.current_char
         reader.next_char
-        buffer.write unsafe_byte_slice(reader.pos)
+        buffer.write to_slice[reader.pos..]
       end
     end
   end
@@ -2292,11 +2292,11 @@ class String
     return self unless match
 
     String.build(bytesize) do |buffer|
-      buffer.write unsafe_byte_slice(0, match.byte_begin)
+      buffer.write to_slice[0, match.byte_begin]
       str = match[0]
       $~ = match
       yield str, match, buffer
-      buffer.write unsafe_byte_slice(match.byte_begin + str.bytesize)
+      buffer.write to_slice[match.byte_begin + str.bytesize..]
     end
   end
 
@@ -2425,11 +2425,11 @@ class String
       chr = replacement.to_unsafe[index].unsafe_chr
       case chr
       when '\\'
-        buffer.write(replacement.unsafe_byte_slice(first_index, index - first_index))
+        buffer.write(replacement.to_slice[first_index, index - first_index])
         index += 1
         first_index = index
       when '0'..'9'
-        buffer.write(replacement.unsafe_byte_slice(first_index, index - 1 - first_index))
+        buffer.write(replacement.to_slice[first_index, index - 1 - first_index])
         buffer << match_data[chr - '0']?
         index += 1
         first_index = index
@@ -2438,7 +2438,7 @@ class String
         chr = replacement.to_unsafe[index].unsafe_chr
         next unless chr == '<'
 
-        buffer.write(replacement.unsafe_byte_slice(first_index, index - 2 - first_index))
+        buffer.write(replacement.to_slice[first_index, index - 2 - first_index])
 
         index += 1
         start_index = index
@@ -2456,7 +2456,7 @@ class String
     end
 
     if first_index != replacement.bytesize
-      buffer.write(replacement.unsafe_byte_slice(first_index))
+      buffer.write(replacement.to_slice[first_index..])
     end
   end
 
@@ -2615,7 +2615,7 @@ class String
 
     String.build(bytesize) do |buffer|
       while index
-        buffer.write unsafe_byte_slice(last_byte_offset, index - last_byte_offset)
+        buffer.write to_slice[last_byte_offset, index - last_byte_offset]
         buffer << yield string
 
         if string.bytesize == 0
@@ -2630,7 +2630,7 @@ class String
       end
 
       if last_byte_offset < bytesize
-        buffer.write unsafe_byte_slice(last_byte_offset)
+        buffer.write to_slice[last_byte_offset..]
       end
     end
   end
@@ -2670,7 +2670,7 @@ class String
       while match
         index = match.byte_begin(0)
 
-        buffer.write unsafe_byte_slice(last_byte_offset, index - last_byte_offset)
+        buffer.write to_slice[last_byte_offset, index - last_byte_offset]
         str = match[0]
         $~ = match
         yield str, match, buffer
@@ -2687,7 +2687,7 @@ class String
       end
 
       if last_byte_offset < bytesize
-        buffer.write unsafe_byte_slice(last_byte_offset)
+        buffer.write to_slice[last_byte_offset..]
       end
     end
   end
@@ -3940,12 +3940,12 @@ class String
         end
       end
 
-      yield unsafe_byte_slice_string(offset, count)
+      yield String.new(to_slice[offset, count])
       offset = byte_index + 1
     end
 
     unless offset == bytesize
-      yield unsafe_byte_slice_string(offset)
+      yield String.new(to_slice[offset..])
     end
   end
 
@@ -5038,6 +5038,7 @@ class String
   # Returns *count* of underlying bytes of this String starting at given *byte_offset*.
   #
   # The returned slice is read-only.
+  @[Deprecated("Use `#to_slice` instead")]
   def unsafe_byte_slice(byte_offset, count) : Slice
     Slice.new(to_unsafe + byte_offset, count, read_only: true)
   end
@@ -5045,16 +5046,19 @@ class String
   # Returns the underlying bytes of this String starting at given *byte_offset*.
   #
   # The returned slice is read-only.
+  @[Deprecated("Use `#to_slice` instead")]
   def unsafe_byte_slice(byte_offset) : Slice
     Slice.new(to_unsafe + byte_offset, bytesize - byte_offset, read_only: true)
   end
 
+  @[Deprecated("Use `#to_slice` instead")]
   protected def unsafe_byte_slice_string(byte_offset)
-    String.new(unsafe_byte_slice(byte_offset))
+    String.new(to_slice[byte_offset...])
   end
 
+  @[Deprecated("Use `#to_slice` instead")]
   protected def unsafe_byte_slice_string(byte_offset, count)
-    String.new(unsafe_byte_slice(byte_offset, count))
+    String.new(to_slice[byte_offset, count])
   end
 
   protected def self.char_bytes_and_bytesize(char : Char)
@@ -5137,13 +5141,13 @@ class String
           end
         end
 
-        value = @string.unsafe_byte_slice_string(@offset, count)
+        value = String.new(@string.to_slice[@offset, count])
         @offset = byte_index + 1
       else
         if @offset == @string.bytesize
           value = stop
         else
-          value = @string.unsafe_byte_slice_string(@offset)
+          value = String.new(@string.to_slice[@offset..])
         end
         @end = true
       end
