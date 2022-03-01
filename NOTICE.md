@@ -4,47 +4,90 @@ Copyright 2012-2022 Manas Technology Solutions.
 
 This product includes software developed at Manas Technology Solutions (<https://manas.tech/>).
 
-Apache License v2.0 applies to all works.
-
-Please see [LICENSE](/LICENSE) for additional copyright and licensing information.
+The Crystal language is licensed under the *Apache License v2.0* license (see [`LICENSE`](/LICENSE)).
+This license applies to all works in this project unless stated otherwise.
 
 ## External libraries information
 
-Crystal compiler links the following libraries, which have their own license:
+### Compiler
 
-  * [LLVM][] - [BSD-3, effectively][]
-  * [PCRE][] - [BSD-3][]
-  * [libevent2][] - [BSD-3][]
-  * [libiconv][] - [LGPLv3][]
-  * [bdwgc][] - [MIT][]
+The Crystal compiler links to the following libraries, which have their own licenses:
 
-Crystal compiler calls the following tools as external process on compiling, which have their own license:
+* [LLVM][] - since LLVM 9: [Apache-2.0-LLVM][Apache 2.0 with exceptions]; earlier: [BSD-3, effectively][]
+* [PCRE][] - [BSD-3][]
+* [libevent2][] - [BSD-3][]
+* [libiconv][] - [LGPLv3][]
+* [bdwgc][] - [MIT][]
+* [libc][] - depending on system library (statically linked linux binaries use musl libc: [MIT][])
+* [libpthread][] - depending on system library, usually identical with libc
 
-  * [pkg-config](https://www.freedesktop.org/wiki/Software/pkg-config/) - [GPLv3]
+The following libraries are linked when the compiler is built with interpreter support (`-Dinterpreter`):
 
-Crystal standard library uses the following libraries, which have their own licenses:
+* [libffi][] - [MIT][]
 
-  * [LLVM][] - [BSD-3, effectively][]
-  * [PCRE][] - [BSD-3][]
-  * [libevent2][] - [BSD-3][]
-  * [libiconv][] - [LGPLv3][]
-  * [bdwgc][] - [MIT][]
-  * [Zlib][] - [Zlib][Zlib-license]
-  * [OpenSSL][] - [Apache-2.0][]
-  * [Libxml2][] - [MIT][]
-  * [LibYAML][] - [MIT][]
-  * [readline][] - [GPLv3][]
-  * [GMP][] - [LGPLv3][]
+The following libraries are linked unless the compiler is built without TLS support (`-Dwithout_ssl`):
 
-Crystal playground includes the following libraries, which have their own licenses.
+Either one of the following, depending on availability:
+
+* [OpenSSL][] - [Apache-2.0][]
+* [LibreSSL][] - [BSD][]
+
+The following libraries are linked unless the compiler is built without Zlib support (`-Dwithout_zlib`):
+
+* [Zlib][] - [Zlib][Zlib-license]
+
+The Crystal playground (`crystal play`) includes the following libraries, which have their own licenses.
 (There are these files under [/src/compiler/crystal/tools/playground/public/vendor](/src/compiler/crystal/tools/playground/public/vendor)):
 
-   * [jQuery][] - [MIT][]
-     `Copyright JS Foundation and other contributors, https://js.foundation/`
-   * [Octicons][] - [MIT][] (for codes) or [OFL-1.1][] (for fonts) `(c) 2012-2016 GitHub, Inc.`
-   * [Materialize][] - [MIT][] `Copyright (c) 2014-2015 Materialize`
-   * [CodeMirror][] - [MIT][] `Copyright (C) 2016 by Marijn Haverbeke <marijnh@gmail.com> and others`
-   * [ansi\_up][] - [MIT][] `Copyright (c) 2011 Dru Nelson`
+* [jQuery][] - [MIT][]
+  `Copyright JS Foundation and other contributors, https://js.foundation/`
+* [Octicons][] - [MIT][] (for codes) or [OFL-1.1][] (for fonts) `(c) 2012-2016 GitHub, Inc.`
+* [Materialize][] - [MIT][] `Copyright (c) 2014-2015 Materialize`
+* [CodeMirror][] - [MIT][] `Copyright (C) 2016 by Marijn Haverbeke <marijnh@gmail.com> and others`
+* [ansi\_up][] - [MIT][] `Copyright (c) 2011 Dru Nelson`
+
+These libraries are distributed with the compiler unless it was built without playground support (`-Dwithout_playground`).
+### Standard Library
+
+The Crystal standard library uses the following libraries, which have their own licenses.
+
+The following libraries provide part of the core runtime and are linked by any Crystal program using the standard library.
+
+* [PCRE][] - [BSD-3][]
+* [libevent2][] - [BSD-3][]
+* [libiconv][] - [LGPLv3][]
+* [bdwgc][] - [MIT][]
+* [libunwind][] - since LLVM 9: [Apache-2.0-LLVM][Apache 2.0 with exceptions]; earlier: [BSD-3, effectively][]
+* [libm][] -
+
+The following libraries are linked when specific components of the standard library are used:
+
+`LLVM`:
+
+* [LLVM][] - since LLVM 9: [Apache-2.0-LLVM][Apache 2.0 with exception]; earlier: [BSD-3, effectively][]
+
+`Comress::Zlib`:
+
+* [Zlib][] - [Zlib][Zlib-license]
+
+`OpenSSL`, `Digest::MD5`, `Digest::SHA1`, `Digest::SHA512`, `HTTP::Client`, `HTTP::Server`:
+
+Either one of the following, depending on availability:
+
+* [OpenSSL][] - [Apache-2.0][]
+* [LibreSSL][] - [BSD][]
+
+`XML`:
+
+* [Libxml2][] - [MIT][]
+
+`YAML`:
+
+* [LibYAML][] - [MIT][]
+
+`BigInt`, `BigRational`, `BigDecimal`, `BigFloat`:
+
+* [GMP][] - [LGPLv3][]
 
 <!-- licenses -->
 [Apache-2.0]: https://www.openssl.org/source/apache-license-2.0.txt
