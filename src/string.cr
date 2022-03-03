@@ -4956,10 +4956,13 @@ class String
   protected def self.char_bytesize_at(bytes : Pointer(UInt8))
     byte = bytes.value
 
-    return 1 if byte <= 0b0_1111111
+    # This includes the valid values of a single-byte UTF-8 sequence (0b00000000 <= byte <= 0b0_1111111)
+    # as well as the directly following range values that are invalid for the first
+    # byte of a UTF-8 sequence (0b0_1111111 < byte < 0b110_00000).
+    return 1 if byte <= 0b10_111111
 
     return 1 unless 0b10_000000 <= bytes[1] <= 0b10_111111
-    return 2 if 0b110_00000 <= byte <= 0b110_11111
+    return 2 if byte <= 0b110_11111
 
     return 1 unless 0b10_000000 <= bytes[2] <= 0b10_111111
     return 3 if byte <= 0b1110_1111
