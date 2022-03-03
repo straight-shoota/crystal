@@ -4953,12 +4953,17 @@ class String
   # See https://en.wikipedia.org/wiki/UTF-8#Encoding for bit patterns.
   #
   # Returns 1 if there is no valid UTF-8 sequence starting at *byte*.
+  #
+  # There is no bounds checking in case of invalid UTF-8 data. The pointer must
+  # be a null terminated string or it must be guaranteed to be a valid UTF-8 sequence.
   protected def self.char_bytesize_at(bytes : Pointer(UInt8))
     byte = bytes.value
 
     # This includes the valid values of a single-byte UTF-8 sequence (0b00000000 <= byte <= 0b0_1111111)
-    # as well as the directly following range values that are invalid for the first
-    # byte of a UTF-8 sequence (0b0_1111111 < byte < 0b110_00000).
+    # as well as the directly following range of values that are invalid for the
+    # prefix of the first byte of a UTF-8 sequence (0b0_1111111 < byte < 0b110_00000)
+    # as well as the range of bytes that are invalid for the content bits of the first byte
+    # because they would not be a minimal representation of the codepoint value (0b110_0000 <= byte <= 0b110_0010).
     return 1 if byte <= 0b10_111111
 
     return 1 unless 0b10_000000 <= bytes[1] <= 0b10_111111
