@@ -4950,7 +4950,7 @@ class String
   end
 
   # Returns the bytesize of an UTF-8 sequence starting at *bytes*.
-  # See https://en.wikipedia.org/wiki/UTF-8#Description for bit patterns.
+  # See https://en.wikipedia.org/wiki/UTF-8#Encoding for bit patterns.
   #
   # Returns 1 if there is no valid UTF-8 sequence starting at *byte*.
   protected def self.char_bytesize_at(bytes : Pointer(UInt8))
