@@ -1,4 +1,5 @@
 # Grisu3 is ported from the C++ "double-conversions" library.
+#
 # The following is their license:
 #   Copyright 2012 the V8 project authors. All rights reserved.
 #   Redistribution and use in source and binary forms, with or without
@@ -39,18 +40,21 @@ module Float::Printer::Grisu3
   # outside the safe interval, or if we cannot prove that it is closer to the
   # input than a neighboring representation of the same length.
   #
-  # Input: * buffer pointer containing the digits of too_high / 10^kappa
-  #        * the buffer's length
-  #        * distance_too_high_w == (too_high - w).frac * unit
-  #        * unsafe_interval == (too_high - too_low).frac * unit
-  #        * rest = (too_high - buffer * 10^kappa).frac * unit
-  #        * ten_kappa = 10^kappa * unit
-  #        * unit = the common multiplier
-  # Output: returns true if the buffer is guaranteed to contain the closest
-  #    representable number to the input.
-  #  Modifies the generated digits in the buffer to approach (round towards) w.
-  def round_weed(buffer_p, length, distance_too_high_w, unsafe_interval, rest, ten_kappa, unit)
-    buffer = buffer_p.to_slice(128)
+  # Input:
+  # * *buffer_ptr*: buffer pointer containing the digits of `too_high / 10^kappa`
+  # * *length*: the buffer's length
+  # * *distance_too_high_w*: `(too_high - w).frac * unit`
+  # * *unsafe_interval*: `(too_high - too_low).frac * unit`
+  # * *rest*: `(too_high - buffer * 10^kappa).frac * unit`
+  # * *ten_kappa*: `10^kappa * unit`
+  # * *unit*: the common multiplier
+  #
+  # Output: returns `true` if the buffer is guaranteed to contain the closest
+  # representable number to the input.
+  #
+  # Modifies the generated digits in the buffer to approach (round towards) *w*.
+  def round_weed(buffer_ptr, length, distance_too_high_w, unsafe_interval, rest, ten_kappa, unit) : Bool
+    buffer = buffer_ptr.to_slice(128)
     small_distance = distance_too_high_w - unit
     big_distance = distance_too_high_w + unit
 
@@ -125,12 +129,11 @@ module Float::Printer::Grisu3
     # Conceptually rest ~= too_high - buffer
     # We need to do the following tests in this order to avoid over- and
     # underflows.
-    _invariant rest <= unsafe_interval
     while (
-            rest < small_distance &&    # Negated condition 1
- unsafe_interval - rest >= ten_kappa && # Negated condition 2
- (rest + ten_kappa < small_distance ||  # buffer{-1} > w_high
- small_distance - rest >= rest + ten_kappa - small_distance)
+            rest < small_distance &&               # Negated condition 1
+            unsafe_interval - rest >= ten_kappa && # Negated condition 2
+            (rest + ten_kappa < small_distance ||  # buffer{-1} > w_high
+            small_distance - rest >= rest + ten_kappa - small_distance)
           )
       buffer[length - 1] -= 1
       rest += ten_kappa
@@ -152,46 +155,54 @@ module Float::Printer::Grisu3
     #   Since too_low = too_high - unsafe_interval this is equivalent to
     #      [too_high - unsafe_interval + 4 ulp; too_high - 2 ulp]
     #   Conceptually we have: rest ~= too_high - buffer
-    return (2 * unit <= rest) && (rest <= unsafe_interval - 4 * unit)
+    return (2 &* unit <= rest) && (rest <= unsafe_interval &- 4 &* unit)
   end
 
-  # Generates the digits of input number w.
-  # w is a floating-point number (DiyFp), consisting of a significand and an
-  # exponent. Its exponent is bounded by kMinimalTargetExponent and
-  # kMaximalTargetExponent.
-  #       Hence -60 <= w.e() <= -32.
+  # Generates the digits of input number *w*.
   #
-  # Returns false if it fails, in which case the generated digits in the buffer
+  # *w* is a floating-point number (`DiyFp`), consisting of a significand and an
+  # exponent. Its exponent is bounded by `kMinimalTargetExponent` and
+  # `kMaximalTargetExponent`. Hence:
+  #     -60 <= w.e() <= -32
+  #
+  # Returns `false` if it fails, in which case the generated digits in the buffer
   # should not be used.
-  # Preconditions:
-  #  * low, w and high are correct up to 1 ulp (unit in the last place). That
-  #    is, their error must be less than a unit of their last digits.
-  #  * low.e() == w.e() == high.e()
-  #  * low < w < high, and taking into account their error: low~ <= high~
-  #  * kMinimalTargetExponent <= w.e() <= kMaximalTargetExponent
-  # Postconditions: returns false if procedure fails.
-  #   otherwise:
-  #     * buffer is not null-terminated, but len contains the number of digits.
-  #     * buffer contains the shortest possible decimal digit-sequence
-  #       such that LOW < buffer * 10^kappa < HIGH, where LOW and HIGH are the
-  #       correct values of low and high (without their error).
-  #     * if more than one decimal representation gives the minimal number of
-  #       decimal digits then the one closest to W (where W is the correct value
-  #       of w) is chosen.
-  # Remark: this procedure takes into account the imprecision of its input
-  #   numbers. If the precision is not enough to guarantee all the postconditions
-  #   then false is returned. This usually happens rarely (~0.5%).
   #
-  # Say, for the sake of example, that
-  #   w.e() == -48, and w.f() == 0x1234567890abcdef
-  # w's value can be computed by w.f() * 2^w.e()
-  # We can obtain w's integral digits by simply shifting w.f() by -w.e().
-  #  -> w's integral part is 0x1234
-  #  w's fractional part is therefore 0x567890abcdef.
-  # Printing w's integral part is easy (simply print 0x1234 in decimal).
+  # Preconditions:
+  #  * *low*, *w* and *high* are correct up to 1 ulp (unit in the last place).
+  #    That is, their error must be less than a unit of their last digits.
+  #  * `low.e() == w.e() == high.e()`
+  #  * `low < w < high`, and taking into account their error: `low~ <= high~`
+  #  * `kMinimalTargetExponent <= w.e() <= kMaximalTargetExponent`
+  #
+  # Postconditions: returns `false` if procedure fails, otherwise:
+  # * buffer is not null-terminated, but len contains the number of digits.
+  # * buffer contains the shortest possible decimal digit-sequence
+  #   such that `LOW < buffer * 10^kappa < HIGH`, where LOW and HIGH are the
+  #   correct values of low and high (without their error).
+  # * if more than one decimal representation gives the minimal number of
+  #   decimal digits then the one closest to W (where W is the correct value
+  #   of w) is chosen.
+  #
+  # NOTE: This procedure takes into account the imprecision of its input
+  #   numbers. If the precision is not enough to guarantee all the postconditions
+  #   then `false` is returned. This usually happens rarely (~0.5%).
+  #
+  # Say, for the sake of example, that:
+  #     w.e() == -48 && w.f() == 0x1234567890abcdef
+  #
+  # w's value can be computed by `w.f() * 2^w.e()`
+  #
+  # We can obtain w's integral digits by simply shifting `w.f()` by `-w.e()`.
+  #
+  # * -> w's integral part is `0x1234`
+  # * w's fractional part is therefore `0x567890abcdef`.
+  #
+  # Printing w's integral part is easy (simply print `0x1234` in decimal).
   # In order to print its fraction we repeatedly multiply the fraction by 10 and
   # get each digit. Example the first digit after the point would be computed by
-  #   (0x567890abcdef * 10) >> 48. -> 3
+  #     (0x567890abcdef * 10) >> 48. -> 3
+  #
   # The whole thing becomes slightly more complicated because we want to stop
   # once we have enough digits. That is, once the digits inside the buffer
   # represent 'w' we can stop. Everything inside the interval low - high
@@ -199,9 +210,6 @@ module Float::Printer::Grisu3
   # imprecision.
   def digit_gen(low : DiyFP, w : DiyFP, high : DiyFP, buffer_p) : {Bool, Int32, Int32}
     buffer = buffer_p.to_slice(128)
-    _invariant low.exp == w.exp && w.exp == high.exp
-    _invariant low.frac + 1 <= high.frac - 1
-    _invariant CachedPowers::MIN_TARGET_EXP <= w.exp && w.exp <= CachedPowers::MAX_TARGET_EXP
     # low, w and high are imprecise, but by less than one ulp (unit in the last
     # place).
     # If we remove (resp. add) 1 ulp from low (resp. high) we are certain that
@@ -243,9 +251,8 @@ module Float::Printer::Grisu3
     # with the divisor exponent + 1. And the divisor is the biggest power of ten
     # that is smaller than integrals.
     while kappa > 0
-      digit = integrals / divisor
+      digit = integrals // divisor
       # pp [digit, kappa]
-      _invariant digit <= 9
       buffer[length] = 48_u8 + digit
       length += 1
       integrals %= divisor
@@ -264,7 +271,7 @@ module Float::Printer::Grisu3
         return weeded, kappa, length
       end
 
-      divisor /= 10
+      divisor //= 10
     end
 
     # The integrals have been generated. We are at the point of the decimal
@@ -273,15 +280,11 @@ module Float::Printer::Grisu3
     # data (like the interval or 'unit'), too.
     # Note that the multiplication by 10 does not overflow, because w.e >= -60
     # and thus one.e >= -60.
-    _invariant one.exp >= -60
-    _invariant fractionals < one.frac
-    _invariant 0xFFFFFFFFFFFFFFFF / 10 >= one.frac
     loop do
       fractionals *= 10
       unit *= 10
       unsafe_interval = DiyFP.new(unsafe_interval.frac * 10, unsafe_interval.exp)
       digit = (fractionals >> -one.exp).to_i
-      _invariant digit <= 9
       buffer[length] = 48_u8 + digit
       length += 1
       fractionals &= one.frac - 1
@@ -296,14 +299,17 @@ module Float::Printer::Grisu3
   # Provides a decimal representation of *v*.
   #
   # Returns a `Tuple` of `{status, decimal_exponent, length}`
-  # *status* will be true if it succeeds, otherwise the result cannot be
+  # *status* will be `true` if it succeeds, otherwise the result cannot be
   # trusted.
+  #
   # There will be *length* digits inside the buffer (not null-terminated).
-  # If the function returns satatus as true true then
-  #        v == (buffer * 10^decimal_exponent).to_f
-  # The digits in the buffer are the shortest representation possible: no
-  # 0.09999999999999999 instead of 0.1. The shorter representation will even be
-  # chosen even if the longer one would be closer to *v*.
+  # If the function returns status as `true` then
+  #     v == (buffer * 10^decimal_exponent).to_f
+  #
+  # The digits in the buffer are the shortest representation possible:
+  # no `0.09999999999999999` instead of `0.1`. The shorter representation will
+  # even be chosen even if the longer one would be closer to *v*.
+  #
   # The last digit will be closest to the actual *v*. That is, even if several
   # digits might correctly yield *v* when read again, the closest will be
   # computed.
@@ -317,7 +323,6 @@ module Float::Printer::Grisu3
     # boundary_minus and boundary_plus will round to v when convert to a float.
     # Grisu3 will never output representations that lie exactly on a boundary.
     boundaries = IEEE.normalized_boundaries(v)
-    _invariant boundaries[:plus].exp == w.exp
 
     ten_mk, mk = CachedPowers.get_cached_power_for_binary_exponent(w.exp)
 
@@ -331,13 +336,12 @@ module Float::Printer::Grisu3
     # In other words: let f = scaled_w.f() and e = scaled_w.e(), then
     #           (f-1) * 2^e < w*10^k < (f+1) * 2^e
     scaled_w = w * ten_mk
-    _invariant scaled_w.exp == boundaries[:plus].exp + ten_mk.exp + DiyFP::SIGNIFICAND_SIZE
 
     # In theory it would be possible to avoid some recomputations by computing
     # the difference between w and boundary_minus/plus (a power of 2) and to
     # compute scaled_boundary_minus/plus by subtracting/adding from
     # scaled_w. However the code becomes much less readable and the speed
-    # enhancements are not terriffic.
+    # enhancements are not terrific.
     scaled_boundary_minus = boundaries[:minus] * ten_mk
     scaled_boundary_plus = boundaries[:plus] * ten_mk
 
@@ -345,19 +349,11 @@ module Float::Printer::Grisu3
     # v == (scaled_w * 10^-mk).to_f
     # Set decimal_exponent == -mk and pass it to DigitGen. If scaled_w is not an
     # integer than it will be updated. For instance if scaled_w == 1.23 then
-    # the buffer will be filled with "123" und the decimal_exponent will be
+    # the buffer will be filled with "123" and the decimal_exponent will be
     # decreased by 2.
     result, kappa, length = digit_gen(scaled_boundary_minus, scaled_w, scaled_boundary_plus, buffer_p)
 
     decimal_exponent = -mk + kappa
     return result, decimal_exponent, length
-  end
-
-  private macro _invariant(exp, file = __FILE__, line = __LINE__)
-    {% if !flag?(:release) %}
-      unless {{exp}}
-        raise "Assertion Failed #{{{file}}}:#{{{line}}}"
-      end
-    {% end %}
   end
 end

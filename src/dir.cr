@@ -1,6 +1,4 @@
-require "c/dirent"
-require "c/unistd"
-require "c/sys/stat"
+require "crystal/system/dir"
 
 # Objects of class `Dir` are directory streams representing directories in the underlying file system.
 # They provide a variety of ways to list directories and their contents.
@@ -13,25 +11,34 @@ class Dir
   include Enumerable(String)
   include Iterable(String)
 
+  # Returns the path of this directory.
+  #
+  # ```
+  # Dir.mkdir("testdir")
+  # dir = Dir.new("testdir")
+  # Dir.mkdir("testdir/extendeddir")
+  # dir2 = Dir.new("testdir/extendeddir")
+  #
+  # dir.path  # => "testdir"
+  # dir2.path # => "testdir/extendeddir"
+  # ```
   getter path : String
 
   # Returns a new directory object for the named directory.
-  def initialize(@path)
-    @dir = LibC.opendir(@path.check_no_null_byte)
-    unless @dir
-      raise Errno.new("Error opening directory '#{@path}'")
-    end
+  def initialize(path : Path | String)
+    @path = path.to_s
+    @dir = Crystal::System::Dir.open(@path)
     @closed = false
   end
 
   # Alias for `new(path)`
-  def self.open(path) : self
+  def self.open(path : Path | String) : self
     new path
   end
 
   # Opens a directory and yields it, closing it at the end of the block.
   # Returns the value of the block.
-  def self.open(path)
+  def self.open(path : Path | String, & : self ->)
     dir = new path
     begin
       yield dir
@@ -48,7 +55,7 @@ class Dir
   # File.write("testdir/config.h", "")
   #
   # d = Dir.new("testdir")
-  # d.each_entry { |x| puts "Got #{x}" }
+  # d.each { |x| puts "Got #{x}" }
   # ```
   #
   # produces:
@@ -58,20 +65,20 @@ class Dir
   # Got ..
   # Got config.h
   # ```
-  def each_entry : Nil
+  def each(& : String ->) : Nil
     while entry = read
       yield entry
     end
   end
 
-  def each_entry
+  def each : Iterator(String)
     EntryIterator.new(self)
   end
 
   # Returns an array containing all of the filenames in the given directory.
   def entries : Array(String)
     entries = [] of String
-    each_entry do |filename|
+    each do |filename|
       entries << filename
     end
     entries
@@ -85,7 +92,7 @@ class Dir
   # File.write("testdir/config.h", "")
   #
   # d = Dir.new("testdir")
-  # d.each_entry { |x| puts "Got #{x}" }
+  # d.each_child { |x| puts "Got #{x}" }
   # ```
   #
   # produces:
@@ -93,14 +100,29 @@ class Dir
   # ```text
   # Got config.h
   # ```
-  def each_child : Nil
+  def each_child(& : String ->) : Nil
     excluded = {".", ".."}
     while entry = read
       yield entry unless excluded.includes?(entry)
     end
   end
 
-  def each_child
+  # Returns an iterator over of the all entries in this directory except for `.` and `..`.
+  #
+  # See `#each_child(&)`
+  #
+  # ```
+  # Dir.mkdir("test")
+  # File.touch("test/foo")
+  # File.touch("test/bar")
+  #
+  # dir = Dir.new("test")
+  # iter = d.each_child
+  #
+  # iter.next # => "foo"
+  # iter.next # => "bar"
+  # ```
+  def each_child : Iterator(String)
     ChildIterator.new(self)
   end
 
@@ -124,54 +146,37 @@ class Dir
   # end
   # array.sort # => [".", "..", "config.h"]
   # ```
-  def read
-    # readdir() returns NULL for failure and sets errno or returns NULL for EOF but leaves errno as is.  wtf.
-    Errno.value = 0
-    ent = LibC.readdir(@dir)
-    if ent
-      String.new(ent.value.d_name.to_unsafe)
-    elsif Errno.value != 0
-      raise Errno.new("readdir")
-    else
-      nil
-    end
+  def read : String?
+    Crystal::System::Dir.next(@dir, path)
   end
 
   # Repositions this directory to the first entry.
-  def rewind
-    LibC.rewinddir(@dir)
+  def rewind : self
+    Crystal::System::Dir.rewind(@dir)
     self
   end
 
   # Closes the directory stream.
-  def close
+  def close : Nil
     return if @closed
-    if LibC.closedir(@dir) != 0
-      raise Errno.new("closedir")
-    end
+    Crystal::System::Dir.close(@dir, path)
     @closed = true
   end
 
   # Returns the current working directory.
   def self.current : String
-    if dir = LibC.getcwd(nil, 0)
-      String.new(dir).tap { LibC.free(dir.as(Void*)) }
-    else
-      raise Errno.new("getcwd")
-    end
+    Crystal::System::Dir.current
   end
 
   # Changes the current working directory of the process to the given string.
-  def self.cd(path)
-    if LibC.chdir(path.check_no_null_byte) != 0
-      raise Errno.new("Error while changing directory to #{path.inspect}")
-    end
+  def self.cd(path : Path | String) : String
+    Crystal::System::Dir.current = path.to_s
   end
 
   # Changes the current working directory of the process to the given string
   # and invokes the block, restoring the original working directory
   # when the block exits.
-  def self.cd(path)
+  def self.cd(path : Path | String, &)
     old = current
     begin
       cd(path)
@@ -181,24 +186,33 @@ class Dir
     end
   end
 
-  # See `#each_entry`.
-  def self.each_entry(dirname)
+  # Returns the tmp dir used for tempfile.
+  #
+  # ```
+  # Dir.tempdir # => "/tmp"
+  # ```
+  def self.tempdir : String
+    Crystal::System::Dir.tempdir
+  end
+
+  # See `#each`.
+  def self.each(dirname : Path | String, & : String ->)
     Dir.open(dirname) do |dir|
-      dir.each_entry do |filename|
+      dir.each do |filename|
         yield filename
       end
     end
   end
 
   # See `#entries`.
-  def self.entries(dirname) : Array(String)
+  def self.entries(dirname : Path | String) : Array(String)
     Dir.open(dirname) do |dir|
       return dir.entries
     end
   end
 
   # See `#each_child`.
-  def self.each_child(dirname)
+  def self.each_child(dirname : Path | String, & : String ->)
     Dir.open(dirname) do |dir|
       dir.each_child do |filename|
         yield filename
@@ -207,26 +221,23 @@ class Dir
   end
 
   # See `#children`.
-  def self.children(dirname) : Array(String)
+  def self.children(dirname : Path | String) : Array(String)
     Dir.open(dirname) do |dir|
       return dir.children
     end
   end
 
   # Returns `true` if the given path exists and is a directory
-  def self.exists?(path) : Bool
-    if LibC.stat(path.check_no_null_byte, out stat) != 0
-      if Errno.value == Errno::ENOENT || Errno.value == Errno::ENOTDIR
-        return false
-      else
-        raise Errno.new("stat")
-      end
+  def self.exists?(path : Path | String) : Bool
+    if info = File.info?(path)
+      info.type.directory?
+    else
+      false
     end
-    File::Stat.new(stat).directory?
   end
 
   # Returns `true` if the directory at *path* is empty, otherwise returns `false`.
-  # Raises `Errno` if the directory at *path* does not exist.
+  # Raises `File::NotFoundError` if the directory at *path* does not exist.
   #
   # ```
   # Dir.mkdir("bar")
@@ -234,9 +245,7 @@ class Dir
   # File.write("bar/a_file", "The content")
   # Dir.empty?("bar") # => false
   # ```
-  def self.empty?(path) : Bool
-    raise Errno.new("Error determining size of '#{path}'") unless exists?(path)
-
+  def self.empty?(path : Path | String) : Bool
     each_child(path) do |f|
       return false
     end
@@ -245,48 +254,36 @@ class Dir
 
   # Creates a new directory at the given path. The linux-style permission mode
   # can be specified, with a default of 777 (0o777).
-  def self.mkdir(path, mode = 0o777)
-    if LibC.mkdir(path.check_no_null_byte, mode) == -1
-      raise Errno.new("Unable to create directory '#{path}'")
-    end
-    0
+  #
+  # NOTE: *mode* is ignored on windows.
+  def self.mkdir(path : Path | String, mode = 0o777) : Nil
+    Crystal::System::Dir.create(path.to_s, mode)
   end
 
   # Creates a new directory at the given path, including any non-existing
   # intermediate directories. The linux-style permission mode can be specified,
   # with a default of 777 (0o777).
-  def self.mkdir_p(path, mode = 0o777)
-    return 0 if Dir.exists?(path)
+  def self.mkdir_p(path : Path | String, mode = 0o777) : Nil
+    return if Dir.exists?(path)
 
-    components = path.split(File::SEPARATOR)
-    if components.first == "." || components.first == ""
-      subpath = components.shift
-    else
-      subpath = "."
+    path = Path.new path
+
+    path.each_parent do |parent|
+      mkdir(parent, mode) unless Dir.exists?(parent)
     end
-
-    components.each do |component|
-      subpath = File.join subpath, component
-
-      mkdir(subpath, mode) unless Dir.exists?(subpath)
-    end
-
-    0
+    mkdir(path, mode) unless Dir.exists?(path)
   end
 
   # Removes the directory at the given path.
-  def self.rmdir(path)
-    if LibC.rmdir(path.check_no_null_byte) == -1
-      raise Errno.new("Unable to remove directory '#{path}'")
-    end
-    0
+  def self.delete(path : Path | String) : Nil
+    Crystal::System::Dir.delete(path.to_s)
   end
 
-  def to_s(io)
-    io << "#<Dir:" << @path << ">"
+  def to_s(io : IO) : Nil
+    io << "#<Dir:" << @path << '>'
   end
 
-  def inspect(io)
+  def inspect(io : IO) : Nil
     to_s(io)
   end
 
@@ -303,11 +300,6 @@ class Dir
     def next
       @dir.read || stop
     end
-
-    def rewind
-      @dir.rewind
-      self
-    end
   end
 
   private struct ChildIterator
@@ -322,11 +314,6 @@ class Dir
         return entry unless excluded.includes?(entry)
       end
       stop
-    end
-
-    def rewind
-      @dir.rewind
-      self
     end
   end
 end

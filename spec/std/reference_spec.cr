@@ -1,4 +1,5 @@
 require "spec"
+require "../support/finalize"
 
 private module ReferenceSpec
   class TestClass
@@ -20,7 +21,19 @@ private module ReferenceSpec
 
     def initialize
       @x = 1
+      @y = "y"
+    end
+
+    def_clone
+  end
+
+  class DupCloneRecursiveClass
+    getter x, y, z
+
+    def initialize
+      @x = 1
       @y = [1, 2, 3]
+      @z = self
     end
 
     def_clone
@@ -34,6 +47,10 @@ private module ReferenceSpec
 
     def initialize(@x : Int32)
     end
+  end
+
+  class TestClassWithFinalize
+    include FinalizeCounter
   end
 end
 
@@ -102,12 +119,25 @@ describe "Reference" do
     clone = original.clone
     clone.should_not be(original)
     clone.x.should eq(original.x)
+  end
+
+  it "clones with def_clone (recursive type)" do
+    original = ReferenceSpec::DupCloneRecursiveClass.new
+    clone = original.clone
+    clone.should_not be(original)
+    clone.x.should eq(original.x)
     clone.y.should_not be(original.y)
     clone.y.should eq(original.y)
+    clone.z.should be(clone)
   end
 
   it "pretty_print" do
     ReferenceSpec::TestClassBase.new.pretty_inspect.should match(/\A#<ReferenceSpec::TestClassBase:0x[0-9a-f]+>\Z/)
     ReferenceSpec::TestClass.new(42, "foo").pretty_inspect.should match(/\A#<ReferenceSpec::TestClass:0x[0-9a-f]+ @x=42, @y="foo">\Z/)
+  end
+
+  it "calls #finalize on #dup'ed objects" do
+    obj = ReferenceSpec::TestClassWithFinalize.new
+    assert_finalizes("dup") { obj.dup }
   end
 end
