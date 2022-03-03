@@ -4956,16 +4956,16 @@ class String
   protected def self.char_bytesize_at(bytes : Pointer(UInt8))
     byte = bytes.value
 
-    return 1 if 0b0_000000 <= byte <= 0b0_1111111
+    return 1 if byte <= 0b0_1111111
 
     return 1 unless 0b10_000000 <= bytes[1] <= 0b10_111111
     return 2 if 0b110_00000 <= byte <= 0b110_11111
 
     return 1 unless 0b10_000000 <= bytes[2] <= 0b10_111111
-    return 3 if 0b1110_0000 <= byte <= 0b1110_1111
+    return 3 if byte <= 0b1110_1111
 
     return 1 unless 0b10_000000 <= bytes[3] <= 0b10_111111
-    return 4 if 0b11110_000 <= byte <= 0b11110_111
+    return 4 if byte <= 0b11110_111
 
     return 1
   end
