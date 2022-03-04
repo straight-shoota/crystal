@@ -2863,3 +2863,40 @@ describe "String" do
     end
   end
 end
+
+class String
+  describe String do
+    it ".char_bytesize_at", focus: true do
+      String.char_bytesize_at(Bytes[0x00, 0].to_unsafe).should eq 1
+      String.char_bytesize_at(Bytes[0x7F, 0].to_unsafe).should eq 1
+      String.char_bytesize_at(Bytes[0x80, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xBF, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xC2, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xC3, 0].to_unsafe).should eq 1 # malformed
+
+      String.char_bytesize_at(Bytes[0xC2, 0x7F, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xC2, 0x80, 0].to_unsafe).should eq 2
+      String.char_bytesize_at(Bytes[0xDF, 0xBF, 0].to_unsafe).should eq 2
+      String.char_bytesize_at(Bytes[0xDF, 0xC0, 0].to_unsafe).should eq 1 # malformed
+
+      String.char_bytesize_at(Bytes[0xE0, 0xA0, 0x7F, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xE0, 0xA0, 0x80, 0].to_unsafe).should eq 3
+      String.char_bytesize_at(Bytes[0xED, 0x9F, 0xBF, 0].to_unsafe).should eq 3
+      String.char_bytesize_at(Bytes[0xEE, 0x80, 0x80, 0].to_unsafe).should eq 3
+      String.char_bytesize_at(Bytes[0xEF, 0xBF, 0xBD, 0].to_unsafe).should eq 3
+      String.char_bytesize_at(Bytes[0xEF, 0xBF, 0xBF, 0].to_unsafe).should eq 3
+      String.char_bytesize_at(Bytes[0xEF, 0xBF, 0xC0, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xEF, 0xC0, 0xBF, 0].to_unsafe).should eq 1 # malformed
+
+      String.char_bytesize_at(Bytes[0xF0, 0x90, 0x80, 0x80, 0].to_unsafe).should eq 4
+      String.char_bytesize_at(Bytes[0xF0, 0x9F, 0xBF, 0xBF, 0].to_unsafe).should eq 4
+      String.char_bytesize_at(Bytes[0xF3, 0x90, 0x80, 0x80, 0].to_unsafe).should eq 4
+      String.char_bytesize_at(Bytes[0xF4, 0x8F, 0xBD, 0xBF, 0].to_unsafe).should eq 4
+      String.char_bytesize_at(Bytes[0xF4, 0x8F, 0xBD, 0xC0, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xF4, 0x90, 0x80, 0x80, 0].to_unsafe).should eq 1 # malformed
+
+      String.char_bytesize_at(Bytes[0xF5, 0].to_unsafe).should eq 1 # malformed
+      String.char_bytesize_at(Bytes[0xFF, 0].to_unsafe).should eq 1 # malformed
+    end
+  end
+end

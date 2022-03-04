@@ -4973,6 +4973,11 @@ class String
     return 3 if byte <= 0b1110_1111
 
     return 1 unless 0b10_000000 <= bytes[3] <= 0b10_111111
+
+    # In a 4-byte sequence, if the first byte has max value, the value of the second byte is limited to 0b10001111
+    # because the highest codepoint is U+1FFFF.
+    return 1 unless byte < 0b11110_100 || bytes[1] <= 0b10001111
+
     return 4 if byte <= 0b11110_111
 
     return 1
