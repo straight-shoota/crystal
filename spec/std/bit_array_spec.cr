@@ -867,4 +867,14 @@ describe "BitArray" do
     a[0].should be_false
     b[0].should be_true
   end
+
+  describe ".[]" do
+    it "empty" do
+      BitArray[].size.should eq 0
+    end
+
+    it "value" do
+      BitArray[1010101].to_s.should eq "BitArray[1010101]"
+    end
+  end
 end

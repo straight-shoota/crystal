@@ -9,10 +9,10 @@
 # ```
 # require "bit_array"
 #
-# ba = BitArray.new(12) # => "BitArray[000000000000]"
+# ba = BitArray.new(12) # => BitArray[000000000000]
 # ba[2]                 # => false
 # 0.upto(5) { |i| ba[i * 2] = true }
-# ba    # => "BitArray[101010101010]"
+# ba    # => BitArray[101010101010]
 # ba[2] # => true
 # ```
 struct BitArray
@@ -20,6 +20,48 @@ struct BitArray
 
   # The number of bits the BitArray stores
   getter size : Int32
+
+  # Returns an empty `BitArray`.
+  #
+  # It can be used as literal-like constructor, complementing the `.[](binary)` macro.
+  #
+  # ```
+  # require "bit_array"
+  #
+  # BitArray[] # => BitArray[]
+  # ```
+  def self.[]
+    new(0)
+  end
+
+  # Returns a `BitArray` with values set accordingly to *binary* which must be an
+  # unprefixed binary integer literal.
+  #
+  # It can be used as literal-like constructor, complementing the `.[]()` constructor.
+  #
+  # ```
+  # require "bit_array"
+  #
+  # BitArray[101010] # => BitArray[101010]
+  # ```
+  macro [](binary)
+    {% raise "BitArray.[] expects NumberLiteral, not #{binary.class}" unless binary.is_a?(NumberLiteral) %}
+    {% if float_type = {f32: "Float32", f64: "Float64"}[binary.kind] %}
+      {% raise "BitArray.[] expects an integer literal, not #{float_type}" %}
+    {% end %}
+
+    BitArray.new({{ binary.to_number.size }}).tap do |ary|
+      {% for digit, index in binary.id.chars %}
+        {% if digit == '1' %}
+          ary[{{ index }}] = true
+        {% elsif digit == '0' %}
+          # nothing
+        {% else %}
+          {% raise "BitArray.[] expects an unprefixed and untyped binary integer literal" %}
+        {% end %}
+      {% end %}
+    end
+  end
 
   # Creates a new `BitArray` of *size* bits.
   #
@@ -106,7 +148,7 @@ struct BitArray
   # ba # => BitArray[10101]
   #
   # ba[-3, 3] # => BitArray[101]
-  # ba[6, 1]  # raise indexError
+  # ba[6, 1]  # raises IndexError
   # ba[1, 2]  # => BitArray[01]
   # ba[5, 1]  # => BitArray[]
   # ```
