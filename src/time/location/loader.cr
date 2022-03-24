@@ -30,6 +30,7 @@ class Time::Location
     if source.ends_with?(".zip")
       open_file_cached(name, source) do |file|
         read_zip_file(name, file) do |io|
+          p! source
           read_zoneinfo(name, io)
         end
       end
@@ -78,46 +79,61 @@ class Time::Location
 
   # :nodoc:
   def self.read_zoneinfo(location_name : String, io : IO) : Time::Location
-    raise InvalidTZDataError.new unless io.read_string(4) == "TZif"
+    magic = uninitialized UInt8[4]
+    io.read(magic.to_slice)
+
+    raise InvalidTZDataError.new unless magic.to_slice == "TZif".to_slice
 
     # 1-byte version
-    case version = io.read_byte
-    when 0x00 # Version 1: only 32-bits format
-      read_zoneinfo32(location_name, io)
-    when 0x32, # Version 2: 32-bits and 64-bits format
-         0x33  # Version 3: 32-bits and 64-bits format
+    version = case io.read_byte
+      when 0x00 then 1 # Version 1: only 32-bits format
+      when 0x32 then 2 # Version 2 ('2'): 32-bits and 64-bits format
+      when 0x33 then 3 # Version 3 ('3'): 32-bits and 64-bits format
+      else raise InvalidTZDataError.new
+      end
 
-      skip_zoneinfo32(io)
-      bytes = io.read_string(4)
-      raise InvalidTZDataError.new(bytes.inspect) unless bytes == "TZif"
-      second_version = io.read_byte
-      raise InvalidTZDataError.new unless second_version == version
-      read_zoneinfo64(location_name, io)
+    io.skip(15) # 15 bytes padding
+
+    # Read 32-bit header
+    num_utc_local = read_int32(io) #	number of UTC/local indicators
+    num_std_wall = read_int32(io) #	number of standard/wall indicators
+    num_leap_seconds = read_int32(io) #	number of leap seconds
+    num_transitions = read_int32(io) #	number of transition times
+    num_local_time_zones = read_int32(io) #	number of local time zones
+    abbrev_length = read_int32(io) #	number of characters of time zone abbrev strings
+
+    if version > 1
+      # In versions 2 and 3 the header and data are repeated in 64-bit format after
+      # the 32-bit format header and data.
+      # We skip the 32-bit parts and read only 64-bit.
+
+      io.skip(
+        num_transitions * 4 +
+        num_transitions +
+        num_local_time_zones * 6 +
+        abbrev_length +
+        num_leap_seconds * 8 +
+        num_std_wall +
+        num_utc_local +
+        4 + # TZif header
+        16  # version and padding
+      )
+
+      # Read 64-bit header
+      num_utc_local = read_int32(io)
+      num_std_wall = read_int32(io)
+      num_leap_seconds = read_int32(io)
+      num_transitions = read_int32(io)
+      num_local_time_zones = read_int32(io)
+      abbrev_length = read_int32(io)
+
+      size = 8
     else
-      raise InvalidTZDataError.new
+      size = 4
     end
-  end
 
-  # :nodoc:
-  def self.read_zoneinfo32(location_name : String, io : IO) : Time::Location
-    io.skip(15) # padding
-
-    # six big-endian 32-bit integers:
-    #	number of UTC/local indicators
-    #	number of standard/wall indicators
-    #	number of leap seconds
-    #	number of transition times
-    #	number of local time zones
-    #	number of characters of time zone abbrev strings
-
-    num_utc_local = read_int32(io)
-    num_std_wall = read_int32(io)
-    num_leap_seconds = read_int32(io)
-    num_transitions = read_int32(io)
-    num_local_time_zones = read_int32(io)
-    abbrev_length = read_int32(io)
-
-    transitionsdata = read_buffer(io, num_transitions * 4)
+    p! version, size, num_transitions, location_name
+    transitionsdata = read_buffer(io, num_transitions * size)
 
     # Time zone indices for transition times.
     transition_indexes = Bytes.new(num_transitions)
@@ -127,8 +143,7 @@ class Time::Location
 
     abbreviations = read_buffer(io, abbrev_length)
 
-    leap_second_time_pairs = Bytes.new(num_leap_seconds * 8)
-    io.read_fully(leap_second_time_pairs)
+    io.skip(num_leap_seconds * (size + 4))
 
     isstddata = Bytes.new(num_std_wall)
     io.read_fully(isstddata)
@@ -136,9 +151,7 @@ class Time::Location
     isutcdata = Bytes.new(num_utc_local)
     io.read_fully(isutcdata)
 
-    # If version == 2 or 3, the entire file repeats, this time using
-    # 8-byte ints for txtimes and leap seconds.
-    # We won't need those until 2106.
+    # TODO: extend
 
     zones = Array(Zone).new(num_local_time_zones) do
       offset = read_int32(zonedata)
@@ -152,98 +165,11 @@ class Time::Location
     end
 
     transitions = Array(ZoneTransition).new(num_transitions) do |transition_id|
-      time = read_int32(transitionsdata).to_i64
-      zone_idx = transition_indexes[transition_id]
-      raise InvalidTZDataError.new unless zone_idx < zones.size
-
-      isstd = !isstddata[transition_id]?.in?(nil, 0_u8)
-      isutc = !isstddata[transition_id]?.in?(nil, 0_u8)
-
-      ZoneTransition.new(time, zone_idx, isstd, isutc)
-    end
-
-    new(location_name, zones, transitions)
-  rescue exc : IO::Error
-    raise InvalidTZDataError.new(cause: exc)
-  end
-
-  # :nodoc:
-  def self.skip_zoneinfo32(io : IO) : Nil
-    io.skip(15) # padding
-
-    # six big-endian 32-bit integers:
-    #	number of UTC/local indicators
-    #	number of standard/wall indicators
-    #	number of leap seconds
-    #	number of transition times
-    #	number of local time zones
-    #	number of characters of time zone abbrev strings
-
-    num_utc_local = read_int32(io)
-    num_std_wall = read_int32(io)
-    num_leap_seconds = read_int32(io)
-    num_transitions = read_int32(io)
-    num_local_time_zones = read_int32(io)
-    abbrev_length = read_int32(io)
-
-    io.skip(num_transitions * (4 + 1) + num_local_time_zones * 6 + abbrev_length + num_leap_seconds * 8 + num_std_wall + num_utc_local)
-  end
-
-  # :nodoc:
-  def self.read_zoneinfo64(location_name : String, io : IO) : Time::Location
-    io.skip(15) # padding
-
-    # six big-endian 32-bit integers:
-    #	number of UTC/local indicators
-    #	number of standard/wall indicators
-    #	number of leap seconds
-    #	number of transition times
-    #	number of local time zones
-    #	number of characters of time zone abbrev strings
-
-    num_utc_local = read_int32(io)
-    num_std_wall = read_int32(io)
-    num_leap_seconds = read_int32(io)
-    num_transitions = read_int32(io)
-    num_local_time_zones = read_int32(io)
-    abbrev_length = read_int32(io)
-
-    transitionsdata = read_buffer(io, num_transitions * 8)
-
-    # Time zone indices for transition times.
-    transition_indexes = Bytes.new(num_transitions)
-    io.read_fully(transition_indexes)
-
-    zonedata = read_buffer(io, num_local_time_zones * 6)
-
-    abbreviations = read_buffer(io, abbrev_length)
-
-    leap_second_time_pairs = Bytes.new(num_leap_seconds * 12)
-    io.read_fully(leap_second_time_pairs)
-
-    isstddata = Bytes.new(num_std_wall)
-    io.read_fully(isstddata)
-
-    isutcdata = Bytes.new(num_utc_local)
-    io.read_fully(isutcdata)
-
-    # If version == 2 or 3, the entire file repeats, this time using
-    # 8-byte ints for txtimes and leap seconds.
-    # We won't need those until 2106.
-
-    zones = Array(Zone).new(num_local_time_zones) do
-      offset = read_int32(zonedata)
-      is_dst = zonedata.read_byte != 0_u8
-      name_idx = zonedata.read_byte
-      raise InvalidTZDataError.new unless name_idx && name_idx < abbreviations.size
-      abbreviations.pos = name_idx
-      name = abbreviations.gets(Char::ZERO, chomp: true)
-      raise InvalidTZDataError.new unless name
-      Zone.new(name, offset, is_dst)
-    end
-
-    transitions = Array(ZoneTransition).new(num_transitions) do |transition_id|
-      time = read_int32(transitionsdata).to_i64
+      if size == 8
+        time = transitionsdata.read_bytes(Int64, IO::ByteFormat::BigEndian)
+      else
+        time = read_int32(transitionsdata).to_i64
+      end
       zone_idx = transition_indexes[transition_id]
       raise InvalidTZDataError.new unless zone_idx < zones.size
 
