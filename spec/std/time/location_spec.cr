@@ -3,8 +3,8 @@ require "./spec_helper"
 class Time::Location
   describe Time::Location do
     describe ".load" do
-      it "loads Europe/Berlin" do
-        with_zoneinfo do
+      it "loads Europe/Berlin", focus: true  do
+        #with_zoneinfo datapath("zoneinfo") do
           location = Location.load("Europe/Berlin")
 
           location.name.should eq "Europe/Berlin"
@@ -30,7 +30,7 @@ class Time::Location
           end
 
           Location.load("Europe/Berlin", {ZONEINFO_ZIP}).should eq location
-        end
+        #end
       end
 
       it "invalid timezone identifier" do
@@ -88,9 +88,30 @@ class Time::Location
 
       describe "slim zoneinfo file" do
         it do
-          location = Location.load?("2020b_Europe/Berlin", [datapath("zoneinfo")]).should_not be_nil
+          location = Location.load?("2020b_Europe_Berlin", [datapath("zoneinfo")]).should_not be_nil
           zone = location.lookup(Time.utc 2020, 10, 29, 15, 30)
           zone.name.should eq "CET"
+          zone.offset.should eq 3600
+        end
+
+        it do
+          location = Location.load?("2021a_America_Nuuk", [datapath("zoneinfo")]).should_not be_nil
+          zone = location.lookup(Time.utc 2020, 10, 29, 15, 30)
+          zone.name.should eq "-03"
+          zone.offset.should eq -10800
+        end
+
+        it do
+          location = Location.load?("2021a_Asia_Gaza", [datapath("zoneinfo")]).should_not be_nil
+          zone = location.lookup(Time.utc 2020, 10, 29, 15, 30)
+          zone.name.should eq "-03"
+          zone.offset.should eq -10800
+        end
+
+        it do
+          location = Location.load?("2021a_Europe_Dublin", [datapath("zoneinfo")]).should_not be_nil
+          zone = location.lookup(Time.utc 2021, 4, 2, 11, 12, 13)
+          zone.name.should eq "IST"
           zone.offset.should eq 3600
         end
       end

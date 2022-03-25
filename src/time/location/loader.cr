@@ -27,10 +27,10 @@ class Time::Location
 
   # :nodoc:
   def self.load_from_dir_or_zip(name : String, source : String) : Time::Location?
+    p! source
     if source.ends_with?(".zip")
       open_file_cached(name, source) do |file|
         read_zip_file(name, file) do |io|
-          p! source
           read_zoneinfo(name, io)
         end
       end
@@ -69,6 +69,8 @@ class Time::Location
         path = File.join(source, name)
       end
 
+      p! path, File.file?(path)
+
       return source if File.exists?(path) && File.file?(path) && File.readable?(path)
     end
   end
@@ -92,6 +94,7 @@ class Time::Location
       else raise InvalidTZDataError.new
       end
 
+    p! version
     io.skip(15) # 15 bytes padding
 
     # Read 32-bit header
@@ -102,10 +105,14 @@ class Time::Location
     num_local_time_zones = read_int32(io) #	number of local time zones
     abbrev_length = read_int32(io) #	number of characters of time zone abbrev strings
 
+    p! num_utc_local, num_std_wall, num_leap_seconds, num_transitions, num_local_time_zones, abbrev_length
+
     if version > 1
       # In versions 2 and 3 the header and data are repeated in 64-bit format after
       # the 32-bit format header and data.
       # We skip the 32-bit parts and read only 64-bit.
+
+      puts "skip 32-bit data"
 
       io.skip(
         num_transitions * 4 +
@@ -114,10 +121,17 @@ class Time::Location
         abbrev_length +
         num_leap_seconds * 8 +
         num_std_wall +
-        num_utc_local +
-        4 + # TZif header
-        16  # version and padding
+        num_utc_local
       )
+
+      io.read_fully(magic.to_slice)
+      p! String.new(magic.to_slice)
+      raise InvalidTZDataError.new unless magic.to_slice == "TZif".to_slice
+      p! io.read_byte # version
+      io.skip(15)
+        #4 + # TZif header
+        #16  # version and padding
+      #)
 
       # Read 64-bit header
       num_utc_local = read_int32(io)
@@ -127,22 +141,28 @@ class Time::Location
       num_local_time_zones = read_int32(io)
       abbrev_length = read_int32(io)
 
+      p! num_utc_local, num_std_wall, num_leap_seconds, num_transitions, num_local_time_zones, abbrev_length
+
       size = 8
     else
       size = 4
     end
 
-    p! version, size, num_transitions, location_name
+    p! size
     transitionsdata = read_buffer(io, num_transitions * size)
 
+    puts "indexes"
     # Time zone indices for transition times.
     transition_indexes = Bytes.new(num_transitions)
     io.read_fully(transition_indexes)
 
+    puts "zonedata"
     zonedata = read_buffer(io, num_local_time_zones * 6)
 
+    puts "abbrs"
     abbreviations = read_buffer(io, abbrev_length)
 
+    puts "leap seconds"
     io.skip(num_leap_seconds * (size + 4))
 
     isstddata = Bytes.new(num_std_wall)
@@ -152,6 +172,7 @@ class Time::Location
     io.read_fully(isutcdata)
 
     # TODO: extend
+    puts "extend data?"
 
     zones = Array(Zone).new(num_local_time_zones) do
       offset = read_int32(zonedata)
