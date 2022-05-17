@@ -47,7 +47,7 @@
 # ```
 class Array(T)
   include Indexable::Mutable(T)
-  include Comparable(Array)
+  include Comparable(Array(Comparable(T)))
 
   # Size of an Array that we consider small to do linear scans or other optimizations.
   private SMALL_ARRAY_SIZE = 16
@@ -234,11 +234,11 @@ class Array(T)
   # [2] <=> [4, 2, 3] # => -1
   # [1, 2] <=> [1, 2] # => 0
   # ```
-  def <=>(other : Array)
+  def <=>(other : Array(Comparable(T)))
     min_size = Math.min(size, other.size)
     0.upto(min_size - 1) do |i|
-      n = @buffer[i] <=> other.to_unsafe[i]
-      return n if n != 0
+      n = other.to_unsafe[i] <=> @buffer[i]
+      return -n if n != 0
     end
     size <=> other.size
   end
