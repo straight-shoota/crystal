@@ -113,7 +113,7 @@ describe Crystal::Repl::Interpreter do
       CODE
     end
 
-    pending "does XML" do
+    it "does XML" do
       interpret(<<-CODE, prelude: "prelude").should eq("3")
         require "xml"
 

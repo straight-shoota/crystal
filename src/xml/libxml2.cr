@@ -4,7 +4,9 @@ require "./parser_options"
 require "./html_parser_options"
 require "./save_options"
 
-@[Link("xml2", pkg_config: "libxml-2.0")]
+{% unless flag?(:interpreted) %}
+  @[Link("xml2", pkg_config: "libxml-2.0")]
+{% end %}
 lib LibXML
   alias Int = LibC::Int
 
@@ -314,15 +316,17 @@ lib LibXML
   fun xmlValidateNameValue(value : UInt8*) : Int
 end
 
-LibXML.xmlGcMemSetup(
-  ->GC.free,
-  ->GC.malloc(LibC::SizeT),
-  ->GC.malloc(LibC::SizeT),
-  ->GC.realloc(Void*, LibC::SizeT),
-  ->(str) {
-    len = LibC.strlen(str) + 1
-    copy = Pointer(UInt8).malloc(len)
-    copy.copy_from(str, len)
-    copy
-  }
-)
+{% unless flag?(:interpreted) %}
+  LibXML.xmlGcMemSetup(
+    ->GC.free,
+    ->GC.malloc(LibC::SizeT),
+    ->GC.malloc(LibC::SizeT),
+    ->GC.realloc(Void*, LibC::SizeT),
+    ->(str) {
+      len = LibC.strlen(str) + 1
+      copy = Pointer(UInt8).malloc(len)
+      copy.copy_from(str, len)
+      copy
+    }
+  )
+{% end %}
