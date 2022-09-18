@@ -129,10 +129,10 @@ jobs:
         run: bin/ci with_build_env 'make deps && bin/crystal build -o interpreter_spec spec/compiler/interpreter_spec.cr && ./interpreter_spec'
 
       - name: Build interpreter
-        run: bin/ci with_build_env 'make interpreter=1 release=1'
+        run: bin/ci with_build_env 'make interpreter=1 release=1 debug=1'
 
       - name: Test std specs with interpreter
-        run: bin/ci with_build_env 'bin/crystal i spec/interpreter_std_spec.cr'
+        run: bin/ci with_build_env 'SPEC_VERBOSE=1 bin/crystal i spec/interpreter_std_spec.cr'
 
   check_format:
     env:
