@@ -31,8 +31,8 @@ private class TestClient < HTTP::Client
   end
 end
 
-private def make_request(request)
-  io_response = IO::Memory.new <<-RESPONSE
+private def make_request(request, response = nil)
+  io_response = IO::Memory.new response || <<-RESPONSE
     HTTP/1.1 200 OK\r
     Content-Type: text/plain\r
     Content-Length: 3\r
@@ -312,6 +312,31 @@ module HTTP
       end
     end
 
+    it "re-use of response does not affect implicit compression" do
+      request = HTTP::Request.new("GET", "/")
+      cloned_headers = request.headers.clone
+
+      response_raw = <<-RESPONSE
+        HTTP/1.1 200 OK\r
+        Content-Type: text/plain\r
+        Content-Encoding: gzip\r
+        Content-Length: 28\r
+        \r
+        \u001F\x8B\b\u0000\xFC\xC76c\u0000\xFF+\xCFH,I-K-\u0002\u0000\xB3C\u0011N\b\u0000\u0000\u0000
+        RESPONSE
+      response, _ = make_request(request, response_raw)
+      response.body.should eq "whatever"
+      response, _ = make_request(request, response_raw)
+      response.body.should eq "whatever"
+    end
+
+    it "does not alter headers" do
+      request = HTTP::Request.new("GET", "/")
+      cloned_headers = request.headers.clone
+      make_request(request)
+      request.headers.should eq cloned_headers
+    end
+
     it "doesn't read the body if request was HEAD" do
       resp_get = test_server("localhost", 0, 0) do |server|
         client = Client.new("localhost", server.local_address.port)
@@ -384,19 +409,6 @@ module HTTP
       test_server("localhost", 0, content_type: "") do |server|
         client = Client.new("localhost", server.local_address.port)
         client.get("/")
-      end
-    end
-
-    describe "#set_defaults" do
-      it "sets default Host header" do
-        client = TestClient.new "www.example.com"
-        request = HTTP::Request.new("GET", "/")
-        client.set_defaults(request)
-        request.hostname.should eq "www.example.com"
-
-        request = HTTP::Request.new("GET", "/", HTTP::Headers{"Host" => "other.example.com"})
-        client.set_defaults(request)
-        request.hostname.should eq "other.example.com"
       end
     end
 

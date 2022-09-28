@@ -72,7 +72,7 @@ class HTTP::Client
       io << @version << ' ' << @status.code << ' ' << @status_message << "\r\n"
       cookies = @cookies
       headers = cookies ? cookies.add_response_headers(@headers) : @headers
-      HTTP.serialize_headers_and_body(io, headers, @body, @body_io, @version)
+      HTTP.serialize_headers_and_body(io, self, @body, @body_io, @version)
     end
 
     # :nodoc:

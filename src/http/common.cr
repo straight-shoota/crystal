@@ -254,39 +254,98 @@ module HTTP
     String.new(slice)
   end
 
+  record TransmissionRecord,
+    host : String? = nil,
+    authorization : String? = nil,
+    user_agent : String? = nil,
+    connection_close : Bool = false,
+    implicit_compression : Bool = false
+
   # :nodoc:
-  def self.serialize_headers_and_body(io, headers, body, body_io, version)
+  def self.serialize_headers_and_body(io, message, body, body_io, version, *, transmission_record = nil)
     if body
-      serialize_headers_and_string_body(io, headers, body)
+      serialize_headers_and_string_body(io, message, body, transmission_record: transmission_record)
     elsif body_io
-      content_length = content_length(headers)
+      content_length = content_length(message.headers)
       if content_length
-        serialize_headers(io, headers)
+        io << "Content-Length: #{content_length}\r\n"
+        serialize_headers(io, message, transmission_record: transmission_record)
         copied = IO.copy(body_io, io)
         if copied != content_length
           raise ArgumentError.new("Content-Length header is #{content_length} but body had #{copied} bytes")
         end
       elsif Client::Response.supports_chunked?(version)
-        headers["Transfer-Encoding"] = "chunked"
-        serialize_headers(io, headers)
+        io << "Transfer-Encoding: chunked\r\n"
+        serialize_headers(io, message, transmission_record: transmission_record)
         serialize_chunked_body(io, body_io)
       else
         body = body_io.gets_to_end
-        serialize_headers_and_string_body(io, headers, body)
+        serialize_headers_and_string_body(io, message, body, transmission_record: transmission_record)
       end
     else
-      serialize_headers(io, headers)
+      serialize_headers(io, message, transmission_record: transmission_record)
     end
   end
 
-  def self.serialize_headers_and_string_body(io, headers, body)
-    headers["Content-Length"] = body.bytesize.to_s
-    serialize_headers(io, headers)
+  def self.serialize_headers_and_string_body(io, message, body, *, transmission_record)
+    io << "Content-Length: #{body.bytesize}\r\n"
+    serialize_headers(io, message, transmission_record: transmission_record)
     io << body
   end
 
-  def self.serialize_headers(io, headers)
+  def self.serialize_headers(io, message : HTTP::Request, *, transmission_record : HTTP::TransmissionRecord)
+    headers = message.headers
+    host = headers.fetch("Host") { transmission_record.host }
+    if host
+      io << "Host: #{host}\r\n"
+    end
+
+    user_agent = headers.fetch("User-Agent") { transmission_record.user_agent }
+    if user_agent.presence
+      io << "User-Agent: #{user_agent}\r\n"
+    end
+
+    authorization = headers.fetch("Authorization") { transmission_record.authorization }
+    if authorization.presence
+      io << "Authorization: #{authorization}\r\n"
+    end
+
+    {% unless flag?(:without_zlib) %}
+      if transmission_record.implicit_compression
+        io << "Accept-Encoding: gzip, deflate\r\n"
+      end
+    {% end %}
+
+    if connection = headers["Connection"]?
+      io << "Connection: #{connection}\r\n"
+    elsif transmission_record.connection_close
+      io << "Connection: close\r\n"
+    end
+
+    serialize_custom_headers(io, message.headers, EXPLICITLY_HANDLED_HEADERS_REQUEST)
+  end
+
+  EXPLICITLY_HANDLED_HEADERS_REQUEST = %w(
+    content-length
+    transfer-encoding
+    host
+    user-agent
+    authorization
+    accept-encoding
+    connection
+  )
+
+  def self.serialize_headers(io, message : HTTP::Client::Response, *, transmission_record : Nil)
+    serialize_custom_headers(io, message.headers, EXPLICITLY_HANDLED_HEADERS_RESPONSE)
+  end
+
+  EXPLICITLY_HANDLED_HEADERS_RESPONSE = %w(
+    content-length
+  )
+
+  def self.serialize_custom_headers(io, headers, exclude)
     headers.each do |name, values|
+      next if exclude.includes?(name.downcase)
       values.each do |value|
         io << name << ": " << value << "\r\n"
       end

@@ -259,13 +259,12 @@ class HTTP::Client
     end
   end
 
+  @auth_header : String?
+
   # Configures this client to perform basic authentication in every
   # request.
   def basic_auth(username, password) : Nil
-    header = "Basic #{Base64.strict_encode("#{username}:#{password}")}"
-    before_request do |request|
-      request.headers["Authorization"] = header
-    end
+    @auth_header = "Basic #{Base64.strict_encode("#{username}:#{password}")}"
   end
 
   # Sets the number of seconds to wait when reading before raising an `IO::TimeoutError`.
@@ -671,19 +670,17 @@ class HTTP::Client
   end
 
   private def send_request(request)
-    set_defaults request
+    transmission_record = TransmissionRecord.new(
+      host: host_header,
+      user_agent: "Crystal",
+      authorization: @auth_header,
+      connection_close: !@reuse_connection,
+      implicit_compression: implicit_compression?(request)
+    )
     run_before_request_callbacks(request)
-    request.to_io(io)
+    request.to_io(io, transmission_record: transmission_record)
     io.flush
-  end
-
-  private def set_defaults(request)
-    request.headers["Host"] ||= host_header
-    request.headers["User-Agent"] ||= "Crystal"
-
-    if implicit_compression?(request)
-      request.headers["Accept-Encoding"] = "gzip, deflate"
-    end
+    transmission_record.implicit_compression
   end
 
   private def implicit_compression?(request)
@@ -692,13 +689,6 @@ class HTTP::Client
     {% else %}
       compress? && !request.headers.has_key?("Accept-Encoding")
     {% end %}
-  end
-
-  # For one-shot headers we don't want keep-alive (might delay closing the response)
-  private def self.default_one_shot_headers(headers)
-    headers ||= HTTP::Headers.new
-    headers["Connection"] ||= "close"
-    headers
   end
 
   private def run_before_request_callbacks(request)
@@ -746,7 +736,6 @@ class HTTP::Client
   # response.body # => "..."
   # ```
   def self.exec(method, url : String | URI, headers : HTTP::Headers? = nil, body : BodyType = nil, tls : TLSContext = nil) : HTTP::Client::Response
-    headers = default_one_shot_headers(headers)
     exec(url, tls) do |client, path|
       client.exec method, path, headers, body
     end
@@ -763,7 +752,6 @@ class HTTP::Client
   # end
   # ```
   def self.exec(method, url : String | URI, headers : HTTP::Headers? = nil, body : BodyType = nil, tls : TLSContext = nil)
-    headers = default_one_shot_headers(headers)
     exec(url, tls) do |client, path|
       client.exec(method, path, headers, body) do |response|
         yield response
@@ -866,6 +854,9 @@ class HTTP::Client
     raise ArgumentError.new "Request URI must have host (URI is: #{uri})"
   end
 
+  # :nodoc:
+  setter reuse_connection = true
+
   private def self.exec(uri : URI, tls : TLSContext = nil)
     tls = tls_flag(uri, tls)
     host = validate_host(uri)
@@ -876,6 +867,9 @@ class HTTP::Client
     password = uri.password
 
     new(host, port, tls) do |client|
+      # For one-shot clients we don't want keep-alive (might delay closing the response), so this sends a `Connection: close` header.
+      client.reuse_connection = false
+
       if user && password
         client.basic_auth(user, password)
       end

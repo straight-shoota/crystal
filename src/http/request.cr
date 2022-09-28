@@ -117,10 +117,15 @@ class HTTP::Request
   end
 
   def to_io(io)
+    to_io(io, transmission_record: HTTP::TransmissionRecord.new)
+  end
+
+  # :nodoc:
+  def to_io(io, *, transmission_record : HTTP::TransmissionRecord)
     io << @method << ' ' << resource << ' ' << @version << "\r\n"
     cookies = @cookies
     headers = cookies ? cookies.add_request_headers(@headers) : @headers
-    HTTP.serialize_headers_and_body(io, headers, nil, @body, @version)
+    HTTP.serialize_headers_and_body(io, self, nil, @body, @version, transmission_record: transmission_record)
   end
 
   # :nodoc:

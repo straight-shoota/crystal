@@ -197,7 +197,7 @@ class HTTP::Client::Response
       response = Response.new(:ok, "hello", headers)
       io = IO::Memory.new
       response.to_io(io)
-      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 5\r\n\r\nhello")
+      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Length: 5\r\nContent-Type: text/plain\r\n\r\nhello")
     end
 
     it "serialize with body and cookies" do
@@ -210,20 +210,20 @@ class HTTP::Client::Response
 
       io = IO::Memory.new
       response.to_io(io)
-      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 5\r\nSet-Cookie: foo=bar; path=/\r\n\r\nhello")
+      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Length: 5\r\nContent-Type: text/plain\r\nSet-Cookie: foo=bar; path=/\r\n\r\nhello")
 
       response.cookies["foo"].value.should eq "bar" # Force lazy initialization
 
       io.clear
       response.to_io(io)
-      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 5\r\nSet-Cookie: foo=bar; path=/\r\n\r\nhello")
+      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Length: 5\r\nContent-Type: text/plain\r\nSet-Cookie: foo=bar; path=/\r\n\r\nhello")
 
       response.cookies["foo"] = "baz"
       response.cookies << Cookie.new("quux", "baz")
 
       io.clear
       response.to_io(io)
-      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Type: text/plain\r\nContent-Length: 5\r\nSet-Cookie: foo=baz\r\nSet-Cookie: quux=baz\r\n\r\nhello")
+      io.to_s.should eq("HTTP/1.1 200 OK\r\nContent-Length: 5\r\nContent-Type: text/plain\r\nSet-Cookie: foo=baz\r\nSet-Cookie: quux=baz\r\n\r\nhello")
     end
 
     it "sets content length from body" do
