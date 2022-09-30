@@ -289,8 +289,10 @@ module HTTP
 
     it "retry does not affect implicit compression (#11354)" do
       server = HTTP::Server.new do |context|
-        context.response.headers["Content-Encoding"] = "gzip"
-        context.response.output.print "\u001F\x8B\b\u0000\u0000\u0000\u0000\u0000\u0004\u0003+\xCFH,I-K-\u0002\u0000\xB3C\u0011N\b\u0000\u0000\u0000"
+        if context.request.headers["Accept-Encoding"]? == "gzip, deflate"
+          context.response.headers["Content-Encoding"] = "gzip"
+          context.response.output.print "\u001F\x8B\b\u0000\u0000\u0000\u0000\u0000\u0004\u0003+\xCFH,I-K-\u0002\u0000\xB3C\u0011N\b\u0000\u0000\u0000"
+        end
         context.response.output.close
         io = context.response.@io.as(Socket)
         io.linger = 0 # with linger 0 the socket will be RST on close
@@ -302,7 +304,7 @@ module HTTP
         client = HTTP::Client.new("127.0.0.1", address.port)
         # First request establishes the server connection, but the server
         # immediately closes it after sending the response.
-        client.get(path: "/")
+        client.get(path: "/").body.should eq "whatever"
 
         # Second request tries to re-use the connection which fails (due to the
         # server's hang up) and then it retries by establishing a new connection.
