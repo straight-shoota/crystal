@@ -31,6 +31,23 @@ private class TestClient < HTTP::Client
   end
 end
 
+private def make_request(request)
+  io_response = IO::Memory.new <<-RESPONSE
+    HTTP/1.1 200 OK\r
+    Content-Type: text/plain\r
+    Content-Length: 3\r
+    \r
+    Hi!\r
+    RESPONSE
+  io_request = IO::Memory.new
+  io = IO::Stapled.new(io_response, io_request)
+
+  client = HTTP::Client.new(io)
+  response = client.exec(request)
+
+  {response, HTTP::Request.from_io(io_request.rewind)}
+end
+
 module HTTP
   describe Client do
     typeof(Client.new("host"))
@@ -382,22 +399,11 @@ module HTTP
     end
 
     it "works with IO" do
-      io_response = IO::Memory.new <<-RESPONSE.gsub('\n', "\r\n")
-      HTTP/1.1 200 OK
-      Content-Type: text/plain
-      Content-Length: 3
-
-      Hi!
-      RESPONSE
-      io_request = IO::Memory.new
-      io = IO::Stapled.new(io_response, io_request)
-      client = Client.new(io)
-      response = client.get("/")
+      response, parsed_request = make_request(HTTP::Request.new("GET", "/"))
       response.body.should eq("Hi!")
 
-      io_request.rewind
-      request = HTTP::Request.from_io(io_request).as(HTTP::Request)
-      request.hostname.should eq("")
+      parsed_request = parsed_request.should be_a(HTTP::Request)
+      parsed_request.hostname.should eq("")
     end
 
     it "can specify host and port when initialized with IO" do
