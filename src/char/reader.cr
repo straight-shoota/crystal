@@ -176,9 +176,15 @@ struct Char
     # B
     # C
     # ```
-    def each : Nil
+    def each(& : Char -> _) : Nil
+      each_with_byte do |char|
+        yield char
+      end
+    end
+
+    def each_with_byte(& : Char, UInt8? -> _) : Nil
       while has_next?
-        yield current_char
+        yield current_char, @error ? byte_at(@pos).to_u8! : nil
         @pos += @current_char_width
         decode_current_char
       end

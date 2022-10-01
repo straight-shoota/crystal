@@ -2581,10 +2581,10 @@ class String
   # "hello".gsub { |char| char + 1 } # => "ifmmp"
   # "hello".gsub { "hi" }            # => "hihihihihi"
   # ```
-  def gsub(&block : Char -> _) : String
+  def gsub(&block : Char, UInt8? -> _) : String
     String.build(bytesize) do |buffer|
-      each_char do |my_char|
-        buffer << yield my_char
+      each_char do |my_char, byte|
+        buffer << yield my_char, byte
       end
     end
   end
@@ -2606,9 +2606,21 @@ class String
         return gsub_ascii_char(char, replacement)
       end
 
-      gsub { |my_char| char == my_char ? replacement : my_char }
+      gsub { |my_char, invalid_byte|
+        if invalid_byte
+          InvalidByteStringifer.new(invalid_byte)
+        else
+          (char == my_char ? replacement : my_char)
+        end
+      }
     else
       self
+    end
+  end
+
+  record InvalidByteStringifer, byte : UInt8 do
+    def to_s(io)
+      io.write_byte byte
     end
   end
 
@@ -4523,14 +4535,18 @@ class String
   # end
   # array # => ['a', 'b', '☃']
   # ```
-  def each_char : Nil
+  def each_char(& : Char, UInt8? -> _) : Nil
     if single_byte_optimizable?
       each_byte do |byte|
-        yield (byte < 0x80 ? byte.unsafe_chr : Char::REPLACEMENT)
+        if byte < 0x80
+          yield byte.unsafe_chr, nil
+        else
+          yield Char::REPLACEMENT, byte
+        end
       end
     else
-      Char::Reader.new(self).each do |char|
-        yield char
+      Char::Reader.new(self).each_with_byte do |char, invalid_byte|
+        yield char, invalid_byte
       end
     end
   end

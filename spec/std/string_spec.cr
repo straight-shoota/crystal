@@ -1729,6 +1729,10 @@ describe "String" do
     it "ignores if backreferences: false" do
       "foo".gsub(/o/, "x\\0x", backreferences: false).should eq("fx\\0xx\\0x")
     end
+
+    it "invalid bytes sequences" do
+      "\x8B:".gsub(":", "..").should eq "\x8B.."
+    end
   end
 
   it "scans using $~" do
