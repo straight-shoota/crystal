@@ -601,8 +601,9 @@ describe "String" do
     it { "tschüß".downcase(Unicode::CaseOptions::Fold).should eq("tschüss") }
     it { "ΣίσυφοςﬁÆ".downcase(Unicode::CaseOptions::Fold).should eq("σίσυφοσfiæ") }
 
-    it "does not touch invalid code units in an otherwise ascii string" do
-      "\xB5!\xE0\xC1\xB5?".downcase.should eq("\xB5!\xE0\xC1\xB5?")
+    it "does not touch invalid byte sequences" do
+      "\xB5!\xE0\xC1\xB5A?".downcase.should eq("\xB5!\xE0\xC1\xB5a?")
+      "\xB5!\xE0\xC1\xB5Ä?".downcase.should eq("\xB5!\xE0\xC1\xB5ä?")
     end
 
     describe "with IO" do
@@ -630,8 +631,9 @@ describe "String" do
     it { "ﬀ".upcase.should eq("FF") }
     it { "ňž".upcase.should eq("ŇŽ") } # #7922
 
-    it "does not touch invalid code units in an otherwise ascii string" do
-      "\xB5!\xE0\xC1\xB5?".upcase.should eq("\xB5!\xE0\xC1\xB5?")
+    it "does not touch invalid byte sequences" do
+      "\xB5!\xE0\xC1\xB5a?".upcase.should eq("\xB5!\xE0\xC1\xB5A?")
+      "\xB5!\xE0\xC1\xB5ä?".upcase.should eq("\xB5!\xE0\xC1\xB5Ä?")
     end
 
     describe "with IO" do
@@ -654,8 +656,9 @@ describe "String" do
     it { "ﬄİ".capitalize.should eq("FFLi̇") }
     it { "iO".capitalize(Unicode::CaseOptions::Turkic).should eq("İo") }
 
-    it "does not touch invalid code units in an otherwise ascii string" do
-      "\xB5!\xE0\xC1\xB5?".capitalize.should eq("\xB5!\xE0\xC1\xB5?")
+    it "does not touch invalid byte sequences" do
+      "\xB5!\xE0\xC1\xB5a?".capitalize.should eq("\xB5!\xE0\xC1\xB5a?")
+      "\xB5!\xE0\xC1\xB5ä?".capitalize.should eq("\xB5!\xE0\xC1\xB5ä?")
     end
 
     describe "with IO" do
@@ -2039,6 +2042,8 @@ describe "String" do
     it { "Foo_bar".camelcase.should eq "FooBar" }
     it { "Foo".camelcase(lower: true).should eq "foo" }
     it { "Foo_bar".camelcase(lower: true).should eq "fooBar" }
+    it { "\x8B".camelcase.should eq "\x8B" }
+    it { "\x8Bä".camelcase.should eq "\x8Bä" }
 
     describe "with IO" do
       it { String.build { |io| "foo".camelcase io }.should eq "Foo" }
