@@ -420,25 +420,32 @@ class Channel(T)
     select_impl(ops, true)
   end
 
-  private def self.select_impl(ops : Indexable(SelectAction), non_blocking)
-    # Sort the operations by the channel they contain
-    # This is to avoid deadlocks between concurrent `select` calls
-    ops_locks = ops
-      .to_a
-      .uniq!(&.lock_object_id)
-      .sort_by!(&.lock_object_id)
+  private def self.each_skip_duplicates(ops_locks)
+    last_lock_id = nil
+    ops_locks.each do |op|
+      if op.lock_object_id != last_lock_id
+        yield op
+      end
+    end
+  end
 
-    ops_locks.each &.lock
+  private def self.select_impl(ops, non_blocking)
+    unless ops.is_a?(StaticArray)
+      ops = ops.to_a
+    end
+    ops_locks = ops.unstable_sort_by(&.lock_object_id)
+
+    each_skip_duplicates(ops_locks, &.lock)
 
     ops.each_with_index do |op, index|
       state = op.execute
 
       case state
       in .delivered?
-        ops_locks.each &.unlock
+        each_skip_duplicates(ops_locks, &.unlock)
         return index, op.result
       in .closed?
-        ops_locks.each &.unlock
+        each_skip_duplicates(ops_locks, &.unlock)
         return index, op.default_result
       in .none?
         # do nothing
@@ -446,7 +453,7 @@ class Channel(T)
     end
 
     if non_blocking
-      ops_locks.each &.unlock
+      each_skip_duplicates(ops_locks, &.unlock)
       return ops.size, NotReady.new
     end
 
@@ -456,7 +463,7 @@ class Channel(T)
     shared_state = SelectContextSharedState.new(SelectState::Active)
     contexts = ops.map &.create_context_and_wait(shared_state)
 
-    ops_locks.each &.unlock
+    each_skip_duplicates(ops_locks, &.unlock)
     Crystal::Scheduler.reschedule
 
     contexts.each_with_index do |context, index|
@@ -473,6 +480,16 @@ class Channel(T)
     end
 
     raise "BUG: Fiber was awaken from select but no action was activated"
+  end
+
+  private def each_op_lock(ops, &)
+    last_object_id = nil
+    ops.each do |op|
+      if last_object_id != op.lock_object_id
+        last_object_id = op.lock_object_id
+        yield op
+      end
+    end
   end
 
   # :nodoc:
