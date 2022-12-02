@@ -548,6 +548,16 @@ struct Tuple
     end
   end
 
+  def to_static_array
+    {% begin %}
+      ary = uninitialized StaticArray(Union(*T), {{ T.size }})
+      each_with_index do |value, i|
+        ary.to_unsafe[i] = value
+      end
+      ary
+    {% end %}
+  end
+
   # Appends a string representation of this tuple to the given `IO`.
   #
   # ```

@@ -420,10 +420,12 @@ class Channel(T)
     select_impl(ops, true)
   end
 
-  private def self.select_impl(ops : Indexable(SelectAction), non_blocking)
+  def self.select_impl(ops : Indexable(SelectAction), non_blocking)
     # Sort the operations by the channel they contain
     # This is to avoid deadlocks between concurrent `select` calls
-    if ops.responds_to(:unstable_sort_by!)
+    if ops.is_a?(Tuple)
+      ops_locks = ops.to_static_array
+    elsif ops.responds_to?(:unstable_sort_by!)
       ops_locks = ops.dup
     else
       ops_locks = ops.to_a
