@@ -129,9 +129,10 @@ struct Crystal::System::Process
          make_env_block(env, clear_env), chdir.try { |str| System.to_wstr(str) },
          pointerof(startup_info), pointerof(process_info)
        ) == 0
+
       error = WinError.value
-      case error.to_errno
-      when Errno::EACCES, Errno::ENOENT
+      case error
+      when .error_file_not_found?, .error_path_not_found?, .error_privilege_not_held
         raise ::File::Error.from_os_error("Error executing process", error, file: command_args)
       else
         raise IO::Error.from_os_error("Error executing process: '#{command_args}'", error)
