@@ -7,6 +7,8 @@ require "file/error"
 struct Crystal::System::Process
   getter pid : LibC::PidT
 
+  # Storing the command string and shell status for handling shell errors in `#wait`
+  # (see `handle_process_status`)
   def initialize(@pid : LibC::PidT, @command : String, @shell : Bool)
     @channel = Crystal::SignalChildHandler.wait(@pid)
   end
@@ -15,20 +17,20 @@ struct Crystal::System::Process
   end
 
   def wait
-    status = @channel.receive
-
-    if @shell
-      Crystal::System::Process.handle_process_status(status, @command)
+    @channel.receive.tap do |status|
+      # When running the command in a shell, `Process.new` spawns a process for
+      # the shell. At that point there's no information on whether it actually
+      # succeeds in executing the command.
+      # We can tell that from the exit status, after the process has terminated.
+      Crystal::System::Process.handle_process_status(status, @command) if @shell
     end
-
-    status
   end
 
   def self.handle_process_status(status, command)
     case status
-    when 0x7f00
+    when 0x7f00 # exit code 127, indicates command not found
       raise_exception_from_errno command, Errno::ENOENT
-    when 0x7e00
+    when 0x7e00 # exit code 126, indicates no permission to execute command
       raise_exception_from_errno command, Errno::EACCES
     end
   end

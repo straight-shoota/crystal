@@ -8,7 +8,8 @@ struct Crystal::System::Process
   @thread_id : LibC::DWORD
   @process_handle : LibC::HANDLE
 
-  def initialize(process_info)
+  # command and shell parameters are unused, they're only necessary on POSIX
+  def initialize(process_info, _command : String, _shell : Bool)
     @pid = process_info.dwProcessId
     @thread_id = process_info.dwThreadId
     @process_handle = process_info.hProcess

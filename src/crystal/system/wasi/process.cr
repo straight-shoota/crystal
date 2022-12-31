@@ -4,7 +4,7 @@ require "c/unistd"
 struct Crystal::System::Process
   getter pid : LibC::PidT
 
-  def initialize(@pid : LibC::PidT)
+  def initialize(@pid : LibC::PidT, _command : String, _shell : Bool)
   end
 
   def release
