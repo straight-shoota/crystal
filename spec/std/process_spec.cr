@@ -322,11 +322,24 @@ describe Process do
       end
     end
 
-    it do
+    pending do
       expect_raises(File::NotFoundError, "Error executing process: 'commandnotexist': No such file or directory") do
         Process.run("commandnotexist", shell: true)
       end
     end
+
+    {% unless flag?(:win32) %}
+      it do
+        expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("test_file.txt")}': Permission denied") do
+          Process.run(datapath("test_file.txt"))
+        end
+      end
+      pending do
+        expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("test_file.txt")}': Permission denied") do
+          Process.run(datapath("test_file.txt"), shell: true)
+        end
+      end
+    {% end %}
   end
 
   describe "#signal" do
