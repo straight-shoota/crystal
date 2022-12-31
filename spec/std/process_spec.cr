@@ -315,6 +315,18 @@ describe Process do
       end
       buffer.to_s.lines.size.should eq(1000)
     end
+
+    it "runs command not found" do
+      expect_raises(File::NotFoundError, "Error executing process: 'commandnotexist': No such file or directory") do
+        Process.run("commandnotexist")
+      end
+    end
+
+    it do
+      expect_raises(File::NotFoundError, "Error executing process: 'commandnotexist': No such file or directory") do
+        Process.run("commandnotexist", shell: true)
+      end
+    end
   end
 
   describe "#signal" do

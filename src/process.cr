@@ -227,7 +227,7 @@ class Process
     fork_error = stdio_to_fd(error, for: STDERR)
 
     pid = Crystal::System::Process.spawn(command_args, env, clear_env, fork_input, fork_output, fork_error, chdir)
-    @process_info = Crystal::System::Process.new(pid)
+    @process_info = Crystal::System::Process.new(pid, command, shell)
 
     fork_input.close unless fork_input.in?(input, STDIN)
     fork_output.close unless fork_output.in?(output, STDOUT)
@@ -285,7 +285,7 @@ class Process
   end
 
   private def initialize(pid : LibC::PidT)
-    @process_info = Crystal::System::Process.new(pid)
+    @process_info = Crystal::System::Process.new(pid, "", false)
   end
 
   # Sends *signal* to this process.

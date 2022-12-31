@@ -7,7 +7,7 @@ require "file/error"
 struct Crystal::System::Process
   getter pid : LibC::PidT
 
-  def initialize(@pid : LibC::PidT)
+  def initialize(@pid : LibC::PidT, @command : String, @shell : Bool)
     @channel = Crystal::SignalChildHandler.wait(@pid)
   end
 
@@ -15,7 +15,22 @@ struct Crystal::System::Process
   end
 
   def wait
-    @channel.receive
+    status = @channel.receive
+
+    if @shell
+      Crystal::System::Process.handle_process_status(status, @command)
+    end
+
+    status
+  end
+
+  def self.handle_process_status(status, command)
+    case status
+    when 0x7f00
+      raise_exception_from_errno command, Errno::ENOENT
+    when 0x7e00
+      raise_exception_from_errno command, Errno::EACCES
+    end
   end
 
   def exists?
