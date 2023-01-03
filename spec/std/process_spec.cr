@@ -322,7 +322,7 @@ describe Process do
       end
     end
 
-    pending do
+    it do
       expect_raises(File::NotFoundError, "Error executing process: 'commandnotexist': No such file or directory") do
         Process.run("commandnotexist", shell: true)
       end
@@ -333,7 +333,7 @@ describe Process do
         Process.run(datapath(""))
       end
     end
-    pending do
+    it do
       expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("")}': Permission denied") do
         Process.run(datapath(""), shell: true)
       end
