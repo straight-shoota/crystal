@@ -328,6 +328,17 @@ describe Process do
       end
     end
 
+    it do
+      expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("")}': Permission denied") do
+        Process.run(datapath(""))
+      end
+    end
+    pending do
+      expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("")}': Permission denied") do
+        Process.run(datapath(""), shell: true)
+      end
+    end
+
     {% unless flag?(:win32) %}
       it do
         expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("test_file.txt")}': Permission denied") do
