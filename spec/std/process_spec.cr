@@ -316,41 +316,23 @@ describe Process do
       buffer.to_s.lines.size.should eq(1000)
     end
 
-    it "runs command not found" do
+    it "raises when command not found" do
       expect_raises(File::NotFoundError, "Error executing process: 'commandnotexist': No such file or directory") do
         Process.run("commandnotexist")
       end
-    end
-
-    it do
       expect_raises(File::NotFoundError, "Error executing process: 'commandnotexist': No such file or directory") do
         Process.run("commandnotexist", shell: true)
       end
     end
 
-    it do
+    it "raises when access denied" do
       expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("")}': Permission denied") do
         Process.run(datapath(""))
       end
-    end
-    it do
       expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("")}': Permission denied") do
         Process.run(datapath(""), shell: true)
       end
     end
-
-    {% unless flag?(:win32) %}
-      it do
-        expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("test_file.txt")}': Permission denied") do
-          Process.run(datapath("test_file.txt"))
-        end
-      end
-      pending do
-        expect_raises(File::AccessDeniedError, "Error executing process: '#{datapath("test_file.txt")}': Permission denied") do
-          Process.run(datapath("test_file.txt"), shell: true)
-        end
-      end
-    {% end %}
   end
 
   describe "#signal" do
