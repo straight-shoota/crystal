@@ -12,6 +12,8 @@ module Crystal
     getter stage_progress = 0
     getter stage_progress_total : Int32?
 
+    property macro_interpreter_time = Time::Span.new
+
     def stage(name)
       @current_stage_name = name
 
@@ -60,6 +62,14 @@ module Crystal
 
       stage_name = @current_stage_name.try(&.ljust(STAGE_PADDING))
       print "[#{@current_stage}/#{STAGES}]#{progress} #{stage_name}\r"
+    end
+
+    def print_macro_interpreter_time
+      return unless @stats
+
+      print "Total time in macro interpreter:".ljust(STAGE_PADDING)
+      print " "
+      puts macro_interpreter_time
     end
 
     def stage_progress=(@stage_progress)

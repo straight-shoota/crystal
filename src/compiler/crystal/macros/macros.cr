@@ -19,14 +19,19 @@ class Crystal::Program
     check_call_to_deprecated_macro a_macro, call
 
     interpreter = MacroInterpreter.new self, scope, path_lookup || scope, a_macro, call, a_def, in_macro: true
-    a_macro.body.accept interpreter
+
+    program.progress_tracker.macro_interpreter_time += Time.measure do
+      a_macro.body.accept interpreter
+    end
     {interpreter.to_s, interpreter.macro_expansion_pragmas}
   end
 
   def expand_macro(node : ASTNode, scope : Type, path_lookup : Type? = nil, free_vars = nil, a_def : Def? = nil)
     interpreter = MacroInterpreter.new self, scope, path_lookup || scope, node.location, def: a_def, in_macro: false
     interpreter.free_vars = free_vars
-    node.accept interpreter
+    program.progress_tracker.macro_interpreter_time += Time.measure do
+      node.accept interpreter
+    end
     {interpreter.to_s, interpreter.macro_expansion_pragmas}
   end
 

@@ -48,6 +48,8 @@ class Crystal::Program
       RecursiveStructChecker.new(self).run
     end
 
+    @progress_tracker.print_macro_interpreter_time
+
     result
   end
 
