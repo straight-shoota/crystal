@@ -60,15 +60,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-        - llvm_version: 13.0.0
-          llvm_url: https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/clang+llvm-13.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz
-          base_image: ubuntu-20.04
-        - llvm_version: 14.0.0
-          llvm_url: https://github.com/llvm/llvm-project/releases/download/llvmorg-14.0.0/clang+llvm-14.0.0-x86_64-linux-gnu-ubuntu-18.04.tar.xz
-          base_image: ubuntu-18.04
-    runs-on: ${{ matrix.base_image }}
-    name: "Test LLVM ${{ matrix.llvm_version }} (${{ matrix.base_image }})"
+        llvm_version: [13, 14]
+    runs-on: ubuntu-latest
+    name: "Test LLVM ${{ matrix.llvm_version }}"
     steps:
       - name: Download Crystal source
         uses: actions/checkout@v3
@@ -79,11 +73,8 @@ jobs:
       - name: Prepare Build
         run: bin/ci prepare_build
 
-      - name: Install LLVM ${{ matrix.llvm_version }}
-        run: mkdir -p llvm && curl -L ${{ matrix.llvm_url }} > llvm.tar.xz && tar x --xz -C llvm --strip-components=1 -f llvm.tar.xz
-
       - name: Test
-        run: bin/ci with_build_env "make clean deps compiler_spec crystal std_spec LLVM_CONFIG=\$(pwd)/llvm/bin/llvm-config threads=1 junit_output=.junit/spec.xml"
+        run: bin/ci with_build_env "wget -O- https://apt.llvm.org/llvm.sh | bash /dev/stdin ${{ matrix.llvm_version }} && make clean deps compiler_spec crystal std_spec LLVM_CONFIG=llvm-${{ matrix.llvm_version }}-config threads=1 junit_output=.junit/spec.xml"
 
   x86_64-gnu-test-preview_mt:
     env:
