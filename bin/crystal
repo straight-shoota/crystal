@@ -144,30 +144,33 @@ fi
 
 export CRYSTAL_HAS_WRAPPER=true
 
-# In case the CRYSTAL variable is set to point to this wrapper script unset it to
-# use the default.
-if [ "$(realpath $CRYSTAL)" = "$SCRIPT_PATH" ]; then
-  unset CRYSTAL
-fi
-
 export CRYSTAL="${CRYSTAL:-"crystal"}"
 
 # check if the crystal command refers to this script
 if [ "$(realpath "$(command -v "$CRYSTAL")")" = "$SCRIPT_PATH" ]; then
-  # remove the path to this script from PATH
-  NEW_PATH="$(remove_path_item "$(remove_path_item "$PATH" "$SCRIPT_ROOT")" "bin")"
-  # if the PATH did not change it will lead to an infinite recursion => display error
-  if [ "$NEW_PATH" = "$PATH" ]; then
-    __error_msg 'Could not remove the script bin/crystal from the PATH. Remove it by hand or set the CRYSTAL env variable'
-    exit 1
+  # ignore it and use `crystal` as parent compiler command
+  PARENT_CRYSTAL="crystal"
+
+  # check again if the parent crystal command refers to this script
+  if [ "$(realpath "$(command -v "$PARENT_CRYSTAL")")" = "$SCRIPT_PATH" ]; then
+    # remove the path to this script from PATH
+    NEW_PATH="$(remove_path_item "$(remove_path_item "$PATH" "$SCRIPT_ROOT")" "bin")"
+    # if the PATH did not change it will lead to an infinite recursion => display error
+    if [ "$NEW_PATH" = "$PATH" ]; then
+      __error_msg 'Could not remove the script bin/crystal from the PATH. Remove it by hand or set the CRYSTAL env variable'
+      exit 1
+    fi
+    # re-execute this script with the cleaned up PATH
+    export PATH="$NEW_PATH"
+    exec "$SCRIPT_PATH" "$@"
   fi
-  # re-execute this script with the cleaned up PATH
-  export PATH="$NEW_PATH"
-  exec "$SCRIPT_PATH" "$@"
+else
+  # otherwise use it as parent compiler command
+  PARENT_CRYSTAL="$CRYSTAL"
 fi
 
 if [ -z "$CRYSTAL_CONFIG_LIBRARY_PATH" ] || [ -z "$CRYSTAL_LIBRARY_PATH" ]; then
-  CRYSTAL_INSTALLED_LIBRARY_PATH="$($CRYSTAL env CRYSTAL_LIBRARY_PATH || echo "")"
+  CRYSTAL_INSTALLED_LIBRARY_PATH="$($PARENT_CRYSTAL env CRYSTAL_LIBRARY_PATH || echo "")"
   export CRYSTAL_LIBRARY_PATH=${CRYSTAL_LIBRARY_PATH:-$CRYSTAL_INSTALLED_LIBRARY_PATH}
   export CRYSTAL_CONFIG_LIBRARY_PATH=${CRYSTAL_CONFIG_LIBRARY_PATH:-$CRYSTAL_INSTALLED_LIBRARY_PATH}
 fi
@@ -175,9 +178,9 @@ fi
 if [ -x "$CRYSTAL_DIR/crystal" ]; then
   __warning_msg "Using compiled compiler at ${CRYSTAL_DIR#"$PWD/"}/crystal"
   exec "$CRYSTAL_DIR/crystal" "$@"
-elif ! command -v $CRYSTAL > /dev/null; then
+elif ! command -v $PARENT_CRYSTAL > /dev/null; then
   __error_msg 'You need to have a crystal executable in your path! or set CRYSTAL env variable'
   exit 1
 else
-  exec $CRYSTAL "$@"
+  exec $PARENT_CRYSTAL "$@"
 fi
