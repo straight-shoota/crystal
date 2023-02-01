@@ -8,11 +8,11 @@ class Process::Status
 
   {% if flag?(:win32) %}
     # :nodoc:
-    def initialize(@exit_status : UInt32)
+    def initialize(*, system_exit_status @exit_status : UInt32)
     end
   {% else %}
     # :nodoc:
-    def initialize(@exit_status : Int32)
+    def initialize(*, system_exit_status @exit_status : Int32)
     end
   {% end %}
 
