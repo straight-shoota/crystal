@@ -150,6 +150,7 @@
 - Use sentence case for all standard library exceptions ([#13400](https://github.com/crystal-lang/crystal/pull/13400), thanks @HertzDevil)
 - *(collection)* Refactor code for `Deque` buffer resizing ([#13257](https://github.com/crystal-lang/crystal/pull/13257), thanks @HertzDevil)
 - *(concurrency)* Clean up unused code for Windows event loop ([#13424](https://github.com/crystal-lang/crystal/pull/13424), thanks @HertzDevil)
+- *(files)* Do not reopen current file in `File#utime` on Windows ([#13625](https://github.com/crystal-lang/crystal/pull/13625), thanks @HertzDevil)
 - *(llvm)* Remove two outdated LLVM fun bindings ([#13438](https://github.com/crystal-lang/crystal/pull/13438), thanks @HertzDevil)
 - *(llvm)* **[deprecation]** Deprecate `LLVM::Module#write_bitcode_with_summary_to_file` ([#13488](https://github.com/crystal-lang/crystal/pull/13488), thanks @HertzDevil)
 - *(llvm)* Split `LLVM::Builder` overloads that don't take an operand bundle ([#13564](https://github.com/crystal-lang/crystal/pull/13564), thanks @HertzDevil)
@@ -172,6 +173,7 @@
 **stdlib:**
 
 - *(concurrency)* Docs: Fix operators in `Atomic#add`, `#sub`, `#max`, `#min` ([#13523](https://github.com/crystal-lang/crystal/pull/13523), thanks @HertzDevil)
+- *(concurrency)* Hide `Crystal::LibEvent` from public docs ([#13624](https://github.com/crystal-lang/crystal/pull/13624), thanks @HertzDevil)
 - *(macros)* Fix doc for return type of `Crystal::Macros::Case#else` ([#13385](https://github.com/crystal-lang/crystal/pull/13385), thanks @HertzDevil)
 - *(system)* Docs: Reference `Process.executable_path` at `PROGRAM_NAME` ([#13434](https://github.com/crystal-lang/crystal/pull/13434), thanks @straight-shoota)
 - *(text)* Docs: Add note about graphemes in `String#reverse` ([#13536](https://github.com/crystal-lang/crystal/pull/13536), thanks @noraj)
@@ -221,6 +223,7 @@
 - Implemented ',' command in brainfuck sample program ([#13559](https://github.com/crystal-lang/crystal/pull/13559), thanks @ZeroPlayerRodent)
 - Fix: Avoid calling realpath of parent crystal in wrapper script ([#13596](https://github.com/crystal-lang/crystal/pull/13596), thanks @straight-shoota)
 - Build Windows portable and installer packages on CI ([#13578](https://github.com/crystal-lang/crystal/pull/13578), thanks @HertzDevil)
+- Restrict Windows CI jobs for installer packages to release branches ([#13623](https://github.com/crystal-lang/crystal/pull/13623), thanks @HertzDevil)
 
 # 1.8.2 (2023-05-08)
 
