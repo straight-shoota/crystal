@@ -182,6 +182,10 @@
 
 - Add manual entry for `clear_cache` command ([#13621](https://github.com/crystal-lang/crystal/pull/13621), thanks @straight-shoota)
 
+#### other
+
+- Implemented ',' command in brainfuck sample program ([#13559](https://github.com/crystal-lang/crystal/pull/13559), thanks @ZeroPlayerRodent)
+
 ### Specs
 
 #### stdlib
@@ -201,29 +205,28 @@
 ### Infrastructure
 
 - Update previous Crystal release - 1.8.0 ([#13322](https://github.com/crystal-lang/crystal/pull/13322), thanks @straight-shoota)
-- Show PCRE/PCRE2 configuration on CI ([#13307](https://github.com/crystal-lang/crystal/pull/13307), thanks @HertzDevil)
 - Merge `release/1.8`@1.8.1 ([#13361](https://github.com/crystal-lang/crystal/pull/13361), thanks @straight-shoota)
 - Update previous Crystal release - 1.8.1 ([#13373](https://github.com/crystal-lang/crystal/pull/13373), thanks @straight-shoota)
 - PR template: adding a line about force-pushes ([#12794](https://github.com/crystal-lang/crystal/pull/12794), thanks @beta-ziliani)
 - Less verbose output in `Makefile.win` ([#13383](https://github.com/crystal-lang/crystal/pull/13383), thanks @HertzDevil)
-- Do not cancel in progress CI jobs for master branch ([#13393](https://github.com/crystal-lang/crystal/pull/13393), thanks @Blacksmoke16)
 - Merge `release/1.8`@1.8.1 ([#13449](https://github.com/crystal-lang/crystal/pull/13449), thanks @straight-shoota)
 - Update previous Crystal release - 1.8.2 ([#13450](https://github.com/crystal-lang/crystal/pull/13450), thanks @straight-shoota)
-- Upgrade Windows CI to LLVM 16 ([#13469](https://github.com/crystal-lang/crystal/pull/13469), thanks @HertzDevil)
 - Update distribution-scripts ([#13457](https://github.com/crystal-lang/crystal/pull/13457), thanks @Blacksmoke16)
 - Add `.gitattributes` to repository ([#13479](https://github.com/crystal-lang/crystal/pull/13479), thanks @HertzDevil)
-- Update cachix/install-nix-action action to v21 ([#13531](https://github.com/crystal-lang/crystal/pull/13531), thanks @renovate)
 - Update `shell.nix` to nixpkgs-23.05 ([#13571](https://github.com/crystal-lang/crystal/pull/13571), thanks @HertzDevil)
-- Update cachix/install-nix-action action to v22 ([#13586](https://github.com/crystal-lang/crystal/pull/13586), thanks @renovate)
-- Restrict Windows CI jobs for installer packages to release branches ([#13623](https://github.com/crystal-lang/crystal/pull/13623), thanks @HertzDevil)
 - Document `target` variable in Makefiles ([#13384](https://github.com/crystal-lang/crystal/pull/13384), thanks @HertzDevil)
-- Implemented ',' command in brainfuck sample program ([#13559](https://github.com/crystal-lang/crystal/pull/13559), thanks @ZeroPlayerRodent)
-- Build samples on Windows CI ([#13334](https://github.com/crystal-lang/crystal/pull/13334), thanks @HertzDevil)
-- Distribute DLLs and import libraries on Windows ([#13543](https://github.com/crystal-lang/crystal/pull/13543), thanks @HertzDevil)
-- Build Windows portable and installer packages on CI ([#13578](https://github.com/crystal-lang/crystal/pull/13578), thanks @HertzDevil)
 - Fix `bin\crystal.ps1` writing to standard error stream ([#13372](https://github.com/crystal-lang/crystal/pull/13372), thanks @HertzDevil)
 - Avoid calling realpath of parent crystal in wrapper script ([#13596](https://github.com/crystal-lang/crystal/pull/13596), thanks @straight-shoota)
-- Split Windows library build scripts from CI ([#13478](https://github.com/crystal-lang/crystal/pull/13478), thanks @HertzDevil)
+- *(ci)* Show PCRE/PCRE2 configuration on CI ([#13307](https://github.com/crystal-lang/crystal/pull/13307), thanks @HertzDevil)
+- *(ci)* Update cachix/install-nix-action action to v21 ([#13531](https://github.com/crystal-lang/crystal/pull/13531), thanks @renovate)
+- *(ci)* Update cachix/install-nix-action action to v22 ([#13586](https://github.com/crystal-lang/crystal/pull/13586), thanks @renovate)
+- *(ci)* Restrict Windows CI jobs for installer packages to release branches ([#13623](https://github.com/crystal-lang/crystal/pull/13623), thanks @HertzDevil)
+- *(ci)* Build samples on Windows CI ([#13334](https://github.com/crystal-lang/crystal/pull/13334), thanks @HertzDevil)
+- *(ci)* Do not cancel in progress CI jobs for master branch ([#13393](https://github.com/crystal-lang/crystal/pull/13393), thanks @Blacksmoke16)
+- *(ci)* Upgrade Windows CI to LLVM 16 ([#13469](https://github.com/crystal-lang/crystal/pull/13469), thanks @HertzDevil)
+- *(ci)* Distribute DLLs and import libraries on Windows ([#13543](https://github.com/crystal-lang/crystal/pull/13543), thanks @HertzDevil)
+- *(ci)* Build Windows portable and installer packages on CI ([#13578](https://github.com/crystal-lang/crystal/pull/13578), thanks @HertzDevil)
+- *(ci)* Split Windows library build scripts from CI ([#13478](https://github.com/crystal-lang/crystal/pull/13478), thanks @HertzDevil)
 
 # 1.8.2 (2023-05-08)
 
