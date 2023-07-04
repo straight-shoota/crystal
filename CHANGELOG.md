@@ -3,12 +3,12 @@
 
 #### stdlib
 
-- *(llvm)* Remove most `LLVM::DIBuilder` functions from `llvm_ext.cc` ([#13448](https://github.com/crystal-lang/crystal/pull/13448), thanks @HertzDevil)
 - *(numeric)* Handle NaNs when comparing `BigInt` against `Float` ([#13293](https://github.com/crystal-lang/crystal/pull/13293), thanks @HertzDevil)
 - *(numeric)* Handle NaNs when comparing `BigFloat` against `Float` ([#13294](https://github.com/crystal-lang/crystal/pull/13294), thanks @HertzDevil)
 - *(numeric)* Handle NaNs when comparing `BigRational` against `Float` ([#13350](https://github.com/crystal-lang/crystal/pull/13350), thanks @HertzDevil)
 - *(numeric)* Make `BigDecimal`'s comparisons exact ([#13554](https://github.com/crystal-lang/crystal/pull/13554), thanks @HertzDevil)
 - *(serialization)* Fix handling of quoted boolean values in `YAML::Any` ([#13546](https://github.com/crystal-lang/crystal/pull/13546), thanks @willhbr)
+- *(llvm)* Remove most `LLVM::DIBuilder` functions from `llvm_ext.cc` ([#13448](https://github.com/crystal-lang/crystal/pull/13448), thanks @HertzDevil)
 
 ### Features
 
@@ -203,11 +203,8 @@
 - Update previous Crystal release - 1.8.0 ([#13322](https://github.com/crystal-lang/crystal/pull/13322), thanks @straight-shoota)
 - Show PCRE/PCRE2 configuration on CI ([#13307](https://github.com/crystal-lang/crystal/pull/13307), thanks @HertzDevil)
 - Merge `release/1.8`@1.8.1 ([#13361](https://github.com/crystal-lang/crystal/pull/13361), thanks @straight-shoota)
-- Build samples on Windows CI ([#13334](https://github.com/crystal-lang/crystal/pull/13334), thanks @HertzDevil)
-- Fix `bin\crystal.ps1` writing to standard error stream ([#13372](https://github.com/crystal-lang/crystal/pull/13372), thanks @HertzDevil)
 - Update previous Crystal release - 1.8.1 ([#13373](https://github.com/crystal-lang/crystal/pull/13373), thanks @straight-shoota)
 - PR template: adding a line about force-pushes ([#12794](https://github.com/crystal-lang/crystal/pull/12794), thanks @beta-ziliani)
-- Document `target` variable in Makefiles ([#13384](https://github.com/crystal-lang/crystal/pull/13384), thanks @HertzDevil)
 - Less verbose output in `Makefile.win` ([#13383](https://github.com/crystal-lang/crystal/pull/13383), thanks @HertzDevil)
 - Do not cancel in progress CI jobs for master branch ([#13393](https://github.com/crystal-lang/crystal/pull/13393), thanks @Blacksmoke16)
 - Merge `release/1.8`@1.8.1 ([#13449](https://github.com/crystal-lang/crystal/pull/13449), thanks @straight-shoota)
@@ -215,15 +212,18 @@
 - Upgrade Windows CI to LLVM 16 ([#13469](https://github.com/crystal-lang/crystal/pull/13469), thanks @HertzDevil)
 - Update distribution-scripts ([#13457](https://github.com/crystal-lang/crystal/pull/13457), thanks @Blacksmoke16)
 - Add `.gitattributes` to repository ([#13479](https://github.com/crystal-lang/crystal/pull/13479), thanks @HertzDevil)
-- Split Windows library build scripts from CI ([#13478](https://github.com/crystal-lang/crystal/pull/13478), thanks @HertzDevil)
-- Distribute DLLs and import libraries on Windows ([#13543](https://github.com/crystal-lang/crystal/pull/13543), thanks @HertzDevil)
 - Update cachix/install-nix-action action to v21 ([#13531](https://github.com/crystal-lang/crystal/pull/13531), thanks @renovate)
 - Update `shell.nix` to nixpkgs-23.05 ([#13571](https://github.com/crystal-lang/crystal/pull/13571), thanks @HertzDevil)
 - Update cachix/install-nix-action action to v22 ([#13586](https://github.com/crystal-lang/crystal/pull/13586), thanks @renovate)
-- Implemented ',' command in brainfuck sample program ([#13559](https://github.com/crystal-lang/crystal/pull/13559), thanks @ZeroPlayerRodent)
-- Fix: Avoid calling realpath of parent crystal in wrapper script ([#13596](https://github.com/crystal-lang/crystal/pull/13596), thanks @straight-shoota)
-- Build Windows portable and installer packages on CI ([#13578](https://github.com/crystal-lang/crystal/pull/13578), thanks @HertzDevil)
 - Restrict Windows CI jobs for installer packages to release branches ([#13623](https://github.com/crystal-lang/crystal/pull/13623), thanks @HertzDevil)
+- Document `target` variable in Makefiles ([#13384](https://github.com/crystal-lang/crystal/pull/13384), thanks @HertzDevil)
+- Implemented ',' command in brainfuck sample program ([#13559](https://github.com/crystal-lang/crystal/pull/13559), thanks @ZeroPlayerRodent)
+- Build samples on Windows CI ([#13334](https://github.com/crystal-lang/crystal/pull/13334), thanks @HertzDevil)
+- Distribute DLLs and import libraries on Windows ([#13543](https://github.com/crystal-lang/crystal/pull/13543), thanks @HertzDevil)
+- Build Windows portable and installer packages on CI ([#13578](https://github.com/crystal-lang/crystal/pull/13578), thanks @HertzDevil)
+- Fix `bin\crystal.ps1` writing to standard error stream ([#13372](https://github.com/crystal-lang/crystal/pull/13372), thanks @HertzDevil)
+- Avoid calling realpath of parent crystal in wrapper script ([#13596](https://github.com/crystal-lang/crystal/pull/13596), thanks @straight-shoota)
+- Split Windows library build scripts from CI ([#13478](https://github.com/crystal-lang/crystal/pull/13478), thanks @HertzDevil)
 
 # 1.8.2 (2023-05-08)
 
