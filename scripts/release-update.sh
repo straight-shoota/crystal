@@ -23,7 +23,14 @@ sed -i -E "s|crystal-[0-9.]+-[0-9]|crystal-$CRYSTAL_VERSION-1|g" bin/ci
 
 # Edit .github/workflows/*.yml to point to docker image
 # Update the patch version of the latest entry if same minor version to have only one item per minor version
-sed -i -E "/crystal_bootstrap_version:/ s/(, ${CRYSTAL_VERSION%.*}\.[0-9]*)?\]\$/, $CRYSTAL_VERSION]/" .github/workflows/linux.yml
+if grep -q "rystal_bootstrap_version: ${CRYSTAL_VERSION%.*}\." .github/workflows/linux.yml; then
+  sed -i -E "s/crystal_bootstrap_version: ${CRYSTAL_VERSION%.*}\..*\$/crystal_bootstrap_version: $CRYSTAL_VERSION/" .github/workflows/linux.yml
+else
+  sed -i -E "/crystal_bootstrap_version: \[/,/steps:/ {/steps:/ i\
+            \          - crystal_bootstrap_version: $CRYSTAL_VERSION\n\
+            flags: \"\"
+  }" .github/workflows/linux.yml
+fi
 sed -i -E "s|crystallang/crystal:[0-9.]+|crystallang/crystal:$CRYSTAL_VERSION|g" .github/workflows/*.yml
 
 # Edit .github/workflows/*.yml to update version for install-crystal action
