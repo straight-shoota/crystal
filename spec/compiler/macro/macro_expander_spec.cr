@@ -163,7 +163,7 @@ describe "MacroExpander" do
     assert_macro %({{node}}), "42", {node: node}, expected_pragmas: {
       0 => [
         Lexer::LocPushPragma.new,
-        Lexer::LocSetPragma.new("foo.cr", 10, 20),
+        Lexer::LocSetPragma.new("", 1, 19),
       ] of Lexer::LocPragma,
       2 => [
         Lexer::LocPopPragma.new,
