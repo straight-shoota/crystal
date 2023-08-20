@@ -83,9 +83,75 @@ describe IO::FileDescriptor do
     describe "Windows console handle", focus: true do
       it do
         IO.pipe do |read, write|
-          fd = Win32ConsoleDileDescriptor.new(read)
-          write << "zażółć gęślą jaźń\n".to_utf16
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.write "zażółć gęślą jaźń\n".to_utf16.unsafe_slice_of(UInt8)
           fd.gets.should eq "zażółć gęślą jaźń"
+        end
+      end
+      it "empty" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.close
+          fd.gets.should eq nil
+        end
+      end
+
+      it "read 1/2 byte" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.write "ż".to_utf16.unsafe_slice_of(UInt8)
+          fd.gets(1).should eq "\xC5"
+        end
+      end
+
+      it "read 2/2 bytes" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.write "ż".to_utf16.unsafe_slice_of(UInt8)
+          fd.gets(2).should eq "ż"
+        end
+      end
+
+      it "read 3/4 bytes" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.write "\u{10000}".to_utf16.unsafe_slice_of(UInt8)
+          fd.gets(3).should eq "\xF0\x90\x80"
+        end
+      end
+
+      it "read 4/4 bytes" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.write "\u{10000}".to_utf16.unsafe_slice_of(UInt8)
+          fd.gets(4).should eq "\u{10000}"
+        end
+      end
+
+      it "read 3/3 bytes" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          write.write "\u{10000}".to_utf16.unsafe_slice_of(UInt8)[0, 3]
+          fd.gets(3).should eq "�"
+        end
+      end
+
+      it "small buffer" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          fd.buffer_size = 12
+          write.write "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".to_utf16.unsafe_slice_of(UInt8)
+          fd.gets(15).should eq "abcdefghijklmno"
+        end
+      end
+
+      it "full buffer" do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleFileDescriptor.new(read.fd)
+          fd.buffer_size = 32
+          write.write "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".to_utf16.unsafe_slice_of(UInt8)
+          fd.gets(40).should eq "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMN"
+          fd.gets(12).should eq "OPQRSTUVWXYZ"
         end
       end
     end
@@ -93,16 +159,20 @@ describe IO::FileDescriptor do
 end
 
 {% if flag?(:win32) %}
-  class Win32ConsoleDileDescriptor < IO::FileDescriptor
-    private def console_mode?
+  class Win32ConsoleFileDescriptor < IO::FileDescriptor
+    private def console_mode?(handle)
       true
     end
 
     private def read_console(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl)
-      lpNumberOfCharsRead.value = blocking_read(Slice.new(lpBuffer, nNumberOfCharsToRead))
-      0
-    rescue
+      bytesBuffer = lpBuffer[0, nNumberOfCharsToRead].unsafe_slice_of(UInt8)
+      bytes_read = blocking_read(bytesBuffer)
+      p! nNumberOfCharsToRead, bytes_read
+      lpNumberOfCharsRead.value = bytes_read.to_u32 // 2
+      p! bytesBuffer[0, bytes_read]
       1
+    rescue
+      0
     end
   end
 {% end %}

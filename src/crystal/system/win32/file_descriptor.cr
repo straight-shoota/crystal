@@ -17,7 +17,7 @@ module Crystal::System::FileDescriptor
   @console_units = Slice(UInt16).empty
   @console_units_buffer : Slice(UInt16)?
 
-  private def console_mode?
+  private def console_mode?(handle)
     LibC.GetConsoleMode(handle, out _) != 0
   end
 
@@ -35,10 +35,10 @@ module Crystal::System::FileDescriptor
 
   private def unbuffered_read(slice : Bytes)
     handle = windows_handle
-    if console_mode?
+    if console_mode?(handle)
       read_console(handle, slice)
     elsif system_blocking?
-      blocking_read
+      blocking_read(slice)
     else
       overlapped_operation(handle, "ReadFile", read_timeout) do |overlapped|
         ret = LibC.ReadFile(handle, slice, slice.size, out byte_count, overlapped)
@@ -50,7 +50,7 @@ module Crystal::System::FileDescriptor
   private def unbuffered_write(slice : Bytes)
     handle = windows_handle
     until slice.empty?
-      if console_mode?
+      if console_mode?(handle)
         bytes_written = write_console(handle, slice)
       elsif system_blocking?
         bytes_written = LibC._write(fd, slice, slice.size)
@@ -326,7 +326,8 @@ module Crystal::System::FileDescriptor
       units_to_read = slice.size if slice.size < units_to_read
 
       # Reads code units from console.
-      if 0 == read_console(handle, units_buffer + @console_units.size, units_to_read, out units_read, nil)
+      units_read = uninitialized LibC::DWORD
+      if 0 == read_console(handle, units_buffer + @console_units.size, units_to_read, pointerof(units_read), nil)
         raise IO::Error.from_winerror("ReadConsoleW")
       end
       return bytes_read if units_read == 0
