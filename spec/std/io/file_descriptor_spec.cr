@@ -78,4 +78,31 @@ describe IO::FileDescriptor do
       p.puts "123"
     end
   end
+
+  {% if flag?(:win32) %}
+    describe "Windows console handle", focus: true do
+      it do
+        IO.pipe do |read, write|
+          fd = Win32ConsoleDileDescriptor.new(read)
+          write << "zażółć gęślą jaźń\n".to_utf16
+          fd.gets.should eq "zażółć gęślą jaźń"
+        end
+      end
+    end
+  {% end %}
 end
+
+{% if flag?(:win32) %}
+  class Win32ConsoleDileDescriptor < IO::FileDescriptor
+    private def console_mode?
+      true
+    end
+
+    private def read_console(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl)
+      lpNumberOfCharsRead.value = blocking_read(Slice.new(lpBuffer, nNumberOfCharsToRead))
+      0
+    rescue
+      1
+    end
+  end
+{% end %}

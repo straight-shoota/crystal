@@ -17,20 +17,28 @@ module Crystal::System::FileDescriptor
   @console_units = Slice(UInt16).empty
   @console_units_buffer : Slice(UInt16)?
 
+  private def console_mode?
+    LibC.GetConsoleMode(handle, out _) != 0
+  end
+
+  private def blocking_read(slice)
+    bytes_read = LibC._read(fd, slice, slice.size)
+    if bytes_read == -1
+      if Errno.value == Errno::EBADF
+        raise IO::Error.new "File not open for reading"
+      else
+        raise IO::Error.from_errno("Error reading file")
+      end
+    end
+    bytes_read
+  end
+
   private def unbuffered_read(slice : Bytes)
     handle = windows_handle
-    if LibC.GetConsoleMode(handle, out _) != 0
+    if console_mode?
       read_console(handle, slice)
     elsif system_blocking?
-      bytes_read = LibC._read(fd, slice, slice.size)
-      if bytes_read == -1
-        if Errno.value == Errno::EBADF
-          raise IO::Error.new "File not open for reading"
-        else
-          raise IO::Error.from_errno("Error reading file")
-        end
-      end
-      bytes_read
+      blocking_read
     else
       overlapped_operation(handle, "ReadFile", read_timeout) do |overlapped|
         ret = LibC.ReadFile(handle, slice, slice.size, out byte_count, overlapped)
@@ -42,7 +50,7 @@ module Crystal::System::FileDescriptor
   private def unbuffered_write(slice : Bytes)
     handle = windows_handle
     until slice.empty?
-      if LibC.GetConsoleMode(handle, out _) != 0
+      if console_mode?
         bytes_written = write_console(handle, slice)
       elsif system_blocking?
         bytes_written = LibC._write(fd, slice, slice.size)
@@ -297,6 +305,10 @@ module Crystal::System::FileDescriptor
     @console_units_buffer ||= Slice(UInt16).new(CONSOLE_UNITS_BUFFER_SIZE)
   end
 
+  private def read_console(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl)
+    LibC.ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl)
+  end
+
   private def read_console(handle : LibC::HANDLE, slice : Bytes) : Int32
     # Handles residual bytes for character.
     bytes_read = Utils.safe_copy(@console_bytes, slice)
@@ -314,7 +326,7 @@ module Crystal::System::FileDescriptor
       units_to_read = slice.size if slice.size < units_to_read
 
       # Reads code units from console.
-      if 0 == LibC.ReadConsoleW(handle, units_buffer + @console_units.size, units_to_read, out units_read, nil)
+      if 0 == read_console(handle, units_buffer + @console_units.size, units_to_read, out units_read, nil)
         raise IO::Error.from_winerror("ReadConsoleW")
       end
       return bytes_read if units_read == 0
