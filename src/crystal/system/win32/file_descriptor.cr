@@ -310,53 +310,67 @@ module Crystal::System::FileDescriptor
   end
 
   private def read_console(handle : LibC::HANDLE, slice : Bytes) : Int32
-    # Handles residual bytes for character.
-    bytes_read = Utils.safe_copy(@console_bytes, slice)
-    @console_bytes += bytes_read
-    slice += bytes_read
-    return bytes_read if slice.empty?
+    # UTF-8 encoding needs at most 50% more space than UTF-16, in case all
+    # codepoints are between U+0800 and U+FFFF (UTF-8 requires 3 bytes and
+    # UTF-16 only 2). In all other code ranges, UTF-8 is either smaller or equal
+    # in size.
+    # This means the buffer for reading UTF-16 should have 2/3 the byte size of
+    # the UTF-8 buffer in order to ensure the result can be encoded entirely in
+    # UTF-8.
+    # We re-use the last 2/3 of the UTF-8 buffer to receive the UTF-16 data and
+    # then transcode each codepoint to UTF-8 starting at the front. Thus there
+    # is no need to allocate an additional buffer.
+    #
+    # |------------------------|
+    #          ^wchar_buffer^^^
+    #
+    # call ReadConsole
+    #
+    # |--------aabbccddeeffgghh|
+    #          ^wchar_buffer^^^
+    #
+    # Transcode UTF-16 to UTF-8 (1)
+    #
+    # |AAA-------bbccddeeffgghh|
+    #            ^wchar_buffer^
+    #
+    # Transcode UTF-16 to UTF-8 (2)
+    #
+    # |AAABBB------ccddeeffgghh|
+    #              ^wchar_buffer
+    #
+    # Transcode UTF-16 to UTF-8 (3-7)
+    #
+    # |AAABBBCCCDDDEEEFFFGGG-hh|
+    #                        ^wchar_buffer
+    #
+    # Transcode UTF-16 to UTF-8 (8)
+    #
+    # |AAABBBCCCDDDEEEFFFGGGHHH|
+    #
+    # This shows the extreme case where all codepoints are encoded in 2 bytes in
+    # UTF-16 and 3 in UTF-8 and thus the buffer fills completely. Most typical
+    # use cases will not fill the buffer.
 
-    reader = Utils::UTF16Reader.new(@console_units)
-    if reader.current_char_width == 0
-      units_buffer = console_units_buffer
+    third = slice.size // 3
+    raise "Buffer size too small" if third.zero?
 
-      # Handles residual UTF-16 code units.
-      @console_units.copy_to(units_buffer)
-      units_to_read = units_buffer.size - @console_units.size
-      units_to_read = slice.size if slice.size < units_to_read
+    wchar_buffer = (slice + third)[0, third * 2].unsafe_slice_of(UInt16)
 
-      # Reads code units from console.
-      units_read = uninitialized LibC::DWORD
-      if 0 == read_console(handle, units_buffer + @console_units.size, units_to_read, pointerof(units_read), nil)
-        raise IO::Error.from_winerror("ReadConsoleW")
-      end
-      return bytes_read if units_read == 0
-      @console_units = units_buffer[0, @console_units.size + units_read]
-      reader = Utils::UTF16Reader.new(@console_units)
+    units_read = uninitialized LibC::DWORD
+    if 0 == read_console(handle, wchar_buffer, wchar_buffer.size, pointerof(units_read), nil)
+      raise IO::Error.from_winerror("ReadConsoleW")
     end
 
-    bytes_buffer = console_bytes_buffer
-    reader.each do |char, width|
-      # Handles `Ctrl-Z` (`EOF`)
-      if char == '\u001A'
-        @console_units += reader.pos > 0 ? reader.pos : width
-        return bytes_read
-      end
+    return 0 if units_read == 0
 
-      char_bytes = Utils.to_utf8(char)
-      count = Utils.safe_copy(char_bytes, slice)
-      @console_bytes = bytes_buffer[0, char_bytes.size - count]
-      @console_bytes.fill { |i| char_bytes[count + i] }
-
-      bytes_read += count
-      slice += count
-      if slice.empty?
-        @console_units += reader.pos + width
-        return bytes_read
+    appender = slice.to_unsafe.appender
+    String.each_utf16_char(wchar_buffer) do |char|
+      char.each_byte do |byte|
+        appender << byte
       end
     end
-    @console_units += reader.pos
-    bytes_read
+    appender.size.to_i32!
   end
 
   private def write_console(handle : LibC::HANDLE, slice : Bytes) : Int32
