@@ -50,9 +50,10 @@ class Time::Location
 
   # :nodoc:
   def self.load_from_android_tzdata(name : String, path : String) : Time::Location?
-    return nil unless File.exists?(path)
+    info = File.info?(path)
+    return nil unless info
 
-    mtime = File.info(path).modification_time
+    mtime = info.modification_time
     if (cache = @@location_cache[name]?) && cache[:time] == mtime
       cache[:location]
     else
@@ -66,9 +67,10 @@ class Time::Location
   end
 
   private def self.open_file_cached(name : String, path : String, &)
-    return nil unless File.exists?(path)
+    info = File.info?(path)
+    return nil unless info
 
-    mtime = File.info(path).modification_time
+    mtime = info.modification_time
     if (cache = @@location_cache[name]?) && cache[:time] == mtime
       cache[:location]
     else
