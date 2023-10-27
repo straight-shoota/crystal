@@ -13,9 +13,9 @@ struct BigFloat
     raise DivisionByZeroError.new if other == 0
     Int.primitive_ui_check(other) do |ui, neg_ui, _|
       {
-        BigFloat.new { |mpf| LibGMP.mpf_div_ui(mpf, self, {{ ui }}) },
-        BigFloat.new { |mpf| LibGMP.mpf_div_ui(mpf, self, {{ neg_ui }}); LibGMP.mpf_neg(mpf, mpf) },
-        BigFloat.new { |mpf| LibGMP.mpf_div(mpf, self, BigFloat.new(other)) },
+        ui:     BigFloat.new { |mpf| LibGMP.mpf_div_ui(mpf, self, {{ ui }}) },
+        neg_ui: BigFloat.new { |mpf| LibGMP.mpf_div_ui(mpf, self, {{ neg_ui }}); LibGMP.mpf_neg(mpf, mpf) },
+        big:    BigFloat.new { |mpf| LibGMP.mpf_div(mpf, self, BigFloat.new(other)) },
       }
     end
   end
@@ -52,12 +52,12 @@ struct Int
     %}
     if ::LibGMP::SI::MIN <= {{ var }} <= ::LibGMP::UI::MAX
       if {{ var }} <= ::LibGMP::SI::MAX
-        {{ exps[0] }}
+        {{ exps[:ui] }}
       else
-        {{ exps[1] }}
+        {{ exps[:neg_ui] }}
       end
     else
-      {{ exps[2] }}
+      {{ exps[:big] }}
     end
   end
 
@@ -79,11 +79,11 @@ struct Int
       )
     %}
     if ::LibGMP::UI::MIN <= {{ var }} <= ::LibGMP::UI::MAX
-      {{ exps[0] }}
+      {{ exps[:ui] }}
     elsif {{ var }}.responds_to?(:abs_unsigned) && {{ var }}.abs_unsigned <= ::LibGMP::UI::MAX
-      {{ exps[1] }}
+      {{ exps[:neg_ui] }}
     else
-      {{ exps[2] }}
+      {{ exps[:big] }}
     end
   end
 end

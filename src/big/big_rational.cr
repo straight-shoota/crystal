@@ -105,9 +105,9 @@ struct BigRational < Number
   def <=>(other : Int)
     Int.primitive_si_ui_check(other) do |si, ui, big_i|
       {
-        LibGMP.mpq_cmp_si(self, {{ si }}, 1),
-        LibGMP.mpq_cmp_ui(self, {{ ui }}, 1),
-        self <=> {{ big_i }},
+        ui:     LibGMP.mpq_cmp_si(self, {{ si }}, 1),
+        neg_ui: LibGMP.mpq_cmp_ui(self, {{ ui }}, 1),
+        big:    self <=> {{ big_i }},
       }
     end
   end
