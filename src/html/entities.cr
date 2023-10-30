@@ -2239,5 +2239,14 @@ module HTML
   end
 
   # :nodoc:
-  MAX_ENTITY_NAME_SIZE = Math.max(SINGLE_CHAR_ENTITIES.each_key.max_of(&.size), DOUBLE_CHAR_ENTITIES.each_key.max_of(&.size))
+  MAX_ENTITY_NAME_SIZE = begin
+    max = 0
+    SINGLE_CHAR_ENTITIES.each_key do |key|
+      max = Math.max(max, key.size)
+    end
+    DOUBLE_CHAR_ENTITIES.each_key do |key|
+      max = Math.max(max, key.size)
+    end
+    max
+  end
 end
