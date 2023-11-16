@@ -82,4 +82,18 @@ class IO::Sized < IO
 
     @io.close if @sync_close
   end
+
+  # :inherit:
+  def gets_to_end : String
+    String.build(read_remaining) do |str|
+      gets_to_end(str)
+    end
+  end
+
+  # :inherit:
+  def getb_to_end : Bytes
+    io = IO::Memory.new(read_remaining)
+    IO.copy(self, io)
+    io.to_slice
+  end
 end
