@@ -48,6 +48,11 @@ class Crystal::Loader
   getter loaded_libraries = [] of String
   @handles = [] of Handle
 
+  # These libraries are ignored if they are missing and won't cause an error.
+  # This is useful for some system libraries which are sometimes not provided on
+  # their own but are integrated into libc, for example with GNU libc.
+  property ignore_missing_libraries = [] of String
+
   # def self.library_filename(libname : String) : String
   #   raise NotImplementedError.new("library_filename")
   # end
@@ -77,7 +82,7 @@ class Crystal::Loader
   end
 
   def load_library(libname : String) : Nil
-    load_library?(libname) || raise LoadError.new "cannot find -l#{libname}"
+    load_library?(libname) || ignore_missing_libraries.includes?(libname) || raise LoadError.new "cannot find -l#{libname}"
   end
 
   def load_library?(libname : String) : Bool

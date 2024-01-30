@@ -28,12 +28,13 @@ class Crystal::Loader
   # The directories in *dll_search_paths* are tried before Windows' search order
   # when looking for DLLs corresponding to an import library. The compiler uses
   # this to mimic `@[Link]`'s DLL-copying behavior for compiled code.
-  def self.parse(args : Array(String), *, search_paths : Array(String) = default_search_paths, dll_search_paths : Array(String)? = nil) : self
+  def self.parse(args : Array(String), *, search_paths : Array(String) = default_search_paths, dll_search_paths : Array(String)? = nil, ignore_missing_libraries : Array(String)? = nil) : self
     search_paths, libnames = parse_args(args, search_paths)
     file_paths = [] of String
 
     begin
       loader = new(search_paths, dll_search_paths)
+      loader.ignore_missing_libraries = ignore_missing_libraries if ignore_missing_libraries
       loader.load_all(libnames, file_paths)
       loader
     rescue exc : LoadError
@@ -163,7 +164,7 @@ class Crystal::Loader
   end
 
   def load_library(libname : String) : Nil
-    load_library?(libname) || raise LoadError.from_winerror "cannot find #{Loader.library_filename(libname)}"
+    load_library?(libname) || ignore_missing_libraries.includes?(libname) || raise LoadError.from_winerror "cannot find #{Loader.library_filename(libname)}"
   end
 
   def load_library?(libname : String) : Bool

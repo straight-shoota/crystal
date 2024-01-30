@@ -44,7 +44,7 @@ class Crystal::Loader
   # goes here and `LIBRARY_PATH` goes into *search_paths*, but there is little
   # point in doing so since the same library files are used at both compile and
   # run time.)
-  def self.parse(args : Array(String), *, search_paths : Array(String) = default_search_paths, dll_search_paths : Array(String)? = nil) : self
+  def self.parse(args : Array(String), *, search_paths : Array(String) = default_search_paths, dll_search_paths : Array(String)? = nil, ignore_missing_libraries : Array(String)? = nil) : self
     libnames = [] of String
     file_paths = [] of String
 
@@ -82,6 +82,7 @@ class Crystal::Loader
 
     begin
       loader = new(search_paths)
+      loader.ignore_missing_libraries = ignore_missing_libraries if ignore_missing_libraries
       loader.load_all(libnames, file_paths)
       loader
     rescue exc : LoadError
@@ -120,7 +121,7 @@ class Crystal::Loader
   end
 
   def load_library(libname : String) : Nil
-    load_library?(libname) || raise LoadError.new_dl_error "cannot find -l#{libname}"
+    load_library?(libname) || ignore_missing_libraries.includes?(libname) || raise LoadError.new_dl_error "cannot find -l#{libname}"
   end
 
   private def open_library(path : String)

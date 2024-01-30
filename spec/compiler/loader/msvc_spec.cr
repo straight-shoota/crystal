@@ -192,4 +192,13 @@ describe Crystal::Loader do
       loader.close_all if loader
     end
   end
+
+  it "ignores missing libraries" do
+    loader = Crystal::Loader.new([] of String)
+    loader.ignore_missing_libraries << "foo"
+    loader.load_library("foo").should be_nil
+    expect_raises(Crystal::Loader::LoadError, "undefined reference to `bar'") do
+      loader.find_symbol("bar")
+    end
+  end
 end
