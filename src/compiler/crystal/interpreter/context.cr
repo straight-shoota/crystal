@@ -409,7 +409,11 @@ class Crystal::Repl::Context
     # (MSVC doesn't seem to have this issue)
     args.delete("-lgc")
 
-    Crystal::Loader.parse(args, dll_search_paths: dll_search_paths).tap do |loader|
+    if program.has_flag?("gnu")
+      ignore_missing_libraries = %w(dl pthread rt)
+    end
+
+    Crystal::Loader.parse(args, dll_search_paths: dll_search_paths, ignore_missing_libraries: ignore_missing_libraries).tap do |loader|
       # FIXME: Part 2: This is a workaround for initial integration of the interpreter:
       # We append a handle to the current executable (i.e. the compiler program)
       # to the loader's handle list. This gives the loader access to all the symbols in the compiler program,
