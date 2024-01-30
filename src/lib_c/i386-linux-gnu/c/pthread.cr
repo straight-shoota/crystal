@@ -1,13 +1,6 @@
 require "./sys/types"
 
-# Starting with glibc 2.34, `pthread` is integrated into `libc` and may not even
-# be available as a separate shared library.
-# There's always a static library for compiled mode, but `Crystal::Loader` does not support
-# static libraries. So we just skip `pthread` entirely in interpreted mode.
-# The symbols are still available in the interpreter because they are loaded in the compiler.
-{% unless flag?(:interpreted) %}
-  @[Link("pthread")]
-{% end %}
+@[Link("pthread")]
 lib LibC
   PTHREAD_MUTEX_ERRORCHECK = 2
 

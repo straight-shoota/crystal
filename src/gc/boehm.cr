@@ -7,26 +7,14 @@
 #
 # Darwin: `libpthread` is provided as part of `libsystem`. There's no reason to link it explicitly.
 #
-# Interpreter: Starting with glibc 2.34, `pthread` is integrated into `libc`
-# and may not even be available as a separate shared library.
-# There's always a static library for compiled mode, but `Crystal::Loader` does not support
-# static libraries. So we just skip `pthread` entirely. The symbols are still
-# available in the interpreter because they are loaded in the compiler.
-#
 # OTHERS: On other systems, we add the linker annotation here to make sure libpthread is loaded
 # before libgc which looks up symbols from libpthread.
-{% unless flag?(:win32) || flag?(:musl) || flag?(:darwin) || flag?(:android) || (flag?(:interpreted) && flag?(:gnu)) %}
+{% unless flag?(:win32) || flag?(:musl) || flag?(:darwin) || flag?(:android) %}
   @[Link("pthread")]
 {% end %}
 
 {% if flag?(:freebsd) || flag?(:dragonfly) %}
   @[Link("gc-threaded")]
-{% elsif flag?(:interpreted) %}
-  # FIXME: We're not using the pkg-config name here because that would resolve the
-  # lib flags for libgc including `-lpthread` which the interpreter is not able
-  # to load on systems with modern libc where libpthread is only available as an
-  # (empty) static library.
-  @[Link("gc")]
 {% else %}
   @[Link("gc", pkg_config: "bdw-gc")]
 {% end %}
