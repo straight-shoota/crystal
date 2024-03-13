@@ -3109,6 +3109,26 @@ describe "String" do
       it { expect_raises(IndexError) { "セキロ：シャドウズ ダイ トゥワイス".delete_at(-19..1) } }
     end
   end
+
+  describe "#truncate" do
+    it "basic" do
+      "Hello World!".truncate(12).should eq "Hello World!"
+      "Hello World!!".truncate(12).should eq "Hello Wor..."
+    end
+
+    it "omission and separator" do
+      "Hello World!".truncate(10, omission: "[...]").should eq "Hello[...]"
+      "Hello Big World!".truncate(13, omission: "[...]", separator: " ").should eq "Hello[...]"
+      "Hello Big World!".truncate(14, omission: "[...]", separator: " ").should eq "Hello Big[...]"
+      "Hello Big World!".truncate(15, omission: "[...]", separator: " ").should eq "Hello Big[...]"
+    end
+
+    it "omission and regex separator" do
+      "Hello Big World!".truncate(13, omission: "[...]", separator: /\s/).should eq "Hello[...]"
+      "Hello Big World!".truncate(14, omission: "[...]", separator: /\s/).should eq "Hello Big[...]"
+      "Hello Big World!".truncate(15, omission: "[...]", separator: /\s/).should eq "Hello Big[...]"
+    end
+  end
 end
 
 class String

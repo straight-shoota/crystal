@@ -5241,6 +5241,23 @@ class String
     !!result
   end
 
+  def truncate(size, *, omission = "...", separator = nil)
+    return self unless self.size > size
+
+    truncated_max_size = size - omission.size
+    truncated_size = if separator
+                       rindex(separator, truncated_max_size) || truncated_max_size
+                     else
+                       truncated_max_size
+                     end
+
+    truncated_bytesize = char_index_to_byte_index(truncated_size).not_nil!
+    String.build(truncated_bytesize + omission.bytesize) do |io|
+      io.write_string self.to_slice[0, truncated_bytesize]
+      io << omission
+    end
+  end
+
   # Interpolates *other* into the string using top-level `::sprintf`.
   #
   # ```
