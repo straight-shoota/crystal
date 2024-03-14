@@ -5,21 +5,11 @@ module Crystal::System::Socket
   # Initializes a file descriptor / socket handle for use with Crystal Socket
   # private def initialize_handle(fd)
 
-  # private def system_connect(addr, timeout = nil)
-
   # Tries to bind the socket to a local address.
   # Yields an `Socket::BindError` if the binding failed.
   # private def system_bind(addr, addrstr)
 
   # private def system_listen(backlog)
-
-  # private def system_accept
-
-  # private def system_send(bytes : Bytes) : Int32
-
-  # private def system_send_to(bytes : Bytes, addr : ::Socket::Address)
-
-  # private def system_receive(bytes)
 
   # private def system_close_read
 
@@ -71,12 +61,6 @@ module Crystal::System::Socket
 
   # def self.fcntl(fd, cmd, arg = 0)
 
-  # private def unbuffered_read(slice : Bytes) : Int32
-
-  # private def unbuffered_write(slice : Bytes) : Nil
-
-  # private def system_close
-
   # IPSocket:
 
   # private def system_local_address
@@ -96,6 +80,14 @@ module Crystal::System::Socket
   # private def system_tcp_keepalive_count
 
   # private def system_tcp_keepalive_count=(val : Int)
+
+  private def system_accept
+    event_loop.accept(self)
+  end
+
+  private def system_receive(slice)
+    event_loop.receive_from(self, slice)
+  end
 end
 
 {% if flag?(:wasi) %}

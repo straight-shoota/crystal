@@ -2,7 +2,6 @@ require "c/io"
 require "c/consoleapi"
 require "c/consoleapi2"
 require "c/winnls"
-require "io/overlapped"
 
 module Crystal::System::FileDescriptor
   include IO::Overlapped
@@ -17,59 +16,64 @@ module Crystal::System::FileDescriptor
   STDOUT_HANDLE = LibC.GetStdHandle(LibC::STD_OUTPUT_HANDLE).address
   STDERR_HANDLE = LibC.GetStdHandle(LibC::STD_ERROR_HANDLE).address
 
+  @volatile_fd : Atomic(LibC::Int)
+
   @system_blocking = true
 
   private def unbuffered_read(slice : Bytes) : Int32
     handle = windows_handle
     if ConsoleUtils.console?(handle)
-      ConsoleUtils.read(handle, slice)
-    elsif system_blocking?
-      if LibC.ReadFile(handle, slice, slice.size, out bytes_read, nil) == 0
-        case error = WinError.value
-        when .error_access_denied?
-          raise IO::Error.new "File not open for reading", target: self
-        when .error_broken_pipe?
-          return 0_i32
-        else
-          raise IO::Error.from_os_error("Error reading file", error, target: self)
-        end
-      end
-      bytes_read.to_i32
+      ConsoleUtils.read(handle, slice).to_i32
+    elsif @system_blocking
+      read_blocking(handle, slice)
     else
-      overlapped_operation(handle, "ReadFile", read_timeout) do |overlapped|
-        ret = LibC.ReadFile(handle, slice, slice.size, out byte_count, overlapped)
-        {ret, byte_count}
-      end.to_i32
+      event_loop.read(self, slice)
     end
+  end
+
+  private def read_blocking(handle, slice)
+    if LibC.ReadFile(handle, slice, slice.size, out bytes_read, nil) == 0
+      case error = WinError.value
+      when .error_access_denied?
+        raise IO::Error.new "File not open for reading", target: self
+      when .error_broken_pipe?
+        return 0_u32
+      else
+        raise IO::Error.from_os_error("Error reading file", error, target: self)
+      end
+    end
+    bytes_read
   end
 
   private def unbuffered_write(slice : Bytes) : Nil
-    handle = windows_handle
-    until slice.empty?
-      if system_blocking?
-        if LibC.WriteFile(handle, slice, slice.size, out bytes_written, nil) == 0
-          case error = WinError.value
-          when .error_access_denied?
-            raise IO::Error.new "File not open for writing", target: self
-          when .error_broken_pipe?
-            return 0_u32
-          else
-            raise IO::Error.from_os_error("Error writing file", error, target: self)
-          end
-        end
-      else
-        bytes_written = overlapped_operation(handle, "WriteFile", write_timeout, writing: true) do |overlapped|
-          ret = LibC.WriteFile(handle, slice, slice.size, out byte_count, overlapped)
-          {ret, byte_count}
-        end
+    if @system_blocking
+      until slice.empty?
+        bytes_written = write_blocking(slice)
+        slice += bytes_written
       end
-
-      slice += bytes_written
+    else
+      until slice.empty?
+        bytes_written = event_loop.write(self, slice)
+        slice += bytes_written
+      end
     end
   end
 
-  private def system_blocking?
-    @system_blocking
+  private def write_blocking(slice : Bytes) : Int32
+    handle = windows_handle
+
+    ret = LibC.WriteFile(handle, slice, slice.size, out bytes_written, nil)
+    if ret == 0
+      case error = WinError.value
+      when .error_access_denied?
+        raise IO::Error.new "File not open for writing", target: self
+      when .error_broken_pipe?
+        return 0_i32
+      else
+        raise IO::Error.from_os_error("Error writing file", error, target: self)
+      end
+    end
+    bytes_written.to_i32
   end
 
   private def system_blocking=(blocking)
@@ -160,8 +164,6 @@ module Crystal::System::FileDescriptor
   end
 
   private def system_close
-    LibC.CancelIoEx(windows_handle, nil) unless system_blocking?
-
     file_descriptor_close
   end
 

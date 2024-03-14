@@ -1,12 +1,7 @@
-# :nodoc:
-abstract class Crystal::EventLoop
-  def self.create
-    Crystal::Wasi::EventLoop.new
-  end
-end
+require "../unix/event_loop_libevent"
 
 # :nodoc:
-class Crystal::Wasi::EventLoop < Crystal::EventLoop
+class Crystal::Wasi::EventLoop < Crystal::LibEvent::EventLoop
   # Runs the event loop.
   def run(blocking : Bool) : Bool
     raise NotImplementedError.new("Crystal::Wasi::EventLoop.run")

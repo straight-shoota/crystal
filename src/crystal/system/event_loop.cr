@@ -1,6 +1,16 @@
 abstract class Crystal::EventLoop
   # Creates an event loop instance
-  # def self.create : Crystal::EventLoop
+  def self.create
+    {% if flag?(:wasi) %}
+      Crystal::Wasi::EventLoop.new
+    {% elsif flag?(:unix) %}
+      Crystal::LibEvent::EventLoop.new
+    {% elsif flag?(:win32) %}
+      Crystal::Iocp::EventLoop.new
+    {% else %}
+      {% raise "Event loop not supported" %}
+    {% end %}
+  end
 
   @[AlwaysInline]
   def self.current : self
@@ -30,12 +40,61 @@ abstract class Crystal::EventLoop
   #       time in parallel, but this assumption may change in the future!
   abstract def interrupt : Nil
 
-  # Create a new resume event for a fiber.
-  abstract def create_resume_event(fiber : Fiber) : Event
+  # Reads at least one byte from the file descriptor into *slice* and continues
+  # fiber when the read is complete.
+  # Returns the number of bytes read.
+  abstract def read(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
 
-  # Creates a timeout_event.
-  abstract def create_timeout_event(fiber : Fiber) : Event
+  # Reads at least one byte from the socket into *slice* and continues fiber
+  # when the read is complete.
+  # Returns the number of bytes read.
+  abstract def read(socket : ::Socket, slice : Bytes) : Int32
 
+  # Writes at least one byte from *slice* to the file descriptor and continues
+  # fiber when the write is complete.
+  # Returns the number of bytes written.
+  abstract def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
+
+  # Writes at least one byte from *slice* to the socket and continues fiber
+  # when the write is complete.
+  # Returns the number of bytes written.
+  abstract def write(file : ::Socket, slice : Bytes) : Int32
+
+  # Accepts an incoming TCP connection on the socket and continues fiber when a
+  # connection is available.
+  # Returns a handle to the socket for the new connection.
+  # abstract def accept(socket : ::Socket) : ::Socket::Handle?
+
+  # Opens a connection on *socket* to the target *address* and continues fiber
+  # when the connection has been established.
+  # Returns `IO::Error` but does not raise.
+  abstract def connect(socket : ::Socket, address : ::Socket::Addrinfo | ::Socket::Address, timeout : ::Time::Span?) : IO::Error?
+
+  # Writes at least one byte from *slice* to the socket and continues fiber when
+  # the write is complete.
+  # Returns the number of bytes written.
+  abstract def send(socket : ::Socket, slice : Bytes) : Int32
+
+  # Writes at least one byte from *slice* to the socket with a target *address* (UDP)
+  # and continues fiber when the write is complete.
+  # Returns the number of bytes written.
+  abstract def send_to(socket : ::Socket, slice : Bytes, address : ::Socket::Address) : Int32
+
+  # Receives on the socket into *slice*  and continues fiber when the package is
+  # completed
+  # Returns the number of bytes received.
+  abstract def receive(socket : ::Socket, slice : Bytes) : Int32
+
+  # Receives on the socket into *slice*  and continues fiber when the package is
+  # completed.
+  # Returns a tuple containing the number of bytes received and the source address
+  # of the packet (UDP).
+  # abstract def receive_from(socket : ::Socket, slice : Bytes) : Tuple(Int32, ::Socket::Address)
+
+  # Closes the *resource*.
+  abstract def close(resource) : Nil
+
+  # TODO: Remove
   module Event
     # Frees the event.
     abstract def free : Nil

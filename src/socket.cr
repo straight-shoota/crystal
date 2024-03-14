@@ -114,6 +114,11 @@ class Socket < IO
     yield result if result.is_a?(Exception)
   end
 
+  # :ditto:
+  def connect(addr, timeout : Int, & : Exception ->)
+    connect(addr, timeout.try(&.seconds)) { |error| yield error }
+  end
+
   # Binds the socket to a local address.
   #
   # ```
@@ -226,7 +231,7 @@ class Socket < IO
   # sock.send(Bytes[0])
   # ```
   def send(message) : Int32
-    system_send(message.to_slice)
+    event_loop.send(self, message.to_slice)
   end
 
   # Sends a message to the specified remote address.
@@ -240,7 +245,7 @@ class Socket < IO
   # sock.send("text query", to: server)
   # ```
   def send(message, to addr : Address) : Int32
-    system_send_to(message.to_slice, addr)
+    event_loop.send_to(self, message.to_slice, addr)
   end
 
   # Receives a text message from the previously bound address.
@@ -256,7 +261,7 @@ class Socket < IO
   def receive(max_message_size = 512) : {String, Address}
     address = nil
     message = String.new(max_message_size) do |buffer|
-      bytes_read, address = system_receive(Slice.new(buffer, max_message_size))
+      bytes_read, address = event_loop.receive_from(self, Slice.new(buffer, max_message_size))
       {bytes_read, 0}
     end
     {message, address.as(Address)}
@@ -424,7 +429,18 @@ class Socket < IO
     system_tty?
   end
 
-  private def unbuffered_rewind : Nil
+  private def unbuffered_read(slice : Bytes) : Int32
+    event_loop.read(self, slice)
+  end
+
+  private def unbuffered_write(slice : Bytes) : Nil
+    until slice.empty?
+      bytes_written = event_loop.write(self, slice)
+      slice += bytes_written
+    end
+  end
+
+  private def unbuffered_rewind
     raise Socket::Error.new("Can't rewind")
   end
 
@@ -438,6 +454,10 @@ class Socket < IO
 
   private def unbuffered_flush : Nil
     # Nothing
+  end
+
+  private def event_loop
+    Crystal::EventLoop.current
   end
 end
 

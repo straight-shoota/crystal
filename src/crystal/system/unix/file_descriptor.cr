@@ -18,22 +18,13 @@ module Crystal::System::FileDescriptor
   STDERR_HANDLE = 2
 
   private def unbuffered_read(slice : Bytes) : Int32
-    evented_read(slice, "Error reading file") do
-      LibC.read(fd, slice, slice.size).tap do |return_code|
-        if return_code == -1 && Errno.value == Errno::EBADF
-          raise IO::Error.new "File not open for reading", target: self
-        end
-      end
-    end
+    event_loop.read(self, slice)
   end
 
   private def unbuffered_write(slice : Bytes) : Nil
-    evented_write(slice, "Error writing file") do |slice|
-      LibC.write(fd, slice, slice.size).tap do |return_code|
-        if return_code == -1 && Errno.value == Errno::EBADF
-          raise IO::Error.new "File not open for writing", target: self
-        end
-      end
+    until slice.empty?
+      bytes_written = event_loop.write(self, slice)
+      slice += bytes_written
     end
   end
 
@@ -131,14 +122,14 @@ module Crystal::System::FileDescriptor
     # Mark the handle open, since we had to have dup'd a live handle.
     @closed = false
 
-    evented_reopen
+    event_loop.close(self)
   end
 
   private def system_close
     # Perform libevent cleanup before LibC.close.
     # Using a file descriptor after it has been closed is never defined and can
     # always lead to undefined results. This is not specific to libevent.
-    evented_close
+    event_loop.close(self)
 
     file_descriptor_close
   end

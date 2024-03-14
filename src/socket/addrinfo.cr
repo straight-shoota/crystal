@@ -56,7 +56,7 @@ class Socket
     #
     # The iteration will be stopped once the block returns something that isn't
     # an `Exception` (e.g. a `Socket` or `nil`).
-    def self.resolve(domain, service, family : Family? = nil, type : Type = nil, protocol : Protocol = Protocol::IP, timeout = nil, &)
+    def self.resolve(domain, service, family : Family? = nil, type : Type = nil, protocol : Protocol = Protocol::IP, timeout = nil, & : Addrinfo -> Exception?)
       getaddrinfo(domain, service, family, type, protocol, timeout) do |addrinfo|
         loop do
           value = yield addrinfo.not_nil!

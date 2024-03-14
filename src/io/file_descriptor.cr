@@ -280,4 +280,8 @@ class IO::FileDescriptor < IO
   private def unbuffered_flush : Nil
     # Nothing
   end
+
+  private def event_loop
+    Crystal::EventLoop.current
+  end
 end
