@@ -117,7 +117,8 @@ abstract class IO
     false
   end
 
-  protected def check_open
+  # :nodoc:
+  def check_open
     raise IO::Error.new "Closed stream" if closed?
   end
 
