@@ -1075,7 +1075,7 @@ describe "Semantic: proc" do
       ), inject_primitives: true) { nilable int32 }
   end
 
-  it "can assign proc that returns anything to proc that returns nil, with instance var (#3655)" do
+  it "can assign proc that returns (large) struct to proc that returns nil, with instance var (#3655)" do
     assert_type(%(
       class Foo
         @block : -> Nil
@@ -1093,7 +1093,25 @@ describe "Semantic: proc" do
       )) { proc_of(nil_type) }
   end
 
-  it "can assign proc that returns anything to proc that returns nil, with class var (#3655)" do
+  it "can assign proc that returns reference to proc that returns nil, with instance var (#3655)" do
+    assert_type(%(
+      class Foo
+        @block : -> Nil
+
+        def initialize
+          @block = ->{ "" }
+        end
+
+        def block
+          @block
+        end
+      end
+
+      Foo.new.block
+      )) { proc_of(nil_type) }
+  end
+
+  it "can assign proc that returns (large) struct to proc that returns nil, with class var (#3655)" do
     assert_type(%(
       module Moo
         @@block : -> Nil = ->{ nil }
@@ -1107,6 +1125,24 @@ describe "Semantic: proc" do
       end
 
       Moo.block = ->{ 1 }
+      Moo.block
+      )) { proc_of(nil_type) }
+  end
+
+  it "can assign proc that returns reference to proc that returns nil, with class var (#3655)" do
+    assert_type(%(
+      module Moo
+        @@block : -> Nil = ->{ nil }
+
+        def self.block=(@@block)
+        end
+
+        def self.block
+          @@block
+        end
+      end
+
+      Moo.block = ->{ "" }
       Moo.block
       )) { proc_of(nil_type) }
   end

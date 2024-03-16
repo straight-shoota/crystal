@@ -2376,9 +2376,13 @@ module Crystal
       return false unless self.arg_types == other_type.arg_types
 
       # - Proc(..., NoReturn) can be cast to Proc(..., T)
-      # - Anything can be cast to Proc(..., Void)
-      # - Anything can be cast to Proc(..., Nil)
-      self.return_type.no_return? || other_type.return_type.void? || other_type.return_type.nil_type?
+      return true if self.return_type.no_return?
+
+      # - Any reference-like can be cast to Proc(..., Void)
+      # - Any reference-like can be cast to Proc(..., Nil)
+      return true if self.return_type.reference_like? && (other_type.return_type.void? || other_type.return_type.nil_type?)
+
+      false
     end
 
     def to_s_with_options(io : IO, skip_union_parens : Bool = false, generic_args : Bool = true, codegen : Bool = false) : Nil
