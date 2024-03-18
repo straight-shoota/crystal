@@ -29,10 +29,6 @@ module Crystal::System::Socket
     raise NotImplementedError.new "Crystal::System::Socket#system_listen"
   end
 
-  private def system_accept
-    (raise NotImplementedError.new "Crystal::System::Socket#system_accept").as(Int32)
-  end
-
   private def system_send(bytes : Bytes) : Int32
     evented_send(bytes, "Error sending datagram") do |slice|
       LibC.send(fd, slice.to_unsafe.as(Void*), slice.size, 0)
@@ -173,7 +169,7 @@ module Crystal::System::Socket
     # Perform libevent cleanup before LibC.close.
     # Using a file descriptor after it has been closed is never defined and can
     # always lead to undefined results. This is not specific to libevent.
-    event_loop.cleanup(io)
+    event_loop.close(io)
 
     # Clear the @volatile_fd before actually closing it in order to
     # reduce the chance of reading an outdated fd value

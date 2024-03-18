@@ -110,7 +110,7 @@ class Socket < IO
   # Tries to connect to a remote address. Yields an `IO::TimeoutError` or an
   # `Socket::ConnectError` error if the connection failed.
   def connect(addr, timeout = nil, &)
-    system_connect(addr, timeout) { |error| yield error }
+    event_loop.connect(self, addr, timeout) { |error| yield error }
   end
 
   # Binds the socket to a local address.
@@ -204,7 +204,7 @@ class Socket < IO
   # end
   # ```
   def accept? : Socket?
-    if client_fd = system_accept
+    if client_fd = event_loop.accept(self)
       sock = Socket.new(client_fd, family, type, protocol, blocking)
       sock.sync = sync?
       sock
@@ -225,7 +225,7 @@ class Socket < IO
   # sock.send(Bytes[0])
   # ```
   def send(message) : Int32
-    system_send(message.to_slice)
+    event_loop.send(self, message.to_slice)
   end
 
   # Sends a message to the specified remote address.
@@ -239,7 +239,7 @@ class Socket < IO
   # sock.send("text query", to: server)
   # ```
   def send(message, to addr : Address) : Int32
-    system_send_to(message.to_slice, addr)
+    event_loop.send_to(self, message.to_slice, addr)
   end
 
   # Receives a text message from the previously bound address.
@@ -255,8 +255,7 @@ class Socket < IO
   def receive(max_message_size = 512) : {String, Address}
     address = nil
     message = String.new(max_message_size) do |buffer|
-      bytes_read, sockaddr, addrlen = system_receive(Slice.new(buffer, max_message_size))
-      address = Address.from(sockaddr, addrlen)
+      bytes_read, address = event_loop.receive_from(self, Slice.new(buffer, max_message_size))
       {bytes_read, 0}
     end
     {message, address.not_nil!}
@@ -425,6 +424,14 @@ class Socket < IO
     system_tty?
   end
 
+  private def unbuffered_read(slice : Bytes)
+    event_loop.read(self, slice)
+  end
+
+  private def unbuffered_write(slice : Bytes)
+    event_loop.write(self, slice)
+  end
+
   private def unbuffered_rewind
     raise Socket::Error.new("Can't rewind")
   end
@@ -439,6 +446,10 @@ class Socket < IO
 
   private def unbuffered_flush
     # Nothing
+  end
+
+  private def event_loop
+    Crystal::Scheduler.event_loop
   end
 end
 

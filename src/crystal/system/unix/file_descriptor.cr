@@ -11,14 +11,6 @@ module Crystal::System::FileDescriptor
 
   @volatile_fd : Atomic(Int32)
 
-  private def unbuffered_read(slice : Bytes)
-    event_loop.read(self, slice)
-  end
-
-  private def unbuffered_write(slice : Bytes)
-    event_loop.write(self, slice)
-  end
-
   private def system_blocking?
     flags = fcntl(LibC::F_GETFL)
     !flags.bits_set? LibC::O_NONBLOCK
@@ -113,14 +105,14 @@ module Crystal::System::FileDescriptor
     # Mark the handle open, since we had to have dup'd a live handle.
     @closed = false
 
-    event_loop.cleanup(self)
+    event_loop.close(self)
   end
 
   private def system_close
     # Perform libevent cleanup before LibC.close.
     # Using a file descriptor after it has been closed is never defined and can
     # always lead to undefined results. This is not specific to libevent.
-    event_loop.cleanup(self)
+    event_loop.close(self)
 
     file_descriptor_close
   end

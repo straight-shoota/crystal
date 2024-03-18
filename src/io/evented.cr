@@ -1,7 +1,6 @@
 {% skip_file if flag?(:win32) %}
 
 require "crystal/thread_local_value"
-require "crystal/system/event_loop/libevent"
 
 module IO::Evented
   # :nodoc:
@@ -14,12 +13,6 @@ module IO::Evented
 
   @read_event = Crystal::ThreadLocalValue(Crystal::EventLoop::Event).new
   @write_event = Crystal::ThreadLocalValue(Crystal::EventLoop::Event).new
-
-  @event_loop : Crystal::ThreadLocalValue(Crystal::System::EventLoop::LibEvent) = Crystal::ThreadLocalValue(Crystal::System::EventLoop::LibEvent).new
-
-  def event_loop
-    @event_loop.get { Crystal::System::EventLoop::LibEvent.new(Crystal::Scheduler.event_loop) }
-  end
 
   # :nodoc:
   def resume_read(timed_out = false) : Nil

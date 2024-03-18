@@ -262,6 +262,14 @@ class IO::FileDescriptor < IO
     pp.text inspect
   end
 
+  private def unbuffered_read(slice : Bytes)
+    event_loop.read(self, slice)
+  end
+
+  private def unbuffered_write(slice : Bytes)
+    event_loop.write(self, slice)
+  end
+
   private def unbuffered_rewind
     self.pos = 0
   end
@@ -278,5 +286,9 @@ class IO::FileDescriptor < IO
 
   private def unbuffered_flush
     # Nothing
+  end
+
+  private def event_loop
+    Crystal::Scheduler.event_loop
   end
 end

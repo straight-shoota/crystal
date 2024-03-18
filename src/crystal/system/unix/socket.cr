@@ -22,11 +22,6 @@ module Crystal::System::Socket
     {% end %}
   end
 
-  private def system_connect(addr, timeout = nil, &)
-    timeout = timeout.seconds unless timeout.is_a? ::Time::Span | Nil
-    event_loop.connect(self, addr, timeout) { |ex| yield ex }
-  end
-
   # Tries to bind the socket to a local address.
   # Yields an `Socket::BindError` if the binding failed.
   private def system_bind(addr, addrstr, &)
@@ -39,25 +34,6 @@ module Crystal::System::Socket
     unless LibC.listen(fd, backlog) == 0
       yield ::Socket::Error.from_errno("Listen failed")
     end
-  end
-
-  private def system_accept
-    event_loop.accept(self)
-  end
-
-  private def system_send(bytes : Bytes) : Int32
-    event_loop.send(self, bytes)
-  end
-
-  private def system_send_to(bytes : Bytes, addr : ::Socket::Address)
-    bytes_sent = LibC.sendto(fd, bytes.to_unsafe.as(Void*), bytes.size, 0, addr, addr.size)
-    raise ::Socket::Error.from_errno("Error sending datagram to #{addr}") if bytes_sent == -1
-    # to_i32 is fine because string/slice sizes are an Int32
-    bytes_sent.to_i32
-  end
-
-  private def system_receive(bytes)
-    event_loop.receive(self, bytes)
   end
 
   private def system_close_read
@@ -202,19 +178,11 @@ module Crystal::System::Socket
     LibC.isatty(fd) == 1
   end
 
-  private def unbuffered_read(slice : Bytes)
-    event_loop.read(self, slice)
-  end
-
-  private def unbuffered_write(slice : Bytes)
-    event_loop.write(self, slice)
-  end
-
   private def system_close
     # Perform libevent cleanup before LibC.close.
     # Using a file descriptor after it has been closed is never defined and can
     # always lead to undefined results. This is not specific to libevent.
-    event_loop.cleanup(self)
+    event_loop.close(self)
 
     # Clear the @volatile_fd before actually closing it in order to
     # reduce the chance of reading an outdated fd value
