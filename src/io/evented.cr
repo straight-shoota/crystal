@@ -15,7 +15,11 @@ module IO::Evented
   @read_event = Crystal::ThreadLocalValue(Crystal::EventLoop::Event).new
   @write_event = Crystal::ThreadLocalValue(Crystal::EventLoop::Event).new
 
-  getter event_loop : Crystal::System::EventLoop::LibEvent = Crystal::System::EventLoop::LibEvent.new(Crystal::Scheduler.event_loop)
+  @event_loop : Crystal::ThreadLocalValue(Crystal::System::EventLoop::LibEvent) = Crystal::ThreadLocalValue(Crystal::System::EventLoop::LibEvent).new
+
+  def event_loop
+    @event_loop.get { Crystal::System::EventLoop::LibEvent.new(Crystal::Scheduler.event_loop) }
+  end
 
   # :nodoc:
   def resume_read(timed_out = false) : Nil
