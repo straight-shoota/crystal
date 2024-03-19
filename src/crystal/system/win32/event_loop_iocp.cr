@@ -313,7 +313,7 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
   def send(socket : ::Socket, slice : Bytes) : Int32
     wsabuf = wsa_buffer(slice)
 
-    bytes = overlapped_write(socket.fd, "WSASend") do |overlapped|
+    bytes = overlapped_write(socket, "WSASend") do |overlapped|
       ret = LibC.WSASend(socket.fd, pointerof(wsabuf), 1, out bytes_sent, 0, overlapped, nil)
       {ret, bytes_sent}
     end
@@ -323,7 +323,7 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
 
   def send_to(socket : ::Socket, slice : Bytes, addr : ::Socket::Address) : Int32
     wsabuf = wsa_buffer(slice)
-    bytes_written = overlapped_write(socket.fd, "WSASendTo") do |overlapped|
+    bytes_written = overlapped_write(socket, "WSASendTo") do |overlapped|
       ret = LibC.WSASendTo(socket.fd, pointerof(wsabuf), 1, out bytes_sent, 0, addr, addr.size, overlapped, nil)
       {ret, bytes_sent}
     end
@@ -337,7 +337,7 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
     sockaddr = Pointer(LibC::SOCKADDR_STORAGE).malloc.as(LibC::Sockaddr*)
     # initialize sockaddr with the initialized family of the socket
     copy = sockaddr.value
-    copy.sa_family = family
+    copy.sa_family = socket.family
     sockaddr.value = copy
 
     addrlen = sizeof(LibC::SOCKADDR_STORAGE)
@@ -345,7 +345,7 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
     wsabuf = wsa_buffer(slice)
 
     flags = 0_u32
-    bytes_read = overlapped_read(socket.fd, "WSARecvFrom") do |overlapped|
+    bytes_read = overlapped_read(socket, "WSARecvFrom") do |overlapped|
       ret = LibC.WSARecvFrom(socket.fd, pointerof(wsabuf), 1, out bytes_received, pointerof(flags), sockaddr, pointerof(addrlen), overlapped, nil)
       {ret, bytes_received}
     end
