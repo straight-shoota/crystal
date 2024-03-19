@@ -75,7 +75,7 @@ class UNIXServer < UNIXSocket
   # Returns the client socket or `nil` if the server is closed after invoking
   # this method.
   def accept? : UNIXSocket?
-    if client_fd = system_accept
+    if client_fd = event_loop.accept(self)
       sock = UNIXSocket.new(fd: client_fd, type: type, path: @path)
       sock.sync = sync?
       sock

@@ -14,7 +14,7 @@ class IPSocket < Socket
   end
 
   def connect(addr, timeout = nil, &)
-    super(addr, timeout) { |error| yield error }
+    super(addr, timeout) { |error| return yield error }
   ensure
     @local_address = nil
     @remote_address = nil

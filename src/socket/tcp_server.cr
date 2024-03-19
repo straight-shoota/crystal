@@ -108,7 +108,7 @@ class TCPServer < TCPSocket
   # end
   # ```
   def accept? : TCPSocket?
-    if client_fd = system_accept
+    if client_fd = event_loop.accept(self)
       sock = TCPSocket.new(fd: client_fd, family: family, type: type, protocol: protocol)
       sock.sync = sync?
       sock

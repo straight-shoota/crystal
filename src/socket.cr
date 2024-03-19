@@ -109,8 +109,13 @@ class Socket < IO
 
   # Tries to connect to a remote address. Yields an `IO::TimeoutError` or an
   # `Socket::ConnectError` error if the connection failed.
-  def connect(addr, timeout = nil, &)
+  def connect(addr, timeout : Time::Span? = nil, & : Exception ->)
     event_loop.connect(self, addr, timeout) { |error| yield error }
+  end
+
+  # :ditto:
+  def connect(addr, timeout = nil, & : Exception ->)
+    connect(addr, timeout.seconds) { |error| yield error }
   end
 
   # Binds the socket to a local address.
