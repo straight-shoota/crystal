@@ -33,7 +33,7 @@ abstract class Crystal::EventLoop
   # Accepts a new connection on the socket and continues fiber when a connection
   # is available.
   # Returns a handle to the new socket.
-  abstract def accept(socket : ::Socket) : Socket::Handle?
+  # abstract def accept(socket : ::Socket) : ::Socket::Handle?
 
   # Connects socket to the given *addr* and continues fiber when the connection
   # has been established.
@@ -55,7 +55,7 @@ abstract class Crystal::EventLoop
   # Receives on the socket into *slice*  and continues fiber when the package is
   # completed.
   # Returns a tuple containing the number of bytes received and the remote address.
-  abstract def receive_from(socket : ::Socket, slice : Bytes) : Tuple(Int32, ::Socket::Address)
+  # abstract def receive_from(socket : ::Socket, slice : Bytes) : Tuple(Int32, ::Socket::Address)
 
   # Closes the evented resource.
   abstract def close(resource) : Nil
