@@ -1,10 +1,7 @@
 require "c/mswsock"
 require "c/ioapiset"
-require "io/overlapped"
 
 module Crystal::System::Socket
-  include IO::Overlapped
-
   alias Handle = LibC::SOCKET
 
   # Initialize WSA
