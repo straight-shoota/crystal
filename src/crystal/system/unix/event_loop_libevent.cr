@@ -68,7 +68,7 @@ class Crystal::LibEvent::EventLoop < Crystal::EventLoop
 
   def read(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
     loop do
-      bytes_read = LibC.read(file.fd, slice, slice.size).to_i32
+      bytes_read = LibC.read(file.fd, slice, slice.size)
       if bytes_read != -1
         # `to_i32` is acceptable because `Slice#size` is an Int32
         return bytes_read.to_i32

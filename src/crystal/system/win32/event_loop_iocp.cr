@@ -323,11 +323,11 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
     receive(socket, slice)[0]
   end
 
-  def close(file : ::File::Descriptor) : Nil
-    LibC.CancelIoEx(file.windows_handle, nil) unless file.system_blocking?
+  def close(resource) : Nil
   end
 
-  def close(resource) : Nil
+  def close(file : ::File::Descriptor) : Nil
+    LibC.CancelIoEx(file.windows_handle, nil) unless file.system_blocking?
   end
 
   private def wsa_buffer(bytes)
