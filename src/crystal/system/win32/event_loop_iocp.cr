@@ -82,26 +82,10 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
 
   def read(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
     handle = file.windows_handle
-    if ConsoleUtils.console?(handle)
-      ConsoleUtils.read(handle, slice).to_i32
-    elsif file.system_blocking?
-      if LibC.ReadFile(handle, slice, slice.size, out bytes_read, nil) == 0
-        case error = WinError.value
-        when .error_access_denied?
-          raise IO::Error.new "File not open for reading", target: self
-        when .error_broken_pipe?
-          return 0_i32
-        else
-          raise IO::Error.from_os_error("Error reading file", error, target: self)
-        end
-      end
-      bytes_read.to_i32
-    else
-      overlapped_operation(handle, "ReadFile", file.read_timeout) do |overlapped|
-        ret = LibC.ReadFile(handle, slice, slice.size, out byte_count, overlapped)
-        {ret, byte_count}
-      end.to_i32
-    end
+    overlapped_operation(handle, "ReadFile", file.read_timeout) do |overlapped|
+      ret = LibC.ReadFile(handle, slice, slice.size, out byte_count, overlapped)
+      {ret, byte_count}
+    end.to_i32
   end
 
   def read(socket : ::Socket, slice : Bytes) : Int32

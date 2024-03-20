@@ -12,6 +12,31 @@ module Crystal::System::FileDescriptor
     @system_blocking
   end
 
+  private def unbuffered_read(slice : Bytes)
+    handle = windows_handle
+    if ConsoleUtils.console?(handle)
+      ConsoleUtils.read(handle, slice).to_i32
+    elsif system_blocking?
+      if LibC.ReadFile(handle, slice, slice.size, out bytes_read, nil) == 0
+        case error = WinError.value
+        when .error_access_denied?
+          raise IO::Error.new "File not open for reading", target: self
+        when .error_broken_pipe?
+          return 0_u32
+        else
+          raise IO::Error.from_os_error("Error reading file", error, target: self)
+        end
+      end
+      bytes_read
+    else
+      event_loop.read(self, slice)
+    end
+  end
+
+  private def unbuffered_write(slice : Bytes)
+    event_loop.write(self, slice)
+  end
+
   private def system_blocking=(blocking)
     unless blocking == @system_blocking
       raise IO::Error.new("Cannot reconfigure `IO::FileDescriptor#blocking` after creation")

@@ -11,6 +11,14 @@ module Crystal::System::FileDescriptor
 
   @volatile_fd : Atomic(Int32)
 
+  private def unbuffered_read(slice : Bytes)
+    event_loop.read(self, slice)
+  end
+
+  private def unbuffered_write(slice : Bytes)
+    event_loop.write(self, slice)
+  end
+
   private def system_blocking?
     flags = fcntl(LibC::F_GETFL)
     !flags.bits_set? LibC::O_NONBLOCK
