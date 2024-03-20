@@ -91,41 +91,23 @@ class Crystal::Iocp::EventLoop < Crystal::EventLoop
   def read(socket : ::Socket, slice : Bytes) : Int32
     wsabuf = wsa_buffer(slice)
 
-    bytes_read = overlapped_read(socket, "WSARecv", connreset_is_error: false) do |overlapped|
+    overlapped_read(socket, "WSARecv", connreset_is_error: false) do |overlapped|
       flags = 0_u32
       ret = LibC.WSARecv(socket.fd, pointerof(wsabuf), 1, out bytes_received, pointerof(flags), overlapped, nil)
       {ret, bytes_received}
-    end
-
-    bytes_read.to_i32
+    end.to_i32
   end
 
-  def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Nil
+  def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
     handle = file.windows_handle
-    until slice.empty?
-      if file.system_blocking?
-        if LibC.WriteFile(handle, slice, slice.size, out bytes_written, nil) == 0
-          case error = WinError.value
-          when .error_access_denied?
-            raise IO::Error.new "File not open for writing", target: self
-          when .error_broken_pipe?
-            return 0_u32
-          else
-            raise IO::Error.from_os_error("Error writing file", error, target: self)
-          end
-        end
-      else
-        bytes_written = overlapped_operation(handle, "WriteFile", file.write_timeout, writing: true) do |overlapped|
-          ret = LibC.WriteFile(handle, slice, slice.size, out byte_count, overlapped)
-          {ret, byte_count}
-        end
-      end
 
-      slice += bytes_written
+    overlapped_operation(handle, "WriteFile", file.write_timeout, writing: true) do |overlapped|
+      ret = LibC.WriteFile(handle, slice, slice.size, out byte_count, overlapped)
+      {ret, byte_count}
     end
   end
 
-  def write(socket : ::Socket, slice : Bytes) : Nil
+  def write(socket : ::Socket, slice : Bytes) : Int32
     wsabuf = wsa_buffer(slice)
 
     bytes = overlapped_write(socket, "WSASend") do |overlapped|

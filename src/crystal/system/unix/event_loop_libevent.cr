@@ -104,15 +104,12 @@ class Crystal::LibEvent::EventLoop < Crystal::EventLoop
     resume_pending_readers(socket)
   end
 
-  def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Nil
-    return if slice.empty?
-
+  def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
     loop do
       # TODO: Investigate why the .to_i64 is needed as a workaround for #8230
       bytes_written = LibC.write(file.fd, slice, slice.size).to_i64
       if bytes_written != -1
-        slice += bytes_written
-        return if slice.size == 0
+        return bytes_written
       else
         if Errno.value == Errno::EAGAIN
           wait_writable(file)
@@ -127,15 +124,12 @@ class Crystal::LibEvent::EventLoop < Crystal::EventLoop
     resume_pending_writers(file)
   end
 
-  def write(socket : ::Socket, slice : Bytes) : Nil
-    return if slice.empty?
-
+  def write(socket : ::Socket, slice : Bytes) : Int32
     loop do
       # TODO: Investigate why the .to_i64 is needed as a workaround for #8230
       bytes_written = LibC.send(socket.fd, slice, slice.size, 0).to_i64
       if bytes_written != -1
-        slice += bytes_written
-        return if slice.size == 0
+        return bytes_written
       else
         if Errno.value == Errno::EAGAIN
           wait_writable(socket)

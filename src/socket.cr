@@ -434,7 +434,10 @@ class Socket < IO
   end
 
   private def unbuffered_write(slice : Bytes)
-    event_loop.write(self, slice)
+    until slice.empty?
+      bytes_written = event_loop.write(self, slice)
+      slice += bytes_written
+    end
   end
 
   private def unbuffered_rewind

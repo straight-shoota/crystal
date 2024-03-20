@@ -24,11 +24,13 @@ abstract class Crystal::EventLoop
 
   # Writes *slice* to the file descriptor and continues fiber when the write is
   # completed.
-  abstract def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Nil
+  # Returns the number of bytes written.
+  abstract def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
 
   # Writes *slice* to the socket and continues fiber when the write is
   # completed.
-  abstract def write(file : ::Socket, slice : Bytes) : Nil
+  # Returns the number of bytes written.
+  abstract def write(file : ::Socket, slice : Bytes) : Int32
 
   # Accepts a new connection on the socket and continues fiber when a connection
   # is available.
