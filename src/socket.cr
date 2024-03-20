@@ -114,8 +114,8 @@ class Socket < IO
   end
 
   # :ditto:
-  def connect(addr, timeout = nil, & : Exception ->)
-    connect(addr, timeout.seconds) { |error| yield error }
+  def connect(addr, timeout, & : Exception ->)
+    connect(addr, timeout.try(&.seconds)) { |error| yield error }
   end
 
   # Binds the socket to a local address.
