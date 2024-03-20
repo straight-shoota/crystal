@@ -106,8 +106,7 @@ class Crystal::LibEvent::EventLoop < Crystal::EventLoop
 
   def write(file : Crystal::System::FileDescriptor, slice : Bytes) : Int32
     loop do
-      # TODO: Investigate why the .to_i64 is needed as a workaround for #8230
-      bytes_written = LibC.write(file.fd, slice, slice.size).to_i64
+      bytes_written = LibC.write(file.fd, slice, slice.size).to_i32
       if bytes_written != -1
         return bytes_written
       else
@@ -126,8 +125,7 @@ class Crystal::LibEvent::EventLoop < Crystal::EventLoop
 
   def write(socket : ::Socket, slice : Bytes) : Int32
     loop do
-      # TODO: Investigate why the .to_i64 is needed as a workaround for #8230
-      bytes_written = LibC.send(socket.fd, slice, slice.size, 0).to_i64
+      bytes_written = LibC.send(socket.fd, slice, slice.size, 0).to_i32
       if bytes_written != -1
         return bytes_written
       else

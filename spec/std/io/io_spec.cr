@@ -973,11 +973,11 @@ describe IO do
 
         schedule_timeout ch
 
-        ch.receive.begin?.should be_true
+        ch.receive.should eq SpecChannelStatus::Begin
         wait_until_blocked f
 
         read.close
-        ch.receive.end?.should be_true
+        ch.receive.should eq SpecChannelStatus::End
       end
     end
 

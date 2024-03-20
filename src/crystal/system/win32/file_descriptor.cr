@@ -47,7 +47,7 @@ module Crystal::System::FileDescriptor
     end
   end
 
-  private def write_blocking(slice : Bytes)
+  private def write_blocking(slice : Bytes) : Int32
     handle = windows_handle
 
     ret = LibC.WriteFile(handle, slice, slice.size, out bytes_written, nil)
@@ -56,11 +56,12 @@ module Crystal::System::FileDescriptor
       when .error_access_denied?
         raise IO::Error.new "File not open for writing", target: self
       when .error_broken_pipe?
-        return 0_u32
+        return 0_i32
       else
         raise IO::Error.from_os_error("Error writing file", error, target: self)
       end
     end
+    bytes_written.to_i32
   end
 
   private def system_blocking=(blocking)
@@ -290,5 +291,70 @@ if LibC.IsValidCodePage(LibC::CP_UTF8) != 0
   old_output_cp = LibC.GetConsoleOutputCP
   if LibC.SetConsoleOutputCP(LibC::CP_UTF8) != 0
     at_exit { LibC.SetConsoleOutputCP(old_output_cp) }
+  end
+end
+
+private module ConsoleUtils
+  # N UTF-16 code units correspond to no more than 3*N UTF-8 code units.
+  # NOTE: For very large buffers, `ReadConsoleW` may fail.
+  private BUFFER_SIZE = 10000
+  @@utf8_buffer = Slice(UInt8).new(3 * BUFFER_SIZE)
+
+  # `@@buffer` points to part of `@@utf8_buffer`.
+  # It represents data that has not been read yet.
+  @@buffer : Bytes = @@utf8_buffer[0, 0]
+
+  # Remaining UTF-16 code unit.
+  @@remaining_unit : UInt16?
+
+  # Determines if *handle* is a console.
+  def self.console?(handle : LibC::HANDLE) : Bool
+    LibC.GetConsoleMode(handle, out _) != 0
+  end
+
+  # Reads to *slice* from the console specified by *handle*,
+  # and return the actual number of bytes read.
+  def self.read(handle : LibC::HANDLE, slice : Bytes) : Int32
+    return 0 if slice.empty?
+    fill_buffer(handle) if @@buffer.empty?
+
+    bytes_read = {slice.size, @@buffer.size}.min
+    @@buffer[0, bytes_read].copy_to(slice)
+    @@buffer += bytes_read
+    bytes_read
+  end
+
+  private def self.fill_buffer(handle : LibC::HANDLE) : Nil
+    utf16_buffer = uninitialized UInt16[BUFFER_SIZE]
+    remaining_unit = @@remaining_unit
+    if remaining_unit
+      utf16_buffer[0] = remaining_unit
+      index = read_console(handle, utf16_buffer.to_slice + 1)
+    else
+      index = read_console(handle, utf16_buffer.to_slice) - 1
+    end
+
+    if index >= 0 && utf16_buffer[index] & 0xFC00 == 0xD800
+      @@remaining_unit = utf16_buffer[index]
+      index -= 1
+    else
+      @@remaining_unit = nil
+    end
+    return if index < 0
+
+    appender = @@utf8_buffer.to_unsafe.appender
+    String.each_utf16_char(utf16_buffer.to_slice[..index]) do |char|
+      char.each_byte do |byte|
+        appender << byte
+      end
+    end
+    @@buffer = @@utf8_buffer[0, appender.size]
+  end
+
+  private def self.read_console(handle : LibC::HANDLE, slice : Slice(UInt16)) : Int32
+    if 0 == LibC.ReadConsoleW(handle, slice, slice.size, out units_read, nil)
+      raise IO::Error.from_winerror("ReadConsoleW")
+    end
+    units_read.to_i32
   end
 end
