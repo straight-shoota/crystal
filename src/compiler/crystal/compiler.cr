@@ -488,7 +488,21 @@ module Crystal
       else
         link_flags = @link_flags || ""
         link_flags += " -rdynamic"
-        {DEFAULT_LINKER, %(#{DEFAULT_LINKER} "${@}" -o #{Process.quote_posix(output_filename)} #{link_flags} #{program.lib_flags}), object_names}
+
+        if object_names.size > 4000
+          args_filename = "#{output_dir}/object_names.txt"
+          File.open(args_filename, "w") do |file|
+            object_names.join(file, separator: " ") { |path|
+              Process.quote_posix(path)
+            }
+          end
+          object_names = nil
+          object_args = "@#{Process.quote_posix(args_filename)}"
+        else
+          object_args = %("${@}")
+        end
+
+        {DEFAULT_LINKER, "#{DEFAULT_LINKER} #{object_args} -o #{Process.quote_posix(output_filename)} #{link_flags} #{program.lib_flags}", object_names}
       end
     end
 
