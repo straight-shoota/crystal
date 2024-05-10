@@ -493,7 +493,7 @@ module Crystal
           args_filename = "#{output_dir}/object_names.txt"
           File.open(args_filename, "w") do |file|
             object_names.join(file, separator: " ") { |path|
-              Process.quote_posix(path)
+              file << Process.quote_posix(path)
             }
           end
           object_names = nil
