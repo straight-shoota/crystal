@@ -13,7 +13,7 @@ require "crystal/system/thread"
 # Only the class methods are public and safe to use. Instance methods are
 # protected and must never be called directly.
 class Crystal::Scheduler
-  @event_loop : Crystal::EventLoop = Crystal::EventLoop.create
+  @event_loop = Crystal::EventLoop.create
   @stack_pool = Fiber::StackPool.new
 
   def self.stack_pool : Fiber::StackPool

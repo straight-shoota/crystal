@@ -1,6 +1,13 @@
 require "../unix/event_loop_libevent"
 
 # :nodoc:
+abstract class Crystal::EventLoop
+  def self.create
+    Crystal::Wasi::EventLoop.new
+  end
+end
+
+# :nodoc:
 class Crystal::Wasi::EventLoop < Crystal::LibEvent::EventLoop
   # Runs the event loop.
   def run(blocking : Bool) : Bool
