@@ -37,6 +37,10 @@ class Crystal::Wasi::EventLoop < Crystal::LibEvent::EventLoop
   def create_fd_read_event(io : IO::Evented, edge_triggered : Bool = false) : Crystal::EventLoop::Event
     raise NotImplementedError.new("Crystal::Wasi::EventLoop.create_fd_read_event")
   end
+
+  private def add_write_event(io, timeout = io.@write_timeout) : Nil
+    raise NotImplementedError.new("Crystal::Wasi::EventLoop#add_write_event")
+  end
 end
 
 struct Crystal::Wasi::Event
