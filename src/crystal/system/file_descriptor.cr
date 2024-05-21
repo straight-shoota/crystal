@@ -13,6 +13,21 @@ module Crystal::System::FileDescriptor
   # For the duration of the block, enables raw mode if *enable* is true, enables
   # cooked mode otherwise.
   # private def system_raw(enable : Bool, & : ->)
+
+  private def unbuffered_read(slice : Bytes) : Int32
+    event_loop.read(self, slice)
+  end
+
+  private def unbuffered_write(slice : Bytes) : Nil
+    until slice.empty?
+      bytes_written = event_loop.write(self, slice)
+      slice += bytes_written
+    end
+  end
+
+  private def event_loop
+    Crystal::EventLoop.current
+  end
 end
 
 {% if flag?(:wasi) %}

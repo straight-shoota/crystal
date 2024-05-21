@@ -22,11 +22,6 @@ module Crystal::System::Socket
     {% end %}
   end
 
-  private def system_connect(addr, timeout = nil)
-    timeout = timeout.seconds unless timeout.is_a? ::Time::Span | Nil
-    event_loop.connect(self, addr, timeout)
-  end
-
   # Tries to bind the socket to a local address.
   # Yields an `Socket::BindError` if the binding failed.
   private def system_bind(addr, addrstr, &)
