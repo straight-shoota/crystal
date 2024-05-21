@@ -429,7 +429,7 @@ class Socket < IO
     system_tty?
   end
 
-  private def unbuffered_rewind
+  private def unbuffered_rewind : Nil
     raise Socket::Error.new("Can't rewind")
   end
 

@@ -82,6 +82,17 @@ module Crystal::System::Socket
 
   # def self.fcntl(fd, cmd, arg = 0)
 
+  private def unbuffered_read(slice : Bytes) : Int32
+    event_loop.read(self, slice)
+  end
+
+  private def unbuffered_write(slice : Bytes) : Nil
+    until slice.empty?
+      bytes_written = event_loop.write(self, slice)
+      slice += bytes_written
+    end
+  end
+
   # IPSocket:
 
   # private def system_local_address
@@ -101,17 +112,6 @@ module Crystal::System::Socket
   # private def system_tcp_keepalive_count
 
   # private def system_tcp_keepalive_count=(val : Int)
-
-  private def unbuffered_read(slice : Bytes) : Int32
-    event_loop.read(self, slice)
-  end
-
-  private def unbuffered_write(slice : Bytes) : Nil
-    until slice.empty?
-      bytes_written = event_loop.write(self, slice)
-      slice += bytes_written
-    end
-  end
 
   private def event_loop
     Crystal::EventLoop.current
