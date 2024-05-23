@@ -422,7 +422,6 @@ module Crystal
         # Execute and expand `subcommands`.
         lib_flags = lib_flags.gsub(/`(.*?)`/) { `#{$1}` } if expand
 
-        object_arg = Process.quote_windows(object_names)
         output_arg = Process.quote_windows("/Fe#{output_filename}")
 
         linker, link_args = program.msvc_compiler_and_flags
@@ -462,22 +461,28 @@ module Crystal
           end
         {% end %}
 
-        args = %(/nologo #{object_arg} #{output_arg} /link #{link_args.join(' ')}).gsub("\n", " ")
-        cmd = "#{linker} #{args}"
-
-        if cmd.to_utf16.size > 32000
-          # The command line would be too big, pass the args through a UTF-16-encoded file instead.
+        if object_names.size == 1
+          object_arg = Process.quote_windows(object_names[0])
+        else
+          # Pass object names through a UTF-16-encoded file.
           # TODO: Use a proper way to write encoded text to a file when that's supported.
           # The first character is the BOM; it will be converted in the same endianness as the rest.
-          args_16 = "\ufeff#{args}".to_utf16
-          args_bytes = args_16.to_unsafe_bytes
+          args_filename = "#{output_dir}/object_names.txt"
 
-          args_filename = "#{output_dir}/linker_args.txt"
-          File.write(args_filename, args_bytes)
-          cmd = "#{linker} #{Process.quote_windows("@" + args_filename)}"
+          separator = " ".to_utf16.to_unsafe_bytes
+          File.open(args_filename, "w") do |file|
+            object_names.join(file) do |name|
+              file.write name.to_utf16.to_unsafe_bytes
+              file.write separator
+            end
+          end
+
+          object_arg = Process.quote_windows("@" + args_filename)
         end
 
-        {linker, cmd, nil}
+        args = %(/nologo #{object_arg} #{output_arg} /link #{link_args.join(' ')}).gsub("\n", " ")
+
+        {linker, "#{linker} #{args}", nil}
       elsif program.has_flag? "wasm32"
         link_flags = @link_flags || ""
         {"wasm-ld", %(wasm-ld "${@}" -o #{Process.quote_posix(output_filename)} #{link_flags} -lc #{program.lib_flags}), object_names}
@@ -489,20 +494,19 @@ module Crystal
         link_flags = @link_flags || ""
         link_flags += " -rdynamic"
 
-        if object_names.size > 4000
+        if object_names.size == 1
+          object_arg = Process.quote_posix(object_names[0])
+        else
           args_filename = "#{output_dir}/object_names.txt"
           File.open(args_filename, "w") do |file|
-            object_names.join(file, separator: " ") { |path|
-              file << Process.quote_posix(path)
+            object_names.join(file, separator: " ") { |name|
+              file << Process.quote_posix(name)
             }
           end
-          object_names = nil
-          object_args = "@#{Process.quote_posix(args_filename)}"
-        else
-          object_args = %("${@}")
+          object_arg = "@#{Process.quote_posix(args_filename)}"
         end
 
-        {DEFAULT_LINKER, "#{DEFAULT_LINKER} #{object_args} -o #{Process.quote_posix(output_filename)} #{link_flags} #{program.lib_flags}", object_names}
+        {DEFAULT_LINKER, "#{DEFAULT_LINKER} #{object_arg} -o #{Process.quote_posix(output_filename)} #{link_flags} #{program.lib_flags}", nil}
       end
     end
 
