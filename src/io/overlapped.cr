@@ -72,11 +72,12 @@ module IO::Overlapped
     @state : State = :initialized
     property next : OverlappedOperation?
     property previous : OverlappedOperation?
-    @@canceled = Thread::LinkedList(OverlappedOperation).new
     property? synchronous = false
 
     def self.run(handle, &)
-      operation = OverlappedOperation.new
+      operation_storage = uninitialized ReferenceStorage(OverlappedOperation)
+      operation = OverlappedOperation.pre_initialize(pointerof(operation_storage))
+      operation.initialize
       begin
         yield operation
       ensure
@@ -130,7 +131,7 @@ module IO::Overlapped
         yield @fiber.not_nil!
         @state = :done
       when .cancelled?
-        @@canceled.delete(self)
+        # now we're really cancelled
       else
         raise Exception.new("Invalid state #{@state}")
       end
@@ -148,7 +149,8 @@ module IO::Overlapped
         # synchronously, as nothing would be queued to the IOCP)
         if !synchronous? && LibC.CancelIoEx(handle, pointerof(@overlapped)) != 0
           @state = :cancelled
-          @@canceled.push(self) # to increase lifetime
+
+          Fiber.suspend
         end
       end
     end
