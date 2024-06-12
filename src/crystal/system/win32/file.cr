@@ -54,7 +54,6 @@ module Crystal::System::File
 
     if flags.bits_set? LibC::O_APPEND
       access |= LibC::FILE_APPEND_DATA
-      access &= ~LibC::FILE_WRITE_DATA
     end
 
     if flags.bits_set? LibC::O_TRUNC

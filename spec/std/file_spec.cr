@@ -1161,6 +1161,18 @@ describe "File" do
         end
       end
     end
+
+    it "truncates file opened in append mode (#14702)" do
+      with_tempfile("truncate-append.txt") do |path|
+        File.write(path, "0123456789")
+
+        File.open(path, "a") do |file|
+          file.truncate(4)
+        end
+
+        File.read(path).should eq "0123"
+      end
+    end
   end
 
   describe "fsync" do
