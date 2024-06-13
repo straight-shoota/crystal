@@ -178,7 +178,9 @@ module GC
   # :nodoc:
   def self.malloc_atomic(size : LibC::SizeT) : Void*
     Crystal.trace :gc, "malloc", size: size, atomic: 1 do
-      LibGC.malloc_atomic(size)
+      ptr = LibGC.malloc_atomic(size)
+      ptr.clear(size)
+      ptr
     end
   end
 
