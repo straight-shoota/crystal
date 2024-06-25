@@ -2073,6 +2073,7 @@ module Crystal
           type_ptr = malloc struct_type
         else
           type_ptr = malloc_atomic struct_type
+          memset type_ptr, int8(0), size_t(struct_type.size)
         end
       end
 
