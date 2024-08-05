@@ -40,7 +40,7 @@ class LLVM::TargetMachine
   private def emit_to_file(llvm_mod, filename, type)
     status = LibLLVM.target_machine_emit_to_file(self, llvm_mod, filename, type, out error_msg)
     unless status == 0
-      raise LLVM.string_and_dispose(error_msg)
+      raise "Error emitting #{type} to #{filename.inspect}: #{LLVM.string_and_dispose(error_msg)}"
     end
     true
   end
