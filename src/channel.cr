@@ -128,7 +128,7 @@ class Channel(T)
 
   private module SenderReceiverCloseAction
     def close
-      self.state = DeliveryState::Closed
+      self.state = :closed
       _select_context = self.select_context
       if _select_context.nil? || _select_context.try_trigger
         self.fiber.enqueue
@@ -148,7 +148,7 @@ class Channel(T)
     def initialize
       @fiber = uninitialized Fiber
       @data = uninitialized T
-      @state = DeliveryState::None
+      @state = :none
     end
   end
 
@@ -164,7 +164,7 @@ class Channel(T)
     def initialize
       @fiber = uninitialized Fiber
       @data = uninitialized T
-      @state = DeliveryState::None
+      @state = :none
     end
   end
 
