@@ -55,28 +55,7 @@ lib LibCrypto
   type X509_STORE = Void*
   type X509_STORE_CTX = Void*
 
-  struct Bio
-    method : Void*
-    callback : BIO_callback_fn
-    {% if compare_versions(LIBRESSL_VERSION, "3.5.0") >= 0 %}
-      callback_ex : BIO_callback_fn_ex
-    {% end %}
-    cb_arg : Char*
-    init : Int
-    shutdown : Int
-    flags : Int
-    retry_reason : Int
-    num : Int
-    ptr : Void*
-    next_bio : Void*
-    prev_bio : Void*
-    references : Int
-    num_read : ULong
-    num_write : ULong
-  end
-
-  alias BIO_callback_fn = (Bio*, Int, Char*, Int, Long, Long) -> Long
-  alias BIO_callback_fn_ex = (Bio*, Int, Char, SizeT, Int, Long, Int, SizeT*) -> Long
+  type Bio = Void
 
   PKCS5_SALT_LEN     =  8
   EVP_MAX_KEY_LENGTH = 32
@@ -101,22 +80,7 @@ lib LibCrypto
   alias BioMethodDestroy = Bio* -> Int
   alias BioMethodCallbackCtrl = (Bio*, Int, Void*) -> Long
 
-  {% if compare_versions(LibCrypto::OPENSSL_VERSION, "1.1.0") >= 0 %}
-    type BioMethod = Void
-  {% else %}
-    struct BioMethod
-      type_id : Int
-      name : Char*
-      bwrite : BioMethodWriteOld
-      bread : BioMethodReadOld
-      bputs : BioMethodPuts
-      bgets : BioMethodGets
-      ctrl : BioMethodCtrl
-      create : BioMethodCreate
-      destroy : BioMethodDestroy
-      callback_ctrl : BioMethodCallbackCtrl
-    end
-  {% end %}
+  type BioMethod = Void
 
   fun BIO_new(BioMethod*) : Bio*
   fun BIO_free(Bio*) : Int
@@ -176,26 +140,8 @@ lib LibCrypto
   fun asn1_string_print = ASN1_STRING_print(out : Bio*, v : ASN1_STRING) : Int
   fun i2t_asn1_object = i2t_ASN1_OBJECT(buf : Char*, buf_len : Int, a : ASN1_OBJECT) : Int
 
-  struct EVP_MD_CTX_Struct
-    digest : EVP_MD
-    engine : Void*
-    flags : UInt32
-    pctx : Void*
-    update_fun : Void*
-  end
-
-  alias EVP_MD_CTX = EVP_MD_CTX_Struct*
-
-  struct HMAC_CTX_Struct
-    md : EVP_MD
-    md_ctx : EVP_MD_CTX_Struct
-    i_ctx : EVP_MD_CTX_Struct
-    o_ctx : EVP_MD_CTX_Struct
-    key_length : UInt32
-    key : UInt8[128]
-  end
-
-  alias HMAC_CTX = HMAC_CTX_Struct*
+  type EVP_MD_CTX = Void*
+  type HMAC_CTX = Void*
 
   fun hmac_ctx_init = HMAC_CTX_init(ctx : HMAC_CTX)
   fun hmac_ctx_cleanup = HMAC_CTX_cleanup(ctx : HMAC_CTX)
@@ -280,16 +226,7 @@ lib LibCrypto
     ERR_REASON_MASK = 0x7FFFFF
   {% end %}
 
-  struct MD5Context
-    a : UInt
-    b : UInt
-    c : UInt
-    d : UInt
-    nl : UInt
-    nh : UInt
-    data : UInt[16]
-    num : UInt
-  end
+  type MD5Context = Void
 
   fun md5_init = MD5_Init(c : MD5Context*) : Int
   fun md5_update = MD5_Update(c : MD5Context*, data : Void*, len : LibC::SizeT) : Int
