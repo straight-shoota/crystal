@@ -1,4 +1,5 @@
 require "fiber"
+require "crystal/select"
 require "channel"
 require "crystal/scheduler"
 require "crystal/tracing"

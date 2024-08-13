@@ -429,7 +429,7 @@ describe Channel do
         spawn_and_wait(->{ ch.send "foo" }) do
           i, m = Channel.non_blocking_select(ch.receive_select_action)
           typeof(i).should eq(Int32)
-          typeof(m).should eq(String | Channel::NotReady)
+          typeof(m).should eq(String | Crystal::Select::NotReady)
         end
       end
     end
@@ -441,7 +441,7 @@ describe Channel do
         spawn_and_wait(->{ ch.send "foo" }) do
           i, m = Channel.non_blocking_select(ch.receive_select_action, ch2.receive_select_action)
           typeof(i).should eq(Int32)
-          typeof(m).should eq(String | Bool | Channel::NotReady)
+          typeof(m).should eq(String | Bool | Crystal::Select::NotReady)
         end
       end
     end
@@ -452,7 +452,7 @@ describe Channel do
         spawn_and_wait(->{ ch.send "foo" }) do
           i, m = Channel.non_blocking_select(ch.receive_select_action?)
           typeof(i).should eq(Int32)
-          typeof(m).should eq(String | Nil | Channel::NotReady)
+          typeof(m).should eq(String | Nil | Crystal::Select::NotReady)
         end
       end
 
@@ -494,7 +494,7 @@ describe Channel do
         spawn_and_wait(->{ ch.receive }) do
           i, m = Channel.non_blocking_select(ch.send_select_action("foo"))
           typeof(i).should eq(Int32)
-          typeof(m).should eq(Nil | Channel::NotReady)
+          typeof(m).should eq(Nil | Crystal::Select::NotReady)
         end
       end
     end
@@ -506,7 +506,7 @@ describe Channel do
         spawn_and_wait(->{ ch.receive }) do
           i, m = Channel.non_blocking_select(ch.send_select_action("foo"), ch2.send_select_action(true))
           typeof(i).should eq(Int32)
-          typeof(m).should eq(Nil | Channel::NotReady)
+          typeof(m).should eq(Nil | Crystal::Select::NotReady)
         end
       end
     end
@@ -517,7 +517,7 @@ describe Channel do
         spawn_and_wait(->{ ch.send "foo" }) do
           i, m = Channel.non_blocking_select(ch.receive_select_action, timeout_select_action(0.1.seconds))
           typeof(i).should eq(Int32)
-          typeof(m).should eq(String | Nil | Channel::NotReady)
+          typeof(m).should eq(String | Nil | Crystal::Select::NotReady)
         end
       end
 
@@ -527,7 +527,7 @@ describe Channel do
           i, m = Channel.non_blocking_select(ch.receive_select_action, timeout_select_action(0.1.seconds))
 
           i.should eq(2)
-          m.should eq(Channel::NotReady.new)
+          m.should eq(Crystal::Select::NotReady.new)
         end
       end
 
@@ -537,7 +537,7 @@ describe Channel do
           i, m = Channel.non_blocking_select(ch.receive_select_action, timeout_select_action(-1.seconds))
 
           i.should eq(2)
-          m.should eq(Channel::NotReady.new)
+          m.should eq(Crystal::Select::NotReady.new)
         end
       end
 

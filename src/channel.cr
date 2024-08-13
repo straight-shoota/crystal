@@ -27,103 +27,12 @@ class Channel(T)
   @queue : Deque(T)?
 
   # :nodoc:
-  record NotReady
-  # :nodoc:
   record UseDefault
-
-  # :nodoc:
-  module SelectAction(S)
-    abstract def execute : DeliveryState
-    abstract def wait(context : SelectContext(S))
-    abstract def wait_result_impl(context : SelectContext(S))
-    abstract def unwait_impl(context : SelectContext(S))
-    abstract def result : S
-    abstract def lock_object_id
-    abstract def lock
-    abstract def unlock
-
-    def create_context_and_wait(shared_state)
-      context = SelectContext.new(shared_state, self)
-      self.wait(context)
-      context
-    end
-
-    # wait_result overload allow implementors to define
-    # wait_result_impl with the right type and Channel.select_impl
-    # to allow dispatching over unions that will not happen
-    def wait_result(context : SelectContext)
-      raise "BUG: Unexpected call to #{typeof(self)}#wait_result(context : #{typeof(context)})"
-    end
-
-    def wait_result(context : SelectContext(S))
-      wait_result_impl(context)
-    end
-
-    # idem wait_result/wait_result_impl
-    def unwait(context : SelectContext)
-      raise "BUG: Unexpected call to #{typeof(self)}#unwait(context : #{typeof(context)})"
-    end
-
-    def unwait(context : SelectContext(S))
-      unwait_impl(context)
-    end
-
-    # Implementor that returns `Channel::UseDefault` in `#execute`
-    # must redefine `#default_result`
-    def default_result
-      raise "Unreachable"
-    end
-  end
-
-  private enum SelectState
-    None   = 0
-    Active = 1
-    Done   = 2
-  end
-
-  private class SelectContextSharedState
-    @state : Atomic(SelectState)
-
-    def initialize(value : SelectState)
-      @state = Atomic(SelectState).new(value)
-    end
-
-    def compare_and_set(cmp : SelectState, new : SelectState) : {SelectState, Bool}
-      @state.compare_and_set(cmp, new)
-    end
-  end
-
-  private class SelectContext(S)
-    @state : SelectContextSharedState
-    property action : SelectAction(S)
-    @activated = false
-
-    def initialize(@state, @action : SelectAction(S))
-    end
-
-    def activated? : Bool
-      @activated
-    end
-
-    def try_trigger : Bool
-      _, succeed = @state.compare_and_set(:active, :done)
-      if succeed
-        @activated = true
-      end
-      succeed
-    end
-  end
 
   class ClosedError < Exception
     def initialize(msg = "Channel is closed")
       super(msg)
     end
-  end
-
-  private enum DeliveryState
-    None
-    Delivered
-    Closed
   end
 
   private module SenderReceiverCloseAction
@@ -142,8 +51,8 @@ class Channel(T)
 
     property fiber : Fiber
     property data : T
-    property state : DeliveryState
-    property select_context : SelectContext(Nil)?
+    property state : Crystal::Select::DeliveryState
+    property select_context : Crystal::Select::SelectContext(Nil)?
 
     def initialize
       @fiber = uninitialized Fiber
@@ -158,8 +67,8 @@ class Channel(T)
 
     property fiber : Fiber
     property data : T
-    property state : DeliveryState
-    property select_context : SelectContext(T)?
+    property state : Crystal::Select::DeliveryState
+    property select_context : Crystal::Select::SelectContext(T)?
 
     def initialize
       @fiber = uninitialized Fiber
@@ -248,19 +157,19 @@ class Channel(T)
 
   protected def send_internal(value : T)
     if @closed
-      DeliveryState::Closed
+      Crystal::Select::DeliveryState::Closed
     elsif receiver_ptr = dequeue_receiver
       receiver_ptr.value.data = value
-      receiver_ptr.value.state = DeliveryState::Delivered
+      receiver_ptr.value.state = Crystal::Select::DeliveryState::Delivered
       receiver_ptr.value.fiber.enqueue
 
-      DeliveryState::Delivered
+      Crystal::Select::DeliveryState::Delivered
     elsif (queue = @queue) && queue.size < @capacity
       queue << value
 
-      DeliveryState::Delivered
+      Crystal::Select::DeliveryState::Delivered
     else
-      DeliveryState::None
+      Crystal::Select::DeliveryState::None
     end
   end
 
@@ -326,21 +235,21 @@ class Channel(T)
       deque_value = queue.shift
       if sender_ptr = dequeue_sender
         queue << sender_ptr.value.data
-        sender_ptr.value.state = DeliveryState::Delivered
+        sender_ptr.value.state = Crystal::Select::DeliveryState::Delivered
         sender_ptr.value.fiber.enqueue
       end
 
-      {DeliveryState::Delivered, deque_value}
+      {Crystal::Select::DeliveryState::Delivered, deque_value}
     elsif sender_ptr = dequeue_sender
       value = sender_ptr.value.data
-      sender_ptr.value.state = DeliveryState::Delivered
+      sender_ptr.value.state = Crystal::Select::DeliveryState::Delivered
       sender_ptr.value.fiber.enqueue
 
-      {DeliveryState::Delivered, value}
+      {Crystal::Select::DeliveryState::Delivered, value}
     elsif @closed
-      {DeliveryState::Closed, UseDefault.new}
+      {Crystal::Select::DeliveryState::Closed, UseDefault.new}
     else
-      {DeliveryState::None, UseDefault.new}
+      {Crystal::Select::DeliveryState::None, UseDefault.new}
     end
   end
 
@@ -348,7 +257,7 @@ class Channel(T)
     while receiver_ptr = @receivers.shift?
       select_context = receiver_ptr.value.select_context
       if select_context && !select_context.try_trigger
-        receiver_ptr.value.state = DeliveryState::Delivered
+        receiver_ptr.value.state = Crystal::Select::DeliveryState::Delivered
         next
       end
 
@@ -362,7 +271,7 @@ class Channel(T)
     while sender_ptr = @senders.shift?
       select_context = sender_ptr.value.select_context
       if select_context && !select_context.try_trigger
-        sender_ptr.value.state = DeliveryState::Delivered
+        sender_ptr.value.state = Crystal::Select::DeliveryState::Delivered
         next
       end
 
@@ -399,112 +308,6 @@ class Channel(T)
   end
 
   # :nodoc:
-  def self.select(*ops : SelectAction)
-    self.select ops
-  end
-
-  # :nodoc:
-  def self.select(ops : Indexable(SelectAction))
-    i, m = select_impl(ops, false)
-    raise "BUG: Blocking select returned not ready status" if m.is_a?(NotReady)
-    return i, m
-  end
-
-  # :nodoc:
-  def self.non_blocking_select(*ops : SelectAction)
-    self.non_blocking_select ops
-  end
-
-  # :nodoc:
-  def self.non_blocking_select(ops : Indexable(SelectAction))
-    select_impl(ops, true)
-  end
-
-  private def self.select_impl(ops : Indexable(SelectAction), non_blocking)
-    # ops_locks is a duplicate of ops that can be sorted without disturbing the
-    # index positions of ops
-    if ops.responds_to?(:unstable_sort_by!)
-      # If the collection type implements `unstable_sort_by!` we can dup it.
-      # This applies to two types:
-      # * `Array`: `Array#to_a` does not dup and would return the same instance,
-      #   thus we'd be sorting ops and messing up the index positions.
-      # * `StaticArray`: This avoids a heap allocation because we can dup a
-      #   static array on the stack.
-      ops_locks = ops.dup
-    elsif ops.responds_to?(:to_static_array)
-      # If the collection type implements `to_static_array` we can create a
-      # copy without allocating an array. This applies to `Tuple` types, which
-      # the compiler generates for `select` expressions.
-      ops_locks = ops.to_static_array
-    else
-      ops_locks = ops.to_a
-    end
-
-    # Sort the operations by the channel they contain
-    # This is to avoid deadlocks between concurrent `select` calls
-    ops_locks.unstable_sort_by!(&.lock_object_id)
-
-    each_skip_duplicates(ops_locks, &.lock)
-
-    ops.each_with_index do |op, index|
-      state = op.execute
-
-      case state
-      in .delivered?
-        each_skip_duplicates(ops_locks, &.unlock)
-        return index, op.result
-      in .closed?
-        each_skip_duplicates(ops_locks, &.unlock)
-        return index, op.default_result
-      in .none?
-        # do nothing
-      end
-    end
-
-    if non_blocking
-      each_skip_duplicates(ops_locks, &.unlock)
-      return ops.size, NotReady.new
-    end
-
-    # Because `channel#close` may clean up a long list, `select_context.try_trigger` may
-    # be called after the select return. In order to prevent invalid address access,
-    # the state is allocated in the heap.
-    shared_state = SelectContextSharedState.new(SelectState::Active)
-    contexts = ops.map &.create_context_and_wait(shared_state)
-
-    each_skip_duplicates(ops_locks, &.unlock)
-    Fiber.suspend
-
-    contexts.each_with_index do |context, index|
-      op = ops[index]
-      op.lock
-      op.unwait(context)
-      op.unlock
-    end
-
-    contexts.each_with_index do |context, index|
-      if context.activated?
-        return index, ops[index].wait_result(context)
-      end
-    end
-
-    raise "BUG: Fiber was awaken from select but no action was activated"
-  end
-
-  private def self.each_skip_duplicates(ops_locks, &)
-    # Avoid deadlocks from trying to lock the same lock twice.
-    # `ops_lock` is sorted by `lock_object_id`, so identical onces will be in
-    # a row and we skip repeats while iterating.
-    last_lock_id = nil
-    ops_locks.each do |op|
-      if op.lock_object_id != last_lock_id
-        last_lock_id = op.lock_object_id
-        yield op
-      end
-    end
-  end
-
-  # :nodoc:
   def send_select_action(value : T)
     SendAction.new(self, value)
   end
@@ -520,14 +323,14 @@ class Channel(T)
   end
 
   private class StrictReceiveAction(T)
-    include SelectAction(T)
+    include Crystal::Select::SelectAction(T)
     property receiver : Receiver(T)
 
     def initialize(@channel : Channel(T))
       @receiver = Receiver(T).new
     end
 
-    def execute : DeliveryState
+    def execute : Crystal::Select::DeliveryState
       state, value = @channel.receive_internal
 
       if state.delivered?
@@ -541,24 +344,24 @@ class Channel(T)
       @receiver.data
     end
 
-    def wait(context : SelectContext(T)) : Nil
+    def wait(context : Crystal::Select::SelectContext(T)) : Nil
       @receiver.fiber = Fiber.current
       @receiver.select_context = context
       @channel.@receivers.push pointerof(@receiver)
     end
 
-    def wait_result_impl(context : SelectContext(T))
+    def wait_result_impl(context : Crystal::Select::SelectContext(T))
       case @receiver.state
       in .delivered?
         context.action.result
       in .closed?
         raise ClosedError.new
       in .none?
-        raise "BUG: StrictReceiveAction.wait_result_impl called with DeliveryState::None"
+        raise "BUG: StrictReceiveAction.wait_result_impl called with Crystal::Select::DeliveryState::None"
       end
     end
 
-    def unwait_impl(context : SelectContext(T))
+    def unwait_impl(context : Crystal::Select::SelectContext(T))
       if !@channel.closed? && @receiver.state.none?
         @channel.@receivers.delete pointerof(@receiver)
       end
@@ -582,14 +385,14 @@ class Channel(T)
   end
 
   private class LooseReceiveAction(T)
-    include SelectAction(T)
+    include Crystal::Select::SelectAction(T)
     property receiver : Receiver(T)
 
     def initialize(@channel : Channel(T))
       @receiver = Receiver(T).new
     end
 
-    def execute : DeliveryState
+    def execute : Crystal::Select::DeliveryState
       state, value = @channel.receive_internal
 
       if state.delivered?
@@ -603,24 +406,24 @@ class Channel(T)
       @receiver.data
     end
 
-    def wait(context : SelectContext(T)) : Nil
+    def wait(context : Crystal::Select::SelectContext(T)) : Nil
       @receiver.fiber = Fiber.current
       @receiver.select_context = context
       @channel.@receivers.push pointerof(@receiver)
     end
 
-    def wait_result_impl(context : SelectContext(T))
+    def wait_result_impl(context : Crystal::Select::SelectContext(T))
       case @receiver.state
       in .delivered?
         context.action.result
       in .closed?
         nil
       in .none?
-        raise "BUG: LooseReceiveAction.wait_result_impl called with DeliveryState::None"
+        raise "BUG: LooseReceiveAction.wait_result_impl called with Crystal::Select::DeliveryState::None"
       end
     end
 
-    def unwait_impl(context : SelectContext(T))
+    def unwait_impl(context : Crystal::Select::SelectContext(T))
       if !@channel.closed? && @receiver.state.none?
         @channel.@receivers.delete pointerof(@receiver)
       end
@@ -644,7 +447,7 @@ class Channel(T)
   end
 
   private class SendAction(T)
-    include SelectAction(Nil)
+    include Crystal::Select::SelectAction(Nil)
     property sender : Sender(T)
 
     def initialize(@channel : Channel(T), value : T)
@@ -652,7 +455,7 @@ class Channel(T)
       @sender.data = value
     end
 
-    def execute : DeliveryState
+    def execute : Crystal::Select::DeliveryState
       @channel.send_internal(@sender.data)
     end
 
@@ -660,24 +463,24 @@ class Channel(T)
       nil
     end
 
-    def wait(context : SelectContext(Nil)) : Nil
+    def wait(context : Crystal::Select::SelectContext(Nil)) : Nil
       @sender.fiber = Fiber.current
       @sender.select_context = context
       @channel.@senders.push pointerof(@sender)
     end
 
-    def wait_result_impl(context : SelectContext(Nil))
+    def wait_result_impl(context : Crystal::Select::SelectContext(Nil))
       case @sender.state
       in .delivered?
         context.action.result
       in .closed?
         raise ClosedError.new
       in .none?
-        raise "BUG: SendAction.wait_result_impl called with DeliveryState::None"
+        raise "BUG: SendAction.wait_result_impl called with Crystal::Select::DeliveryState::None"
       end
     end
 
-    def unwait_impl(context : SelectContext(Nil))
+    def unwait_impl(context : Crystal::Select::SelectContext(Nil))
       if !@channel.closed? && @sender.state.none?
         @channel.@senders.delete pointerof(@sender)
       end
@@ -701,67 +504,20 @@ class Channel(T)
   end
 
   # :nodoc:
-  class TimeoutAction
-    include SelectAction(Nil)
-
-    # Total amount of time to wait
-    @timeout : Time::Span
-    @select_context : SelectContext(Nil)?
-
-    def initialize(@timeout : Time::Span)
-    end
-
-    def execute : DeliveryState
-      DeliveryState::None
-    end
-
-    def result : Nil
-      nil
-    end
-
-    def wait(context : SelectContext(Nil)) : Nil
-      @select_context = context
-      Fiber.timeout(@timeout, self)
-    end
-
-    def wait_result_impl(context : SelectContext(Nil))
-      nil
-    end
-
-    def unwait_impl(context : SelectContext(Nil))
-      Fiber.cancel_timeout
-    end
-
-    def lock_object_id : UInt64
-      self.object_id
-    end
-
-    def lock
-    end
-
-    def unlock
-    end
-
-    def time_expired(fiber : Fiber) : Nil
-      if @select_context.try &.try_trigger
-        fiber.enqueue
-      end
-    end
+  def self.select(*ops : Crystal::Select::SelectAction)
+    self.select ops
   end
-end
 
-# Timeout keyword for use in `select`.
-#
-# ```
-# select
-# when x = ch.receive
-#   puts "got #{x}"
-# when timeout(1.seconds)
-#   puts "timeout"
-# end
-# ```
-#
-# NOTE: It won't trigger if the `select` has an `else` case (i.e.: a non-blocking select).
-def timeout_select_action(timeout : Time::Span) : Channel::TimeoutAction
-  Channel::TimeoutAction.new(timeout)
+  def self.select(ops : Indexable(Crystal::Select::SelectAction))
+    Crystal::Select.select(ops)
+  end
+
+  # :nodoc:
+  def self.non_blocking_select(*ops : Crystal::Select::SelectAction)
+    self.non_blocking_select ops
+  end
+
+  def self.non_blocking_select(ops : Indexable(Crystal::Select::SelectAction))
+    Crystal::Select.non_blocking_select(ops)
+  end
 end

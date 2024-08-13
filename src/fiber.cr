@@ -51,7 +51,7 @@ class Fiber
   @resume_event : Crystal::EventLoop::Event?
   @timeout_event : Crystal::EventLoop::Event?
   # :nodoc:
-  property timeout_select_action : Channel::TimeoutAction?
+  property timeout_select_action : Crystal::Select::TimeoutAction?
   protected property stack_bottom : Void*
 
   # The name of the fiber, used as internal reference.
@@ -234,7 +234,7 @@ class Fiber
   end
 
   # :nodoc:
-  def timeout(timeout : Time::Span?, select_action : Channel::TimeoutAction? = nil) : Nil
+  def timeout(timeout : Time::Span?, select_action : Crystal::Select::TimeoutAction? = nil) : Nil
     @timeout_select_action = select_action
     timeout_event.add(timeout)
   end
@@ -247,7 +247,7 @@ class Fiber
 
   # The current fiber will resume after a period of time.
   # The timeout can be cancelled with `cancel_timeout`
-  def self.timeout(timeout : Time::Span?, select_action : Channel::TimeoutAction? = nil) : Nil
+  def self.timeout(timeout : Time::Span?, select_action : Crystal::Select::TimeoutAction? = nil) : Nil
     Fiber.current.timeout(timeout, select_action)
   end
 
