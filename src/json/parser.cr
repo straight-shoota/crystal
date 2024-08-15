@@ -6,29 +6,34 @@ class JSON::Parser
   def initialize(string_or_io : String | IO)
     @lexer = JSON::Lexer.new(string_or_io)
     @nest = 0
-    next_token
   end
 
   def parse : Any
     json = parse_value
+    next_token
     check :EOF
     json
   end
 
   private def parse_value
+    next_token
+    consume_value
+  end
+
+  private def consume_value
     case token.kind
     when .int?
-      value_and_next_token token.int_value
+      Any.new(token.int_value)
     when .float?
-      value_and_next_token token.float_value
+      Any.new(token.float_value)
     when .string?
-      value_and_next_token token.string_value
+      Any.new(token.string_value)
     when .null?
-      value_and_next_token nil
+      Any.new(nil)
     when .true?
-      value_and_next_token true
+      Any.new(true)
     when .false?
-      value_and_next_token false
+      Any.new(false)
     when .begin_array?
       parse_array
     when .begin_object?
@@ -39,29 +44,25 @@ class JSON::Parser
   end
 
   private def parse_array
-    next_token
-
     ary = [] of Any
 
     nest do
-      unless token.kind.end_array?
-        while true
-          ary << parse_value
+      while true
+        next_token
+        break if ary.empty? && token.kind.end_array?
 
-          case token.kind
-          when .comma?
-            next_token
-            unexpected_token if token.kind.end_array?
-          when .end_array?
-            break
-          else
-            unexpected_token
-          end
+        ary << consume_value
+
+        next_token
+        case token.kind
+        when .comma?
+        when .end_array?
+          break
+        else
+          unexpected_token
         end
       end
     end
-
-    next_token
 
     Any.new(ary)
   end
@@ -78,14 +79,13 @@ class JSON::Parser
           key = token.string_value
 
           next_token
-
           check :colon
-          next_token
 
           value = parse_value
 
           object[key] = value
 
+          next_token
           case token.kind
           when .comma?
             next_token_expect_object_key
@@ -99,19 +99,12 @@ class JSON::Parser
       end
     end
 
-    next_token
-
     Any.new(object)
   end
 
   private delegate token, to: @lexer
   private delegate next_token, to: @lexer
   private delegate next_token_expect_object_key, to: @lexer
-
-  private def value_and_next_token(value)
-    next_token
-    Any.new(value)
-  end
 
   private def check(kind : Token::Kind)
     unexpected_token unless token.kind == kind
