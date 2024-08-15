@@ -105,16 +105,8 @@ struct Crystal::Hasher
     a &+ b
   end
 
-  def self.reduce_num(value : Int8 | Int16 | Int32)
+  def self.reduce_num(value : Int8 | Int16 | Int32 | UInt8 | UInt16 | UInt32)
     value.to_u64!
-  end
-
-  def self.reduce_num(value : UInt8 | UInt16 | UInt32)
-    value.to_u64
-  end
-
-  def self.reduce_num(value : Int::Unsigned)
-    value.remainder(HASH_MODULUS).to_u64
   end
 
   def self.reduce_num(value : Int)
