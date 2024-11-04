@@ -4358,21 +4358,25 @@ class String
   # # even the monkey seems to want
   # # a little coat of straw
   # ```
-  def each_line(chomp = true, &block : String ->) : Nil
+  def each_line(chomp = true, *, remove_empty : Bool = false, &block : String ->) : Nil
     return if empty?
 
     offset = 0
 
     while byte_index = byte_index('\n'.ord.to_u8, offset)
       count = byte_index - offset + 1
-      if chomp
-        count -= 1
-        if offset + count > 0 && to_unsafe[offset + count - 1] === '\r'
-          count -= 1
+      chomped_count = count
+      if chomp || remove_empty
+        chomped_count -= 1
+        if offset + chomped_count > 0 && to_unsafe[offset + chomped_count - 1] === '\r'
+          chomped_count -= 1
         end
       end
+      if chomp
+        count = chomped_count
+      end
 
-      yield unsafe_byte_slice_string(offset, count)
+      yield unsafe_byte_slice_string(offset, count) unless remove_empty && chomped_count.zero?
       offset = byte_index + 1
     end
 
@@ -4382,8 +4386,8 @@ class String
   end
 
   # Returns an `Iterator` which yields each line of this string (see `String#each_line`).
-  def each_line(chomp = true)
-    LineIterator.new(self, chomp)
+  def each_line(chomp = true, *, remove_empty : Bool = true)
+    LineIterator.new(self, chomp, remove_empty: true)
   end
 
   # Converts camelcase boundaries to underscores.
@@ -5622,7 +5626,7 @@ class String
   private class LineIterator
     include Iterator(String)
 
-    def initialize(@string : String, @chomp : Bool)
+    def initialize(@string : String, @chomp : Bool, *, @remove_empty : Bool)
       @offset = 0
       @end = false
     end
@@ -5633,11 +5637,21 @@ class String
       byte_index = @string.byte_index('\n'.ord.to_u8, @offset)
       if byte_index
         count = byte_index - @offset + 1
-        if @chomp
-          count -= 1
-          if @offset + count > 0 && @string.to_unsafe[@offset + count - 1] === '\r'
-            count -= 1
+        chomped_count = count
+        if @chomp || @remove_empty
+          chomped_count -= 1
+          if @offset + count > 0 && @string.to_unsafe[@offset + chomped_count - 1] === '\r'
+            chomped_count -= 1
           end
+        end
+
+        if @remove_empty && chomped_count.zero?
+          @offset = byte_index + 1
+          return self.next
+        end
+
+        if @chomp
+          count = chomped_count
         end
 
         value = @string.unsafe_byte_slice_string(@offset, count)

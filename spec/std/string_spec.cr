@@ -2630,24 +2630,31 @@ describe "String" do
     "foo\nbar\r\nbaz\r\n".lines(chomp: false).should eq(["foo\n", "bar\r\n", "baz\r\n"])
   end
 
-  it "gets each_line" do
-    lines = [] of String
-    "foo\n\nbar\r\nbaz\n".each_line do |line|
-      lines << line
-    end.should be_nil
-    lines.should eq(["foo", "", "bar", "baz"])
-  end
+  describe "#each_line" do
+    it "gets each_line" do
+      lines = [] of String
+      "foo\n\nbar\r\nbaz\n".each_line do |line|
+        lines << line
+      end.should be_nil
+      lines.should eq(["foo", "", "bar", "baz"])
+    end
 
-  it "gets each_line with chomp = false" do
-    lines = [] of String
-    "foo\n\nbar\r\nbaz\r\n".each_line(chomp: false) do |line|
-      lines << line
-    end.should be_nil
-    lines.should eq(["foo\n", "\n", "bar\r\n", "baz\r\n"])
-  end
+    it "gets each_line with chomp = false" do
+      lines = [] of String
+      "foo\n\nbar\r\nbaz\r\n".each_line(chomp: false) do |line|
+        lines << line
+      end.should be_nil
+      lines.should eq(["foo\n", "\n", "bar\r\n", "baz\r\n"])
+    end
 
-  it_iterates "#each_line", ["foo", "bar", "baz"], "foo\nbar\r\nbaz\r\n".each_line
-  it_iterates "#each_line(chomp: false)", ["foo\n", "bar\r\n", "baz\r\n"], "foo\nbar\r\nbaz\r\n".each_line(chomp: false)
+    it_iterates "#each_line", ["foo", "bar", "baz"], "foo\nbar\r\nbaz\r\n".each_line
+    it_iterates "#each_line(chomp: false)", ["foo\n", "bar\r\n", "baz\r\n"], "foo\nbar\r\nbaz\r\n".each_line(chomp: false)
+
+    it_iterates "#each_line(chomp: false, remove_empty: true)",
+      ["foo\n", "bar\r\n", "baz\r\n"], "foo\n\nbar\r\n\nbaz\r\n\r\n".each_line(chomp: false, remove_empty: true)
+    it_iterates "#each_line(remove_empty: true)",
+      ["foo", "bar", "baz"], "\n\nfoo\n\nbar\r\n\nbaz\r\n\r\n".each_line(remove_empty: true)
+  end
 
   it_iterates "#each_codepoint", [97, 98, 9731], "ab☃".each_codepoint
 
