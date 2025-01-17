@@ -4,6 +4,11 @@ require "c/string"
 module LLVM
   @@initialized = false
 
+  # Returns the runtime version of LLVM.
+  def self.version
+    LibLLVM::VERSION
+  end
+
   def self.init_x86 : Nil
     return if @@initialized_x86
     @@initialized_x86 = true
