@@ -25,7 +25,6 @@ jobs:
   #
   # We run a basic version of this test on every commit which covers only the earliest and latest supported versions in `linux.yml#x86_64-gnu-test`.
   x86_64-gnu-test-forward_compatibility:
-    if: ${{ github.repository_owner == 'crystal-lang' && ((github.event_name == 'schedule') || startsWith(github.ref, 'refs/heads/ci/')) }}
     env:
       ARCH: x86_64
       ARCH_CMD: linux64
