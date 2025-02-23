@@ -54,21 +54,21 @@ them, so it allows to use the *crystal* command almost to be used as if it was a
 
 === Main commands
 
-*crystal-init(1)*:: Create a a new Crystal project
+man:crystal-init[1]:: Create a a new Crystal project
 
-*crystal-build(1)*:: Compile a Crystal program
+man:crystal-build[1]:: Compile a Crystal program
 
-*crystal-docs(1)*:: Generate API docs for Crystal code
+man:crystal-docs[1]:: Generate API docs for Crystal code
 
-*crystal-env(1)*:: Print environment variables for the Crystal compiler
+man:crystal-env[1]:: Print environment variables for the Crystal compiler
 
-*crystal-eval(1)*:: Evaluate a crystal program
+man:crystal-eval[1]:: Evaluate a crystal program
 
-*crystal-play(1)*:: Run the Crystal playground
+man:crystal-play[1]:: Run the Crystal playground
 
-*crystal-run(1)*:: Compile and run a Crystal program
+man:crystal-run[1]:: Compile and run a Crystal program
 
-*crystal-spec(1)*:: Compile and run Crystal spec files
+man:crystal-spec[1]:: Compile and run Crystal spec files
 
 *crystal-clear_cache*::
 
@@ -87,13 +87,13 @@ Show version.
 
 *crystal-tool-context*:: Show context for given location
 
-*crystal-tool-dependencies(1)*:: Show tree of required source files
+man:crystal-tool-dependencies[1]:: Show tree of required source files
 
 *crystal-tool-expand*::  Show macro expansion for given location
 
 *crystal-tool-flags*::   Print all macro 'flag?' values
 
-*crystal-tool-format(1)*:: Format Crystal source files
+man:crystal-tool-format[1]:: Format Crystal source files
 
 *crystal-tool-hierarchy*::
 Show hierarchy of types from file. Also show class and struct
@@ -106,7 +106,7 @@ is file:line:column.
 
 *crystal-tool-types*::  Show type of main variables of file.
 
-*crystal-tool-unreachable(1)*:: Identify methods that are never called
+man:crystal-tool-unreachable[1]:: Identify methods that are never called
 
 == Optimizations
 The optimization level specifies the codegen effort for producing optimal code.  It's

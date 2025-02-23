@@ -266,7 +266,7 @@ man/%.gz: man/%
 	gzip -c -9 $< > $@
 
 man/%.1: doc/man/%.adoc
-	SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) asciidoctor -a crystal_version=$(CRYSTAL_VERSION) $< -b manpage -o $@
+	SOURCE_DATE_EPOCH=$(SOURCE_DATE_EPOCH) asciidoctor -a crystal_version=$(CRYSTAL_VERSION) -r ./doc/man/manlink.rb $< -b manpage -o $@
 
 .PHONY: clean
 clean: clean_crystal ## Clean up built directories and files
