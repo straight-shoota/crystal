@@ -92,6 +92,9 @@ jobs:
       - name: Download Crystal source
         uses: actions/checkout@v4
 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3
+
       - name: Run stdlib specs
         shell: msys2 {0}
         run: |
