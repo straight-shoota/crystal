@@ -123,6 +123,7 @@ struct Crystal::System::IOCP
       in CompletionKey
         Crystal.trace :evloop, "completion", tag: completion_key.tag.to_s, bytes: entry.dwNumberOfBytesTransferred, fiber: completion_key.fiber
 
+        ::Fiber.current.completion_key = nil
         if completion_key.valid?(entry.dwNumberOfBytesTransferred)
           # if `Process` exits before a call to `#wait`, this fiber will be
           # reset already

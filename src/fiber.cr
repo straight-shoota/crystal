@@ -60,6 +60,11 @@ class Fiber
   @stack : Stack
   @resume_event : Crystal::EventLoop::Event?
   @timeout_event : Crystal::EventLoop::Event?
+
+  {% if flag?(:win32) %}
+  property? Crystal::System::IOCP::CompletionKey
+  {% end %}
+
   # :nodoc:
   property timeout_select_action : Channel::TimeoutAction?
 
