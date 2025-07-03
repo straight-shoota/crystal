@@ -275,6 +275,9 @@ class Time::Location
               local.name.should_not eq "Local"
 
               local.should eq Location.load(local.name)
+            rescue exc
+              puts `ls -l /etc/localtime`
+              raise exc
             end
           end
         else
