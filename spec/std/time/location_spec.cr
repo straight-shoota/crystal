@@ -276,7 +276,9 @@ class Time::Location
 
               local.should eq Location.load(local.name)
             rescue exc
-              puts `ls -l /etc/localtime`
+              pp! File.info?("/etc/localtime")
+              p! `ls -l /etc/localtime`
+              p! File.readlink("/etc/localtime")
               raise exc
             end
           end
