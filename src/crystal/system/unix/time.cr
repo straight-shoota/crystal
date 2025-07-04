@@ -141,12 +141,8 @@ module Crystal::System::Time
           # `/usr/share/zoneinfo`) as prefix, the remaining path is the name of
           # the location (e.g. `Europe/Berlin`).
           if realpath = (File.readlink("/etc/localtime") rescue nil)
-            realpath = ::Path[realpath]
-            realpath.each_parent do |parent|
-              if ZONE_SOURCES.includes?(parent.to_s)
-                name = realpath.relative_to(parent).to_s
-                break
-              end
+            if pos = realpath.rindex("zoneinfo/")
+              name = realpath[(pos + "zoneinfo/".size)..]
             end
           end
 
