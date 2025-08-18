@@ -105,6 +105,30 @@ enum WinError : UInt32
     {% end %}
   end
 
+  def os_error_class
+    case self
+    when WinError::ERROR_BAD_NETPATH,
+         WinError::ERROR_BAD_NET_NAME,
+         WinError::ERROR_BAD_PATHNAME,
+         WinError::ERROR_DIRECTORY,
+         WinError::ERROR_FILE_NOT_FOUND,
+         WinError::ERROR_FILENAME_EXCED_RANGE,
+         WinError::ERROR_INVALID_DRIVE,
+         WinError::ERROR_INVALID_NAME,
+         WinError::ERROR_PATH_NOT_FOUND,
+         WinError::WSAENAMETOOLONG
+      File::NotFoundError
+    when WinError::ERROR_ALREADY_EXISTS,
+         WinError::ERROR_FILE_EXISTS
+      File::AlreadyExistsError
+    when WinError::ERROR_ACCESS_DENIED,
+         WinError::ERROR_PRIVILEGE_NOT_HELD
+      File::AccessDeniedError
+    when WinError::ERROR_BAD_EXE_FORMAT
+      File::BadExecutableError
+    end
+  end
+
   # Transforms this `WinError` value to the equivalent `Errno` value.
   #
   # This is only defined for some values. If no transformation is defined for

@@ -85,4 +85,20 @@ enum Errno
     {% end %}
     errno
   end
+
+  def os_error_class
+    # See https://github.com/crystal-lang/crystal/issues/15905#issuecomment-2975820840
+    case self
+    when Errno::ENAMETOOLONG,
+         Errno::ENOENT,
+         Errno::ENOTDIR
+      File::NotFoundError
+    when Errno::EEXIST
+      File::AlreadyExistsError
+    when Errno::EACCES
+      File::AccessDeniedError
+    when Errno::ENOEXEC
+      File::BadExecutableError
+    end
+  end
 end

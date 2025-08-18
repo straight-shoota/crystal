@@ -72,7 +72,7 @@ module Crystal::System::File
         fd, blocking = result
         return {fd, path, blocking}
       else
-        if ::File::AlreadyExistsError.os_error?(result)
+        if result.os_error_class == ::File::AlreadyExistsError
           # retry
         else
           raise ::File::Error.from_os_error("Error creating temporary file", result, file: path)
