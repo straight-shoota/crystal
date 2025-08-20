@@ -529,6 +529,29 @@ describe Process do
         Process.exec("foobarbaz")
       end
     end
+
+    it "errors when file not executable" do
+      with_tempfile("not-executable") do |path|
+        File.touch(path)
+        expect_raises(File::AccessDeniedError, "Error executing process:") do
+          Process.exec(path)
+        end
+      end
+    end
+
+    it "exit code" do
+      with_tempfile("source_file") do |source_file|
+        File.write(source_file, <<-CRYSTAL)
+            Process.exec(ARGV[0], ARGV[1...])
+          CRYSTAL
+
+        compile_file(source_file) do |executable_file|
+          Process.run(executable_file, args: exit_code_command(0).flat_map { |e| e.is_a?(String) ? e : e.to_a }).exit_code?.should eq 0
+          Process.run(executable_file, args: exit_code_command(1).flat_map { |e| e.is_a?(String) ? e : e.to_a }).exit_code?.should eq 1
+          Process.run(executable_file, args: exit_code_command(2).flat_map { |e| e.is_a?(String) ? e : e.to_a }).exit_code?.should eq 2
+        end
+      end
+    end
   end
 
   describe ".chroot" do
