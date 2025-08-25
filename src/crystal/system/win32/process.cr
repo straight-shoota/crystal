@@ -118,8 +118,12 @@ struct Crystal::System::Process
     LibC.TerminateProcess(@process_handle, 1)
   end
 
-  def self.exit(status)
+  def self.exit(status : Int32)
     LibC.exit(status)
+  end
+
+  def self.exit(status : Process::Status)
+    exit status.system_exit_status
   end
 
   def self.pid
