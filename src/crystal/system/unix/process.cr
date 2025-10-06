@@ -192,7 +192,8 @@ struct Crystal::System::Process
     end
   {% end %}
 
-  def self.fork(*, will_exec : Bool, &)
+  # This method is used only for the deprecated `Process.fork`
+  def self.fork
     newmask = uninitialized LibC::SigsetT
     oldmask = uninitialized LibC::SigsetT
 
@@ -212,17 +213,10 @@ struct Crystal::System::Process
       # child:
       pid = nil
 
-      # after fork callback
-      yield
+      ::Process.after_fork_child_callbacks.each(&.call)
 
-      if will_exec
-        # reset sigmask (inherited on exec)
-        LibC.sigemptyset(pointerof(newmask))
-        LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(newmask), nil)
-      else
-        # restore sigmask
-        LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(oldmask), nil)
-      end
+      # restore sigmask
+      LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(oldmask), nil)
     when -1
       # error:
       errno = Errno.value
@@ -239,12 +233,11 @@ struct Crystal::System::Process
   # Duplicates the current process.
   # Returns a `Process` representing the new child process in the current process
   # and `nil` inside the new child process.
+  # This method is used only for the deprecated `Process.fork`
   def self.fork(&)
     {% raise("Process fork is unsupported with multithreaded mode") if flag?(:preview_mt) %}
 
-    pid = fork(will_exec: false) do
-      ::Process.after_fork_child_callbacks.each(&.call)
-    end
+    pid = fork
     return pid if pid
 
     begin
@@ -266,10 +259,7 @@ struct Crystal::System::Process
 
     envp = Env.make_envp(env, clear_env)
 
-    pid = fork(will_exec: true) do
-      Crystal::System::Signal.after_fork_before_exec
-    end
-
+    pid = self.fork_for_exec
     if !pid
       LibC.close(r)
       begin
@@ -313,6 +303,44 @@ struct Crystal::System::Process
       end
     ensure
       reader_pipe.close
+    end
+
+    pid
+  end
+
+  private def self.fork_for_exec
+    newmask = uninitialized LibC::SigsetT
+    oldmask = uninitialized LibC::SigsetT
+
+    # block signals while we fork, so the child process won't forward signals it
+    # may receive to the parent through the signal pipe, but make sure to not
+    # block stop-the-world signals as it appears to create deadlocks in glibc
+    # for example; this is safe because these signal handlers musn't be
+    # registered through `Signal.trap` but directly through `sigaction`.
+    LibC.sigfillset(pointerof(newmask))
+    LibC.sigdelset(pointerof(newmask), System::Thread.sig_suspend)
+    LibC.sigdelset(pointerof(newmask), System::Thread.sig_resume)
+    ret = LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(newmask), pointerof(oldmask))
+    raise RuntimeError.from_errno("Failed to disable signals") unless ret == 0
+
+    case pid = lock_write { LibC.fork }
+    when 0
+      # child:
+      pid = nil
+
+      Crystal::System::Signal.after_fork_before_exec
+
+      # reset sigmask (inherited on exec)
+      LibC.sigemptyset(pointerof(newmask))
+      LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(newmask), nil)
+    when -1
+      # error:
+      errno = Errno.value
+      LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(oldmask), nil)
+      raise RuntimeError.from_os_error("fork", errno)
+    else
+      # parent:
+      LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(oldmask), nil)
     end
 
     pid
