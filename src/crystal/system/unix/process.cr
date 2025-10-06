@@ -197,16 +197,7 @@ struct Crystal::System::Process
     newmask = uninitialized LibC::SigsetT
     oldmask = uninitialized LibC::SigsetT
 
-    # block signals while we fork, so the child process won't forward signals it
-    # may receive to the parent through the signal pipe, but make sure to not
-    # block stop-the-world signals as it appears to create deadlocks in glibc
-    # for example; this is safe because these signal handlers musn't be
-    # registered through `Signal.trap` but directly through `sigaction`.
-    LibC.sigfillset(pointerof(newmask))
-    LibC.sigdelset(pointerof(newmask), System::Thread.sig_suspend)
-    LibC.sigdelset(pointerof(newmask), System::Thread.sig_resume)
-    ret = LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(newmask), pointerof(oldmask))
-    raise RuntimeError.from_errno("Failed to disable signals") unless ret == 0
+    block_signals(pointerof(newmask), pointerof(oldmask))
 
     case pid = lock_write { LibC.fork }
     when 0
@@ -228,6 +219,19 @@ struct Crystal::System::Process
     end
 
     pid
+  end
+
+  private def self.block_signals(newmask, oldmask)
+    # block signals while we fork, so the child process won't forward signals it
+    # may receive to the parent through the signal pipe, but make sure to not
+    # block stop-the-world signals as it appears to create deadlocks in glibc
+    # for example; this is safe because these signal handlers musn't be
+    # registered through `Signal.trap` but directly through `sigaction`.
+    LibC.sigfillset(newmask)
+    LibC.sigdelset(newmask, System::Thread.sig_suspend)
+    LibC.sigdelset(newmask, System::Thread.sig_resume)
+    ret = LibC.pthread_sigmask(LibC::SIG_SETMASK, newmask, oldmask)
+    raise RuntimeError.from_errno("Failed to disable signals") unless ret == 0
   end
 
   # Duplicates the current process.
@@ -312,16 +316,7 @@ struct Crystal::System::Process
     newmask = uninitialized LibC::SigsetT
     oldmask = uninitialized LibC::SigsetT
 
-    # block signals while we fork, so the child process won't forward signals it
-    # may receive to the parent through the signal pipe, but make sure to not
-    # block stop-the-world signals as it appears to create deadlocks in glibc
-    # for example; this is safe because these signal handlers musn't be
-    # registered through `Signal.trap` but directly through `sigaction`.
-    LibC.sigfillset(pointerof(newmask))
-    LibC.sigdelset(pointerof(newmask), System::Thread.sig_suspend)
-    LibC.sigdelset(pointerof(newmask), System::Thread.sig_resume)
-    ret = LibC.pthread_sigmask(LibC::SIG_SETMASK, pointerof(newmask), pointerof(oldmask))
-    raise RuntimeError.from_errno("Failed to disable signals") unless ret == 0
+    block_signals(pointerof(newmask), pointerof(oldmask))
 
     case pid = lock_write { LibC.fork }
     when 0
