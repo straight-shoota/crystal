@@ -23,6 +23,7 @@ lib LibC
   {% unless flag?("freebsd12.0") || flag?("freebsd13.0") %}
     fun execvpe(file : Char*, argv : Char**, envp : Char**) : Int
   {% end %}
+  fun execve(file : Char*, argv : Char**, envp : Char**) : Int
   fun fdatasync(fd : Int) : Int
   @[ReturnsTwice]
   fun fork : PidT

@@ -21,6 +21,7 @@ lib LibC
   fun _exit(x0 : Int) : NoReturn
   fun execvp(x0 : Char*, x1 : Char**) : Int
   fun execvpe(file : Char*, argv : Char**, envp : Char**) : Int
+  fun execve(file : Char*, argv : Char**, envp : Char**) : Int
   fun fdatasync(x0 : Int) : Int
   @[ReturnsTwice]
   fun fork : PidT
