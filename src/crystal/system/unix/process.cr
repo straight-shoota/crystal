@@ -352,12 +352,12 @@ struct Crystal::System::Process
     argv = command_args.map &.check_no_null_byte.to_unsafe
     argv << Pointer(UInt8).null
 
-    lock_write { execvpe(file, argv, LibC.environ) }
+    execvpe(file, argv, LibC.environ)
   end
 
   private def self.execvpe(file, argv, envp)
     {% if LibC.has_method?("execvpe") && !flag?("execvpe_impl") %}
-      LibC.execvpe(file, argv, envp)
+      lock_write { LibC.execvpe(file, argv, envp) }
     {% else %}
       execvpe_impl(file, argv, envp)
     {% end %}
@@ -370,7 +370,7 @@ struct Crystal::System::Process
   # follow-up.
   private def self.execvpe_impl(file, argv, envp)
     LibC.environ = envp
-    LibC.execvp(file, argv)
+    lock_write { LibC.execvp(file, argv) }
   end
 
   def self.replace(command_args, env, clear_env, input, output, error, chdir)
