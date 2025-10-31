@@ -254,7 +254,7 @@ struct Crystal::System::Process
     end
   end
 
-  def self.spawn(prepared_args, env, clear_env, input, output, error, chdir)
+  def self.spawn(prepared_args, input, output, error, chdir)
     r, w = FileDescriptor.system_pipe
 
     pid = fork(will_exec: true) do
@@ -266,7 +266,7 @@ struct Crystal::System::Process
     if !pid
       LibC.close(r)
       begin
-        self.try_replace(prepared_args, env, clear_env, input, output, error, chdir)
+        self.try_replace(prepared_args, input, output, error, chdir)
         byte = 1_u8
         errno = Errno.value.to_i32
         FileDescriptor.write_fully(w, pointerof(byte))
@@ -311,7 +311,7 @@ struct Crystal::System::Process
     pid
   end
 
-  def self.prepare_args(command : String, args : Enumerable(String)?, shell : Bool) : {String, LibC::Char**}
+  def self.prepare_args(command : String, args : Enumerable(String)?, env : Hash(String, String?)?, clear_env : Bool, shell : Bool)
     if shell
       command = %(#{command} "${@}") unless command.includes?(' ')
       argv_ary = ["/bin/sh", "-c", command, "sh"]
@@ -331,13 +331,16 @@ struct Crystal::System::Process
     argv_ary.concat(args) if args
 
     argv = argv_ary.map(&.check_no_null_byte.to_unsafe)
-    {pathname, argv.to_unsafe}
+    {pathname, argv.to_unsafe, {env, clear_env}}
   end
 
-  private def self.try_replace(prepared_args, env, clear_env, input, output, error, chdir)
+  private def self.try_replace(prepared_args, input, output, error, chdir)
     reopen_io(input, ORIGINAL_STDIN)
     reopen_io(output, ORIGINAL_STDOUT)
     reopen_io(error, ORIGINAL_STDERR)
+
+    file, argv, env_data = prepared_args
+    env, clear_env = env_data
 
     ENV.clear if clear_env
     env.try &.each do |key, val|
@@ -350,7 +353,7 @@ struct Crystal::System::Process
 
     ::Dir.cd(chdir) if chdir
 
-    lock_write { execvpe(*prepared_args, LibC.environ) }
+    lock_write { execvpe(file, argv, LibC.environ) }
   end
 
   private def self.execvpe(command, argv, envp)
@@ -371,8 +374,8 @@ struct Crystal::System::Process
     LibC.execvp(command, argv)
   end
 
-  def self.replace(command, prepared_args, env, clear_env, input, output, error, chdir)
-    try_replace(prepared_args, env, clear_env, input, output, error, chdir)
+  def self.replace(command, prepared_args, input, output, error, chdir)
+    try_replace(prepared_args, input, output, error, chdir)
     raise_exception_from_errno(command)
   end
 
