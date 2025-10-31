@@ -348,18 +348,18 @@ struct Crystal::System::Process
 
     ::Dir.cd(chdir) if chdir
 
-    command = command_args[0]
+    file = command_args[0]
     argv = command_args.map &.check_no_null_byte.to_unsafe
     argv << Pointer(UInt8).null
 
-    lock_write { execvpe(command, argv, LibC.environ) }
+    lock_write { execvpe(file, argv, LibC.environ) }
   end
 
-  private def self.execvpe(command, argv, envp)
+  private def self.execvpe(file, argv, envp)
     {% if LibC.has_method?("execvpe") && !flag?("execvpe_impl") %}
-      LibC.execvpe(command, argv, envp)
+      LibC.execvpe(file, argv, envp)
     {% else %}
-      execvpe_impl(command, argv, envp)
+      execvpe_impl(file, argv, envp)
     {% end %}
   end
 
@@ -368,9 +368,9 @@ struct Crystal::System::Process
   # FIXME: This is a stub implementation which simply sets the environment
   # pointer. That's the same behaviour as before, but not correct. Will fix in a
   # follow-up.
-  private def self.execvpe_impl(command, argv, envp)
+  private def self.execvpe_impl(file, argv, envp)
     LibC.environ = envp
-    LibC.execvp(command, argv)
+    LibC.execvp(file, argv)
   end
 
   def self.replace(command_args, env, clear_env, input, output, error, chdir)
