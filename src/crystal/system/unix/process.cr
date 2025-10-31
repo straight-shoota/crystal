@@ -259,7 +259,39 @@ struct Crystal::System::Process
     end
   end
 
-  def self.spawn(command_args, env, clear_env, input, output, error, chdir)
+  def self.make_envp(env, clear_env) : LibC::Char**
+    # When there are no adjustments in `env`, we can take a short cut and return
+    # an empty pointer or the current environment.
+    if env.nil? || env.empty?
+      if clear_env
+        return Pointer(LibC::Char*).malloc(1)
+      else
+        return LibC.environ
+      end
+    end
+
+    envp = Array(LibC::Char*).new
+
+    unless clear_env
+      Env.each do |key, value|
+        # Skip overrides in `env`
+        next if env.has_key?(key)
+
+        envp << "#{key}=#{value}".to_unsafe
+      end
+    end
+
+    env.each do |key, value|
+      # `nil` value means deleting the key from the inherited environment
+      next unless value
+
+      envp << "#{key}=#{value}".to_unsafe
+    end
+
+    envp.to_unsafe
+  end
+
+  def self.spawn(prepared_args, input, output, error, chdir)
     r, w = FileDescriptor.system_pipe
 
     pid = fork(will_exec: true) do
@@ -271,7 +303,7 @@ struct Crystal::System::Process
     if !pid
       LibC.close(r)
       begin
-        self.try_replace(command_args, env, clear_env, input, output, error, chdir)
+        self.try_replace(prepared_args, input, output, error, chdir)
         byte = 1_u8
         errno = Errno.value.to_i32
         FileDescriptor.write_fully(w, pointerof(byte))
@@ -297,7 +329,7 @@ struct Crystal::System::Process
       when 0
         # Error message coming
         message = reader_pipe.gets_to_end
-        raise RuntimeError.new("Error executing process: '#{command_args[0]}': #{message}")
+        raise RuntimeError.new("Error executing process: '#{prepared_args[0]}': #{message}")
       when 1
         # Errno coming
         # can't use IO#read_bytes(Int32) because we skipped system/network
@@ -305,7 +337,7 @@ struct Crystal::System::Process
         # we thus read it in the same as order as written
         buf = uninitialized StaticArray(UInt8, 4)
         reader_pipe.read_fully(buf.to_slice)
-        raise_exception_from_errno(command_args[0], Errno.new(buf.unsafe_as(Int32)))
+        raise_exception_from_errno(prepared_args[0], Errno.new(buf.unsafe_as(Int32)))
       else
         raise RuntimeError.new("BUG: Invalid error response received from subprocess")
       end
@@ -316,48 +348,37 @@ struct Crystal::System::Process
     pid
   end
 
-  def self.prepare_args(command : String, args : Enumerable(String)?, shell : Bool) : Array(String)
+  def self.prepare_args(command : String, args : Enumerable(String)?, env : Hash(String, String?)?, clear_env : Bool, shell : Bool) : {String, LibC::Char**, LibC::Char**}
     if shell
       command = %(#{command} "${@}") unless command.includes?(' ')
-      shell_args = ["/bin/sh", "-c", command, "sh"]
+      argv_ary = ["/bin/sh", "-c", command, "sh"]
 
       if args
         unless command.includes?(%("${@}"))
           raise ArgumentError.new(%(Can't specify arguments in both command and args without including "${@}" into your command))
         end
-
-        shell_args.concat(args)
       end
 
-      shell_args
+      pathname = "/bin/sh"
     else
-      command_args = [command]
-      command_args.concat(args) if args
-      command_args
+      argv_ary = [command]
+      pathname = command
     end
+
+    argv_ary.concat(args) if args
+
+    argv = argv_ary.map(&.check_no_null_byte.to_unsafe)
+    {pathname, argv.to_unsafe, make_envp(env, clear_env)}
   end
 
-  private def self.try_replace(command_args, env, clear_env, input, output, error, chdir)
+  private def self.try_replace(prepared_args, input, output, error, chdir)
     reopen_io(input, ORIGINAL_STDIN)
     reopen_io(output, ORIGINAL_STDOUT)
     reopen_io(error, ORIGINAL_STDERR)
 
-    ENV.clear if clear_env
-    env.try &.each do |key, val|
-      if val
-        ENV[key] = val
-      else
-        ENV.delete key
-      end
-    end
-
     ::Dir.cd(chdir) if chdir
 
-    file = command_args[0]
-    argv = command_args.map &.check_no_null_byte.to_unsafe
-    argv << Pointer(UInt8).null
-
-    execvpe(file, argv, LibC.environ)
+    execvpe(*prepared_args)
   end
 
   private def self.execvpe(file, argv, envp)
@@ -441,9 +462,9 @@ struct Crystal::System::Process
     s
   end
 
-  def self.replace(command_args, env, clear_env, input, output, error, chdir)
-    try_replace(command_args, env, clear_env, input, output, error, chdir)
-    raise_exception_from_errno(command_args[0])
+  def self.replace(command, prepared_args, input, output, error, chdir)
+    try_replace(prepared_args, input, output, error, chdir)
+    raise_exception_from_errno(command)
   end
 
   private def self.raise_exception_from_errno(command, errno = Errno.value)
