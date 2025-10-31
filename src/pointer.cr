@@ -415,6 +415,36 @@ struct Pointer(T)
     self
   end
 
+  # Replaces *count* elements in `self` with *value*. Returns `self`.
+  #
+  # ```
+  # array = [1, 2, 3, 4]
+  # array.fill(2) # => [2, 2, 2, 2]
+  # array         # => [2, 2, 2, 2]
+  # ```
+  def fill(count, value : T) : self
+    {% if T == UInt8 %}
+      Intrinsics.memset(self.as(Void*), value, count, false)
+      self
+    {% else %}
+      {% if Number::Primitive.union_types.includes?(T) %}
+        if value == 0
+          clear(count)
+          return self
+        end
+      {% end %}
+
+      fill(count) { value }
+    {% end %}
+  end
+
+  def fill(count, & : Int32 -> T) : self
+    count.times do |i|
+      self[i] = yield i
+    end
+    self
+  end
+
   # Returns a pointer whose memory address is zero. This doesn't allocate memory.
   #
   # When calling a C function you can also pass `nil` instead of constructing a
