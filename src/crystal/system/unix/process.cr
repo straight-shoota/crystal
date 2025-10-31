@@ -389,24 +389,34 @@ struct Crystal::System::Process
     {% end %}
   end
 
+  DEFAULT_PATH = "/usr/bin:/bin"
+
   # Darwin, DragonflyBSD, and FreeBSD < 14 don't have an `execvpe` function, so
   # we need to implement it ourselves.
   # FIXME: This is a stub implementation which simply sets the environment
   # pointer. That's the same behaviour as before, but not correct. Will fix in a
   # follow-up.
-  private def self.execvpe_impl(file, argv, envp)
-    if file.includes?("/")
-      lock_write { LibC.execve(file, argv, envp) }
-      return
-    end
-
+  private def self.execvpe_impl(file : String, argv : LibC::Char**, envp : LibC::Char**)
     if file.empty?
       Errno.value = Errno::ENOENT
       return
     end
 
-    path = LibC.getenv("PATH")
-    path = Slice.new(path, LibC.strlen(path))
+    # When file contains a slash, it's already a pathname that we should execute.
+    if file.includes?("/")
+      lock_write { LibC.execve(file, argv, envp) }
+
+      # Glibc implements a fallback if execve fails with ENOEXEC which tries
+      # executing `file` with `/bin/sh`. This is a legacy compatibility feature and
+      # has security concerns. We implement the behaviour of `execvpex`.
+      return
+    end
+
+    path = if path_ptr = LibC.getenv("PATH")
+             Slice.new(path_ptr, LibC.strlen(path_ptr))
+           else
+             DEFAULT_PATH.to_slice
+           end
 
     if file.bytesize > LibC::NAME_MAX
       Errno.value = Errno::ENAMETOOLONG
@@ -428,8 +438,9 @@ struct Crystal::System::Process
         path += path.size
       end
 
-      # NOTE: When the full path name is too long, Linux usually just skips,
-      # BSDs skip and print a warning. Cosmo errors.
+      # When the full pathname would be too long, simply skip it.
+      # This is an edge case. BSD implementations usually also print a warning.
+      # Cosmopolitan libc even errors.
       if path_entry.size + file.bytesize + 2 >= buffer.size
         next
       end
@@ -441,18 +452,26 @@ struct Crystal::System::Process
 
       case Errno.value
       when Errno::EACCES
+        # Non-terminal condition. Take note that we encountered EACCES and error
+        # with that if no other candidate is found.
         seen_eaccess = true
-        # ignore
       when Errno::ENOENT, Errno::ENOTDIR
-        # ignore
+        # Non terminal condition. Skip.
       else
+        # Terminal condition. Return immediately. We found a file that exists
+        # is accessible, but it wouldn't execute.
         return
       end
     end
 
-    if seen_eaccess
-      Errno.value = Errno::EACCES
-    end
+    Errno.value = if seen_eaccess
+                    # Erroring with ENOENT would be misleading if we found a candidate but
+                    # couldn't access it and thus skipped it.
+                    Errno::EACCES
+                  else
+                    # Make sure to set an error in case we never tried any path (e.g. `PATH=`)
+                    Errno::ENOENT
+                  end
   end
 
   private def self.strchrnul(s, c)
