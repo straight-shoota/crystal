@@ -4,6 +4,11 @@ require "c/sys/resource"
 require "c/unistd"
 require "crystal/rw_lock"
 require "file/error"
+{% if flag?(:linux) %}
+  require "c/limits"
+{% else %}
+  require "c/sysctl"
+{% end %}
 
 struct Crystal::System::Process
   getter pid : LibC::PidT
@@ -369,8 +374,71 @@ struct Crystal::System::Process
   # pointer. That's the same behaviour as before, but not correct. Will fix in a
   # follow-up.
   private def self.execvpe_impl(file, argv, envp)
-    LibC.environ = envp
-    lock_write { LibC.execvp(file, argv) }
+    if file.includes?("/")
+      lock_write { LibC.execve(file, argv, envp) }
+      return
+    end
+
+    if file.empty?
+      Errno.value = Errno::ENOENT
+      return
+    end
+
+    path = LibC.getenv("PATH")
+    path = Slice.new(path, LibC.strlen(path))
+
+    if file.bytesize > LibC::NAME_MAX
+      Errno.value = Errno::ENAMETOOLONG
+      return
+    end
+
+    buffer = uninitialized UInt8[LibC::PATH_MAX]
+    io = IO::Memory.new(buffer.to_slice)
+
+    seen_eaccess = false
+
+    while path.size > 0
+      io.rewind
+      if index = path.index(':'.ord.to_u8!)
+        path_entry = path[0, index]
+        path += index + 1
+      else
+        path_entry = path
+        path += path.size
+      end
+
+      # NOTE: When the full path name is too long, Linux usually just skips,
+      # BSDs skip and print a warning. Cosmo errors.
+      if path_entry.size + file.bytesize + 2 >= buffer.size
+        next
+      end
+
+      io.write(path_entry)
+      io << "/" << file << "\0"
+
+      lock_write { LibC.execve(io.to_slice, argv, envp) }
+
+      case Errno.value
+      when Errno::EACCES
+        seen_eaccess = true
+        # ignore
+      when Errno::ENOENT, Errno::ENOTDIR
+        # ignore
+      else
+        return
+      end
+    end
+
+    if seen_eaccess
+      Errno.value = Errno::EACCES
+    end
+  end
+
+  private def self.strchrnul(s, c)
+    while s.value != 0 && !(s.value === c)
+      s += 1
+    end
+    s
   end
 
   def self.replace(command_args, env, clear_env, input, output, error, chdir)
