@@ -254,6 +254,38 @@ struct Crystal::System::Process
     end
   end
 
+  def self.make_envp(env, clear_env) : LibC::Char**
+    # When there are no adjustments in `env`, we can take a short cut and return
+    # an empty pointer or the current environment.
+    if env.nil? || env.empty?
+      if clear_env
+        return Pointer(LibC::Char*).malloc(1)
+      else
+        return LibC.environ
+      end
+    end
+
+    envp = Array(LibC::Char*).new
+
+    unless clear_env
+      Env.each do |key, value|
+        # Skip overrides in `env`
+        next if env.has_key?(key)
+
+        envp << "#{key}=#{value}".to_unsafe
+      end
+    end
+
+    env.each do |key, value|
+      # `nil` value means deleting the key from the inherited environment
+      next unless value
+
+      envp << "#{key}=#{value}".to_unsafe
+    end
+
+    envp.to_unsafe
+  end
+
   def self.spawn(prepared_args, input, output, error, chdir)
     r, w = FileDescriptor.system_pipe
 
@@ -311,7 +343,7 @@ struct Crystal::System::Process
     pid
   end
 
-  def self.prepare_args(command : String, args : Enumerable(String)?, env : Hash(String, String?)?, clear_env : Bool, shell : Bool)
+  def self.prepare_args(command : String, args : Enumerable(String)?, env : Hash(String, String?)?, clear_env : Bool, shell : Bool) : {String, LibC::Char**, LibC::Char**}
     if shell
       command = %(#{command} "${@}") unless command.includes?(' ')
       argv_ary = ["/bin/sh", "-c", command, "sh"]
@@ -331,7 +363,7 @@ struct Crystal::System::Process
     argv_ary.concat(args) if args
 
     argv = argv_ary.map(&.check_no_null_byte.to_unsafe)
-    {pathname, argv.to_unsafe, {env, clear_env}}
+    {pathname, argv.to_unsafe, make_envp(env, clear_env)}
   end
 
   private def self.try_replace(prepared_args, input, output, error, chdir)
@@ -339,21 +371,9 @@ struct Crystal::System::Process
     reopen_io(output, ORIGINAL_STDOUT)
     reopen_io(error, ORIGINAL_STDERR)
 
-    file, argv, env_data = prepared_args
-    env, clear_env = env_data
-
-    ENV.clear if clear_env
-    env.try &.each do |key, val|
-      if val
-        ENV[key] = val
-      else
-        ENV.delete key
-      end
-    end
-
     ::Dir.cd(chdir) if chdir
 
-    lock_write { execvpe(file, argv, LibC.environ) }
+    lock_write { execvpe(*prepared_args) }
   end
 
   private def self.execvpe(command, argv, envp)
