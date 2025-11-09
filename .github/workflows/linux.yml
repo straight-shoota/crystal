@@ -21,11 +21,11 @@ jobs:
     env:
       ARCH: ${{ matrix.arch }}
       ARCH_CMD: linux64
-    runs-on: ubuntu-latest
+    runs-on: ${{ startsWith(matrix.arch, 'x86_64') && 'ubuntu-24.04' || 'ubuntu-24.04-arm' }}
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, x86_64-musl]
+        arch: [x86_64, x86_64-musl, aarch64, aarch64-musl]
         env: [{}]
         include:
           - arch: x86_64
