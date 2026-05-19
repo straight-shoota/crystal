@@ -44,5 +44,10 @@
         reuse.enable = true;
       };
     };
+    build.module = {
+      packages = [
+        pkgs.asciidoctor
+      ];
+    };
   };
 }
