@@ -40,15 +40,12 @@
 {% end %}
 
 {% if flag?(:win32) %}
-  @[Link("crypto")]
+  {% suffix = flag?(:aarch64) ? "arm64" : "x64" %}
+  @[Link("crypto", dll: {{ "libcrypto-#{LibCrypto::VERSION_MAJOR.id}-#{suffix.id}.dll" }})]
   @[Link("crypt32")] # CertOpenStore, ...
   @[Link("user32")]  # GetProcessWindowStation, GetUserObjectInformationW, _MessageBoxW
 {% else %}
   @[Link(ldflags: "`command -v pkg-config > /dev/null && pkg-config --libs --silence-errors libcrypto || printf %s '-lcrypto'`")]
-{% end %}
-{% if compare_versions(Crystal::VERSION, "1.11.0-dev") >= 0 %}
-  {% suffix = flag?(:aarch64) ? "arm64" : "x64" %}
-  @[Link(dll: {{ "libcrypto-#{LibCrypto::VERSION_MAJOR.id}-#{suffix.id}.dll" }})]
 {% end %}
 lib LibCrypto
   alias Char = LibC::Char

@@ -46,17 +46,13 @@ require "./lib_crypto"
 {% end %}
 
 {% if flag?(:win32) %}
-  @[Link("ssl")]
-  @[Link("crypto")]
+  {% suffix = flag?(:aarch64) ? "arm64" : "x64" %}
+  @[Link("ssl", dll: {{ "libssl-#{LibSSL::VERSION_MAJOR.id}-#{suffix.id}.dll" }})]
+  @[Link("crypto", dll: {{ "libcrypto-#{LibCrypto::VERSION_MAJOR.id}-#{suffix.id}.dll" }})]
   @[Link("crypt32")] # CertOpenStore, ...
   @[Link("user32")]  # GetProcessWindowStation, GetUserObjectInformationW, _MessageBoxW
 {% else %}
   @[Link(ldflags: "`command -v pkg-config > /dev/null && pkg-config --libs --silence-errors libssl || printf %s '-lssl -lcrypto'`")]
-{% end %}
-{% if compare_versions(Crystal::VERSION, "1.11.0-dev") >= 0 %}
-  {% suffix = flag?(:aarch64) ? "arm64" : "x64" %}
-  @[Link(dll: {{ "libssl-#{LibSSL::VERSION_MAJOR.id}-#{suffix.id}.dll" }})]
-  @[Link(dll: {{ "libcrypto-#{LibCrypto::VERSION_MAJOR.id}-#{suffix.id}.dll" }})]
 {% end %}
 lib LibSSL
   alias Int = LibC::Int

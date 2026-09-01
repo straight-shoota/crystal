@@ -35,9 +35,9 @@ require "crystal/tracing"
   # lib flags for libgc including `-lpthread` which the interpreter is not able
   # to load on systems with modern libc where libpthread is only available as an
   # (empty) static library.
-  @[Link("gc")]
+  @[Link("gc", dll: "gc.dll")]
 {% else %}
-  @[Link("gc", pkg_config: "bdw-gc")]
+  @[Link("gc", pkg_config: "bdw-gc", dll: "gc.dll")]
 {% end %}
 
 # Supported library versions:
@@ -45,9 +45,6 @@ require "crystal/tracing"
 # * libgc (8.2.0+; earlier versions require a patch for MT support)
 #
 # See https://crystal-lang.org/reference/man/required_libraries.html#other-runtime-libraries
-{% if compare_versions(Crystal::VERSION, "1.11.0-dev") >= 0 %}
-  @[Link(dll: "gc.dll")]
-{% end %}
 lib LibGC
   {% unless flag?(:win32) %}
     {% pkg_config_name = ((ann = LibGC.annotations(Link).find(&.["pkg_config"])) && ann["pkg_config"]) || ((ann = LibGC.annotations(Link).find(&.[0])) && ann[0]) %}
