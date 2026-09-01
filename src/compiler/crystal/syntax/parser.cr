@@ -2887,10 +2887,6 @@ module Crystal
           end
 
           location = @token.location
-          {% if compare_versions(Crystal::VERSION, "1.1.0") < 0 %}
-            # FIXME: Workaround for compiler bug in Crystal 1.0 and earlier (https://github.com/crystal-lang/crystal/pull/15452#issuecomment-2653266710)
-            end_location = token_end_location
-          {% end %}
           slash_is_regex!
           next_token_skip_space_or_newline
           when_conds = [] of ASTNode
@@ -3089,10 +3085,6 @@ module Crystal
       next_token_skip_space
       skip_statement_end
 
-      {% if compare_versions(Crystal::VERSION, "1.1.0") < 0 %}
-        # FIXME: Workaround for compiler bug in Crystal 1.0 and earlier (https://github.com/crystal-lang/crystal/pull/15452#issuecomment-2653266710)
-        end_location = token_end_location
-      {% end %}
       whens = [] of When
 
       while true
@@ -3526,7 +3518,7 @@ module Crystal
         check :OP_PERCENT_RCURLY
 
         macro_state.control_nest += 1
-        body, end_location = parse_macro_body(start_location, macro_state)
+        body, _end_location = parse_macro_body(start_location, macro_state)
         macro_state.control_nest -= 1
 
         check_ident :end
@@ -3543,7 +3535,7 @@ module Crystal
         check :OP_PERCENT_RCURLY
 
         macro_state.control_nest += 1
-        body, end_location = parse_macro_body(start_location, macro_state)
+        body, _end_location = parse_macro_body(start_location, macro_state)
         macro_state.control_nest -= 1
 
         check_ident :end
@@ -3562,7 +3554,7 @@ module Crystal
         check :OP_PERCENT_RCURLY
 
         macro_state.control_nest += 1
-        body, end_location = parse_macro_body(start_location, macro_state)
+        body, _end_location = parse_macro_body(start_location, macro_state)
         macro_state.control_nest -= 1
 
         check_ident :end
@@ -3609,7 +3601,7 @@ module Crystal
       check :OP_PERCENT_RCURLY
 
       macro_state.control_nest += 1
-      a_then, end_location = parse_macro_body(start_location, macro_state)
+      a_then, _end_location = parse_macro_body(start_location, macro_state)
       macro_state.control_nest -= 1
 
       case @token.value
@@ -3618,7 +3610,7 @@ module Crystal
         check :OP_PERCENT_RCURLY
 
         macro_state.control_nest += 1
-        a_else, end_location = parse_macro_body(start_location, macro_state)
+        a_else, _end_location = parse_macro_body(start_location, macro_state)
         macro_state.control_nest -= 1
 
         if check_end

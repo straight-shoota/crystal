@@ -76,9 +76,8 @@ private def to_ary(tuple)
 end
 
 private def to_splat(cmd)
-  # Splatting in literals was only introduced in Crystal 1.1
-  # FIXME: The interpreter still doesn't support it (#13183).
-  {% if compare_versions(Crystal::VERSION, "1.1.0") >= 0 && !flag?(:interpreted) %}
+  # FIXME: The interpreter still doesn't support splatting in literals (#13183).
+  {% if !flag?(:interpreted) %}
     {cmd[0], *cmd[1]}
   {% else %}
     args = cmd[1]
