@@ -87,10 +87,10 @@ ifeq ($(LLVM_VERSION),)
 	LLVM_VERSION := $(if $(LLVM_CONFIG),$(shell "$(LLVM_CONFIG)" --version 2> /dev/null))
 endif
 
-# FIXME: Crystal docker images before 1.8 can't build a functional compiler
-# with MT because the bundled LLVM version is buggy (roughly LLVM < 15)
-# See https://github.com/crystal-lang/crystal/pull/16380
-supports_mt := $(if $(filter 1.8.0,$(shell printf "%s\n%s" "1.8.0" "$(BASE_CRYSTAL_VERSION)" | sort -V | tail -n1)),0,1)
+MIN_BOOTSTRAP_COMPILER_VERSION := 1.13.0
+ifeq ($(shell printf "%s\n%s" "$(MIN_BOOTSTRAP_COMPILER_VERSION)" "$(BASE_CRYSTAL_VERSION)" | sort -V | tail -n1),$(MIN_BOOTSTRAP_COMPILER_VERSION))
+  $(error "The bootstrap compiler re $(shell which $(CRYSTAL)) is too old at version $(BASE_CRYSTAL_VERSION). Please upgrade to at least version $(MIN_BOOTSTRAP_COMPILER_VERSION).")
+endif
 
 LLVM_EXT_DIR = src/llvm/ext
 LLVM_EXT_OBJ = $(LLVM_EXT_DIR)/llvm_ext.o
