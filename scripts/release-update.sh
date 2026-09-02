@@ -44,6 +44,9 @@ if [ "${minor_branch}" != "${previous_release%.*}" ]; then
       s/\[[0-9.]+, /[/
       s/(, ${previous_release%.*}\.[0-9]*)?\]\$/, $previous_release]/
     }" .github/workflows/forward-compatibility.yml
+
+  sed -i -E "s/MIN_BOOTSTRAP_COMPILER_VERSION := [0-9.]+/MIN_BOOTSTRAP_COMPILER_VERSION := ${min_forward_compat_version%.*}.0/" Makefile
+  sed -i -E "s/MIN_BOOTSTRAP_COMPILER_VERSION := [0-9.]+/MIN_BOOTSTRAP_COMPILER_VERSION := ${min_forward_compat_version%.*}.0/" Makefile.win
 fi
 
 ##

@@ -69,6 +69,9 @@ SPEC_FLAGS                  := $(if $(verbose),-v )$(if $(junit_output),--junit_
 CRYSTAL_CONFIG_LIBRARY_PATH := $$ORIGIN\lib
 CRYSTAL_CONFIG_BUILD_COMMIT := $(shell git rev-parse --short HEAD)
 CRYSTAL_CONFIG_PATH         := $$ORIGIN\src
+ifndef BASE_CRYSTAL_VERSION
+	BASE_CRYSTAL_VERSION := $(shell $(CRYSTAL) env CRYSTAL_VERSION)
+endif
 ifndef CRYSTAL_VERSION
 	CRYSTAL_VERSION := $(shell type src\VERSION)
 endif
@@ -81,6 +84,14 @@ export_build_vars = $(eval export CRYSTAL_CONFIG_LIBRARY_PATH)
 ifeq ($(LLVM_VERSION),)
 LLVM_CONFIG  ?=
 LLVM_VERSION := $(if $(LLVM_CONFIG),$(shell "$(LLVM_CONFIG)" --version))
+endif
+
+MIN_BOOTSTRAP_COMPILER_VERSION       := 1.13.0
+BASE_CRYSTAL_VERSION_PARTS           := $(subst ., ,$(BASE_CRYSTAL_VERSION))
+MIN_BOOTSTRAP_COMPILER_VERSION_PARTS := $(subst ., ,$(MIN_BOOTSTRAP_COMPILER_VERSION))
+# compares BASE_CRYSTAL_VERSION against MIN_BOOTSTRAP_COMPILER_VERSION component by component (major.minor.patch)
+ifeq ($(shell if $(word 1,$(BASE_CRYSTAL_VERSION_PARTS)) GTR $(word 1,$(MIN_BOOTSTRAP_COMPILER_VERSION_PARTS)) (echo new) else if $(word 1,$(BASE_CRYSTAL_VERSION_PARTS)) LSS $(word 1,$(MIN_BOOTSTRAP_COMPILER_VERSION_PARTS)) (echo old) else if $(word 2,$(BASE_CRYSTAL_VERSION_PARTS)) GTR $(word 2,$(MIN_BOOTSTRAP_COMPILER_VERSION_PARTS)) (echo new) else if $(word 2,$(BASE_CRYSTAL_VERSION_PARTS)) LSS $(word 2,$(MIN_BOOTSTRAP_COMPILER_VERSION_PARTS)) (echo old) else if $(word 3,$(BASE_CRYSTAL_VERSION_PARTS)) GTR $(word 3,$(MIN_BOOTSTRAP_COMPILER_VERSION_PARTS)) (echo new) else if $(word 3,$(BASE_CRYSTAL_VERSION_PARTS)) LSS $(word 3,$(MIN_BOOTSTRAP_COMPILER_VERSION_PARTS)) (echo old) else (echo new)),old)
+  $(error "The bootstrap compiler re $(shell where $(CRYSTAL)) is too old at version $(BASE_CRYSTAL_VERSION). Please upgrade to at least version $(MIN_BOOTSTRAP_COMPILER_VERSION).")
 endif
 
 LLVM_EXT_DIR = src\llvm\ext

@@ -88,8 +88,10 @@ ifeq ($(LLVM_VERSION),)
 endif
 
 MIN_BOOTSTRAP_COMPILER_VERSION := 1.13.0
-ifeq ($(shell printf "%s\n%s" "$(MIN_BOOTSTRAP_COMPILER_VERSION)" "$(BASE_CRYSTAL_VERSION)" | sort -V | tail -n1),$(MIN_BOOTSTRAP_COMPILER_VERSION))
-  $(error "The bootstrap compiler re $(shell which $(CRYSTAL)) is too old at version $(BASE_CRYSTAL_VERSION). Please upgrade to at least version $(MIN_BOOTSTRAP_COMPILER_VERSION).")
+ifneq ($(BASE_CRYSTAL_VERSION),$(MIN_BOOTSTRAP_COMPILER_VERSION))
+  ifeq ($(shell printf "%s\n%s" "$(MIN_BOOTSTRAP_COMPILER_VERSION)" "$(BASE_CRYSTAL_VERSION)" | sort -V | tail -n1),$(MIN_BOOTSTRAP_COMPILER_VERSION))
+    $(error "The bootstrap compiler re $(shell which $(CRYSTAL)) is too old at version $(BASE_CRYSTAL_VERSION). Please upgrade to at least version $(MIN_BOOTSTRAP_COMPILER_VERSION).")
+  endif
 endif
 
 LLVM_EXT_DIR = src/llvm/ext
