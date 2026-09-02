@@ -50,10 +50,10 @@ describe "UInt" do
       x.should be_a(UInt64)
 
       x = &-1_u128
-      x.should eq(UInt128::MAX) # TODO: Change to literal once supported
+      x.should eq(0xffffffffffffffffffffffffffffffff_u128)
       x.should be_a(UInt128)
 
-      x = &-(UInt128::MAX) # TODO: Change to literal once supported
+      x = &-(0xffffffffffffffffffffffffffffffff_u128)
       x.should eq(1_u128)
       x.should be_a(UInt128)
     end
