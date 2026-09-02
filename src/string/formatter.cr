@@ -622,8 +622,7 @@ struct String::Formatter(A)
     args_are :named
     args = @args
     # note: "index '0' out of bounds for empty tuple" without the `is_a?` check
-    # TODO: use `Tuple()` once support for 1.0.0 is dropped
-    if args.size == 1 && !args.is_a?(Tuple(*typeof(Tuple.new)))
+    if args.size == 1 && !args.is_a?(Tuple())
       arg = args[0]
       if arg.is_a?(Hash) || arg.is_a?(NamedTuple)
         return arg[index]
