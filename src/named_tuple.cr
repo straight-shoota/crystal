@@ -60,9 +60,8 @@ struct NamedTuple
     {% if @type.name(generic_args: false) == "NamedTuple" %}
       # deduced type vars
       options
-    {% elsif @type.name(generic_args: false) == "NamedTuple()" %}
+    {% elsif @type == NamedTuple() %}
       # special case: empty named tuple
-      # TODO: check against `NamedTuple()` directly after 1.5.0
       options
     {% else %}
       # explicitly provided type vars
