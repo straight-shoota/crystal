@@ -96,6 +96,8 @@ class Process
 
     if path && !has_separator
       path.split(PATH_DELIMITER) do |path_entry|
+        next unless File::Info.readable?(path_entry)
+
         yield Path.new(path_entry, name)
       end
     end

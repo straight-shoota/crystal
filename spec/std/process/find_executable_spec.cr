@@ -144,9 +144,7 @@ describe "Process.find_executable" do
       Dir.mkdir_p(inaccessible_dir)
       File.chmod(inaccessible_dir, File::Permissions::OwnerWrite)
 
-      expect_raises(File::AccessDeniedError) do
-        Process.find_executable("foo", path: inaccessible_dir.to_s)
-      end
+      Process.find_executable("foo", path: inaccessible_dir.to_s).should be_nil
     ensure
       File.chmod(inaccessible_dir, File::Permissions::All)
     end
