@@ -395,6 +395,7 @@ module Spec
     {% if flag?(:wasm32) %}
       def expect_raises(klass : T.class, message : String | Regex | Nil = nil, file = __FILE__, line = __LINE__, &) forall T
         # TODO: Enable "expect_raises" for wasm32 after exceptions are working.
+        raise NotImplementedError.new("expect_raises")
       end
     {% else %}
       def expect_raises(klass : T.class, message : String | Regex | Nil = nil, file = __FILE__, line = __LINE__, &) forall T
