@@ -138,4 +138,17 @@ describe "Process.find_executable" do
       end
     end
   end
+
+  it "skips inaccessible path entries" do
+    with_tempfile("inaccessible") do |inaccessible_dir|
+      Dir.mkdir_p(inaccessible_dir)
+      File.chmod(inaccessible_dir, File::Permissions::OwnerWrite)
+
+      expect_raises(File::AccessDeniedError) do
+        Process.find_executable("foo", path: inaccessible_dir.to_s)
+      end
+    ensure
+      File.chmod(inaccessible_dir, File::Permissions::All)
+    end
+  end
 end
